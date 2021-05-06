@@ -1,0 +1,581 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2021 by Jinwen XU 
+% -------------------------------
+% 
+% This file may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% \fi
+%
+%<*driver>
+\ProvidesFile{ProjLib.dtx}
+%</driver>
+\NeedsTeXFormat{LaTeX2e}[2020-10-01]
+%
+%<*PLauthor>
+\ProvidesPackage{PLauthor}
+    [2021/05/05 Enhanced author information block]
+%</PLauthor>
+%
+%<*PLdate>
+\ProvidesPackage{PLdate}
+    [2021/05/05 Convert yyyy-mm-dd to normal datetime format]
+%</PLdate>
+%
+%<*PLdraft>
+\ProvidesPackage{PLdraft}
+    [2021/05/05 Some commands applicable to the draft stage]
+%</PLdraft>
+%
+%<*PLlang>
+\ProvidesPackage{PLlang}
+    [2021/05/05 Multi-language configuration]
+%</PLlang>
+%
+%<*PLlogo>
+\ProvidesPackage{PLlogo}
+    [2021/05/05 The ProjLib logo]
+%</PLlogo>
+%
+%<*PLpaper>
+\ProvidesPackage{PLpaper}
+    [2021/05/05 Paper style configuration]
+%</PLpaper>
+%
+%<*PLthm>
+\ProvidesPackage{PLthm}
+    [2021/05/05 Theorem setup and configuration]
+%</PLthm>
+%
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+%
+%<*PLauthor>
+%% To be finished
+%</PLauthor>
+%
+%<*PLdate>
+\RequirePackage{PLlang}
+
+% \RequirePackage{silence}
+% The following line is for "authblk"
+\robustify\@latex@warning@no@line
+% \WarningFilter*{datetime2}{Date-Time Language Module}
+\PassOptionsToPackage{en-US}{datetime2}
+\RequirePackage{datetime2}
+\RequirePackage{zhnumber}
+
+\let\@DTMdate@original\@DTMdate
+\gappto{\PLlang@langconfig@common}{%
+    \let\@DTMdate\@DTMdate@original%
+}
+\gappto{\PLlang@langconfig@chinese}{%
+    \renewcommand*{\@DTMdate}[1]{%
+    \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
+    \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
+    }%
+}
+\providecommand*{\PLdate}[1]{\DTMdate{#1}}
+%</PLdate>
+%
+%<*PLdraft>
+\SetupKeyvalOptions{%
+    family = @PLdraft,
+    prefix = @PLdraft@
+}
+\DeclareBoolOption[false]{fast}
+\ProcessKeyvalOptions*\relax
+
+\RequirePackage{PLlang}
+\RequirePackage{xcolor}
+
+\def\dnfFont{\ttfamily}
+\def\needgraphFont{\ttfamily}
+
+\def\dnfTextEN{To be finished}
+\def\needgraphTextEN{A graph is needed here}
+\def\dnfTextFR{À terminer ici}
+\def\needgraphTextFR{Il manque encore un graphique ici}
+\def\dnfTextCN{这里尚未完成}
+\def\needgraphTextCN{这里需要一张图片}
+\def\dnfTextTC{這裡尚未完成}
+\def\needgraphTextTC{這裡需要一張圖片}
+\def\dnfTextJP{終わってない}
+\def\needgraphTextJP{まだ画像が必要です}
+
+\definecolor{dnfColor}{RGB}{21,122,20}
+\definecolor{needgraphColor}{RGB}{70,130,180}
+
+\if@PLdraft@fast
+    \newcommand{\plainBox}[2][-paper]{\textcolor{#1}{%
+    \setlength{\fboxsep}{1.5pt}%
+    \setlength{\fboxrule}{1.2pt}%
+    \fbox{#2}}}
+\else
+    \PassOptionsToPackage{many}{tcolorbox}
+    \RequirePackage{tcolorbox}
+    \newtcbox{\plainBox}[1][-paper]{enhanced jigsaw,%
+        on line, arc = 1.2pt, outer arc = 1pt,breakable,%
+        colframe = #1,colupper=#1,opacityback=0,%
+        boxsep = 1pt,boxrule = 1.2pt,%
+        left = 1pt, right = 1pt, top = 0pt, bottom = 0pt,%
+    }
+\fi
+
+\newcounter{dnfcnt}
+\newcounter{needgraphcnt}
+
+\NewDocumentCommand{\dnf}{d<>}{%
+    \noindent\plainBox[dnfColor]%
+    {\normalfont\dnfFont\bfseries\small%
+    \csname dnfText\csname\languagename ABBR\endcsname\endcsname%
+    \stepcounter{dnfcnt}~\#\thednfcnt%
+    \IfNoValueF{#1}{\,: #1}}%
+}
+\NewDocumentCommand{\needgraph}{d<>}{%
+    \begin{center}%
+        \plainBox[needgraphColor]%
+        {\normalfont\needgraphFont\bfseries\small%
+        \csname needgraphText\csname\languagename ABBR\endcsname\endcsname%
+        \stepcounter{needgraphcnt}~\#\theneedgraphcnt%
+        \IfNoValueF{#1}{\,: #1}}%
+    \end{center}%
+}
+%</PLdraft>
+%
+%<*PLlang>
+\SetupKeyvalOptions{%
+    family = @PLlang,
+    prefix = @PLlang@
+}
+\DeclareBoolOption[false]{polyglossia}
+\ProcessKeyvalOptions*\relax
+
+\newcommand\englishABBR{EN}
+\newcommand\frenchABBR{FR}
+\newcommand\chineseABBR{CN}
+\newcommand\tchineseABBR{TC}
+\newcommand\japaneseABBR{JP}
+
+\RequirePackage{iftex}
+
+\if@PLlang@polyglossia
+    \RequirePackage{polyglossia}
+    \setdefaultlanguage{english}
+    \setotherlanguage[frenchpart=false]{french}
+    \setotherlanguage{ngerman}
+    \setotherlanguage{spanish}
+    \setotherlanguage{brazilian}
+    \setotherlanguage{portuguese}
+    \setotherlanguage{italian}
+    \ifPDFTeX\else
+        \setotherlanguage{russian}
+        \setotherlanguage{japanese}
+        \RequirePackage{silence}
+        \WarningFilter{polyglossia}{Asking to add empty feature to latin font(Script="CJK" to scripttag "")}
+    \fi
+\else
+    \ifPDFTeX\else
+        \PassOptionsToPackage{japanese,russian}{babel}
+    \fi
+    \PassOptionsToPackage{italian,portuguese,brazilian,spanish,ngerman,french,english}{babel}
+    \RequirePackage{babel}
+    \frenchsetup{PartNameFull=false}
+\fi
+%
+\newcommand{\PLlang@langconfig@common}{}
+\newcommand{\PLlang@langconfig@chinese}{%
+    \def\abstractname{摘要}%
+    \def\proofname{证明}%
+    \def\contentsname{目录}%
+    \def\listfigurename{插图}%
+    \def\listtablename{表格}%
+    \def\figurename{图}%
+    \def\tablename{表}%
+    \def\indexname{索引}%
+    \def\appendixname{附录}%
+    \def\refname{参考文献}%
+    \def\bibname{参考文献}%
+    \renewcommand{\languagename}{chinese}%
+}
+\newcommand{\PLlang@langconfig@tchinese}{%
+    \def\abstractname{摘要}%
+    \def\proofname{證明}%
+    \def\contentsname{目錄}%
+    \def\listfigurename{插圖}%
+    \def\listtablename{表格}%
+    \def\figurename{圖}%
+    \def\tablename{表}%
+    \def\indexname{索引}%
+    \def\appendixname{附錄}%
+    \def\refname{參考文獻}%
+    \def\bibname{參考文獻}%
+    \renewcommand{\languagename}{tchinese}%
+}
+\newcommand{\PLlang@langconfig@japanese}{%
+    \selectlanguage{japanese}%
+}
+\newcommand{\PLlang@langconfig@english}{%
+    \selectlanguage{english}%
+}
+\newcommand{\PLlang@langconfig@french}{%
+    \selectlanguage{french}%
+% The line below is currently only needed for 'babel', but also works with 'polyglossia'
+    \def\frenchpartname{Partie}%
+}
+%
+\RequirePackage{setspace}
+%
+\newcommand{\UseLanguageCORE}[1]{%
+    \PLlang@langconfig@common%
+    \ifstrequal{#1}{chinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{schinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SChinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{simplifiedchinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SimplifiedChinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{tchinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TChinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{traditionalchinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TraditionalChinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{japanese}{\onehalfspacing\PLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{Japanese}{\onehalfspacing\PLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{english}{\setstretch{1.07}\PLlang@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\setstretch{1.07}\PLlang@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\setstretch{1.07}\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\setstretch{1.07}\PLlang@langconfig@french}{}%
+}
+\newcommand{\UseLanguage}[1]{%
+    \ifx\@onlypreamble\@notprerr%
+        \UseLanguageCORE{#1}%
+    \else%
+        \AfterEndPreamble{\UseLanguageCORE{#1}}%
+    \fi%
+}
+\newcommand{\UseOtherLanguage}[2]{%
+\begingroup%
+    \ifstrequal{#1}{chinese}{\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{schinese}{\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SChinese}{\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{simplifiedchinese}{\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SimplifiedChinese}{\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{tchinese}{\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TChinese}{\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{traditionalchinese}{\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TraditionalChinese}{\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{japanese}{\PLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{Japanese}{\PLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{english}{\PLlang@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\PLlang@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\PLlang@langconfig@french}{}%
+    #2%
+\endgroup%
+}
+%</PLlang>
+%
+%<*PLlogo>
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{iftex}
+\ifPDFTeX
+\RequirePackage{fontenc}
+\newcommand{\PLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+\else
+\RequirePackage{fontspec}
+\newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
+\fi
+\DeclareSymbolFont{PLupright}{OT1}{zplm}{b}{n}
+\DeclareMathSymbol{\PLSigma}{\mathalpha}{PLupright}{"06}
+
+\providecommand*{\ProjLib}{%
+\begingroup%
+\PLlogo@font%
+\color{blue!60!cyan}P%
+\color{blue!45!cyan}r%
+\color{blue!30!cyan}o%
+\color{green!70!black}\j%
+\kern-0.235em\raisebox{0.57em}{\scalebox{0.3}{\rotatebox{-10}{$\PLSigma$}}}%
+\kern-0.01em%
+\color{red!20!yellow}L%
+\color{red!40!yellow}i%
+\color{red!60!yellow}b%
+\endgroup%
+}
+%</PLlogo>
+%
+%<*PLpaper>
+\RequirePackage{ifthen}
+
+\SetupKeyvalOptions{%
+    family = @PLpaper,
+    prefix = @PLpaper@,
+    setkeys=\kvsetkeys
+}
+
+\DeclareStringOption[normal]{paperstyle}
+\DeclareVoidOption{yellowpaper}{\kvsetkeys{@PLpaper}{paperstyle=yellow}}
+\DeclareVoidOption{darkpaper}{\kvsetkeys{@PLpaper}{paperstyle=dark}}
+\DeclareVoidOption{nordpaper}{\kvsetkeys{@PLpaper}{paperstyle=nord}}
+\DeclareBoolOption[false]{preview}
+
+\ProcessKeyvalOptions*\relax
+
+%%================================
+%% Preview mode
+%%================================
+\ifdefined\PLnoPreview\else%
+    \if@PLpaper@preview%
+        \RequirePackage{calc}
+        \AtEndPreamble{%
+        \setlength{\paperwidth}{\textwidth*\real{1.05}}%
+        \setlength{\paperheight}{%
+        (\textheight+\headheight+\headsep+\footskip)*\real{1.05}}%
+        \setlength{\oddsidemargin}{(\paperwidth-\textwidth)/2-1in}%
+        \setlength{\evensidemargin}{(\paperwidth-\textwidth)/2-1in}%
+        \setlength{\topmargin}{(\paperheight-\textheight-\headheight-\headsep-\footskip)/2- 1in}%
+        }
+    \fi
+\fi
+
+%%================================
+%% Paper color
+%%================================
+\RequirePackage{xcolor}
+\definecolor{paper}{RGB}{255,255,255}
+\definecolor{maintext}{RGB}{0,0,0}
+
+\ifthenelse{\equal{\@PLpaper@paperstyle}{yellow}}
+{
+    \definecolor{paper}{RGB}{247,246,233}
+}
+{\relax}
+
+\ifthenelse{\equal{\@PLpaper@paperstyle}{dark}}
+{
+    \definecolor{paper}{RGB}{30,30,30}
+    \definecolor{maintext}{RGB}{207,207,207}
+}
+{\relax}
+
+\ifthenelse{\equal{\@PLpaper@paperstyle}{nord}}
+{
+    \definecolor{paper}{RGB}{46,52,64}
+    \definecolor{maintext}{RGB}{214,220,230}
+}
+{\relax}
+
+\newcommand{\PLglobalcolor}[1]{%
+    \color{#1}\global\let\default@color\current@color
+}
+
+\pagecolor{paper}
+\PLglobalcolor{maintext}
+\ifdefined\tcbset%
+    \tcbset{colupper=maintext,collower=maintext}
+\fi
+%</PLpaper>
+%
+%<*PLthm>
+\SetupKeyvalOptions{%
+    family = @PLthm,
+    prefix = @PLthm@
+}
+\DeclareBoolOption[false]{nothms}
+\ProcessKeyvalOptions*\relax
+
+\RequirePackage{PLlang}
+\RequirePackage{amsmath,amsthm}
+\RequirePackage{aliascnt}
+\PassOptionsToPackage{nameinlink}{cleveref}
+\RequirePackage{cleveref}
+
+% Macro for creating theorems
+\RequirePackage{xstring}
+\newcommand\PassFirstToSecond[2]{#2{#1}}%
+\NewDocumentCommand{\CreateTheorem}{sm}{%
+    \begingroup
+    \protected@edef\temp{#2}%
+    \expandafter\IfEndWith\expandafter{\temp}{*}{%
+        \expandafter\StrGobbleRight\expandafter{\temp}{1}[\temp]%
+        \PassFirstToSecond{*}%
+    }{%
+        \PassFirstToSecond{}%
+    }%
+    {\expandafter\PassFirstToSecond%
+        \expandafter{\temp}{\endgroup\InnerCreateTheorem{#1}}}%
+}%
+\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>}{%
+% #1 = star or no star
+% #2 = name of environment
+% #3 = emptiness or star to append to name of environment
+% #4 = numbered like
+% #5 = numbered within
+    \IfBooleanTF{#1}{%
+        \IfValueTF{#4}
+            {\@firstoftwo}
+            {\IfValueTF{#5}{\@firstoftwo}{\@secondoftwo}}%
+    }{%
+        \IfValueTF{#4}
+            {\IfValueTF{#5}{\@firstoftwo}{\@secondoftwo}}{
+            \@secondoftwo}
+    }%
+    {%
+        \GenericError{}%
+        {\string\CreateTheorem\space syntax error\on@line}{%
+        You cannot call the starred variant with optional argument,\MessageBreak
+        nor call the unstarred variant with several optional arguments.}%
+        {}%
+    }{%
+        \IfBooleanTF{#1}{%
+            \newtheorem*{#2EN#3}{\csname#2nameEN\endcsname}
+            \newtheorem*{#2FR#3}{\csname#2nameFR\endcsname}
+            \newtheorem*{#2CN#3}{\csname#2nameCN\endcsname}
+            \newtheorem*{#2TC#3}{\csname#2nameTC\endcsname}
+            \newtheorem*{#2JP#3}{\csname#2nameJP\endcsname}
+        }{%
+            \IfValueTF{#5}{%
+                \newcounter{#2#3}[{#5}]%
+                \expandafter\renewcommand\expandafter*%
+                    \csname the#2#3\expandafter\endcsname%
+                    \expandafter{\csname the#5\endcsname.\arabic{#2#3}}%
+            }{%
+                \IfValueTF{#4}
+                    {\newaliascnt{#2#3}{#4}}
+                    {\newcounter{#2#3}}%
+            }%
+            %-------------------------------------------------------------------
+            \CreateTheoremNumberedLikeAliasCounter{#2}{EN}{#3}%
+            \CreateTheoremNumberedLikeAliasCounter{#2}{FR}{#3}%
+            \CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}%
+            \CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}%
+            \CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}%
+            %-------------------------------------------------------------------
+        }%
+        \NewDocumentEnvironment{#2#3}{}
+            {\csname#2\csname\languagename ABBR\endcsname#3\endcsname}%
+            {\csname end#2\csname\languagename ABBR\endcsname#3\endcsname}%
+    }%
+}%
+\NewDocumentCommand{\CreateTheoremNumberedLikeAliasCounter}{mmm}{%
+    \newaliascnt{#1#2#3}{#1#3}%
+    \newtheorem{#1#2#3}[{#1#2#3}]{\csname#1name#2\endcsname}%
+    \aliascntresetthe{#1#2#3}%
+    \crefname{#1#2#3}%
+        {\csname#1name#2\endcsname}%
+        {\csname#1name#2\endcsname}%
+}%
+
+%% English theorems names
+\def\theoremnameEN{Theorem}
+\def\lemmanameEN{Lemma}
+\def\propositionnameEN{Proposition}
+\def\corollarynameEN{Corollary}
+\def\factnameEN{Fact}
+\def\conjecturenameEN{Conjecture}
+\def\definitionnameEN{Definition}
+\def\axiomnameEN{Axiom}
+\def\assumptionnameEN{Assumption}
+\def\examplenameEN{Example}
+\def\problemnameEN{Problem}
+\def\remarknameEN{Remark}
+
+%% French theorems names
+\def\theoremnameFR{Théorème}
+\def\lemmanameFR{Lemme}
+\def\propositionnameFR{Proposition}
+\def\corollarynameFR{Corollaire}
+\def\factnameFR{Fait}
+\def\conjecturenameFR{Conjecture}
+\def\definitionnameFR{Définition}
+\def\axiomnameFR{Axiome}
+\def\assumptionnameFR{Supposition}
+\def\examplenameFR{Exemple}
+\def\problemnameFR{Problème}
+\def\remarknameFR{Remarque}
+
+%% Chinese theorems names
+\def\theoremnameCN{定理}
+\def\lemmanameCN{引理}
+\def\propositionnameCN{命题}
+\def\corollarynameCN{推论}
+\def\factnameCN{事实}
+\def\conjecturenameCN{猜想}
+\def\definitionnameCN{定义}
+\def\axiomnameCN{公理}
+\def\assumptionnameCN{假设}
+\def\examplenameCN{例}
+\def\problemnameCN{问题}
+\def\remarknameCN{备注}
+
+\def\theoremnameTC{定理}
+\def\lemmanameTC{引理}
+\def\propositionnameTC{命題}
+\def\corollarynameTC{推論}
+\def\factnameTC{事實}
+\def\conjecturenameTC{猜想}
+\def\definitionnameTC{定義}
+\def\axiomnameTC{公理}
+\def\assumptionnameTC{假設}
+\def\examplenameTC{例}
+\def\problemnameTC{問題}
+\def\remarknameTC{備註}
+
+%% Japanese theorems names
+\def\theoremnameJP{定理}
+\def\lemmanameJP{補題}
+\def\propositionnameJP{命題}
+\def\corollarynameJP{推論}
+\def\factnameJP{事実}
+\def\conjecturenameJP{推測}
+\def\definitionnameJP{定義}
+\def\axiomnameJP{公理}
+\def\assumptionnameJP{仮定}
+\def\examplenameJP{例}
+\def\problemnameJP{問題}
+\def\remarknameJP{備考}
+
+\newif\ifPLthm@IsBook
+\ifdefined\chapter\PLthm@IsBooktrue\else\PLthm@IsBookfalse\fi
+\if@PLthm@nothms\else
+%% Theorem environments
+\ifbool{PLthm@IsBook}{
+    \newaliascnt{highest}{chapter}
+}{
+    \newaliascnt{highest}{section}
+}
+\CreateTheorem{theorem}<highest>
+\CreateTheorem{lemma}[theorem]
+\CreateTheorem{proposition}[theorem]
+\CreateTheorem{corollary}[theorem]
+\CreateTheorem{fact}[theorem]
+\CreateTheorem{conjecture}<highest>
+\CreateTheorem*{theorem*}
+\CreateTheorem*{lemma*}
+\CreateTheorem*{proposition*}
+\CreateTheorem*{corollary*}
+\CreateTheorem*{fact*}
+\CreateTheorem*{conjecture*}
+\theoremstyle{definition}
+\CreateTheorem{definition}[theorem]
+\CreateTheorem{axiom}[theorem]
+\CreateTheorem{assumption}[theorem]
+\CreateTheorem{example}<highest>
+\CreateTheorem{problem}<highest>
+\CreateTheorem*{definition*}
+\CreateTheorem*{axiom*}
+\CreateTheorem*{assumption*}
+\CreateTheorem*{example*}
+\CreateTheorem*{problem*}
+\theoremstyle{remark}
+\CreateTheorem{remark}<highest>
+\CreateTheorem*{remark*}
+\fi
+%</PLthm>
+
+\endinput
