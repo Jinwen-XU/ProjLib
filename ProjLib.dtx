@@ -79,6 +79,18 @@
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
+\gappto{\PLlang@langconfig@tchinese}{%
+    \renewcommand*{\@DTMdate}[1]{%
+    \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
+    \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
+    }%
+}
+\gappto{\PLlang@langconfig@japanese}{%
+    \renewcommand*{\@DTMdate}[1]{%
+    \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
+    \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
+    }%
+}
 \providecommand*{\PLdate}[1]{\DTMdate{#1}}
 %</PLdate>
 %
@@ -100,6 +112,8 @@
 \def\needgraphTextEN{A graph is needed here}
 \def\dnfTextFR{À terminer ici}
 \def\needgraphTextFR{Il manque une image ici}
+\def\dnfTextDE{Nicht beendet}
+\def\needgraphTextDE{Benötigen Sie ein Bild}
 \def\dnfTextCN{这里尚未完成}
 \def\needgraphTextCN{这里需要一张图片}
 \def\dnfTextTC{這裡尚未完成}
@@ -159,6 +173,7 @@
 
 \newcommand\englishABBR{EN}
 \newcommand\frenchABBR{FR}
+\newcommand\ngermanABBR{DE}
 \newcommand\chineseABBR{CN}
 \newcommand\tchineseABBR{TC}
 \newcommand\japaneseABBR{JP}
@@ -184,7 +199,7 @@
     \ifPDFTeX\else
         \PassOptionsToPackage{japanese,russian}{babel}
     \fi
-    \PassOptionsToPackage{italian,portuguese,brazilian,spanish,ngerman,french,english}{babel}
+    \PassOptionsToPackage{italian,portuguese,brazilian,spanish.noquoting,ngerman,french,english}{babel}
     \RequirePackage{babel}
     \frenchsetup{PartNameFull=false}
 \fi
@@ -229,6 +244,9 @@
 % The line below is currently only needed for 'babel', but also works with 'polyglossia'
     \def\frenchpartname{Partie}%
 }
+\newcommand{\PLlang@langconfig@german}{%
+    \selectlanguage{ngerman}%
+}
 \newcommand{\PLlang@langconfig@russian}{%
     \selectlanguage{russian}%
 }
@@ -253,6 +271,8 @@
     \ifstrequal{#1}{English}{\setstretch{1.07}\PLlang@langconfig@english}{}%
     \ifstrequal{#1}{french}{\setstretch{1.07}\PLlang@langconfig@french}{}%
     \ifstrequal{#1}{French}{\setstretch{1.07}\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{german}{\setstretch{1.07}\PLlang@langconfig@german}{}%
+    \ifstrequal{#1}{German}{\setstretch{1.07}\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
     \ifstrequal{#1}{Russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
 }
@@ -281,6 +301,8 @@
     \ifstrequal{#1}{English}{\PLlang@langconfig@english}{}%
     \ifstrequal{#1}{french}{\PLlang@langconfig@french}{}%
     \ifstrequal{#1}{French}{\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{german}{\PLlang@langconfig@german}{}%
+    \ifstrequal{#1}{German}{\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{russian}{\PLlang@langconfig@russian}{}%
     \ifstrequal{#1}{Russian}{\PLlang@langconfig@russian}{}%
     #2%
@@ -444,6 +466,7 @@
         \IfBooleanTF{#1}{%
             \newtheorem*{#2EN#3}{\csname#2nameEN\endcsname}
             \newtheorem*{#2FR#3}{\csname#2nameFR\endcsname}
+            \newtheorem*{#2DE#3}{\csname#2nameDE\endcsname}
             \newtheorem*{#2CN#3}{\csname#2nameCN\endcsname}
             \newtheorem*{#2TC#3}{\csname#2nameTC\endcsname}
             \newtheorem*{#2JP#3}{\csname#2nameJP\endcsname}
@@ -462,6 +485,7 @@
             %-------------------------------------------------------------------
             \CreateTheoremNumberedLikeAliasCounter{#2}{EN}{#3}%
             \CreateTheoremNumberedLikeAliasCounter{#2}{FR}{#3}%
+            \CreateTheoremNumberedLikeAliasCounter{#2}{DE}{#3}%
             \CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}%
             \CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}%
             \CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}%
@@ -510,6 +534,20 @@
 \def\problemnameFR{Problème}
 \def\remarknameFR{Remarque}
 
+%% German theorems names
+\def\theoremnameDE{Satz}
+\def\lemmanameDE{Lemma}
+\def\propositionnameDE{Proposition}
+\def\corollarynameDE{Korollar}
+\def\factnameDE{Fakt}
+\def\conjecturenameDE{Vermutung}
+\def\definitionnameDE{Definition}
+\def\axiomnameDE{Axiom}
+\def\assumptionnameDE{Annahme}
+\def\examplenameDE{Beispiel}
+\def\problemnameDE{Problem}
+\def\remarknameDE{Bemerkung}
+
 %% Chinese theorems names
 \def\theoremnameCN{定理}
 \def\lemmanameCN{引理}
@@ -543,13 +581,13 @@
 \def\propositionnameJP{命題}
 \def\corollarynameJP{推論}
 \def\factnameJP{事実}
-\def\conjecturenameJP{推測}
+\def\conjecturenameJP{予想}
 \def\definitionnameJP{定義}
 \def\axiomnameJP{公理}
 \def\assumptionnameJP{仮定}
 \def\examplenameJP{例}
 \def\problemnameJP{問題}
-\def\remarknameJP{備考}
+\def\remarknameJP{注釈}
 
 %% Russian theorems names
 \def\theoremnameRU{Теорема}
