@@ -78,10 +78,10 @@
 
 \RequirePackage{PLlang}
 
-% \RequirePackage{silence}
 % The following line is for "authblk"
 \robustify\@latex@warning@no@line
-% \WarningFilter*{datetime2}{Date-Time Language Module}
+\RequirePackage{silence}
+\WarningFilter*{datetime2}{Date-Time Language Module}
 \PassOptionsToPackage{fr-FR,en-US}{datetime2}
 \RequirePackage{datetime2}
 \RequirePackage{zhnumber}
@@ -672,15 +672,16 @@
 \CreateTheorem{axiom}[theorem]
 \CreateTheorem{assumption}[theorem]
 \CreateTheorem{example}[theorem]
-\CreateTheorem{problem}<highest>
+\CreateTheorem{problem}[theorem]
 \CreateTheorem*{definition*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
 \CreateTheorem*{example*}
 \CreateTheorem*{problem*}
 \theoremstyle{remark}
-\CreateTheorem{remark}[theorem]
+\CreateTheorem{remark}<highest>
 \CreateTheorem*{remark*}
+\numberwithin{equation}{highest}
 \fi
 %</PLthm>
 %
@@ -692,6 +693,8 @@
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{palatino}
+\DeclareBoolOption[false]{biolinum}
 \ProcessKeyvalOptions*\relax
 \if@PLtoolkit@draft
     \@PLtoolkit@fasttrue
@@ -711,12 +714,52 @@
 \RequirePackage{inputenc}
 \fi
 
+\RequirePackage{mathtools,amssymb}
+
+\if@PLtoolkit@palatino
+    \RequirePackage{mathpazo}
+    \ifPDFTeX
+        \PassOptionsToPackage{defaultsups}{newpxtext}
+        \RequirePackage{newpxtext}
+    \else
+        \PassOptionsToPackage{no-math}{fontspec}
+        \RequirePackage{fontspec}
+        \IfFontExistsTF{Palatino Linotype}{%
+            \setmainfont{Palatino Linotype}
+        }{
+            \setmainfont{TeXGyrePagellaX-Regular.otf}[
+                BoldFont       = TeXGyrePagellaX-Bold.otf ,
+                ItalicFont     = TeXGyrePagellaX-Italic.otf ,
+                BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf ]
+        }
+    \fi
+    \linespread{1.07}
+\fi
+
+\if@PLtoolkit@biolinum
+    \RequirePackage{mathpazo}
+    \ifPDFTeX
+        \RequirePackage{biolinum}
+        \renewcommand*\familydefault{\biolinum@family}
+    \else
+        \PassOptionsToPackage{no-math}{fontspec}
+        \RequirePackage{fontspec}
+        \setmainfont{LinBiolinum_R.otf}[
+            BoldFont       = LinBiolinum_RB.otf ,
+            ItalicFont     = LinBiolinum_RI.otf ,
+            BoldItalicFont = LinBiolinum_RBO.otf ]
+    \fi
+    \linespread{1.05}%
+\fi
+
 \RequirePackage{PLauthor}
 \RequirePackage{PLdate}
 \RequirePackage{PLdraft}
 \RequirePackage{PLlogo}
 \RequirePackage{PLpaper}
 \RequirePackage{PLthm}
+
+\RequirePackage{microtype}
 %</PLtoolkit>
 
 \endinput
