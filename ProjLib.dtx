@@ -51,6 +51,11 @@
     [2021/05/06 Theorem setup and configuration]
 %</PLthm>
 %
+%<*PLtoolkit>
+\ProvidesPackage{PLtoolkit}
+    [2021/05/06 Collective interface of ProjLib Toolkit]
+%</PLtoolkit>
+%
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 %
@@ -59,19 +64,31 @@
 %</PLauthor>
 %
 %<*PLdate>
+\SetupKeyvalOptions{
+    family = @PLdate,
+    prefix = @PLdate@,
+}
+\DeclareBoolOption[false]{draft}
+\DeclareBoolOption[false]{fast}
+\ProcessKeyvalOptions*\relax
+\if@PLdate@draft
+    \@PLdate@fasttrue
+\fi
+\if@PLdate@fast\let\PLdate\relax\endinput\fi
+
 \RequirePackage{PLlang}
 
 % \RequirePackage{silence}
 % The following line is for "authblk"
 \robustify\@latex@warning@no@line
 % \WarningFilter*{datetime2}{Date-Time Language Module}
-\PassOptionsToPackage{en-US}{datetime2}
+\PassOptionsToPackage{fr-FR,en-US}{datetime2}
 \RequirePackage{datetime2}
 \RequirePackage{zhnumber}
 
-\let\@DTMdate@original\@DTMdate
+\let\@DTMdate@PLoriginal\@DTMdate
 \gappto{\PLlang@langconfig@common}{%
-    \let\@DTMdate\@DTMdate@original%
+    \let\@DTMdate\@DTMdate@PLoriginal%
 }
 \gappto{\PLlang@langconfig@chinese}{%
     \renewcommand*{\@DTMdate}[1]{%
@@ -95,12 +112,16 @@
 %</PLdate>
 %
 %<*PLdraft>
-\SetupKeyvalOptions{%
+\SetupKeyvalOptions{
     family = @PLdraft,
-    prefix = @PLdraft@
+    prefix = @PLdraft@,
 }
+\DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \ProcessKeyvalOptions*\relax
+\if@PLdraft@draft
+    \@PLdraft@fasttrue
+\fi
 
 \RequirePackage{PLlang}
 \RequirePackage{xcolor}
@@ -110,7 +131,7 @@
 
 \def\dnfTextEN{To be finished}
 \def\needgraphTextEN{A graph is needed here}
-\def\dnfTextFR{À terminer ici}
+\def\dnfTextFR{Pas encore fini}
 \def\needgraphTextFR{Il manque une image ici}
 \def\dnfTextDE{Nicht beendet}
 \def\needgraphTextDE{Benötigen Sie ein Bild}
@@ -204,7 +225,14 @@
     \frenchsetup{PartNameFull=false}
 \fi
 %
-\newcommand{\PLlang@langconfig@common}{}
+\let\today@PLoriginal\today
+\newcommand{\PLlang@langconfig@common}{%
+    \ifdefined\DTMtoday%
+        \let\today\DTMtoday%
+    \else%
+        \let\today\today@PLoriginal%
+    \fi%
+}
 \newcommand{\PLlang@langconfig@chinese}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
@@ -217,6 +245,7 @@
     \def\appendixname{附录}%
     \def\refname{参考文献}%
     \def\bibname{参考文献}%
+    \let\today\zhtoday%
     \renewcommand{\languagename}{chinese}%
 }
 \newcommand{\PLlang@langconfig@tchinese}{%
@@ -231,6 +260,7 @@
     \def\appendixname{附錄}%
     \def\refname{參考文獻}%
     \def\bibname{參考文獻}%
+    \let\today\zhtoday%
     \renewcommand{\languagename}{tchinese}%
 }
 \newcommand{\PLlang@langconfig@japanese}{%
@@ -285,6 +315,7 @@
 }
 \newcommand{\UseOtherLanguage}[2]{%
 \begingroup%
+    \PLlang@langconfig@common%
     \ifstrequal{#1}{chinese}{\PLlang@langconfig@chinese}{}%
     \ifstrequal{#1}{Chinese}{\PLlang@langconfig@chinese}{}%
     \ifstrequal{#1}{schinese}{\PLlang@langconfig@chinese}{}%
@@ -311,6 +342,18 @@
 %</PLlang>
 %
 %<*PLlogo>
+\SetupKeyvalOptions{
+    family = @PLlogo,
+    prefix = @PLlogo@,
+}
+\DeclareBoolOption[false]{draft}
+\DeclareBoolOption[false]{fast}
+\ProcessKeyvalOptions*\relax
+\if@PLlogo@draft
+    \@PLlogo@fasttrue
+\fi
+\if@PLlogo@fast\def\ProjLib{{\normalfont ProjLib}}\endinput\fi
+
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \RequirePackage{iftex}
@@ -579,7 +622,7 @@
 \def\theoremnameJP{定理}
 \def\lemmanameJP{補題}
 \def\propositionnameJP{命題}
-\def\corollarynameJP{推論}
+\def\corollarynameJP{系}
 \def\factnameJP{事実}
 \def\conjecturenameJP{予想}
 \def\definitionnameJP{定義}
@@ -617,7 +660,7 @@
 \CreateTheorem{proposition}[theorem]
 \CreateTheorem{corollary}[theorem]
 \CreateTheorem{fact}[theorem]
-\CreateTheorem{conjecture}<highest>
+\CreateTheorem{conjecture}[theorem]
 \CreateTheorem*{theorem*}
 \CreateTheorem*{lemma*}
 \CreateTheorem*{proposition*}
@@ -628,7 +671,7 @@
 \CreateTheorem{definition}[theorem]
 \CreateTheorem{axiom}[theorem]
 \CreateTheorem{assumption}[theorem]
-\CreateTheorem{example}<highest>
+\CreateTheorem{example}[theorem]
 \CreateTheorem{problem}<highest>
 \CreateTheorem*{definition*}
 \CreateTheorem*{axiom*}
@@ -636,9 +679,44 @@
 \CreateTheorem*{example*}
 \CreateTheorem*{problem*}
 \theoremstyle{remark}
-\CreateTheorem{remark}<highest>
+\CreateTheorem{remark}[theorem]
 \CreateTheorem*{remark*}
 \fi
 %</PLthm>
+%
+%<*PLtoolkit>
+\SetupKeyvalOptions{
+    family = @PLtoolkit,
+    prefix = @PLtoolkit@,
+}
+\DeclareBoolOption[false]{draft}
+\DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{nothms}
+\ProcessKeyvalOptions*\relax
+\if@PLtoolkit@draft
+    \@PLtoolkit@fasttrue
+\fi
+\if@PLtoolkit@fast
+    \PassOptionsToPackage{fast}{PLdate}
+    \PassOptionsToPackage{fast}{PLdraft}
+    \PassOptionsToPackage{fast}{PLlogo}
+\fi
+\if@PLtoolkit@nothms
+    \PassOptionsToPackage{nothms}{PLthm}
+\fi
+
+\RequirePackage{iftex}
+\ifPDFTeX
+\RequirePackage[T1]{fontenc}
+\RequirePackage{inputenc}
+\fi
+
+\RequirePackage{PLauthor}
+\RequirePackage{PLdate}
+\RequirePackage{PLdraft}
+\RequirePackage{PLlogo}
+\RequirePackage{PLpaper}
+\RequirePackage{PLthm}
+%</PLtoolkit>
 
 \endinput
