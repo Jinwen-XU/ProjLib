@@ -18,37 +18,37 @@
 %
 %<*PLauthor>
 \ProvidesPackage{PLauthor}
-    [2021/05/05 Enhanced author information block]
+    [2021/05/06 Enhanced author information block]
 %</PLauthor>
 %
 %<*PLdate>
 \ProvidesPackage{PLdate}
-    [2021/05/05 Convert yyyy-mm-dd to normal datetime format]
+    [2021/05/06 Convert yyyy-mm-dd to normal datetime format]
 %</PLdate>
 %
 %<*PLdraft>
 \ProvidesPackage{PLdraft}
-    [2021/05/05 Some commands applicable to the draft stage]
+    [2021/05/06 Some commands applicable to the draft stage]
 %</PLdraft>
 %
 %<*PLlang>
 \ProvidesPackage{PLlang}
-    [2021/05/05 Multi-language configuration]
+    [2021/05/06 Multi-language configuration]
 %</PLlang>
 %
 %<*PLlogo>
 \ProvidesPackage{PLlogo}
-    [2021/05/05 The ProjLib logo]
+    [2021/05/06 The ProjLib logo]
 %</PLlogo>
 %
 %<*PLpaper>
 \ProvidesPackage{PLpaper}
-    [2021/05/05 Paper style configuration]
+    [2021/05/06 Paper style configuration]
 %</PLpaper>
 %
 %<*PLthm>
 \ProvidesPackage{PLthm}
-    [2021/05/05 Theorem setup and configuration]
+    [2021/05/06 Theorem setup and configuration]
 %</PLthm>
 %
 \RequirePackage{kvoptions}
@@ -99,13 +99,15 @@
 \def\dnfTextEN{To be finished}
 \def\needgraphTextEN{A graph is needed here}
 \def\dnfTextFR{À terminer ici}
-\def\needgraphTextFR{Il manque encore un graphique ici}
+\def\needgraphTextFR{Il manque une image ici}
 \def\dnfTextCN{这里尚未完成}
 \def\needgraphTextCN{这里需要一张图片}
 \def\dnfTextTC{這裡尚未完成}
 \def\needgraphTextTC{這裡需要一張圖片}
 \def\dnfTextJP{終わってない}
 \def\needgraphTextJP{まだ画像が必要です}
+\def\dnfTextRU{Не закончен}
+\def\needgraphTextRU{Еще нужна картинка}
 
 \definecolor{dnfColor}{RGB}{21,122,20}
 \definecolor{needgraphColor}{RGB}{70,130,180}
@@ -160,6 +162,7 @@
 \newcommand\chineseABBR{CN}
 \newcommand\tchineseABBR{TC}
 \newcommand\japaneseABBR{JP}
+\newcommand\russianABBR{RU}
 
 \RequirePackage{iftex}
 
@@ -169,7 +172,6 @@
     \setotherlanguage[frenchpart=false]{french}
     \setotherlanguage{ngerman}
     \setotherlanguage{spanish}
-    \setotherlanguage{brazilian}
     \setotherlanguage{portuguese}
     \setotherlanguage{italian}
     \ifPDFTeX\else
@@ -227,6 +229,9 @@
 % The line below is currently only needed for 'babel', but also works with 'polyglossia'
     \def\frenchpartname{Partie}%
 }
+\newcommand{\PLlang@langconfig@russian}{%
+    \selectlanguage{russian}%
+}
 %
 \RequirePackage{setspace}
 %
@@ -248,6 +253,8 @@
     \ifstrequal{#1}{English}{\setstretch{1.07}\PLlang@langconfig@english}{}%
     \ifstrequal{#1}{french}{\setstretch{1.07}\PLlang@langconfig@french}{}%
     \ifstrequal{#1}{French}{\setstretch{1.07}\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
+    \ifstrequal{#1}{Russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
 }
 \newcommand{\UseLanguage}[1]{%
     \ifx\@onlypreamble\@notprerr%
@@ -274,6 +281,8 @@
     \ifstrequal{#1}{English}{\PLlang@langconfig@english}{}%
     \ifstrequal{#1}{french}{\PLlang@langconfig@french}{}%
     \ifstrequal{#1}{French}{\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{russian}{\PLlang@langconfig@russian}{}%
+    \ifstrequal{#1}{Russian}{\PLlang@langconfig@russian}{}%
     #2%
 \endgroup%
 }
@@ -438,6 +447,7 @@
             \newtheorem*{#2CN#3}{\csname#2nameCN\endcsname}
             \newtheorem*{#2TC#3}{\csname#2nameTC\endcsname}
             \newtheorem*{#2JP#3}{\csname#2nameJP\endcsname}
+            \newtheorem*{#2RU#3}{\csname#2nameRU\endcsname}
         }{%
             \IfValueTF{#5}{%
                 \newcounter{#2#3}[{#5}]%
@@ -455,6 +465,7 @@
             \CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}%
             \CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}%
             \CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}%
+            \CreateTheoremNumberedLikeAliasCounter{#2}{RU}{#3}%
             %-------------------------------------------------------------------
         }%
         \NewDocumentEnvironment{#2#3}{}
@@ -539,6 +550,20 @@
 \def\examplenameJP{例}
 \def\problemnameJP{問題}
 \def\remarknameJP{備考}
+
+%% Russian theorems names
+\def\theoremnameRU{Теорема}
+\def\lemmanameRU{Лемма}
+\def\propositionnameRU{Предложение}
+\def\corollarynameRU{Следствие}
+\def\factnameRU{Факт}
+\def\conjecturenameRU{Гипотеза}
+\def\definitionnameRU{Определение}
+\def\axiomnameRU{Аксиома}
+\def\assumptionnameRU{Предположение}
+\def\examplenameRU{Пример}
+\def\problemnameRU{Вопрос}
+\def\remarknameRU{Замечание}
 
 \newif\ifPLthm@IsBook
 \ifdefined\chapter\PLthm@IsBooktrue\else\PLthm@IsBookfalse\fi
