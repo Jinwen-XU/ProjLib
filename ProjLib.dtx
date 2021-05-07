@@ -28,7 +28,7 @@
 %
 %<*PLdraft>
 \ProvidesPackage{PLdraft}
-    [2021/05/06 Some commands applicable to the draft stage]
+    [2021/05/06 Some useful macros for the draft stage]
 %</PLdraft>
 %
 %<*PLlang>
@@ -220,7 +220,7 @@
     \ifPDFTeX\else
         \PassOptionsToPackage{japanese,russian}{babel}
     \fi
-    \PassOptionsToPackage{italian,portuguese,brazilian,spanish.noquoting,ngerman,french,english}{babel}
+    \PassOptionsToPackage{italian,portuguese,brazilian,spanish.noquoting,ngerman,french,english,shorthands=off}{babel}
     \RequirePackage{babel}
     \frenchsetup{PartNameFull=false}
 \fi
@@ -547,6 +547,9 @@
     \crefname{#1#2#3}%
         {\csname#1name#2\endcsname}%
         {\csname#1name#2\endcsname}%
+    \Crefname{#1#2#3}%
+        {\csname#1name#2\endcsname}%
+        {\csname#1name#2\endcsname}%
 }%
 
 %% English theorems names
@@ -714,9 +717,10 @@
 \RequirePackage{inputenc}
 \fi
 
-\RequirePackage{mathtools,amssymb}
+\RequirePackage{mathtools}
 
 \if@PLtoolkit@palatino
+    \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
     \ifPDFTeX
         \PassOptionsToPackage{defaultsups}{newpxtext}
@@ -737,6 +741,7 @@
 \fi
 
 \if@PLtoolkit@biolinum
+    \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
     \ifPDFTeX
         \RequirePackage{biolinum}
