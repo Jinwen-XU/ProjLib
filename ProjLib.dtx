@@ -124,19 +124,25 @@
 %% Modify abstract to allow it before maketitle
 \let\abstract@PLoriginal\abstract%
 \let\endabstract@PLoriginal\endabstract%
-\RequirePackage{environ}
-\newtoggle{maketitle}
-\def\abstractContent{}
-\RenewEnviron{abstract}{%
-    \iftoggle{maketitle}{%
+\newif\if@PLamssim@maketitle\@PLamssim@maketitlefalse
+\newif\if@PLamssim@absbefore\@PLamssim@absbeforefalse
+\RequirePackage{fancyvrb}
+\renewenvironment{abstract}{%
+    \if@PLamssim@maketitle%
         \begin{abstract@PLoriginal}%
-            \BODY%
-            % \ifx\PL@keywords\@empty\else%
-            %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
-            % \fi%
+    \else%
+        \@PLamssim@absbeforetrue%
+        \VerbatimOut{\jobname.plabs}%
+    \fi
+}{
+    \if@PLamssim@maketitle%
         \end{abstract@PLoriginal}%
-    }%
-    {\global\let\abstractContent\BODY}%
+        % \ifx\PL@keywords\@empty\else%
+        %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+        % \fi%
+    \else%
+        \endVerbatimOut%
+    \fi
 }
 
 %% Modify maketitle
@@ -158,11 +164,11 @@
     \fi}{}{\FAIL}
 % Add abstract to maketitle
 \apptocmd{\maketitle}{%
-    \ifx\abstractContent\@empty\else%
+    \if@PLamssim@absbefore%
     \begin{abstract@PLoriginal}%
-        \abstractContent%
+        \input{\jobname.plabs}%
         % \ifx\PL@keywords\@empty\else%
-        %         \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+        %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
         % \fi%
     \end{abstract@PLoriginal}%
     \fi%
@@ -171,7 +177,7 @@
     \global\let\email\relax
     \global\let\dedicatory\relax
     \global\let\keywords\relax
-    \global\toggletrue{maketitle}
+    \global\@PLamssim@maketitletrue
 }{}{\FAIL}
 % Disbale the \newpage in maketitle
 % \let\maketitle@PLoriginal=\maketitle
