@@ -210,27 +210,67 @@
 \def\PLauthor@font@author{\normalsize\normalfont\scshape}
 \def\PLauthor@font@address{\small\normalfont\itshape}
 \def\PLauthor@font@curraddr{\small\normalfont\itshape}
-\def\PLauthor@font@email{\small\normalfont}
+\def\PLauthor@font@email{\small\normalfont\ttfamily}
+
+%%================================
+%% Lengths
+%%================================
+% Space between author and address
+\newlength{\PLauthor@length@innersep}
+\setlength{\PLauthor@length@innersep}{.3\baselineskip}
+
+% Space between different author blocks
+\newlength{\PLauthor@length@sep}
+\setlength{\PLauthor@length@sep}{.5\baselineskip}
+
+% Space between affiliation and date
+\newlength{\PLauthor@length@aftersep}
+\setlength{\PLauthor@length@aftersep}{.3\baselineskip}
 
 %%================================
 %% The macros
 %%================================
-\renewcommand{\author}[1]{%
-    \gappto\@author{\phantom{A}\\[-.5\baselineskip]%
-    \PLauthor@font@author{#1}\\\phantom{}}}
+\newif\if@PLauthor@affilon
+\renewcommand*{\author}[1]{%
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+    \vspace{\PLauthor@length@sep}%
+    \PLauthor@font@author{#1}\\\phantom{}
+    \@PLauthor@affilonfalse}}
 \providecommand*{\address}[1]{%
-    \gappto\@author{{\PLauthor@font@address{#1}\\\phantom{}}}}
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+        \if@PLauthor@affilon\else%
+            \vspace{\PLauthor@length@innersep}%
+        \fi%
+        \@PLauthor@affilontrue%
+        {\PLauthor@font@address{#1}\\\phantom{}}}}
 \providecommand*{\curraddr}[1]{%
-    \gappto\@author{{\PLauthor@font@address{#1}\\\phantom{}}}}
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+        \if@PLauthor@affilon\else%
+            \vspace{\PLauthor@length@innersep}%
+        \fi%
+        \@PLauthor@affilontrue%
+        {\PLauthor@font@curraddr{#1}\\\phantom{}}}}
 \providecommand*{\email}[1]{%
-    \gappto\@author{{\PLauthor@font@email{#1}\\\phantom{}}}}
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+        \if@PLauthor@affilon\else%
+            \vspace{\PLauthor@length@innersep}%
+        \fi%
+        \@PLauthor@affilontrue%
+        {\PLauthor@font@email{#1}\\\phantom{}}}}
 
 %%================================
 %% Adjustment
 %%================================
+\def\@author{} % Remove "No \author given."
 \pretocmd{\@maketitle}{%
-    \pretocmd{\@author}{\vspace{-.5\baselineskip}}{}{\FAIL}%
-    \apptocmd{\@author}{\vspace{-\baselineskip}}{}{\FAIL}%
+    \pretocmd{\@author}{\vspace{-\PLauthor@length@sep}}{}{\FAIL}%
+    \apptocmd{\@author}{%
+% Fix the space caused by `\\\phantom{}`
+        \vspace{-\baselineskip}%
+        \if@PLauthor@affilon%
+            \vspace{\PLauthor@length@aftersep}%
+        \fi%
+    }{}{\FAIL}%
 }{}{\FAIL}
 %</PLauthor>
 %
@@ -392,6 +432,7 @@
         \PassOptionsToPackage{japanese,russian}{babel}
     \fi
     \PassOptionsToPackage{italian,portuguese,brazilian,spanish.noquoting,ngerman,french,english,shorthands=off}{babel}
+    \PassOptionsToPackage{italian,brazilian,spanish,ngerman,french,english}{cleveref}
     \RequirePackage{babel}
     \frenchsetup{PartNameFull=false}
 \fi
