@@ -4,6 +4,8 @@
 
 A collection of tools that help you write LaTeX document. With `PLtoolkit` loaded, you no longer need to set up the theorem environments nor configure the appropriate multilingual settings.
 
+1. `PLamssim.sty`
+    - Simulate some features of amsart
 1. `PLauthor.sty`
     - Enhanced author information block
 1. `PLdate.sty`
