@@ -128,21 +128,19 @@
 \newif\if@PLamssim@absbefore\@PLamssim@absbeforefalse
 \RequirePackage{fancyvrb}
 \renewenvironment{abstract}{%
+    \VerbatimOut{\jobname.plabs}%
+}{
+    \endVerbatimOut%
     \if@PLamssim@maketitle%
         \begin{abstract@PLoriginal}%
-    \else%
-        \@PLamssim@absbeforetrue%
-        \VerbatimOut{\jobname.plabs}%
-    \fi
-}{
-    \if@PLamssim@maketitle%
+            \input{\jobname.plabs}%
         \end{abstract@PLoriginal}%
         % \ifx\PL@keywords\@empty\else%
         %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
         % \fi%
     \else%
-        \endVerbatimOut%
-    \fi
+        \@PLamssim@absbeforetrue%
+    \fi%
 }
 
 %% Modify maketitle
