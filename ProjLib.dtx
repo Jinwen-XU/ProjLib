@@ -357,12 +357,18 @@
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \RequirePackage{iftex}
-\ifPDFTeX
-\RequirePackage{fontenc}
-\newcommand{\PLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+% \ifPDFTeX
+% \RequirePackage{fontenc}
+% \newcommand{\PLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+% \else
+% \RequirePackage{fontspec}
+% \newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
+% \fi
+\ifdefined\setmainfont
+    \newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
 \else
-\RequirePackage{fontspec}
-\newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
+    \RequirePackage{fontenc}
+    \newcommand{\PLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
 \fi
 \DeclareSymbolFont{PLupright}{OT1}{zplm}{b}{n}
 \DeclareMathSymbol{\PLSigma}{\mathalpha}{PLupright}{"06}
