@@ -200,7 +200,38 @@
 %</PLamssim>
 %
 %<*PLauthor>
-%% To be finished
+\ifdefined\subjclass\endinput\fi
+
+\RequirePackage{PLlang}
+
+%%================================
+%% Font and style
+%%================================
+\def\PLauthor@font@author{\normalsize\normalfont\scshape}
+\def\PLauthor@font@address{\small\normalfont\itshape}
+\def\PLauthor@font@curraddr{\small\normalfont\itshape}
+\def\PLauthor@font@email{\small\normalfont}
+
+%%================================
+%% The macros
+%%================================
+\renewcommand{\author}[1]{%
+    \gappto\@author{\phantom{A}\\[-.5\baselineskip]%
+    \PLauthor@font@author{#1}\\\phantom{}}}
+\providecommand*{\address}[1]{%
+    \gappto\@author{{\PLauthor@font@address{#1}\\\phantom{}}}}
+\providecommand*{\curraddr}[1]{%
+    \gappto\@author{{\PLauthor@font@address{#1}\\\phantom{}}}}
+\providecommand*{\email}[1]{%
+    \gappto\@author{{\PLauthor@font@email{#1}\\\phantom{}}}}
+
+%%================================
+%% Adjustment
+%%================================
+\pretocmd{\@maketitle}{%
+    \pretocmd{\@author}{\vspace{-.5\baselineskip}}{}{\FAIL}%
+    \apptocmd{\@author}{\vspace{-\baselineskip}}{}{\FAIL}%
+}{}{\FAIL}
 %</PLauthor>
 %
 %<*PLdate>

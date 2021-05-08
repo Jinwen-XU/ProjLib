@@ -34,30 +34,42 @@ Demonstration:
 \usepackage[hidelinks]{hyperref}
 \usepackage[palatino]{PLtoolkit}
 
-\UseLanguage{French}
+%% You can also comment the above lines and try the following (require xelatex or lualatex):
+% \documentclass[a4paper,allowbf]{lebhart}
+% \usepackage{PLtoolkit}
+
+%% Using \UseLanguage to select language, by default "English" is selected
+\UseLanguage{French} % Use French from here
 
 \begin{document}
 
 \title{Some Title}
-\author{Some Name}
+\author{Author 1}
+\address{Address 1}
+\email{\href{Email 1}{Email 1}}
+\author{Author 2}
+\address{Address 2}
+\email{\href{Email 2}{Email 2}}
 \date{\PLdate{2021-04-01}}
 \subjclass{*****}
 
+%% Abstract can be placed either before or after \maketitle, the result will be the same (though in AMS classes you would see a warning)
 \begin{abstract}
     Some abstract \dnf<need more text>
 \end{abstract}
 
 \maketitle
 
-\UseLanguage{English}
+\UseLanguage{English} % Use English from here
 
 \section{Theorems}
 
+%% Theorem-like environments can be used directly
 \begin{theorem}\label{thm:abc}
     Some text. \dnf<need more text>
 \end{theorem}
 
-Reference: \cref{thm:abc}
+Reference: \cref{thm:abc} % It is recommended to use clever reference
 
 \end{document}
 ```
