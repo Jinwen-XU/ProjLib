@@ -162,7 +162,7 @@
 
 \subsection{PLdate}
 
-\PLdatestr{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} 命令，并将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+\PLdatestr{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
 
 \subsection{PLdraft}
 
@@ -283,16 +283,16 @@
 
 \def\proofideanameCN{思路}
 \CreateTheorem*{proofidea*}
-\CreateTheorem{proofidea}
+\CreateTheorem{proofidea}<subsection>
 
 \bigskip
-下面提供一个例子。例如，
+下面提供一个例子。这三行代码：
 \begin{code}
   \def\proofideanameCN{思路}
   \CreateTheorem*{proofidea*}
-  \CreateTheorem{proofidea}
+  \CreateTheorem{proofidea}<subsection>
 \end{code}
-可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea|，它们支持在简体中文语境中使用，效果如下所示 (具体样式与所在的文档类有关) :
+可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea| (在 subsection 内编号)，它们支持在简体中文语境中使用，效果如下所示 (具体样式与所在的文档类有关) :
 
 \begin{proofidea*}
     \lstinline|proofidea*| 环境。

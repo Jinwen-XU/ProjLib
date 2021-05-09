@@ -963,6 +963,8 @@
 \DeclareBoolOption[false]{amssim}
 \DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{palatino}
+\DeclareBoolOption[false]{times}
+\DeclareBoolOption[false]{garamond}
 \DeclareBoolOption[false]{biolinum}
 \ProcessKeyvalOptions*\relax
 \if@PLtoolkit@draft
@@ -987,28 +989,34 @@
 
 \if@PLtoolkit@palatino
     \RequirePackage{amssymb}
-    \RequirePackage{mathpazo}
-    \ifPDFTeX
-        \PassOptionsToPackage{defaultsups}{newpxtext}
-        \RequirePackage{newpxtext}
-    \else
-        \PassOptionsToPackage{no-math}{fontspec}
-        \RequirePackage{fontspec}
-        \IfFontExistsTF{Palatino Linotype}{%
-            \setmainfont{Palatino Linotype}
-        }{
-            \setmainfont{TeXGyrePagellaX-Regular.otf}[
-                BoldFont       = TeXGyrePagellaX-Bold.otf ,
-                ItalicFont     = TeXGyrePagellaX-Italic.otf ,
-                BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf ]
-        }
-    \fi
+    \PassOptionsToPackage{defaultsups}{newpxtext}
+    \RequirePackage{newpxtext}
+    \RequirePackage{newpxmath}
+    \let\openbox\relax
     \linespread{1.07}
+\fi
+
+\if@PLtoolkit@times
+    \RequirePackage{amssymb}
+    \PassOptionsToPackage{defaultsups}{newtxtext}
+    \RequirePackage{newtxtext}
+    \RequirePackage{newtxmath}
+    \let\openbox\relax
+    \linespread{1.00}
+\fi
+
+\if@PLtoolkit@garamond
+    \RequirePackage{amssymb}
+    \RequirePackage{ebgaramond-maths}
+    \RequirePackage{ebgaramond}
+    % \RequirePackage{garamondlibre}
+    \linespread{1.00}
 \fi
 
 \if@PLtoolkit@biolinum
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
+    % \RequirePackage[sansmath]{libertinust1math}
     \ifPDFTeX
         \RequirePackage{biolinum}
         \renewcommand*\familydefault{\biolinum@family}
@@ -1020,7 +1028,7 @@
             ItalicFont     = LinBiolinum_RI.otf ,
             BoldItalicFont = LinBiolinum_RBO.otf ]
     \fi
-    \linespread{1.05}%
+    \linespread{1.05}
 \fi
 
 \if@PLtoolkit@author
