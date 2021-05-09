@@ -1,0 +1,397 @@
+%! TEX program = xelatex
+\documentclass[allowbf]{lebhart}
+
+%%================================
+%% 引入工具集
+%%================================
+\usepackage{PLtoolkit}
+\usepackage{longtable}  % breakable tables
+\usepackage{hologo}     % more TeX logo
+
+\UseLanguage{Chinese}
+
+%%================================
+%% 排版代码
+%%================================
+\usepackage{listings}
+\definecolor{lightergray}{gray}{0.99}
+\lstset{language=[LaTeX]TeX,
+    keywordstyle=\color{maintheme},
+    basicstyle=\ttfamily,
+    commentstyle=\color{forestgreen}\ttfamily,
+    stringstyle=\rmfamily,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{lightergray},
+    flexiblecolumns=true,
+    escapeinside={(*}{*)},
+    % numbers=left,
+    numberstyle=\scriptsize, stepnumber=1, numbersep=5pt,
+    firstnumber=last,
+} 
+\providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
+\lstset{moretexcs=%
+    {CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
+    }
+}
+\lstnewenvironment{code}% 
+{\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
+
+%%================================
+%% remind
+%%================================
+\newenvironment{remind}[1][提示]{%
+    \begin{tcolorbox}[breakable,
+        enhanced,
+        width = \textwidth,
+        colback = white, colbacktitle = paper,
+        colframe = gray!50, boxrule=0.2mm,
+        coltitle = black,
+        fonttitle = \sffamily,
+        attach boxed title to top left = {yshift=-\tcboxedtitleheight/2,  xshift=\tcboxedtitlewidth/4},
+        boxed title style = {boxrule=0pt, colframe=paper},
+        before skip = 0.3cm,
+        after skip = 0.3cm,
+        top = 3mm,
+        bottom = 3mm,
+        title={\sffamily #1}]%
+}{\end{tcolorbox}}
+
+%%================================
+%% 名称
+%%================================
+\providecommand{\PLtoolkit}{\textsf{PLtoolkit}}
+\providecommand{\PLamssim}{\textsf{PLamssim}}
+\providecommand{\PLauthor}{\textsf{PLauthor}}
+\providecommand{\PLdatestr}{\textsf{PLdate}}
+\providecommand{\PLdraft}{\textsf{PLdraft}}
+\providecommand{\PLlang}{\textsf{PLlang}}
+\providecommand{\PLlogo}{\textsf{PLlogo}}
+\providecommand{\PLpaper}{\textsf{PLpaper}}
+\providecommand{\PLthm}{\textsf{PLthm}}
+
+%%================================
+%% 正文
+%%================================
+\begin{document}
+
+\title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
+\author{许锦文}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/05/12}}
+\date{2021年5月，北京}
+
+\maketitle
+
+\begin{abstract}
+    \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \PLtoolkit{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
+\end{abstract}
+
+% \tableofcontents
+
+\section{PLtoolkit}
+
+\subsection{如何加载}
+
+只需要在导言部分加入这一行即可：
+
+\begin{code}
+  \usepackage{PLtoolkit}
+\end{code}
+
+\begin{remind}[注意事项]
+    由于其内部使用了 \textsf{cleveref}，\PLtoolkit{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
+\end{remind}
+\medskip
+
+\subsection{选项}
+
+\PLtoolkit{} 提供下列选项以供选择：
+\begin{itemize}
+    \item \texttt{draft} 或 \texttt{fast}
+        \begin{itemize}
+            \item 快速模式。功能会适当缩减，但能够提高编译速度，建议在撰写阶段使用。
+        \end{itemize}
+    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum}
+        \begin{itemize}
+            \item 字体选项。顾名思义，会加载相应名称的字体。
+        \end{itemize}
+    \item \texttt{author}
+        \begin{itemize}
+            \item 加载 \PLauthor{}。关于其详细功能，请参阅有关这一宏包的小节。
+        \end{itemize}
+    \item \texttt{amssim}
+        \begin{itemize}
+            \item 加载 \PLamssim{}。关于其详细功能，请参阅有关这一宏包的小节。
+        \end{itemize}
+    \item \texttt{nothms}
+        \begin{itemize}
+            \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
+        \end{itemize}
+\end{itemize}
+另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \PLpaper{} 的 \texttt{paperstyle} 和 \texttt{preview} 等。详细信息可以参阅对应的小节。
+
+\section{具体组件}
+
+\subsection{PLamssim}
+
+\PLamssim{} 用于模拟 \textsf{amsart} 文档类的部分功能，包括：
+\begin{itemize}
+    \item \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email|、\lstinline|\dedicatory| 命令 (前三者由 \PLauthor{} 提供)
+    \item \lstinline|\keywords| 命令
+    \item \lstinline|\subjclass| 命令
+    \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
+    \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
+\end{itemize}
+
+这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PLamssim{} 不会起到任何效果。
+
+\subsection{PLauthor}
+
+\PLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
+\begin{code}
+  \author{(*\meta{author 1}*)}
+  \address{(*\meta{address 1}*)}
+  \email{(*\meta{email 1}*)}
+  \author{(*\meta{author 2}*)}
+  \address{(*\meta{address 2}*)}
+  \email{(*\meta{email 2}*)}
+  ...
+\end{code}
+其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
+
+\subsection{PLdate}
+
+\PLdatestr{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} 命令，并将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+
+\subsection{PLdraft}
+
+\PLdraft{} 提供了下列命令：
+\begin{itemize}
+    \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
+    \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
+\end{itemize}
+
+关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+
+\subsection{PLlang}
+
+\PLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。可以通过下列命令来选定语言：
+\begin{itemize}
+    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}|，用于指定语言，在其后将使用对应的语言设定。\\既可以用于导言部分，也可以用于正文部分。在不指定语言时，默认选定 “English”。
+    \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|，用指定的语言的设定排版 \meta{content}。\\相比较 \lstinline|\UseLanguage|，它不会对行距进行修改，因此中西文字混排时能够保持行距稳定。
+\end{itemize}
+
+\meta{language name} 有下列选择：
+\begin{itemize}
+    \item 简体中文：\texttt{Chinese}、\texttt{chinese}、\texttt{SChinese}、\texttt{schinese}、\texttt{SimplifiedChinese} 或 \texttt{simplifiedchinese}
+    \item 繁体中文：\texttt{TChinese}、\texttt{tchinese}、\texttt{TraditionalChinese} 或 \texttt{traditionalchinese}
+    \item 英文：\texttt{English} 或 \texttt{english}
+    \item 法文：\texttt{French} 或 \texttt{french}
+    \item 德文：\texttt{German} 或 \texttt{german}
+    \item 日文：\texttt{Japanese} 或 \texttt{japanese}
+    \item 俄文：\texttt{Russian} 或 \texttt{russian}
+\end{itemize}
+
+\subsection{PLlogo}
+
+\PLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
+% \begin{itemize}
+%     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
+%     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
+%     \item \lstinline|\footnotesize|:\quad {\footnotesize\ProjLib}
+%     \item \lstinline|\normalsize|:\quad {\normalsize\ProjLib}
+%     \item \lstinline|\large|:\quad {\large\ProjLib}
+%     \item \lstinline|\Large|:\quad {\Large\ProjLib}
+%     \item \lstinline|\LARGE|:\quad {\LARGE\ProjLib}
+%     \item \lstinline|\huge|:\quad {\huge\ProjLib}
+%     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
+% \end{itemize}
+\begin{longtable}{ll}
+    \lstinline|\tiny|:& {\tiny\ProjLib}\\
+    \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+    \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+    \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+    \lstinline|\large|:& {\large\ProjLib}\\
+    \lstinline|\Large|:& {\Large\ProjLib}\\
+    \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+    \lstinline|\huge|:& {\huge\ProjLib}\\
+    \lstinline|\Huge|:& {\Huge\ProjLib}
+\end{longtable}
+
+\subsection{PLpaper}
+
+\PLpaper{} 主要用于调节纸张颜色。它支持下列选项：
+
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item 设定纸张色彩样式。\meta{paper style name} 可供选择的选项有：\texttt{yellow}、\texttt{dark} 与 \texttt{nord}。
+        \end{itemize}
+    \item \texttt{yellowpaper}、\texttt{darkpaper}、\texttt{nordpaper}
+        \begin{itemize}
+            \item 设定纸张色彩样式。效果与相应名称的 \texttt{paperstyle} 相同。
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item 预览模式，将会把 pdf 文件的白边去掉以方便阅读。
+        \end{itemize}
+\end{itemize}
+
+为了使用的方便，建议把这些选项作为文档类的全局参数，这样对于文档的纸张设定一目了然。
+
+\subsection{PLthm}
+
+\PLthm{} 提供定理类环境的设置。它支持下列选项：
+\begin{itemize}
+    \item \texttt{nothms}
+    \begin{itemize}
+        \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
+    \end{itemize}
+\end{itemize}
+
+预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{fact}、\texttt{lemma}、\texttt{problem}、\texttt{proposition}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+
+在引用定理类环境时，建议使用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|。这样就不必每次都写上相应环境的名称了。
+
+\medskip
+若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称 \lstinline|\|\meta{name of environment}\meta{language abbr}，其中 \meta{language abbr} 是语言的简写，分别为：
+\begin{longtable}{ll|ll}
+    \texttt{CN} & 简体中文  & \texttt{DE} & 德文\\
+    \texttt{TC} & 繁体中文  & \texttt{JP} & 日文\\
+    \texttt{EN} & 英文  & \texttt{RU} & 俄文\\
+    \texttt{FR} & 法文  & &\\
+\end{longtable}
+
+\begin{remind}
+    如果要定义名称后带有星号 \lstinline|*| 的环境，那么在上面的 \meta{name of environment} 中不用写星号。
+\end{remind}
+
+然后用下面四种方式之一定义这一环境：
+\begin{itemize}
+    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|\\
+        定义不编号的环境 \meta{name of environment}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|\\
+        定义编号环境 \meta{name of environment}，与 \meta{numbered like} 计数器共用编号
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|\\
+        定义编号环境 \meta{name of environment}，在 \meta{numbered within} 计数器内编号
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|\\
+        定义编号环境 \meta{name of environment}，按顺序编号
+\end{itemize}
+
+其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
+
+\def\proofideanameCN{思路}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}
+
+\bigskip
+下面提供一个例子。例如，
+\begin{code}
+  \def\proofideanameCN{思路}
+  \CreateTheorem*{proofidea*}
+  \CreateTheorem{proofidea}
+\end{code}
+可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea|，它们支持在简体中文语境中使用，效果如下所示 (具体样式与所在的文档类有关) :
+
+\begin{proofidea*}
+    \lstinline|proofidea*| 环境。
+\end{proofidea*}
+
+\begin{proofidea}
+    \lstinline|proofidea| 环境。
+\end{proofidea}
+
+% \section{目前已知的问题}
+
+
+\clearpage
+\section{使用示例}
+
+\subsection{标准文档类}
+
+在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
+
+\begin{code}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{PLtoolkit} % Load the toolkit and use font Palatino
+
+\UseLanguage{French} % Use French from here
+
+\begin{document}
+
+\title{Le Titre}
+\author{Auteur}
+\date{\PLdate{2022-04-01}}
+
+\maketitle
+
+\begin{abstract}
+    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
+\end{abstract}
+
+\section{Un théorème}
+
+%% Theorem-like environments can be used directly
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+
+Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
+
+\end{document}
+\end{code}
+
+\bigskip
+如果使用了 \PLamssim{}，那么文章中就可以采用 \AmS{} 文档类的写法 (当然，此时原始的写法也是成立的，因此始终添加 \texttt{amssim} 这一参数通常是没有问题的)。此时上文引入 \PLtoolkit{} 的那一行应该写为：
+\begin{code}
+\usepackage[amssim,palatino]{PLtoolkit}
+\end{code}
+
+\clearpage
+\subsection{\texorpdfstring{\AmS{}}{AMS} 文档类}
+
+在 \AmS{} 文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
+\begin{code}
+\documentclass{amsart}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{PLtoolkit} % Load the toolkit and use font Palatino
+
+\UseLanguage{French} % Use French from here
+
+\begin{document}
+
+\title{Le Titre}
+\author{Auteur 1}
+\address{Adresse 1}
+\email{\href{Courriel 1}{Courriel 1}}
+\author{Auteur 1}
+\address{Adresse 1}
+\email{\href{Courriel 2}{Courriel 2}}
+\date{\PLdate{2022-04-01}}
+\subjclass{*****}
+\keywords{...}
+
+\begin{abstract}
+    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
+\end{abstract}
+
+\maketitle
+
+\section{Première section}
+
+%% Theorem-like environments can be used directly
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+
+Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
+
+\end{document}
+\end{code}
+
+
+\end{document}

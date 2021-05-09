@@ -68,6 +68,9 @@
 \ifdefined\subjclass\endinput\fi
 
 \RequirePackage{PLauthor}
+\RequirePackage{calc}
+
+\providecommand{\conditionalbfseries}{\bfseries}
 
 % keywords
 \def\keywordsnameEN{\textsc{Key words and phrases}}
@@ -127,6 +130,22 @@
 \newif\if@PLamssim@maketitle\@PLamssim@maketitlefalse
 \newif\if@PLamssim@absbefore\@PLamssim@absbeforefalse
 \RequirePackage{fancyvrb}
+% Taken from https://tex.stackexchange.com/a/596328
+% define the same as \protected@write, but with \immediate
+\providecommand*\protected@iwrite[3]{%
+  \begingroup
+  \let\thepage\relax
+  #2%
+  \let\protect\@unexpandable@protect
+  \edef\reserved@a{\immediate\write#1{#3}}\reserved@a
+  \endgroup
+  \if@nobreak\ifvmode\nobreak\fi\fi
+}
+\patchcmd{\FVB@VerbatimOut}
+  {\immediate\write\FV@OutFile}
+  {\protected@iwrite\FV@OutFile{}}
+  {}{}
+%
 \renewenvironment{abstract}{%
     \VerbatimOut{\jobname.plabs}%
 }{
@@ -246,25 +265,30 @@
             \vspace{\PLauthor@length@innersep}%
         \fi%
         \@PLauthor@affilontrue%
-        {\PLauthor@font@address{#1}\\\phantom{}}}}
+        \PLauthor@font@address{#1}\\\phantom{}}%
+}
 \providecommand*{\curraddr}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
         \if@PLauthor@affilon\else%
             \vspace{\PLauthor@length@innersep}%
         \fi%
         \@PLauthor@affilontrue%
-        {\PLauthor@font@curraddr{#1}\\\phantom{}}}}
+        \PLauthor@font@curraddr{#1}\\\phantom{}}%
+}
 \providecommand*{\email}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
         \if@PLauthor@affilon\else%
             \vspace{\PLauthor@length@innersep}%
         \fi%
         \@PLauthor@affilontrue%
-        {\PLauthor@font@email{#1}\\\phantom{}}}}
+        \PLauthor@font@email{#1}\\\phantom{}}%
+}
 
 %%================================
 %% Adjustment
 %%================================
+\patchcmd{\@maketitle}{\begin{tabular}[t]{c}}{}{}{}
+\patchcmd{\@maketitle}{\end{tabular}}{}{}{}
 \def\@author{} % Remove "No \author given."
 \pretocmd{\@maketitle}{%
     \pretocmd{\@author}{\vspace{-\PLauthor@length@sep}}{}{\FAIL}%
@@ -581,10 +605,10 @@
 % \newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
 % \fi
 \ifdefined\setmainfont
-    \newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
+    \newcommand{\PLlogo@font}{\normalfont\fontspec{LinBiolinum_R.otf}\selectfont}
 \else
     \RequirePackage{fontenc}
-    \newcommand{\PLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+    \newcommand{\PLlogo@font}{\normalfont\fontfamily{LinuxBiolinumT-TLF}\selectfont}
 \fi
 \DeclareSymbolFont{PLupright}{OT1}{zplm}{b}{n}
 \DeclareMathSymbol{\PLSigma}{\mathalpha}{PLupright}{"06}
@@ -787,6 +811,8 @@
 \def\examplenameEN{Example}
 \def\problemnameEN{Problem}
 \def\remarknameEN{Remark}
+\expandafter\def\csname definition-propositionnameEN\endcsname{\definitionnameEN-\propositionnameEN}
+\expandafter\def\csname definition-theoremnameEN\endcsname{\definitionnameEN-\theoremnameEN}
 
 %% French theorems names
 \def\theoremnameFR{Théorème}
@@ -801,6 +827,8 @@
 \def\examplenameFR{Exemple}
 \def\problemnameFR{Problème}
 \def\remarknameFR{Remarque}
+\expandafter\def\csname definition-propositionnameFR\endcsname{\definitionnameFR-\propositionnameFR}
+\expandafter\def\csname definition-theoremnameFR\endcsname{\definitionnameFR-\theoremnameFR}
 
 %% German theorems names
 \def\theoremnameDE{Satz}
@@ -815,6 +843,8 @@
 \def\examplenameDE{Beispiel}
 \def\problemnameDE{Problem}
 \def\remarknameDE{Bemerkung}
+\expandafter\def\csname definition-propositionnameDE\endcsname{\definitionnameDE-\propositionnameDE}
+\expandafter\def\csname definition-theoremnameDE\endcsname{\definitionnameDE-\theoremnameDE}
 
 %% Chinese theorems names
 \def\theoremnameCN{定理}
@@ -829,6 +859,8 @@
 \def\examplenameCN{例}
 \def\problemnameCN{问题}
 \def\remarknameCN{备注}
+\expandafter\def\csname definition-propositionnameCN\endcsname{\definitionnameCN-\propositionnameCN}
+\expandafter\def\csname definition-theoremnameCN\endcsname{\definitionnameCN-\theoremnameCN}
 
 \def\theoremnameTC{定理}
 \def\lemmanameTC{引理}
@@ -842,6 +874,8 @@
 \def\examplenameTC{例}
 \def\problemnameTC{問題}
 \def\remarknameTC{備註}
+\expandafter\def\csname definition-propositionnameTC\endcsname{\definitionnameTC-\propositionnameTC}
+\expandafter\def\csname definition-theoremnameTC\endcsname{\definitionnameTC-\theoremnameTC}
 
 %% Japanese theorems names
 \def\theoremnameJP{定理}
@@ -856,6 +890,8 @@
 \def\examplenameJP{例}
 \def\problemnameJP{問題}
 \def\remarknameJP{注釈}
+\expandafter\def\csname definition-propositionnameJP\endcsname{\definitionnameJP-\propositionnameJP}
+\expandafter\def\csname definition-theoremnameJP\endcsname{\definitionnameJP-\theoremnameJP}
 
 %% Russian theorems names
 \def\theoremnameRU{Теорема}
@@ -870,6 +906,8 @@
 \def\examplenameRU{Пример}
 \def\problemnameRU{Вопрос}
 \def\remarknameRU{Замечание}
+\expandafter\def\csname definition-propositionnameRU\endcsname{\definitionnameRU-\propositionnameRU}
+\expandafter\def\csname definition-theoremnameRU\endcsname{\definitionnameRU-\theoremnameRU}
 
 \newif\ifPLthm@IsBook
 \ifdefined\chapter\PLthm@IsBooktrue\else\PLthm@IsBookfalse\fi
@@ -894,11 +932,15 @@
 \CreateTheorem*{conjecture*}
 \theoremstyle{definition}
 \CreateTheorem{definition}[theorem]
+\CreateTheorem{definition-proposition}[theorem]
+\CreateTheorem{definition-theorem}[theorem]
 \CreateTheorem{axiom}[theorem]
 \CreateTheorem{assumption}[theorem]
 \CreateTheorem{example}[theorem]
 \CreateTheorem{problem}[theorem]
 \CreateTheorem*{definition*}
+\CreateTheorem*{definition-proposition*}
+\CreateTheorem*{definition-theorem*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
 \CreateTheorem*{example*}
@@ -917,6 +959,7 @@
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{author}
 \DeclareBoolOption[false]{amssim}
 \DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{palatino}
@@ -980,16 +1023,17 @@
     \linespread{1.05}%
 \fi
 
-\RequirePackage{PLauthor}
+\if@PLtoolkit@author
+    \RequirePackage{PLauthor}
+\fi
+\if@PLtoolkit@amssim
+    \RequirePackage{PLamssim}
+\fi
 \RequirePackage{PLdate}
 \RequirePackage{PLdraft}
 \RequirePackage{PLlogo}
 \RequirePackage{PLpaper}
 \RequirePackage{PLthm}
-
-\if@PLtoolkit@amssim
-    \RequirePackage{PLamssim}
-\fi
 
 \RequirePackage{microtype}
 %</PLtoolkit>
