@@ -158,7 +158,7 @@
         %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
         % \fi%
     \else%
-        \@PLamssim@absbeforetrue%
+        \global\@PLamssim@absbeforetrue%
     \fi%
 }
 
@@ -182,12 +182,12 @@
 % Add abstract to maketitle
 \apptocmd{\maketitle}{%
     \if@PLamssim@absbefore%
-    \begin{abstract@PLoriginal}%
-        \input{\jobname.plabs}%
-        % \ifx\PL@keywords\@empty\else%
-        %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
-        % \fi%
-    \end{abstract@PLoriginal}%
+        \begin{abstract@PLoriginal}%
+            \input{\jobname.plabs}%
+            % \ifx\PL@keywords\@empty\else%
+            %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+            % \fi%
+        \end{abstract@PLoriginal}%
     \fi%
     \global\let\address\relax
     \global\let\curraddr\relax
@@ -541,6 +541,7 @@
     \ifstrequal{#1}{English}{\setstretch{1.07}\PLlang@langconfig@english}{}%
     \ifstrequal{#1}{french}{\setstretch{1.07}\PLlang@langconfig@french}{}%
     \ifstrequal{#1}{French}{\setstretch{1.07}\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{ngerman}{\setstretch{1.07}\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{german}{\setstretch{1.07}\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{German}{\setstretch{1.07}\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
@@ -572,6 +573,7 @@
     \ifstrequal{#1}{English}{\PLlang@langconfig@english}{}%
     \ifstrequal{#1}{french}{\PLlang@langconfig@french}{}%
     \ifstrequal{#1}{French}{\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{ngerman}{\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{german}{\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{German}{\PLlang@langconfig@german}{}%
     \ifstrequal{#1}{russian}{\PLlang@langconfig@russian}{}%
@@ -989,6 +991,7 @@
 
 \if@PLtoolkit@palatino
     \RequirePackage{amssymb}
+    \RequirePackage{mathpazo}
     \PassOptionsToPackage{defaultsups}{newpxtext}
     \RequirePackage{newpxtext}
     \RequirePackage{newpxmath}

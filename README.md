@@ -5,22 +5,24 @@
 A collection of tools that help you write LaTeX document. With `PLtoolkit` loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings.
 
 1. `PLamssim.sty`
-    - Simulate some features of amsart in the standard classes
+    - Simulate some features of `amsart` in the standard classes
 1. `PLauthor.sty`
     - Enhanced author information block
+    - Offers `\address`, `\curraddr` and `\email`
 1. `PLdate.sty`
-    - Offer a macro `\PLdate` to convert `yyyy-mm-dd` to normal datetime format, with multi-language support
+    - Offers a macro `\PLdate` to convert `yyyy-mm-dd` to normal datetime format, with multi-language support
 1. `PLdraft.sty`
     - Useful macros during the draft stage: `\dnf` and `\needgraph`, with multi-language support
 1. `PLlang.sty`
     - Multi-language configuration based on `babel` or `polyglossia`
-    - Currently support Chinese (simplified and traditional), English, French, German, Japanese and Russian, more to be added
+    - Currently support Chinese (simplified and traditional), English, French, German, Japanese and Russian, *more to be added*
 1. `PLlogo.sty`
     - Draw the ProjLib logo
 1. `PLpaper.sty`
-    - Paper style configuration
+    - Paper style configuration: yellow theme, dark theme and nord theme
 1. `PLthm.sty`
     - Theorem setup and configuration, with multi-language support
+    - Preset environments include: `assumption`, `axiom`, `conjecture`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `lemma`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. `PLtoolkit.sty`, *the all-in-one solution*
     - A collective interface of ProjLib Toolkit, loading all the packages above
     - Provide some pre-defined font configuration
