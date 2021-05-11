@@ -617,6 +617,8 @@
     #2%
 \endgroup%
 }
+
+\UseLanguage{English}
 %</PLlang>
 %
 %<*PLlogo>
@@ -642,13 +644,15 @@
 % \RequirePackage{fontspec}
 % \newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
 % \fi
-\ifdefined\setmainfont
+\ifdefined\fontspec
     \newcommand{\PLlogo@font}{\normalfont\fontspec{LinBiolinum_R.otf}\selectfont}
 \else
+    \PassOptionsToPackage{T1}{fontenc}
     \RequirePackage{fontenc}
     \newcommand{\PLlogo@font}{\normalfont\fontfamily{LinuxBiolinumT-TLF}\selectfont}
 \fi
-\DeclareSymbolFont{PLupright}{OT1}{zplm}{b}{n}
+% \DeclareSymbolFont{PLupright}{OT1}{zplm}{b}{n}
+\DeclareSymbolFont{PLupright}{U}{zeur}{b}{n}
 \DeclareMathSymbol{\PLSigma}{\mathalpha}{PLupright}{"06}
 
 \providecommand*{\ProjLib}{%
@@ -658,8 +662,23 @@
 \color{blue!45!cyan}r%
 \color{blue!30!cyan}o%
 \color{green!70!black}\j%
-\kern-0.235em\raisebox{0.57em}{\scalebox{0.3}{\rotatebox{-10}{$\PLSigma$}}}%
-\kern-0.01em%
+% \kern-0.235em\raisebox{0.57em}{\scalebox{0.3}{\rotatebox{-10}{$\PLSigma$}}}%
+% \kern-0.01em%
+\kern-0.266em\raisebox{0.56em}{\scalebox{0.4}{\rotatebox{-10}{$\PLSigma$}}}%
+\kern-0.065em%
+\color{red!20!yellow}L%
+\color{red!40!yellow}i%
+\color{red!60!yellow}b%
+\endgroup%
+}
+
+\providecommand*{\ProjLibText}{%
+\begingroup%
+\PLlogo@font%
+\color{blue!60!cyan}P%
+\color{blue!45!cyan}r%
+\color{blue!30!cyan}o%
+\color{green!70!black}j%
 \color{red!20!yellow}L%
 \color{red!40!yellow}i%
 \color{red!60!yellow}b%
@@ -1057,6 +1076,76 @@
 \CreateTheorem*{remark*}
 \numberwithin{equation}{highest}
 \fi
+
+% Some localization of cref
+\gappto{\PLlang@langconfig@chinese}{%
+    \crefname{equation}{式}{式}%
+    \crefname{figure}{图}{图}%
+    \crefname{table}{表}{表}%
+    \crefname{appendix}{附录}{附录}%
+    \Crefname{equation}{式}{式}%
+    \Crefname{figure}{图}{图}%
+    \Crefname{table}{表}{表}%
+    \Crefname{appendix}{附录}{附录}%
+    \def\crefpairconjunction{~和~}%
+    \def\crefmiddleconjunction{、}%
+    \def\creflastconjunction{~和~}%
+    \def\crefpairgroupconjunction{~和~}%
+    \def\crefmiddlegroupconjunction{、}%
+    \def\creflastgroupconjunction{~和~}%
+    \def\crefrangeconjunction{～}%
+}
+\gappto{\PLlang@langconfig@tchinese}{%
+    \crefname{equation}{式}{式}%
+    \crefname{figure}{圖}{圖}%
+    \crefname{table}{表}{表}%
+    \crefname{appendix}{附錄}{附錄}%
+    \Crefname{equation}{式}{式}%
+    \Crefname{figure}{圖}{圖}%
+    \Crefname{table}{表}{表}%
+    \Crefname{appendix}{附錄}{附錄}%
+    \def\crefpairconjunction{~與~}%
+    \def\crefmiddleconjunction{、}%
+    \def\creflastconjunction{~與~}%
+    \def\crefpairgroupconjunction{~與~}%
+    \def\crefmiddlegroupconjunction{、}%
+    \def\creflastgroupconjunction{~與~}%
+    \def\crefrangeconjunction{～}%
+}
+\gappto{\PLlang@langconfig@japanese}{%
+    \crefname{equation}{式}{式}%
+    \crefname{figure}{図}{図}%
+    \crefname{table}{表}{表}%
+    \Crefname{appendix}{付録}{付録}%
+    \Crefname{equation}{式}{式}%
+    \Crefname{figure}{図}{図}%
+    \Crefname{table}{表}{表}%
+    \Crefname{appendix}{付録}{付録}%
+    \def\crefpairconjunction{~と~}%
+    \def\crefmiddleconjunction{~と~}%
+    \def\creflastconjunction{~と~}%
+    \def\crefpairgroupconjunction{~と~}%
+    \def\crefmiddlegroupconjunction{~と~}%
+    \def\creflastgroupconjunction{~と~}%
+    \def\crefrangeconjunction{〜}%
+}
+\gappto{\PLlang@langconfig@russian}{%
+    \crefname{equation}{уравнение}{уравнения}%
+    \crefname{figure}{рис.}{рис.}%
+    \crefname{table}{таблица}{таблицы}%
+    \crefname{appendix}{приложение}{приложения}%
+    \Crefname{equation}{Уравнение}{Уравнения}%
+    \Crefname{figure}{Рис.}{Рис.}%
+    \Crefname{table}{Таблица}{Таблицы}%
+    \Crefname{appendix}{Приложение}{Приложения}%
+    \def\crefpairconjunction{~и~}%
+    \def\crefmiddleconjunction{,~}%
+    \def\creflastconjunction{~и~}%
+    \def\crefpairgroupconjunction{~и~}%
+    \def\crefmiddlegroupconjunction{,~}%
+    \def\creflastgroupconjunction{~и~}%
+    \def\crefrangeconjunction{~\textasciitilde~}%
+}
 %</PLthm>
 %
 %<*PLtoolkit>
