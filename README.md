@@ -2,7 +2,7 @@
 
 # ProjLib Toolkit
 
-A collection of tools that help you write LaTeX document. With `PLtoolkit` loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings.
+A collection of tools that help you write LaTeX document. With `PLtoolkit` loaded, you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
 
 1. `PLamssim.sty`
     - Simulate some features of `amsart` in the standard classes

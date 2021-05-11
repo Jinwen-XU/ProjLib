@@ -30,7 +30,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
+    {color,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -194,6 +194,21 @@ For details on how to select a language, please refer to the section on \PLlang{
     \item Russian: \texttt{Russian} or \texttt{russian}
 \end{itemize}
 
+\medskip
+In addition, you can also add new settings to selected language:
+\begin{itemize}
+    \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item Add \meta{settings} to all supported languages.
+    \end{itemize}
+    \item \lstinline|\AddLanguageSetting(|\meta{language name}\lstinline|){|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item Add \meta{settings} to the selected language \meta{language name}.
+    \end{itemize}
+\end{itemize}
+For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make all German text displayed in orange (of course, one then need to add \lstinline|\AddLanguageSetting{\color{black}}| in order to correct the color of the text in other languages).
+
+
 \subsection{PLlogo}
 
 \PLlogo{} offers the \lstinline|\ProjLib| macro to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
@@ -220,6 +235,7 @@ For details on how to select a language, please refer to the section on \PLlang{
     \lstinline|\Huge|:& {\Huge\ProjLib}
 \end{longtable}
 
+\clearpage
 \subsection{PLpaper}
 
 \PLpaper{} is mainly used to adjust the paper color. It has the following options:
@@ -244,7 +260,7 @@ It is recommended to pass these options as global options of the document class.
 \subsection{PLthm}
 
 \PLthm{} offers the configuration of theorem-like environments. It has the following option:
-\vspace{-.3\baselineskip}
+% \vspace{-.3\baselineskip}
 \begin{itemize}
     \item \texttt{nothms}
     \begin{itemize}
@@ -258,7 +274,7 @@ When referencing a theorem-like environment, it is recommended to use smart refe
 
 \medskip
 If you need to define a new theorem-like environment, you must first define the name of the environment in the language used: \lstinline|\|\meta{name of environment}\meta{language abbr}, where \meta{language abbr} is the abbreviation of language, which can be:
-\vspace{-.5\baselineskip}
+% \vspace{-.5\baselineskip}
 \begin{longtable}{ll|ll}
     \texttt{CN} & Simplified Chinese & \texttt{DE} & German\\
     \texttt{TC} & Traditional Chinese & \texttt{JP} & Japanese\\
@@ -330,7 +346,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \bigskip
 \section{Known issues}
 
-\begin{itemize}[itemsep=1em]
+\begin{itemize}[itemsep=.6em]
     \item \PLauthor{} is still in its preliminary stage, and thus its effect is still not as good as the relatively mature \textsf{authblk} in some aspects.
     \item \PLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
     \item \PLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.

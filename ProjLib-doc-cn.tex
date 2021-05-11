@@ -32,7 +32,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
+    {color,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -200,6 +200,20 @@
     \item 日文：\texttt{Japanese} 或 \texttt{japanese}
     \item 俄文：\texttt{Russian} 或 \texttt{russian}
 \end{itemize}
+
+另外，还可以通过下面的方式来填加相应语言的设置：
+\begin{itemize}
+    \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item 向所有支持的语言增加设置 \meta{settings}。
+    \end{itemize}
+    \item \lstinline|\AddLanguageSetting(|\meta{language name}\lstinline|){|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item 向指定的语言 \meta{language name} 增加设置 \meta{settings}。
+    \end{itemize}
+\end{itemize}
+例如，\lstinline|\AddLanguageSetting(German){\color{orange}}| 可以让所有德语以橙色显示（当然，还需要再加上 \lstinline|\AddLanguageSetting{\color{black}}| 来修正其他语言的颜色）。
+
 
 \subsection{PLlogo}
 

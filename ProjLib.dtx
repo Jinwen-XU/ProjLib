@@ -524,32 +524,64 @@
 \newcommand{\PLlang@langconfig@russian}{%
     \selectlanguage{russian}%
 }
-%
+\NewDocumentCommand\AddLanguageSetting{d()m}{%
+\IfNoValueTF{#1}%
+    {\gappto{\PLlang@langconfig@common}{#2}}%
+    {%
+        \ifstrequal{#1}{chinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{Chinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{schinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{SChinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{simplifiedchinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{SimplifiedChinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{tchinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{TChinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{traditionalchinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{TraditionalChinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{japanese}{\gappto{\PLlang@langconfig@japanese}{#2}}{}%
+        \ifstrequal{#1}{Japanese}{\gappto{\PLlang@langconfig@japanese}{#2}}{}%
+        \ifstrequal{#1}{english}{\gappto{\PLlang@langconfig@english}{#2}}{}%
+        \ifstrequal{#1}{English}{\gappto{\PLlang@langconfig@english}{#2}}{}%
+        \ifstrequal{#1}{french}{\gappto{\PLlang@langconfig@french}{#2}}{}%
+        \ifstrequal{#1}{French}{\gappto{\PLlang@langconfig@french}{#2}}{}%
+        \ifstrequal{#1}{ngerman}{\gappto{\PLlang@langconfig@german}{#2}}{}%
+        \ifstrequal{#1}{german}{\gappto{\PLlang@langconfig@german}{#2}}{}%
+        \ifstrequal{#1}{German}{\gappto{\PLlang@langconfig@german}{#2}}{}%
+        \ifstrequal{#1}{russian}{\gappto{\PLlang@langconfig@russian}{#2}}{}%
+        \ifstrequal{#1}{Russian}{\gappto{\PLlang@langconfig@russian}{#2}}{}%
+    }%
+}
+
 \RequirePackage{setspace}
+%
+\def\PL@config@linespacing{\setstretch{1.00}}
+\def\PL@config@CJKlinespacing{\onehalfspacing}
+\newcommand{\PLsetlinespacing}[1]{\renewcommand{\PL@config@linespacing}{#1}}
+\newcommand{\PLsetCJKlinespacing}[1]{\renewcommand{\PL@config@CJKlinespacing}{#1}}
 %
 \newcommand{\UseLanguageCORE}[1]{%
     \PLlang@langconfig@common%
-    \ifstrequal{#1}{chinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{Chinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{schinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SChinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{simplifiedchinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SimplifiedChinese}{\onehalfspacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{tchinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TChinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{traditionalchinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TraditionalChinese}{\onehalfspacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{japanese}{\onehalfspacing\PLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{Japanese}{\onehalfspacing\PLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{english}{\setstretch{1.07}\PLlang@langconfig@english}{}%
-    \ifstrequal{#1}{English}{\setstretch{1.07}\PLlang@langconfig@english}{}%
-    \ifstrequal{#1}{french}{\setstretch{1.07}\PLlang@langconfig@french}{}%
-    \ifstrequal{#1}{French}{\setstretch{1.07}\PLlang@langconfig@french}{}%
-    \ifstrequal{#1}{ngerman}{\setstretch{1.07}\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{german}{\setstretch{1.07}\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{German}{\setstretch{1.07}\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
-    \ifstrequal{#1}{Russian}{\setstretch{1.07}\PLlang@langconfig@russian}{}%
+    \ifstrequal{#1}{chinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{schinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{simplifiedchinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SimplifiedChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{tchinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{traditionalchinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TraditionalChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{japanese}{\PL@config@CJKlinespacing\PLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{Japanese}{\PL@config@CJKlinespacing\PLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{english}{\PL@config@linespacing\PLlang@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\PL@config@linespacing\PLlang@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\PL@config@linespacing\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\PL@config@linespacing\PLlang@langconfig@french}{}%
+    \ifstrequal{#1}{ngerman}{\PL@config@linespacing\PLlang@langconfig@german}{}%
+    \ifstrequal{#1}{german}{\PL@config@linespacing\PLlang@langconfig@german}{}%
+    \ifstrequal{#1}{German}{\PL@config@linespacing\PLlang@langconfig@german}{}%
+    \ifstrequal{#1}{russian}{\PL@config@linespacing\PLlang@langconfig@russian}{}%
+    \ifstrequal{#1}{Russian}{\PL@config@linespacing\PLlang@langconfig@russian}{}%
 }
 \newcommand{\UseLanguage}[1]{%
     \ifx\@onlypreamble\@notprerr%
@@ -1054,14 +1086,25 @@
     \PassOptionsToPackage{nothms}{PLthm}
 \fi
 
-\RequirePackage{iftex}
-\ifPDFTeX
-\RequirePackage[T1]{fontenc}
-\RequirePackage{inputenc}
+\if@PLtoolkit@author
+    \RequirePackage{PLauthor}
 \fi
+\if@PLtoolkit@amssim
+    \RequirePackage{PLamssim}
+\fi
+\RequirePackage{PLdate}
+\RequirePackage{PLdraft}
+\RequirePackage{PLlogo}
+\RequirePackage{PLpaper}
+\RequirePackage{PLthm}
 
+% \RequirePackage{iftex}
+% \ifPDFTeX
+% \RequirePackage[T1]{fontenc}
+% \RequirePackage{inputenc}
+% \fi
+%
 \RequirePackage{mathtools}
-
 \if@PLtoolkit@palatino
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
@@ -1069,7 +1112,7 @@
     \RequirePackage{newpxtext}
     \RequirePackage{newpxmath}
     \let\openbox\relax
-    \linespread{1.07}
+    \PLsetlinespacing{\setstretch{1.07}}
 \fi
 
 \if@PLtoolkit@times
@@ -1078,7 +1121,7 @@
     \RequirePackage{newtxtext}
     \RequirePackage{newtxmath}
     \let\openbox\relax
-    \linespread{1.00}
+    \PLsetlinespacing{\setstretch{1.00}}
 \fi
 
 \if@PLtoolkit@garamond
@@ -1086,7 +1129,7 @@
     \RequirePackage{ebgaramond-maths}
     \RequirePackage{ebgaramond}
     % \RequirePackage{garamondlibre}
-    \linespread{1.00}
+    \PLsetlinespacing{\setstretch{1.00}}
 \fi
 
 \if@PLtoolkit@biolinum
@@ -1104,20 +1147,8 @@
             ItalicFont     = LinBiolinum_RI.otf ,
             BoldItalicFont = LinBiolinum_RBO.otf ]
     \fi
-    \linespread{1.05}
+    \PLsetlinespacing{\setstretch{1.05}}
 \fi
-
-\if@PLtoolkit@author
-    \RequirePackage{PLauthor}
-\fi
-\if@PLtoolkit@amssim
-    \RequirePackage{PLamssim}
-\fi
-\RequirePackage{PLdate}
-\RequirePackage{PLdraft}
-\RequirePackage{PLlogo}
-\RequirePackage{PLpaper}
-\RequirePackage{PLthm}
 
 \RequirePackage{microtype}
 %</PLtoolkit>
