@@ -1105,6 +1105,11 @@
 % \fi
 %
 \RequirePackage{mathtools}
+
+% \PL@font@alreadyset should contain the current font name
+% A message can then be shown as: Font "(font name)" has been set
+\ifdefined\PL@font@alreadyset\else
+
 \if@PLtoolkit@palatino
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
@@ -1148,6 +1153,8 @@
             BoldItalicFont = LinBiolinum_RBO.otf ]
     \fi
     \PLsetlinespacing{\setstretch{1.05}}
+\fi
+
 \fi
 
 \RequirePackage{microtype}

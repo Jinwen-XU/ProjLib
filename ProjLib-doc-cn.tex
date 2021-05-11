@@ -229,7 +229,7 @@
 %     \item \lstinline|\huge|:\quad {\huge\ProjLib}
 %     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
 % \end{itemize}
-\vspace{-0.5\baselineskip}
+% \vspace{-0.5\baselineskip}
 \begin{longtable}{ll}
     \lstinline|\tiny|:& {\tiny\ProjLib}\\
     \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
@@ -311,7 +311,7 @@
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
     \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
         \begin{itemize}
-            \item 将 \meta{name of environment} 与 \meta{existed environment} 或 \meta{existed environment*} 等同。
+            \item 将 \meta{name of environment} 与 \meta{existed environment} 或 \meta{existed environment}\lstinline|*| 等同。
             \item 这种方式通常在两种情况下比较有用：
                 \begin{enumerate}
                     \item 希望定义更简洁的名称。例如，使用 \lstinline|\CreateTheorem{thm}(theorem)|，便可以直接用名称 \texttt{thm} 来撰写定理。
