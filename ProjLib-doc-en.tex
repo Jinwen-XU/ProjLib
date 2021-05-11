@@ -160,7 +160,9 @@ The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\
 
 \subsection{PLdate}
 
-\PLdatestr{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For details on how to select a language, please refer to the section on \PLlang{}.
+\PLdatestr{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become: \PLdate{2022-04-01}.
+
+For details on how to select a language, please refer to the section on \PLlang{}.
 
 \subsection{PLdraft}
 
@@ -250,7 +252,7 @@ It is recommended to pass these options as global options of the document class.
     \end{itemize}
 \end{itemize}
 
-Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{corollary}, \texttt{definition}, \texttt{definition}-\texttt{proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{lemma}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The display of these environments will change according to the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PLlang{}.
+Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The display of these environments will change according to the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PLlang{}.
 
 When referencing a theorem-like environment, it is recommended to use smart reference \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
 
@@ -269,19 +271,39 @@ If you need to define a new theorem-like environment, you must first define the 
 \end{remind}
 
 \medskip
-And then define this environment in one of following four ways:
+And then define this environment in one of following five ways:
 \begin{itemize}
-    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|\\
-        Define an unnumbered environment \meta{name of environment}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|\\
-        Define a numbered environment \meta{name of environment}, which shares the counter \meta{numbered like}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|\\
-        Define a numbered environment \meta{name of environment}, numbered within the counter \meta{numbered within}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|\\
-        Define a numbered environment \meta{name of environment}, numbered in order 1,2,3,\dots
+    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item Define an unnumbered environment \meta{name of environment}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item Define a numbered environment \meta{name of environment}, numbered in order 1,2,3,\dots
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
+        \begin{itemize}
+            \item Define a numbered environment \meta{name of environment}, which shares the counter \meta{numbered like}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
+        \begin{itemize}
+            \item Define a numbered environment \meta{name of environment}, numbered within the counter \meta{numbered within}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
+    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
+        \begin{itemize}
+            \item Identify \meta{name of environment} with \meta{existed environment} or \meta{existed environment*}.
+            \item This method is usually useful in the following two situations:
+                \begin{enumerate}
+                    \item To use a more concise name. For example, with \lstinline|\CreateTheorem{thm}(theorem)|, one can then use the name \texttt{thm} to write theorem.
+                    \item To remove the numbering of some environments. For example, with \lstinline|\CreateTheorem{remark}(remark*)|, one can remove the numbering of the \texttt{remark} environment.
+                \end{enumerate}
+        \end{itemize}
 \end{itemize}
 
-It uses \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
+\begin{remind}
+    It uses \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
+\end{remind}
 
 \def\proofideanameEN{Idea}
 \CreateTheorem*{proofidea*}
@@ -304,7 +326,18 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     The \lstinline|proofidea| environment.
 \end{proofidea}
 
-% \section{Known issue}
+
+\bigskip
+\section{Known issues}
+
+\begin{itemize}[itemsep=1em]
+    \item \PLauthor{} is still in its preliminary stage, and thus its effect is still not as good as the relatively mature \textsf{authblk} in some aspects.
+    \item \PLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
+    \item \PLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.
+    \item \PLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
+    \item \PLthm{}: The localization of \textsf{cleveref} has not been completed for all supported languages of \PLlang{}, especially for Chinese, Japanese and Russian.
+    \item The error handling mechanism is incomplete: there is no corresponding error prompt when some problems occur.
+\end{itemize}
 
 
 \clearpage

@@ -162,7 +162,9 @@
 
 \subsection{PLdate}
 
-\PLdatestr{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+\PLdatestr{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为：\PLdate{2022-04-01}。
+
+关于如何选定语言，请参阅关于 \PLlang{} 的小节。
 
 \subsection{PLdraft}
 
@@ -178,8 +180,14 @@
 
 \PLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。可以通过下列命令来选定语言：
 \begin{itemize}
-    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}|，用于指定语言，在其后将使用对应的语言设定。\\既可以用于导言部分，也可以用于正文部分。在不指定语言时，默认选定 “English”。
-    \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|，用指定的语言的设定排版 \meta{content}。\\相比较 \lstinline|\UseLanguage|，它不会对行距进行修改，因此中西文字混排时能够保持行距稳定。
+    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}|，用于指定语言，在其后将使用对应的语言设定。
+    \begin{itemize}
+        \item 既可以用于导言部分，也可以用于正文部分。在不指定语言时，默认选定 “English”。
+    \end{itemize}
+    \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|，用指定的语言的设定排版 \meta{content}。
+    \begin{itemize}
+        \item 相比较 \lstinline|\UseLanguage|，它不会对行距进行修改，因此中西文字混排时能够保持行距稳定。
+    \end{itemize}
 \end{itemize}
 
 \meta{language name} 有下列选择：
@@ -207,6 +215,7 @@
 %     \item \lstinline|\huge|:\quad {\huge\ProjLib}
 %     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
 % \end{itemize}
+\vspace{-0.5\baselineskip}
 \begin{longtable}{ll}
     \lstinline|\tiny|:& {\tiny\ProjLib}\\
     \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
@@ -250,7 +259,7 @@
     \end{itemize}
 \end{itemize}
 
-预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{lemma}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
 
 在引用定理类环境时，建议使用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|。这样就不必每次都写上相应环境的名称了。
 
@@ -267,19 +276,39 @@
     如果要定义名称后带有星号 \lstinline|*| 的环境，那么在上面的 \meta{name of environment} 中不用写星号。
 \end{remind}
 
-然后用下面四种方式之一定义这一环境：
+然后用下面五种方式之一定义这一环境：
 \begin{itemize}
-    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|\\
-        定义不编号的环境 \meta{name of environment}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|\\
-        定义编号环境 \meta{name of environment}，与 \meta{numbered like} 计数器共用编号
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|\\
-        定义编号环境 \meta{name of environment}，在 \meta{numbered within} 计数器内编号
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|\\
-        定义编号环境 \meta{name of environment}，按顺序编号
+    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item 定义不编号的环境 \meta{name of environment}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item 定义编号环境 \meta{name of environment}，按顺序编号
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
+        \begin{itemize}
+            \item 定义编号环境 \meta{name of environment}，与 \meta{numbered like} 计数器共用编号
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
+        \begin{itemize}
+            \item 定义编号环境 \meta{name of environment}，在 \meta{numbered within} 计数器内编号
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
+    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
+        \begin{itemize}
+            \item 将 \meta{name of environment} 与 \meta{existed environment} 或 \meta{existed environment*} 等同。
+            \item 这种方式通常在两种情况下比较有用：
+                \begin{enumerate}
+                    \item 希望定义更简洁的名称。例如，使用 \lstinline|\CreateTheorem{thm}(theorem)|，便可以直接用名称 \texttt{thm} 来撰写定理。
+                    \item 希望去除某些环境的编号。例如，使用 \lstinline|\CreateTheorem{remark}(remark*)|，便可以去除 \texttt{remark} 环境的编号。
+                \end{enumerate}
+        \end{itemize}
 \end{itemize}
 
-其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
+\begin{remind}
+    其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
+\end{remind}
 
 \def\proofideanameCN{思路}
 \CreateTheorem*{proofidea*}
@@ -302,7 +331,18 @@
     \lstinline|proofidea| 环境。
 \end{proofidea}
 
-% \section{目前已知的问题}
+
+\bigskip
+\section{目前存在的问题}
+
+\begin{itemize}[itemsep=1em]
+    \item \PLauthor{} 仍然处于初步阶段，在很多方面还远远比不上相对成熟的 \textsf{authblk}。
+    \item \PLlang{}：针对 \textsf{polyglossia} 的设置仍然存在许多问题，因此现在主要功能都是通过 \textsf{babel} 实现的。
+    \item \PLpaper{} 的 \texttt{preview} 功能主要是通过 \textsf{geometry} 宏包实现的，因此在 \textsc{\textsf{Koma}} 文档类中效果不好。
+    \item \PLthm{} 对于定理类环境的编号与样式设定目前还无法由用户更改。
+    \item \PLthm{}：智能引用针对所有 \PLlang{} 已支持语言的本地化尚未完成，主要是中文、日文与俄文。
+    \item 错误处理功能不完善，在出现一些问题时没有相应的错误提示。
+\end{itemize}
 
 
 \clearpage

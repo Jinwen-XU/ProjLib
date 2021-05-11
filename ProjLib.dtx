@@ -440,6 +440,10 @@
 \newcommand\russianABBR{RU}
 
 \RequirePackage{iftex}
+\ifPDFTeX
+\RequirePackage[T1]{fontenc}
+\RequirePackage{inputenc}
+\fi
 
 \if@PLlang@polyglossia
     \RequirePackage{polyglossia}
@@ -732,12 +736,13 @@
     {\expandafter\PassFirstToSecond%
         \expandafter{\temp}{\endgroup\InnerCreateTheorem{#1}}}%
 }%
-\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>}{%
+\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()}{%
 % #1 = star or no star
 % #2 = name of environment
 % #3 = emptiness or star to append to name of environment
 % #4 = numbered like
 % #5 = numbered within
+% #6 = existed environment
     \IfBooleanTF{#1}{%
         \IfValueTF{#4}
             {\@firstoftwo}
@@ -754,38 +759,50 @@
         nor call the unstarred variant with several optional arguments.}%
         {}%
     }{%
-        \IfBooleanTF{#1}{%
-            \newtheorem*{#2EN#3}{\csname#2nameEN\endcsname}
-            \newtheorem*{#2FR#3}{\csname#2nameFR\endcsname}
-            \newtheorem*{#2DE#3}{\csname#2nameDE\endcsname}
-            \newtheorem*{#2CN#3}{\csname#2nameCN\endcsname}
-            \newtheorem*{#2TC#3}{\csname#2nameTC\endcsname}
-            \newtheorem*{#2JP#3}{\csname#2nameJP\endcsname}
-            \newtheorem*{#2RU#3}{\csname#2nameRU\endcsname}
-        }{%
-            \IfValueTF{#5}{%
-                \newcounter{#2#3}[{#5}]%
-                \expandafter\renewcommand\expandafter*%
-                    \csname the#2#3\expandafter\endcsname%
-                    \expandafter{\csname the#5\endcsname.\arabic{#2#3}}%
+        \IfValueTF{#6}{%
+            \IfBooleanTF{#1}{%
+                \ifcsmacro{#2#3}%
+                {\renewenvironment{#2#3}{\begin{#6*}}{\end{#6*}}}%
+                {\newenvironment{#2#3}{\begin{#6*}}{\end{#6*}}}%
             }{%
-                \IfValueTF{#4}
-                    {\newaliascnt{#2#3}{#4}}
-                    {\newcounter{#2#3}}%
+                \ifcsmacro{#2#3}%
+                {\renewenvironment{#2#3}{\begin{#6}}{\end{#6}}}%
+                {\newenvironment{#2#3}{\begin{#6}}{\end{#6}}}%
+            }
+        }{%
+            \IfBooleanTF{#1}{%
+                \newtheorem*{#2EN#3}{\csname#2nameEN\endcsname}
+                \newtheorem*{#2FR#3}{\csname#2nameFR\endcsname}
+                \newtheorem*{#2DE#3}{\csname#2nameDE\endcsname}
+                \newtheorem*{#2CN#3}{\csname#2nameCN\endcsname}
+                \newtheorem*{#2TC#3}{\csname#2nameTC\endcsname}
+                \newtheorem*{#2JP#3}{\csname#2nameJP\endcsname}
+                \newtheorem*{#2RU#3}{\csname#2nameRU\endcsname}
+            }{%
+                \IfValueTF{#5}{%
+                    \newcounter{#2#3}[{#5}]%
+                    \expandafter\renewcommand\expandafter*%
+                        \csname the#2#3\expandafter\endcsname%
+                        \expandafter{\csname the#5\endcsname.\arabic{#2#3}}%
+                }{%
+                    \IfValueTF{#4}
+                        {\newaliascnt{#2#3}{#4}}
+                        {\newcounter{#2#3}}%
+                }%
+                %---------------------------------------------------------------
+                \CreateTheoremNumberedLikeAliasCounter{#2}{EN}{#3}%
+                \CreateTheoremNumberedLikeAliasCounter{#2}{FR}{#3}%
+                \CreateTheoremNumberedLikeAliasCounter{#2}{DE}{#3}%
+                \CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}%
+                \CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}%
+                \CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}%
+                \CreateTheoremNumberedLikeAliasCounter{#2}{RU}{#3}%
+                %---------------------------------------------------------------
             }%
-            %-------------------------------------------------------------------
-            \CreateTheoremNumberedLikeAliasCounter{#2}{EN}{#3}%
-            \CreateTheoremNumberedLikeAliasCounter{#2}{FR}{#3}%
-            \CreateTheoremNumberedLikeAliasCounter{#2}{DE}{#3}%
-            \CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}%
-            \CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}%
-            \CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}%
-            \CreateTheoremNumberedLikeAliasCounter{#2}{RU}{#3}%
-            %-------------------------------------------------------------------
-        }%
-        \NewDocumentEnvironment{#2#3}{}
-            {\csname#2\csname\languagename ABBR\endcsname#3\endcsname}%
-            {\csname end#2\csname\languagename ABBR\endcsname#3\endcsname}%
+            \NewDocumentEnvironment{#2#3}{}
+                {\csname#2\csname\languagename ABBR\endcsname#3\endcsname}%
+                {\csname end#2\csname\languagename ABBR\endcsname#3\endcsname}%
+        }
     }%
 }%
 \NewDocumentCommand{\CreateTheoremNumberedLikeAliasCounter}{mmm}{%
@@ -805,13 +822,19 @@
 \def\lemmanameEN{Lemma}
 \def\propositionnameEN{Proposition}
 \def\corollarynameEN{Corollary}
+\def\propertynameEN{Property}
 \def\factnameEN{Fact}
 \def\conjecturenameEN{Conjecture}
 \def\definitionnameEN{Definition}
 \def\axiomnameEN{Axiom}
 \def\assumptionnameEN{Assumption}
+\def\conventionnameEN{Convention}
+\def\hypothesisnameEN{Hypothesis}
+\def\notationnameEN{Notation}
 \def\examplenameEN{Example}
 \def\problemnameEN{Problem}
+\def\questionnameEN{Question}
+\def\exercisenameEN{Exercise}
 \def\remarknameEN{Remark}
 \expandafter\def\csname definition-propositionnameEN\endcsname{\definitionnameEN-\propositionnameEN}
 \expandafter\def\csname definition-theoremnameEN\endcsname{\definitionnameEN-\theoremnameEN}
@@ -821,13 +844,19 @@
 \def\lemmanameFR{Lemme}
 \def\propositionnameFR{Proposition}
 \def\corollarynameFR{Corollaire}
+\def\propertynameFR{Propriété}
 \def\factnameFR{Fait}
 \def\conjecturenameFR{Conjecture}
 \def\definitionnameFR{Définition}
 \def\axiomnameFR{Axiome}
 \def\assumptionnameFR{Supposition}
+\def\conventionnameFR{Convention}
+\def\hypothesisnameFR{Hypothèse}
+\def\notationnameFR{Notation}
 \def\examplenameFR{Exemple}
 \def\problemnameFR{Problème}
+\def\questionnameFR{Question}
+\def\exercisenameFR{Exercice}
 \def\remarknameFR{Remarque}
 \expandafter\def\csname definition-propositionnameFR\endcsname{\definitionnameFR-\propositionnameFR}
 \expandafter\def\csname definition-theoremnameFR\endcsname{\definitionnameFR-\theoremnameFR}
@@ -837,13 +866,19 @@
 \def\lemmanameDE{Lemma}
 \def\propositionnameDE{Proposition}
 \def\corollarynameDE{Korollar}
+\def\propertynameDE{Eigenschaft}
 \def\factnameDE{Fakt}
 \def\conjecturenameDE{Vermutung}
 \def\definitionnameDE{Definition}
 \def\axiomnameDE{Axiom}
 \def\assumptionnameDE{Annahme}
+\def\conventionnameDE{Konvention}
+\def\hypothesisnameDE{Hypothese}
+\def\notationnameDE{Notation}
 \def\examplenameDE{Beispiel}
 \def\problemnameDE{Problem}
+\def\questionnameDE{Frage}
+\def\exercisenameDE{Übung}
 \def\remarknameDE{Bemerkung}
 \expandafter\def\csname definition-propositionnameDE\endcsname{\definitionnameDE-\propositionnameDE}
 \expandafter\def\csname definition-theoremnameDE\endcsname{\definitionnameDE-\theoremnameDE}
@@ -853,13 +888,19 @@
 \def\lemmanameCN{引理}
 \def\propositionnameCN{命题}
 \def\corollarynameCN{推论}
+\def\propertynameCN{性质}
 \def\factnameCN{事实}
 \def\conjecturenameCN{猜想}
 \def\definitionnameCN{定义}
 \def\axiomnameCN{公理}
 \def\assumptionnameCN{假设}
+\def\conventionnameCN{约定}
+\def\hypothesisnameCN{假设}
+\def\notationnameCN{记号}
 \def\examplenameCN{例}
 \def\problemnameCN{问题}
+\def\questionnameCN{问题}
+\def\exercisenameCN{练习}
 \def\remarknameCN{备注}
 \expandafter\def\csname definition-propositionnameCN\endcsname{\definitionnameCN-\propositionnameCN}
 \expandafter\def\csname definition-theoremnameCN\endcsname{\definitionnameCN-\theoremnameCN}
@@ -868,13 +909,19 @@
 \def\lemmanameTC{引理}
 \def\propositionnameTC{命題}
 \def\corollarynameTC{推論}
+\def\propertynameTC{性質}
 \def\factnameTC{事實}
 \def\conjecturenameTC{猜想}
 \def\definitionnameTC{定義}
 \def\axiomnameTC{公理}
 \def\assumptionnameTC{假設}
+\def\conventionnameTC{約定}
+\def\hypothesisnameTC{假設}
+\def\notationnameTC{記號}
 \def\examplenameTC{例}
 \def\problemnameTC{問題}
+\def\questionnameTC{問題}
+\def\exercisenameTC{練習}
 \def\remarknameTC{備註}
 \expandafter\def\csname definition-propositionnameTC\endcsname{\definitionnameTC-\propositionnameTC}
 \expandafter\def\csname definition-theoremnameTC\endcsname{\definitionnameTC-\theoremnameTC}
@@ -884,30 +931,42 @@
 \def\lemmanameJP{補題}
 \def\propositionnameJP{命題}
 \def\corollarynameJP{系}
+\def\propertynameJP{性質}
 \def\factnameJP{事実}
 \def\conjecturenameJP{予想}
 \def\definitionnameJP{定義}
 \def\axiomnameJP{公理}
 \def\assumptionnameJP{仮定}
+\def\conventionnameJP{慣例}
+\def\hypothesisnameJP{仮設}
+\def\notationnameJP{記法}
 \def\examplenameJP{例}
 \def\problemnameJP{問題}
+\def\questionnameJP{問題}
+\def\exercisenameJP{練習}
 \def\remarknameJP{注釈}
 \expandafter\def\csname definition-propositionnameJP\endcsname{\definitionnameJP-\propositionnameJP}
 \expandafter\def\csname definition-theoremnameJP\endcsname{\definitionnameJP-\theoremnameJP}
 
 %% Russian theorems names
-\def\theoremnameRU{Теорема}
-\def\lemmanameRU{Лемма}
-\def\propositionnameRU{Предложение}
-\def\corollarynameRU{Следствие}
+\def\theoremnameRU{Теорема} % Теоре́ма
+\def\lemmanameRU{Лемма} % Ле́мма
+\def\propositionnameRU{Предложение} % Предложе́ние
+\def\corollarynameRU{Следствие} % Сле́дствие
+\def\propertynameRU{Имущество} % Иму́щество
 \def\factnameRU{Факт}
-\def\conjecturenameRU{Гипотеза}
-\def\definitionnameRU{Определение}
-\def\axiomnameRU{Аксиома}
-\def\assumptionnameRU{Предположение}
-\def\examplenameRU{Пример}
-\def\problemnameRU{Вопрос}
-\def\remarknameRU{Замечание}
+\def\conjecturenameRU{Гипотеза} % Гипо́теза
+\def\definitionnameRU{Определение} % Определе́ние
+\def\axiomnameRU{Аксиома} % Аксио́ма
+\def\assumptionnameRU{Предположение} % Предположе́ние
+\def\conventionnameRU{Конвенция} % Конве́нция
+\def\hypothesisnameRU{Гипотеза} % Гипо́теза
+\def\notationnameRU{Нотация} % Нота́ция
+\def\examplenameRU{Пример} % Приме́р
+\def\problemnameRU{Проблема} % Пробле́ма
+\def\questionnameRU{Вопрос} % Вопро́с
+\def\exercisenameRU{Упражнение} % Упражне́ние
+\def\remarknameRU{Замечание} % Замеча́ние
 \expandafter\def\csname definition-propositionnameRU\endcsname{\definitionnameRU-\propositionnameRU}
 \expandafter\def\csname definition-theoremnameRU\endcsname{\definitionnameRU-\theoremnameRU}
 
@@ -924,29 +983,43 @@
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
 \CreateTheorem{corollary}[theorem]
+\CreateTheorem{definition-proposition}[theorem]
+\CreateTheorem{definition-theorem}[theorem]
+\CreateTheorem{property}[theorem]
 \CreateTheorem{fact}[theorem]
 \CreateTheorem{conjecture}[theorem]
 \CreateTheorem*{theorem*}
 \CreateTheorem*{lemma*}
 \CreateTheorem*{proposition*}
 \CreateTheorem*{corollary*}
-\CreateTheorem*{fact*}
-\CreateTheorem*{conjecture*}
-\theoremstyle{definition}
-\CreateTheorem{definition}[theorem]
-\CreateTheorem{definition-proposition}[theorem]
-\CreateTheorem{definition-theorem}[theorem]
-\CreateTheorem{axiom}[theorem]
-\CreateTheorem{assumption}[theorem]
-\CreateTheorem{example}[theorem]
-\CreateTheorem{problem}[theorem]
-\CreateTheorem*{definition*}
 \CreateTheorem*{definition-proposition*}
 \CreateTheorem*{definition-theorem*}
+\CreateTheorem*{property*}
+\CreateTheorem*{fact*}
+\CreateTheorem*{conjecture*}
+
+\theoremstyle{definition}
+\CreateTheorem{definition}[theorem]
+\CreateTheorem{axiom}[theorem]
+\CreateTheorem{assumption}[theorem]
+\CreateTheorem{convention}[theorem]
+\CreateTheorem{hypothesis}[theorem]
+\CreateTheorem{notation}[theorem]
+\CreateTheorem{example}[theorem]
+\CreateTheorem{problem}[theorem]
+\CreateTheorem{question}[theorem]
+\CreateTheorem{exercise}[theorem]
+\CreateTheorem*{definition*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
+\CreateTheorem*{convention*}
+\CreateTheorem*{hypothesis*}
+\CreateTheorem*{notation*}
 \CreateTheorem*{example*}
 \CreateTheorem*{problem*}
+\CreateTheorem*{question*}
+\CreateTheorem*{exercise*}
+
 \theoremstyle{remark}
 \CreateTheorem{remark}<highest>
 \CreateTheorem*{remark*}
