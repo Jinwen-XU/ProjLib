@@ -15,14 +15,16 @@ A collection of tools that help you write LaTeX document. With `PLtoolkit` loade
     - Useful macros during the draft stage: `\dnf` and `\needgraph`, with multi-language support
 1. `PLlang.sty`
     - Multi-language configuration based on `babel` or `polyglossia`
+    - Offers `\UseLanguage`, `\UseOtherLanguage` and `\AddLanguageSetting`
     - Currently support Chinese (simplified and traditional), English, French, German, Japanese and Russian, *more to be added*
 1. `PLlogo.sty`
     - Draw the ProjLib logo
 1. `PLpaper.sty`
     - Paper style configuration: yellow theme, dark theme and nord theme
 1. `PLthm.sty`
-    - Theorem setup and configuration, with multi-language support
-    - Preset environments include: `assumption`, `axiom`, `conjecture`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `lemma`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
+    - Theorem setup and configuration
+    - Offers a macro `\CreateTheorem` for creating theorem-like environments with multi-language support
+    - Preset environments include: `assumption`, `axiom`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. `PLtoolkit.sty`, *the all-in-one solution*
     - A collective interface of ProjLib Toolkit, loading all the packages above
     - Provide some pre-defined font configuration

@@ -344,7 +344,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \end{proofidea}
 
 
-\bigskip
+\medskip
 \section{Known issues}
 
 \begin{itemize}[itemsep=.6em]
@@ -354,6 +354,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     \item \PLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
     \item \PLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PLlang{}, especially for Chinese, Japanese and Russian.
     \item The error handling mechanism is incomplete: there is no corresponding error prompt when some problems occur.
+    \item There are many things that can be optimized in the code. Some codes take too long to run, especially the definition of theorem-like environments in \PLthm{}.
 \end{itemize}
 
 
