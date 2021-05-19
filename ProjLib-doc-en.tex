@@ -4,7 +4,7 @@
 %%================================
 %% Import toolkit
 %%================================
-\usepackage{PLtoolkit}
+\usepackage{PJLtoolkit}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
@@ -30,7 +30,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
+    {color,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -59,15 +59,15 @@
 %%================================
 %% 名称
 %%================================
-\providecommand{\PLtoolkit}{\textsf{PLtoolkit}}
-\providecommand{\PLamssim}{\textsf{PLamssim}}
-\providecommand{\PLauthor}{\textsf{PLauthor}}
-\providecommand{\PLdatestr}{\textsf{PLdate}}
-\providecommand{\PLdraft}{\textsf{PLdraft}}
-\providecommand{\PLlang}{\textsf{PLlang}}
-\providecommand{\PLlogo}{\textsf{PLlogo}}
-\providecommand{\PLpaper}{\textsf{PLpaper}}
-\providecommand{\PLthm}{\textsf{PLthm}}
+\providecommand{\PJLtoolkit}{\textsf{PJLtoolkit}}
+\providecommand{\PJLamssim}{\textsf{PJLamssim}}
+\providecommand{\PJLauthor}{\textsf{PJLauthor}}
+\providecommand{\PJLdatestr}{\textsf{PJLdate}}
+\providecommand{\PJLdraft}{\textsf{PJLdraft}}
+\providecommand{\PJLlang}{\textsf{PJLlang}}
+\providecommand{\PJLlogo}{\textsf{PJLlogo}}
+\providecommand{\PJLpaper}{\textsf{PJLpaper}}
+\providecommand{\PJLthm}{\textsf{PJLthm}}
 
 %%================================
 %% 正文
@@ -76,35 +76,35 @@
 
 \title{\ProjLib{}~~Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/05/12}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/05/19}}
 \date{May 2021, Beijing}
 
 \maketitle
 
 \begin{abstract}
-    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With \PLtoolkit{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities have been introduced.
+    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With \PJLtoolkit{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities have been introduced.
 \end{abstract}
 
 % \tableofcontents
 
-\section{PLtoolkit}
+\section{PJLtoolkit}
 
 \subsection{How to load it}
 
 Just add the following line to your preamble:
 
 \begin{code}
-  \usepackage{PLtoolkit}
+  \usepackage{PJLtoolkit}
 \end{code}
 
 \begin{remind}[Attention]
-    Since \textsf{cleveref} is used internally, \PLtoolkit{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
+    Since \textsf{cleveref} is used internally, \PJLtoolkit{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
 \end{remind}
 \medskip
 
 \subsection{Options}
 
-\PLtoolkit{} offers the following options:
+\PJLtoolkit{} offers the following options:
 \begin{itemize}
     \item \texttt{draft} or \texttt{fast}
         \begin{itemize}
@@ -116,37 +116,37 @@ Just add the following line to your preamble:
         \end{itemize}
     \item \texttt{author}
         \begin{itemize}
-            \item Load \PLauthor{}. For more information about its functionality, see the section on this package.
+            \item Load \PJLauthor{}. For more information about its functionality, see the section on this package.
         \end{itemize}
     \item \texttt{amssim}
         \begin{itemize}
-            \item Load \PLamssim{}. For more information about its functionality, see the section on this package.
+            \item Load \PJLamssim{}. For more information about its functionality, see the section on this package.
         \end{itemize}
     \item \texttt{nothms}
         \begin{itemize}
             \item The theorem-like environments will not be defined. You should use this option if you wish to apply your own theorem styles.
         \end{itemize}
 \end{itemize}
-In addition, there are also some options of the components that can (and should) be passed as global options of the document class, such as \texttt{paperstyle} and \texttt{preview} of \PLpaper{}. For more information, please refer to the corresponding section.
+In addition, there are also some options of the components that can (and should) be passed as global options of the document class, such as \texttt{paperstyle} and \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding section.
 
 \section{The components}
 
-\subsection{PLamssim}
+\subsection{PJLamssim}
 
-\PLamssim{} is used to simulate some features of the \textsf{amsart} class in a standard class, including:
+\PJLamssim{} is used to simulate some features of the \textsf{amsart} class in a standard class, including:
 \begin{itemize}
-    \item \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| and \lstinline|\dedicatory| macro(the first three are provided by \PLauthor{})
+    \item \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| and \lstinline|\dedicatory| macro(the first three are provided by \PJLauthor{})
     \item \lstinline|\keywords| macro
     \item \lstinline|\subjclass| macro
     \item \lstinline|\thanks| can be written outside \lstinline|\author|
     \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|
 \end{itemize}
 
-These modifications would only take place in standard classes. In the \AmS{} classes, \PLamssim{} does not have any effect.
+These modifications would only take place in standard classes. In the \AmS{} classes, \PJLamssim{} does not have any effect.
 
-\subsection{PLauthor}
+\subsection{PJLauthor}
 
-\PLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
+\PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
 \begin{code}
   \author{(*\meta{author 1}*)}
   \address{(*\meta{address 1}*)}
@@ -158,25 +158,25 @@ These modifications would only take place in standard classes. In the \AmS{} cla
 \end{code}
 The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
 
-\subsection{PLdate}
+\subsection{PJLdate}
 
-\PLdatestr{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become: \PLdate{2022-04-01}.
+\PJLdatestr{} offers the \lstinline|\PJLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PJLdate{2022-04-01}| would become: \PJLdate{2022-04-01}.
 
-For details on how to select a language, please refer to the section on \PLlang{}.
+For details on how to select a language, please refer to the section on \PJLlang{}.
 
-\subsection{PLdraft}
+\subsection{PJLdraft}
 
-\PLdraft{} offers the following macros:
+\PJLdraft{} offers the following macros:
 \begin{itemize}
     \item \lstinline|\dnf| or \lstinline|\dnf<...>|. The effect is: \dnf~ or \dnf<...>. \\The prompt text changes according to the current language. For example, it will be displayed as \UseOtherLanguage{French}{\dnf} in French mode.
     \item \lstinline|\needgraph| or \lstinline|\needgraph<...>|. The effect is: \needgraph or \needgraph<...>The prompt text changes according to the current language. For example, in French mode, it will be displayed as \UseOtherLanguage{French}{\needgraph}
 \end{itemize}
 
-For details on how to select a language, please refer to the section on \PLlang{}.
+For details on how to select a language, please refer to the section on \PJLlang{}.
 
-\subsection{PLlang}
+\subsection{PJLlang}
 
-\PLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). The language can be selected by the following macros:
+\PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). The language can be selected by the following macros:
 
 \begin{itemize}
     \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}| is used to specify the language. The corresponding setting of the language will be applied after it. It can be used either in the preamble or in the main body. When no language is specified, ``English" is selected by default.
@@ -209,9 +209,9 @@ In addition, you can also add new settings to selected language:
 For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make all German text displayed in orange (of course, one then need to add \lstinline|\AddLanguageSetting{\color{black}}| in order to correct the color of the text in other languages).
 
 
-\subsection{PLlogo}
+\subsection{PJLlogo}
 
-\PLlogo{} offers the \lstinline|\ProjLib| macro to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
+\PJLlogo{} offers the \lstinline|\ProjLib| macro to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
 % \begin{itemize}
 %     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
 %     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
@@ -237,9 +237,9 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 \end{longtable}
 
 \clearpage
-\subsection{PLpaper}
+\subsection{PJLpaper}
 
-\PLpaper{} is mainly used to adjust the paper color. It has the following options:
+\PJLpaper{} is mainly used to adjust the paper color. It has the following options:
 
 \begin{itemize}
     \item \texttt{paperstyle = \meta{paper style name}}
@@ -258,9 +258,9 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 
 It is recommended to pass these options as global options of the document class. In this way, the paper settings would be clear at a glance.
 
-\subsection{PLthm}
+\subsection{PJLthm}
 
-\PLthm{} offers the configuration of theorem-like environments. It has the following option:
+\PJLthm{} offers the configuration of theorem-like environments. It has the following option:
 % \vspace{-.3\baselineskip}
 \begin{itemize}
     \item \texttt{nothms}
@@ -269,7 +269,7 @@ It is recommended to pass these options as global options of the document class.
     \end{itemize}
 \end{itemize}
 
-Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The display of these environments will change according to the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PLlang{}.
+Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The display of these environments will change according to the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PJLlang{}.
 
 When referencing a theorem-like environment, it is recommended to use smart reference \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
 
@@ -348,13 +348,13 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \section{Known issues}
 
 \begin{itemize}[itemsep=.6em]
-    \item \PLauthor{} is still in its preliminary stage, and thus its effect is still not as good as the relatively mature \textsf{authblk} in some aspects.
-    \item \PLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
-    \item \PLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.
-    \item \PLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
-    \item \PLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PLlang{}, especially for Chinese, Japanese and Russian.
+    \item \PJLauthor{} is still in its preliminary stage, and thus its effect is still not as good as the relatively mature \textsf{authblk} in some aspects.
+    \item \PJLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
+    \item \PJLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.
+    \item \PJLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
+    \item \PJLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PJLlang{}, especially for Chinese, Japanese and Russian.
     \item The error handling mechanism is incomplete: there is no corresponding error prompt when some problems occur.
-    \item There are many things that can be optimized in the code. Some codes take too long to run, especially the definition of theorem-like environments in \PLthm{}.
+    \item There are many things that can be optimized in the code. Some codes take too long to run, especially the definition of theorem-like environments in \PJLthm{}.
 \end{itemize}
 
 
@@ -363,13 +363,13 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 
 \subsection{Standard classes}
 
-In standard classes, one usually only need to configure the page size, hyperlinks and load \PLtoolkit{} before actually start writing the document. Below is a complete example.
+In standard classes, one usually only need to configure the page size, hyperlinks and load \PJLtoolkit{} before actually start writing the document. Below is a complete example.
 
 \begin{code}
 \documentclass{article}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
@@ -377,7 +377,7 @@ In standard classes, one usually only need to configure the page size, hyperlink
 
 \title{Le Titre}
 \author{Auteur}
-\date{\PLdate{2022-04-01}}
+\date{\PJLdate{2022-04-01}}
 
 \maketitle
 
@@ -398,20 +398,20 @@ Référence du théorème: \cref{thm:abc} % It is recommended to use clever refe
 \end{code}
 
 \bigskip
-If \PLamssim{} is loaded, then one can adopt the \AmS{} writing style in the document (of course, the original way is also valid, so always adding the option \texttt{amssim} usually does not cause problems). This way, the line that introduces \PLtoolkit{} should be written as:
+If \PJLamssim{} is loaded, then one can adopt the \AmS{} writing style in the document (of course, the original way is also valid, so always adding the option \texttt{amssim} usually does not cause problems). This way, the line that introduces \PJLtoolkit{} should be written as:
 \begin{code}
-\usepackage[amssim,palatino]{PLtoolkit}
+\usepackage[amssim,palatino]{PJLtoolkit}
 \end{code}
 
 \clearpage
 \subsection{The \texorpdfstring{\AmS{}}{AMS} classes}
 
-In \AmS{} classes, one usually only need to configure the page size, hyperlinks and load \PLtoolkit{} before actually start writing the document. Below is a complete example.
+In \AmS{} classes, one usually only need to configure the page size, hyperlinks and load \PJLtoolkit{} before actually start writing the document. Below is a complete example.
 \begin{code}
 \documentclass{amsart}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
@@ -424,7 +424,7 @@ In \AmS{} classes, one usually only need to configure the page size, hyperlinks 
 \author{Auteur 1}
 \address{Adresse 1}
 \email{\href{Courriel 2}{Courriel 2}}
-\date{\PLdate{2022-04-01}}
+\date{\PJLdate{2022-04-01}}
 \subjclass{*****}
 \keywords{...}
 

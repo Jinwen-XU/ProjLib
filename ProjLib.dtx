@@ -16,58 +16,58 @@
 %</driver>
 \NeedsTeXFormat{LaTeX2e}[2020-10-01]
 %
-%<*PLamssim>
-\ProvidesPackage{PLamssim}
-    [2021/05/12 Simulate some features of amsart]
-%</PLamssim>
+%<*PJLamssim>
+\ProvidesPackage{PJLamssim}
+    [2021/05/19 Simulate some features of amsart]
+%</PJLamssim>
 %
-%<*PLauthor>
-\ProvidesPackage{PLauthor}
-    [2021/05/12 Enhanced author information block]
-%</PLauthor>
+%<*PJLauthor>
+\ProvidesPackage{PJLauthor}
+    [2021/05/19 Enhanced author information block]
+%</PJLauthor>
 %
-%<*PLdate>
-\ProvidesPackage{PLdate}
-    [2021/05/12 Convert yyyy-mm-dd to normal datetime format]
-%</PLdate>
+%<*PJLdate>
+\ProvidesPackage{PJLdate}
+    [2021/05/19 Convert yyyy-mm-dd to normal datetime format]
+%</PJLdate>
 %
-%<*PLdraft>
-\ProvidesPackage{PLdraft}
-    [2021/05/12 Some useful macros for the draft stage]
-%</PLdraft>
+%<*PJLdraft>
+\ProvidesPackage{PJLdraft}
+    [2021/05/19 Some useful macros for the draft stage]
+%</PJLdraft>
 %
-%<*PLlang>
-\ProvidesPackage{PLlang}
-    [2021/05/12 Multi-language configuration]
-%</PLlang>
+%<*PJLlang>
+\ProvidesPackage{PJLlang}
+    [2021/05/19 Multi-language configuration]
+%</PJLlang>
 %
-%<*PLlogo>
-\ProvidesPackage{PLlogo}
-    [2021/05/12 The ProjLib logo]
-%</PLlogo>
+%<*PJLlogo>
+\ProvidesPackage{PJLlogo}
+    [2021/05/19 The ProjLib logo]
+%</PJLlogo>
 %
-%<*PLpaper>
-\ProvidesPackage{PLpaper}
-    [2021/05/12 Paper style configuration]
-%</PLpaper>
+%<*PJLpaper>
+\ProvidesPackage{PJLpaper}
+    [2021/05/19 Paper style configuration]
+%</PJLpaper>
 %
-%<*PLthm>
-\ProvidesPackage{PLthm}
-    [2021/05/12 Theorem setup and configuration]
-%</PLthm>
+%<*PJLthm>
+\ProvidesPackage{PJLthm}
+    [2021/05/19 Theorem setup and configuration]
+%</PJLthm>
 %
-%<*PLtoolkit>
-\ProvidesPackage{PLtoolkit}
-    [2021/05/12 Collective interface of ProjLib Toolkit]
-%</PLtoolkit>
+%<*PJLtoolkit>
+\ProvidesPackage{PJLtoolkit}
+    [2021/05/19 Collective interface of ProjLib Toolkit]
+%</PJLtoolkit>
 %
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 %
-%<*PLamssim>
+%<*PJLamssim>
 \ifdefined\subjclass\endinput\fi
 
-\RequirePackage{PLauthor}
+\RequirePackage{PJLauthor}
 \RequirePackage{calc}
 
 \providecommand{\conditionalbfseries}{\bfseries}
@@ -82,53 +82,53 @@
 \def\keywordsnameRU{Ключевые слова и фразы}
 
 \ifdefined\keywords\else
-    \def\PL@keywords{}
-    \newcommand*{\keywords}[1]{\def\PL@keywords{#1}}
+    \def\PJL@keywords{}
+    \newcommand*{\keywords}[1]{\def\PJL@keywords{#1}}
 \fi
 
 % dedicatory
 \ifdefined\dedicatory\else
-    \def\PL@dedicatory{}
-    \newcommand*{\dedicatory}[1]{\def\PL@dedicatory{#1}}
+    \def\PJL@dedicatory{}
+    \newcommand*{\dedicatory}[1]{\def\PJL@dedicatory{#1}}
 \fi
 
 % \thanks: behave like article-style when in \author, and ams-style (no marker) when outside
 \AtEndPreamble{
 % In case that \@author changes again
-\let\footnotemark@PLoriginal\footnotemark%
+\let\footnotemark@PJLoriginal\footnotemark%
 \let\footnotemark\relax%
-\let\thanks@PLoriginal\thanks%
-\newlength\PL@starlength
-\setlength{\PL@starlength}{\widthof{*}}
-\newcommand*{\PL@prethanks}[1]{\thanks@PLoriginal{\hspace*{-\PL@starlength}#1}}
+\let\thanks@PJLoriginal\thanks%
+\newlength\PJL@starlength
+\setlength{\PJL@starlength}{\widthof{*}}
+\newcommand*{\PJL@prethanks}[1]{\thanks@PJLoriginal{\hspace*{-\PJL@starlength}#1}}
 % \renewcommand*{\thanks}[1]{%
 %     \ifx#1\@empty\else%
-%         \thanks@PLoriginal{\hspace*{-\PL@starlength}#1}%
+%         \thanks@PJLoriginal{\hspace*{-\PJL@starlength}#1}%
 %     \fi}
 \renewcommand*{\thanks}[1]{%
     \ifx#1\@empty\else%
         \apptocmd{\@title}{%
-            \thanks@PLoriginal{\hspace*{-\PL@starlength}#1}%
+            \thanks@PJLoriginal{\hspace*{-\PJL@starlength}#1}%
         }{}{\FAIL}%
     \fi}
-\let\author@PLoriginal\author
+\let\author@PJLoriginal\author
 \renewcommand{\author}[1]{%
-    \author@PLoriginal{%
-        \let\footnotemark\footnotemark@PLoriginal%
-        \let\thanks\thanks@PLoriginal%
+    \author@PJLoriginal{%
+        \let\footnotemark\footnotemark@PJLoriginal%
+        \let\thanks\thanks@PJLoriginal%
         #1%
         \let\footnotemark\relax%
     }%
 }
-% \pretocmd{\@author}{\let\footnotemark\footnotemark@PLoriginal\let\thanks\thanks@PLoriginal}{}{\FAIL}
+% \pretocmd{\@author}{\let\footnotemark\footnotemark@PJLoriginal\let\thanks\thanks@PJLoriginal}{}{\FAIL}
 % \apptocmd{\@author}{\let\footnotemark\relax}{}{\FAIL}
 }
 
 %% Modify abstract to allow it before maketitle
-\let\abstract@PLoriginal\abstract%
-\let\endabstract@PLoriginal\endabstract%
-\newif\if@PLamssim@maketitle\@PLamssim@maketitlefalse
-\newif\if@PLamssim@absbefore\@PLamssim@absbeforefalse
+\let\abstract@PJLoriginal\abstract%
+\let\endabstract@PJLoriginal\endabstract%
+\newif\if@PJLamssim@maketitle\@PJLamssim@maketitlefalse
+\newif\if@PJLamssim@absbefore\@PJLamssim@absbeforefalse
 \RequirePackage{fancyvrb}
 % Taken from https://tex.stackexchange.com/a/596328
 % define the same as \protected@write, but with \immediate
@@ -147,18 +147,18 @@
   {}{}
 %
 \renewenvironment{abstract}{%
-    \VerbatimOut{\jobname.plabs}%
+    \VerbatimOut{\jobname.pjlabs}%
 }{
     \endVerbatimOut%
-    \if@PLamssim@maketitle%
-        \begin{abstract@PLoriginal}%
-            \input{\jobname.plabs}%
-        \end{abstract@PLoriginal}%
-        % \ifx\PL@keywords\@empty\else%
-        %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+    \if@PJLamssim@maketitle%
+        \begin{abstract@PJLoriginal}%
+            \input{\jobname.pjlabs}%
+        \end{abstract@PJLoriginal}%
+        % \ifx\PJL@keywords\@empty\else%
+        %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PJL@keywords%
         % \fi%
     \else%
-        \global\@PLamssim@absbeforetrue%
+        \global\@PJLamssim@absbeforetrue%
     \fi%
 }
 
@@ -168,37 +168,37 @@
 \patchcmd{\@maketitle}{\@date}{%
     \ifx\@date\@empty\vspace{-2\baselineskip}%
     \else\@date\fi%
-    \ifx\PL@dedicatory\@empty\else%
+    \ifx\PJL@dedicatory\@empty\else%
     \par\vspace{-\parskip}\bigskip%
-    {\itshape\PL@dedicatory}\fi}
+    {\itshape\PJL@dedicatory}\fi}
     {}{\FAIL}
 % Add keywords to maketitle
 \pretocmd{\maketitle}{%
-    \ifx\PL@keywords\@empty\else%
-    \PL@prethanks{{\conditionalbfseries%
+    \ifx\PJL@keywords\@empty\else%
+    \PJL@prethanks{{\protect\conditionalbfseries%
     \csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}%
-    ~\PL@keywords}%
+    ~\PJL@keywords}%
     \fi}{}{\FAIL}
 % Add abstract to maketitle
 \apptocmd{\maketitle}{%
-    \if@PLamssim@absbefore%
-        \begin{abstract@PLoriginal}%
-            \input{\jobname.plabs}%
-            % \ifx\PL@keywords\@empty\else%
-            %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+    \if@PJLamssim@absbefore%
+        \begin{abstract@PJLoriginal}%
+            \input{\jobname.pjlabs}%
+            % \ifx\PJL@keywords\@empty\else%
+            %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PJL@keywords%
             % \fi%
-        \end{abstract@PLoriginal}%
+        \end{abstract@PJLoriginal}%
     \fi%
     \global\let\address\relax
     \global\let\curraddr\relax
     \global\let\email\relax
     \global\let\dedicatory\relax
     \global\let\keywords\relax
-    \global\@PLamssim@maketitletrue
+    \global\@PJLamssim@maketitletrue
 }{}{\FAIL}
 % Disbale the \newpage in maketitle
-% \let\maketitle@PLoriginal=\maketitle
-% \renewcommand*{\maketitle}{{\let\newpage\relax\maketitle@PLoriginal}}
+% \let\maketitle@PJLoriginal=\maketitle
+% \renewcommand*{\maketitle}{{\let\newpage\relax\maketitle@PJLoriginal}}
 }
 
 \newcommand*\subjclass[2][2020]{%
@@ -210,7 +210,7 @@
     }{%
         \expandafter\let\expandafter\subjclassname\csname subjclassname@#1\endcsname
     }%
-    \PL@prethanks{{\itshape\subjclassname.}\enspace\@subjclass{}.}
+    \PJL@prethanks{{\itshape\subjclassname.}\enspace\@subjclass{}.}
 }
 \@namedef{subjclassname@1991}{%
   \textup{1991} Mathematics Subject Classification}
@@ -220,68 +220,68 @@
   \textup{2010} Mathematics Subject Classification}
 \@namedef{subjclassname@2020}{%
   \textup{2020} Mathematics Subject Classification}
-%</PLamssim>
+%</PJLamssim>
 %
-%<*PLauthor>
+%<*PJLauthor>
 \ifdefined\subjclass\endinput\fi
 
-\RequirePackage{PLlang}
+\RequirePackage{PJLlang}
 
 %%================================
 %% Font and style
 %%================================
-\def\PLauthor@font@author{\normalsize\normalfont\scshape}
-\def\PLauthor@font@address{\small\normalfont\itshape}
-\def\PLauthor@font@curraddr{\small\normalfont\itshape}
-\def\PLauthor@font@email{\small\normalfont\ttfamily}
+\def\PJLauthor@font@author{\normalsize\normalfont\scshape}
+\def\PJLauthor@font@address{\small\normalfont\itshape}
+\def\PJLauthor@font@curraddr{\small\normalfont\itshape}
+\def\PJLauthor@font@email{\small\normalfont\ttfamily}
 
 %%================================
 %% Lengths
 %%================================
 % Space between author and address
-\newlength{\PLauthor@length@innersep}
-\setlength{\PLauthor@length@innersep}{.3\baselineskip}
+\newlength{\PJLauthor@length@innersep}
+\setlength{\PJLauthor@length@innersep}{.3\baselineskip}
 
 % Space between different author blocks
-\newlength{\PLauthor@length@sep}
-\setlength{\PLauthor@length@sep}{.5\baselineskip}
+\newlength{\PJLauthor@length@sep}
+\setlength{\PJLauthor@length@sep}{.5\baselineskip}
 
 % Space between affiliation and date
-\newlength{\PLauthor@length@aftersep}
-\setlength{\PLauthor@length@aftersep}{.3\baselineskip}
+\newlength{\PJLauthor@length@aftersep}
+\setlength{\PJLauthor@length@aftersep}{.3\baselineskip}
 
 %%================================
 %% The macros
 %%================================
-\newif\if@PLauthor@affilon
+\newif\if@PJLauthor@affilon
 \renewcommand*{\author}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
-    \vspace{\PLauthor@length@sep}%
-    \PLauthor@font@author{#1}\\\phantom{}
-    \@PLauthor@affilonfalse}}
+    \vspace{\PJLauthor@length@sep}%
+    \PJLauthor@font@author{#1}\\\phantom{}
+    \@PJLauthor@affilonfalse}}
 \providecommand*{\address}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
-        \if@PLauthor@affilon\else%
-            \vspace{\PLauthor@length@innersep}%
+        \if@PJLauthor@affilon\else%
+            \vspace{\PJLauthor@length@innersep}%
         \fi%
-        \@PLauthor@affilontrue%
-        \PLauthor@font@address{#1}\\\phantom{}}%
+        \@PJLauthor@affilontrue%
+        \PJLauthor@font@address{#1}\\\phantom{}}%
 }
 \providecommand*{\curraddr}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
-        \if@PLauthor@affilon\else%
-            \vspace{\PLauthor@length@innersep}%
+        \if@PJLauthor@affilon\else%
+            \vspace{\PJLauthor@length@innersep}%
         \fi%
-        \@PLauthor@affilontrue%
-        \PLauthor@font@curraddr{#1}\\\phantom{}}%
+        \@PJLauthor@affilontrue%
+        \PJLauthor@font@curraddr{#1}\\\phantom{}}%
 }
 \providecommand*{\email}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
-        \if@PLauthor@affilon\else%
-            \vspace{\PLauthor@length@innersep}%
+        \if@PJLauthor@affilon\else%
+            \vspace{\PJLauthor@length@innersep}%
         \fi%
-        \@PLauthor@affilontrue%
-        \PLauthor@font@email{#1}\\\phantom{}}%
+        \@PJLauthor@affilontrue%
+        \PJLauthor@font@email{#1}\\\phantom{}}%
 }
 
 %%================================
@@ -291,31 +291,31 @@
 \patchcmd{\@maketitle}{\end{tabular}}{}{}{}
 \def\@author{} % Remove "No \author given."
 \pretocmd{\@maketitle}{%
-    \pretocmd{\@author}{\vspace{-\PLauthor@length@sep}}{}{\FAIL}%
+    \pretocmd{\@author}{\vspace{-\PJLauthor@length@sep}}{}{\FAIL}%
     \apptocmd{\@author}{%
 % Fix the space caused by `\\\phantom{}`
         \vspace{-\baselineskip}%
-        \if@PLauthor@affilon%
-            \vspace{\PLauthor@length@aftersep}%
+        \if@PJLauthor@affilon%
+            \vspace{\PJLauthor@length@aftersep}%
         \fi%
     }{}{\FAIL}%
 }{}{\FAIL}
-%</PLauthor>
+%</PJLauthor>
 %
-%<*PLdate>
+%<*PJLdate>
 \SetupKeyvalOptions{
-    family = @PLdate,
-    prefix = @PLdate@,
+    family = @PJLdate,
+    prefix = @PJLdate@,
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \ProcessKeyvalOptions*\relax
-\if@PLdate@draft
-    \@PLdate@fasttrue
+\if@PJLdate@draft
+    \@PJLdate@fasttrue
 \fi
-\if@PLdate@fast\let\PLdate\relax\endinput\fi
+\if@PJLdate@fast\let\PJLdate\relax\endinput\fi
 
-\RequirePackage{PLlang}
+\RequirePackage{PJLlang}
 
 % The following line is for "authblk"
 \robustify\@latex@warning@no@line
@@ -325,44 +325,44 @@
 \RequirePackage{datetime2}
 \RequirePackage{zhnumber}
 
-\let\@DTMdate@PLoriginal\@DTMdate
-\gappto{\PLlang@langconfig@common}{%
-    \let\@DTMdate\@DTMdate@PLoriginal%
+\let\@DTMdate@PJLoriginal\@DTMdate
+\gappto{\PJLlang@langconfig@common}{%
+    \let\@DTMdate\@DTMdate@PJLoriginal%
 }
-\gappto{\PLlang@langconfig@chinese}{%
+\gappto{\PJLlang@langconfig@chinese}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
-\gappto{\PLlang@langconfig@tchinese}{%
+\gappto{\PJLlang@langconfig@tchinese}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
-\gappto{\PLlang@langconfig@japanese}{%
+\gappto{\PJLlang@langconfig@japanese}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
-\providecommand*{\PLdate}[1]{\DTMdate{#1}}
-%</PLdate>
+\providecommand*{\PJLdate}[1]{\DTMdate{#1}}
+%</PJLdate>
 %
-%<*PLdraft>
+%<*PJLdraft>
 \SetupKeyvalOptions{
-    family = @PLdraft,
-    prefix = @PLdraft@,
+    family = @PJLdraft,
+    prefix = @PJLdraft@,
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \ProcessKeyvalOptions*\relax
-\if@PLdraft@draft
-    \@PLdraft@fasttrue
+\if@PJLdraft@draft
+    \@PJLdraft@fasttrue
 \fi
 
-\RequirePackage{PLlang}
+\RequirePackage{PJLlang}
 \RequirePackage{xcolor}
 
 \def\dnfFont{\ttfamily}
@@ -386,7 +386,7 @@
 \definecolor{dnfColor}{RGB}{21,122,20}
 \definecolor{needgraphColor}{RGB}{70,130,180}
 
-\if@PLdraft@fast
+\if@PJLdraft@fast
     \newcommand{\plainBox}[2][-paper]{\textcolor{#1}{%
     \setlength{\fboxsep}{1.5pt}%
     \setlength{\fboxrule}{1.2pt}%
@@ -421,12 +421,12 @@
         \IfNoValueF{#1}{\,: #1}}%
     \end{center}%
 }
-%</PLdraft>
+%</PJLdraft>
 %
-%<*PLlang>
+%<*PJLlang>
 \SetupKeyvalOptions{%
-    family = @PLlang,
-    prefix = @PLlang@
+    family = @PJLlang,
+    prefix = @PJLlang@
 }
 \DeclareBoolOption[false]{polyglossia}
 \ProcessKeyvalOptions*\relax
@@ -445,7 +445,7 @@
 \RequirePackage{inputenc}
 \fi
 
-\if@PLlang@polyglossia
+\if@PJLlang@polyglossia
     \RequirePackage{polyglossia}
     \setdefaultlanguage{english}
     \setotherlanguage[frenchpart=false]{french}
@@ -469,15 +469,15 @@
     \frenchsetup{PartNameFull=false}
 \fi
 %
-\let\today@PLoriginal\today
-\newcommand{\PLlang@langconfig@common}{%
+\let\today@PJLoriginal\today
+\newcommand{\PJLlang@langconfig@common}{%
     \ifdefined\DTMtoday%
         \let\today\DTMtoday%
     \else%
-        \let\today\today@PLoriginal%
+        \let\today\today@PJLoriginal%
     \fi%
 }
-\newcommand{\PLlang@langconfig@chinese}{%
+\newcommand{\PJLlang@langconfig@chinese}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
     \def\contentsname{目录}%
@@ -492,7 +492,7 @@
     \let\today\zhtoday%
     \renewcommand{\languagename}{chinese}%
 }
-\newcommand{\PLlang@langconfig@tchinese}{%
+\newcommand{\PJLlang@langconfig@tchinese}{%
     \def\abstractname{摘要}%
     \def\proofname{證明}%
     \def\contentsname{目錄}%
@@ -507,81 +507,81 @@
     \let\today\zhtoday%
     \renewcommand{\languagename}{tchinese}%
 }
-\newcommand{\PLlang@langconfig@japanese}{%
+\newcommand{\PJLlang@langconfig@japanese}{%
     \selectlanguage{japanese}%
 }
-\newcommand{\PLlang@langconfig@english}{%
+\newcommand{\PJLlang@langconfig@english}{%
     \selectlanguage{english}%
 }
-\newcommand{\PLlang@langconfig@french}{%
+\newcommand{\PJLlang@langconfig@french}{%
     \selectlanguage{french}%
 % The line below is currently only needed for 'babel', but also works with 'polyglossia'
     \def\frenchpartname{Partie}%
 }
-\newcommand{\PLlang@langconfig@german}{%
+\newcommand{\PJLlang@langconfig@german}{%
     \selectlanguage{ngerman}%
 }
-\newcommand{\PLlang@langconfig@russian}{%
+\newcommand{\PJLlang@langconfig@russian}{%
     \selectlanguage{russian}%
 }
 \NewDocumentCommand\AddLanguageSetting{d()m}{%
 \IfNoValueTF{#1}%
-    {\gappto{\PLlang@langconfig@common}{#2}}%
+    {\gappto{\PJLlang@langconfig@common}{#2}}%
     {%
-        \ifstrequal{#1}{chinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{Chinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{schinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{SChinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{simplifiedchinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{SimplifiedChinese}{\gappto{\PLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{tchinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{TChinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{traditionalchinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{TraditionalChinese}{\gappto{\PLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{japanese}{\gappto{\PLlang@langconfig@japanese}{#2}}{}%
-        \ifstrequal{#1}{Japanese}{\gappto{\PLlang@langconfig@japanese}{#2}}{}%
-        \ifstrequal{#1}{english}{\gappto{\PLlang@langconfig@english}{#2}}{}%
-        \ifstrequal{#1}{English}{\gappto{\PLlang@langconfig@english}{#2}}{}%
-        \ifstrequal{#1}{french}{\gappto{\PLlang@langconfig@french}{#2}}{}%
-        \ifstrequal{#1}{French}{\gappto{\PLlang@langconfig@french}{#2}}{}%
-        \ifstrequal{#1}{ngerman}{\gappto{\PLlang@langconfig@german}{#2}}{}%
-        \ifstrequal{#1}{german}{\gappto{\PLlang@langconfig@german}{#2}}{}%
-        \ifstrequal{#1}{German}{\gappto{\PLlang@langconfig@german}{#2}}{}%
-        \ifstrequal{#1}{russian}{\gappto{\PLlang@langconfig@russian}{#2}}{}%
-        \ifstrequal{#1}{Russian}{\gappto{\PLlang@langconfig@russian}{#2}}{}%
+        \ifstrequal{#1}{chinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{Chinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{schinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{SChinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{simplifiedchinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{SimplifiedChinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
+        \ifstrequal{#1}{tchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{TChinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{traditionalchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{TraditionalChinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
+        \ifstrequal{#1}{japanese}{\gappto{\PJLlang@langconfig@japanese}{#2}}{}%
+        \ifstrequal{#1}{Japanese}{\gappto{\PJLlang@langconfig@japanese}{#2}}{}%
+        \ifstrequal{#1}{english}{\gappto{\PJLlang@langconfig@english}{#2}}{}%
+        \ifstrequal{#1}{English}{\gappto{\PJLlang@langconfig@english}{#2}}{}%
+        \ifstrequal{#1}{french}{\gappto{\PJLlang@langconfig@french}{#2}}{}%
+        \ifstrequal{#1}{French}{\gappto{\PJLlang@langconfig@french}{#2}}{}%
+        \ifstrequal{#1}{ngerman}{\gappto{\PJLlang@langconfig@german}{#2}}{}%
+        \ifstrequal{#1}{german}{\gappto{\PJLlang@langconfig@german}{#2}}{}%
+        \ifstrequal{#1}{German}{\gappto{\PJLlang@langconfig@german}{#2}}{}%
+        \ifstrequal{#1}{russian}{\gappto{\PJLlang@langconfig@russian}{#2}}{}%
+        \ifstrequal{#1}{Russian}{\gappto{\PJLlang@langconfig@russian}{#2}}{}%
     }%
 }
 
 \RequirePackage{setspace}
 %
-\def\PL@config@linespacing{\setstretch{1.00}}
-\def\PL@config@CJKlinespacing{\onehalfspacing}
-\newcommand{\PLsetlinespacing}[1]{\renewcommand{\PL@config@linespacing}{#1}}
-\newcommand{\PLsetCJKlinespacing}[1]{\renewcommand{\PL@config@CJKlinespacing}{#1}}
+\def\PJL@config@linespacing{\setstretch{1.00}}
+\def\PJL@config@CJKlinespacing{\onehalfspacing}
+\newcommand{\PJLsetlinespacing}[1]{\renewcommand{\PJL@config@linespacing}{#1}}
+\newcommand{\PJLsetCJKlinespacing}[1]{\renewcommand{\PJL@config@CJKlinespacing}{#1}}
 %
 \newcommand{\UseLanguageCORE}[1]{%
-    \PLlang@langconfig@common%
-    \ifstrequal{#1}{chinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{Chinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{schinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{simplifiedchinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SimplifiedChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{tchinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{traditionalchinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TraditionalChinese}{\PL@config@CJKlinespacing\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{japanese}{\PL@config@CJKlinespacing\PLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{Japanese}{\PL@config@CJKlinespacing\PLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{english}{\PL@config@linespacing\PLlang@langconfig@english}{}%
-    \ifstrequal{#1}{English}{\PL@config@linespacing\PLlang@langconfig@english}{}%
-    \ifstrequal{#1}{french}{\PL@config@linespacing\PLlang@langconfig@french}{}%
-    \ifstrequal{#1}{French}{\PL@config@linespacing\PLlang@langconfig@french}{}%
-    \ifstrequal{#1}{ngerman}{\PL@config@linespacing\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{german}{\PL@config@linespacing\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{German}{\PL@config@linespacing\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{russian}{\PL@config@linespacing\PLlang@langconfig@russian}{}%
-    \ifstrequal{#1}{Russian}{\PL@config@linespacing\PLlang@langconfig@russian}{}%
+    \PJLlang@langconfig@common%
+    \ifstrequal{#1}{chinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{schinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{simplifiedchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SimplifiedChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{tchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{traditionalchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TraditionalChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{japanese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{Japanese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{english}{\PJL@config@linespacing\PJLlang@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\PJL@config@linespacing\PJLlang@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\PJL@config@linespacing\PJLlang@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\PJL@config@linespacing\PJLlang@langconfig@french}{}%
+    \ifstrequal{#1}{ngerman}{\PJL@config@linespacing\PJLlang@langconfig@german}{}%
+    \ifstrequal{#1}{german}{\PJL@config@linespacing\PJLlang@langconfig@german}{}%
+    \ifstrequal{#1}{German}{\PJL@config@linespacing\PJLlang@langconfig@german}{}%
+    \ifstrequal{#1}{russian}{\PJL@config@linespacing\PJLlang@langconfig@russian}{}%
+    \ifstrequal{#1}{Russian}{\PJL@config@linespacing\PJLlang@langconfig@russian}{}%
 }
 \newcommand{\UseLanguage}[1]{%
     \ifx\@onlypreamble\@notprerr%
@@ -592,79 +592,79 @@
 }
 \newcommand{\UseOtherLanguage}[2]{%
 \begingroup%
-    \PLlang@langconfig@common%
-    \ifstrequal{#1}{chinese}{\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{Chinese}{\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{schinese}{\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SChinese}{\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{simplifiedchinese}{\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SimplifiedChinese}{\PLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{tchinese}{\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TChinese}{\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{traditionalchinese}{\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TraditionalChinese}{\PLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{japanese}{\PLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{Japanese}{\PLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{english}{\PLlang@langconfig@english}{}%
-    \ifstrequal{#1}{English}{\PLlang@langconfig@english}{}%
-    \ifstrequal{#1}{french}{\PLlang@langconfig@french}{}%
-    \ifstrequal{#1}{French}{\PLlang@langconfig@french}{}%
-    \ifstrequal{#1}{ngerman}{\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{german}{\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{German}{\PLlang@langconfig@german}{}%
-    \ifstrequal{#1}{russian}{\PLlang@langconfig@russian}{}%
-    \ifstrequal{#1}{Russian}{\PLlang@langconfig@russian}{}%
+    \PJLlang@langconfig@common%
+    \ifstrequal{#1}{chinese}{\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{schinese}{\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SChinese}{\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{simplifiedchinese}{\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{SimplifiedChinese}{\PJLlang@langconfig@chinese}{}%
+    \ifstrequal{#1}{tchinese}{\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TChinese}{\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{traditionalchinese}{\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{TraditionalChinese}{\PJLlang@langconfig@tchinese}{}%
+    \ifstrequal{#1}{japanese}{\PJLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{Japanese}{\PJLlang@langconfig@japanese}{}%
+    \ifstrequal{#1}{english}{\PJLlang@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\PJLlang@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\PJLlang@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\PJLlang@langconfig@french}{}%
+    \ifstrequal{#1}{ngerman}{\PJLlang@langconfig@german}{}%
+    \ifstrequal{#1}{german}{\PJLlang@langconfig@german}{}%
+    \ifstrequal{#1}{German}{\PJLlang@langconfig@german}{}%
+    \ifstrequal{#1}{russian}{\PJLlang@langconfig@russian}{}%
+    \ifstrequal{#1}{Russian}{\PJLlang@langconfig@russian}{}%
     #2%
 \endgroup%
 }
 
 \UseLanguage{English}
-%</PLlang>
+%</PJLlang>
 %
-%<*PLlogo>
+%<*PJLlogo>
 \SetupKeyvalOptions{
-    family = @PLlogo,
-    prefix = @PLlogo@,
+    family = @PJLlogo,
+    prefix = @PJLlogo@,
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \ProcessKeyvalOptions*\relax
-\if@PLlogo@draft
-    \@PLlogo@fasttrue
+\if@PJLlogo@draft
+    \@PJLlogo@fasttrue
 \fi
-\if@PLlogo@fast\def\ProjLib{{\normalfont ProjLib}}\endinput\fi
+\if@PJLlogo@fast\def\ProjLib{{\normalfont ProjLib}}\endinput\fi
 
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \RequirePackage{iftex}
 % \ifPDFTeX
 % \RequirePackage{fontenc}
-% \newcommand{\PLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+% \newcommand{\PJLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
 % \else
 % \RequirePackage{fontspec}
-% \newcommand{\PLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
+% \newcommand{\PJLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
 % \fi
 \ifdefined\fontspec
-    \newcommand{\PLlogo@font}{\normalfont\fontspec{LinBiolinum_R.otf}\selectfont}
+    \newcommand{\PJLlogo@font}{\normalfont\fontspec{LinBiolinum_R.otf}\selectfont}
 \else
     \PassOptionsToPackage{T1}{fontenc}
     \RequirePackage{fontenc}
-    \newcommand{\PLlogo@font}{\normalfont\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+    \newcommand{\PJLlogo@font}{\normalfont\fontfamily{LinuxBiolinumT-TLF}\selectfont}
 \fi
-% \DeclareSymbolFont{PLupright}{OT1}{zplm}{b}{n}
-\DeclareSymbolFont{PLupright}{U}{zeur}{b}{n}
-\DeclareMathSymbol{\PLSigma}{\mathalpha}{PLupright}{"06}
+% \DeclareSymbolFont{PJLupright}{OT1}{zplm}{b}{n}
+\DeclareSymbolFont{PJLupright}{U}{zeur}{b}{n}
+\DeclareMathSymbol{\PJLSigma}{\mathalpha}{PJLupright}{"06}
 
 \providecommand*{\ProjLib}{%
 \begingroup%
-\PLlogo@font%
+\PJLlogo@font%
 \color{blue!60!cyan}P%
 \color{blue!45!cyan}r%
 \color{blue!30!cyan}o%
 \color{green!70!black}\j%
-% \kern-0.235em\raisebox{0.57em}{\scalebox{0.3}{\rotatebox{-10}{$\PLSigma$}}}%
+% \kern-0.235em\raisebox{0.57em}{\scalebox{0.3}{\rotatebox{-10}{$\PJLSigma$}}}%
 % \kern-0.01em%
-\kern-0.266em\raisebox{0.56em}{\scalebox{0.4}{\rotatebox{-10}{$\PLSigma$}}}%
+\kern-0.266em\raisebox{0.56em}{\scalebox{0.4}{\rotatebox{-10}{$\PJLSigma$}}}%
 \kern-0.065em%
 \color{red!20!yellow}L%
 \color{red!40!yellow}i%
@@ -674,7 +674,7 @@
 
 \providecommand*{\ProjLibText}{%
 \begingroup%
-\PLlogo@font%
+\PJLlogo@font%
 \color{blue!60!cyan}P%
 \color{blue!45!cyan}r%
 \color{blue!30!cyan}o%
@@ -684,21 +684,21 @@
 \color{red!60!yellow}b%
 \endgroup%
 }
-%</PLlogo>
+%</PJLlogo>
 %
-%<*PLpaper>
+%<*PJLpaper>
 \RequirePackage{ifthen}
 
 \SetupKeyvalOptions{%
-    family = @PLpaper,
-    prefix = @PLpaper@,
+    family = @PJLpaper,
+    prefix = @PJLpaper@,
     setkeys=\kvsetkeys
 }
 
 \DeclareStringOption[normal]{paperstyle}
-\DeclareVoidOption{yellowpaper}{\kvsetkeys{@PLpaper}{paperstyle=yellow}}
-\DeclareVoidOption{darkpaper}{\kvsetkeys{@PLpaper}{paperstyle=dark}}
-\DeclareVoidOption{nordpaper}{\kvsetkeys{@PLpaper}{paperstyle=nord}}
+\DeclareVoidOption{yellowpaper}{\kvsetkeys{@PJLpaper}{paperstyle=yellow}}
+\DeclareVoidOption{darkpaper}{\kvsetkeys{@PJLpaper}{paperstyle=dark}}
+\DeclareVoidOption{nordpaper}{\kvsetkeys{@PJLpaper}{paperstyle=nord}}
 \DeclareBoolOption[false]{preview}
 
 \ProcessKeyvalOptions*\relax
@@ -706,8 +706,8 @@
 %%================================
 %% Preview mode
 %%================================
-\ifdefined\PLnoPreview\else%
-    \if@PLpaper@preview%
+\ifdefined\PJLnoPreview\else%
+    \if@PJLpaper@preview%
         \RequirePackage{calc}
         \AtEndPreamble{%
         \setlength{\paperwidth}{\textwidth*\real{1.05}}%
@@ -727,46 +727,46 @@
 \definecolor{paper}{RGB}{255,255,255}
 \definecolor{maintext}{RGB}{0,0,0}
 
-\ifthenelse{\equal{\@PLpaper@paperstyle}{yellow}}
+\ifthenelse{\equal{\@PJLpaper@paperstyle}{yellow}}
 {
     \definecolor{paper}{RGB}{247,246,233}
 }
 {\relax}
 
-\ifthenelse{\equal{\@PLpaper@paperstyle}{dark}}
+\ifthenelse{\equal{\@PJLpaper@paperstyle}{dark}}
 {
     \definecolor{paper}{RGB}{30,30,30}
     \definecolor{maintext}{RGB}{207,207,207}
 }
 {\relax}
 
-\ifthenelse{\equal{\@PLpaper@paperstyle}{nord}}
+\ifthenelse{\equal{\@PJLpaper@paperstyle}{nord}}
 {
     \definecolor{paper}{RGB}{46,52,64}
     \definecolor{maintext}{RGB}{214,220,230}
 }
 {\relax}
 
-\newcommand{\PLglobalcolor}[1]{%
+\newcommand{\PJLglobalcolor}[1]{%
     \color{#1}\global\let\default@color\current@color
 }
 
 \pagecolor{paper}
-\PLglobalcolor{maintext}
+\PJLglobalcolor{maintext}
 \ifdefined\tcbset%
     \tcbset{colupper=maintext,collower=maintext}
 \fi
-%</PLpaper>
+%</PJLpaper>
 %
-%<*PLthm>
+%<*PJLthm>
 \SetupKeyvalOptions{%
-    family = @PLthm,
-    prefix = @PLthm@
+    family = @PJLthm,
+    prefix = @PJLthm@
 }
 \DeclareBoolOption[false]{nothms}
 \ProcessKeyvalOptions*\relax
 
-\RequirePackage{PLlang}
+\RequirePackage{PJLlang}
 \RequirePackage{amsmath,amsthm}
 \RequirePackage{aliascnt}
 \PassOptionsToPackage{nameinlink}{cleveref}
@@ -1021,11 +1021,11 @@
 \expandafter\def\csname definition-propositionnameRU\endcsname{\definitionnameRU-\propositionnameRU}
 \expandafter\def\csname definition-theoremnameRU\endcsname{\definitionnameRU-\theoremnameRU}
 
-\newif\ifPLthm@IsBook
-\ifdefined\chapter\PLthm@IsBooktrue\else\PLthm@IsBookfalse\fi
-\if@PLthm@nothms\else
+\newif\ifPJLthm@IsBook
+\ifdefined\chapter\PJLthm@IsBooktrue\else\PJLthm@IsBookfalse\fi
+\if@PJLthm@nothms\else
 %% Theorem environments
-\ifbool{PLthm@IsBook}{
+\ifbool{PJLthm@IsBook}{
     \newaliascnt{highest}{chapter}
 }{
     \newaliascnt{highest}{section}
@@ -1078,7 +1078,7 @@
 \fi
 
 % Some localization of cref
-\gappto{\PLlang@langconfig@chinese}{%
+\gappto{\PJLlang@langconfig@chinese}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{图}{图}%
     \crefname{table}{表}{表}%
@@ -1095,7 +1095,7 @@
     \def\creflastgroupconjunction{~和~}%
     \def\crefrangeconjunction{～}%
 }
-\gappto{\PLlang@langconfig@tchinese}{%
+\gappto{\PJLlang@langconfig@tchinese}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{圖}{圖}%
     \crefname{table}{表}{表}%
@@ -1112,7 +1112,7 @@
     \def\creflastgroupconjunction{~與~}%
     \def\crefrangeconjunction{～}%
 }
-\gappto{\PLlang@langconfig@japanese}{%
+\gappto{\PJLlang@langconfig@japanese}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{図}{図}%
     \crefname{table}{表}{表}%
@@ -1129,7 +1129,7 @@
     \def\creflastgroupconjunction{~と~}%
     \def\crefrangeconjunction{〜}%
 }
-\gappto{\PLlang@langconfig@russian}{%
+\gappto{\PJLlang@langconfig@russian}{%
     \crefname{equation}{уравнение}{уравнения}%
     \crefname{figure}{рис.}{рис.}%
     \crefname{table}{таблица}{таблицы}%
@@ -1146,12 +1146,12 @@
     \def\creflastgroupconjunction{~и~}%
     \def\crefrangeconjunction{~\textasciitilde~}%
 }
-%</PLthm>
+%</PJLthm>
 %
-%<*PLtoolkit>
+%<*PJLtoolkit>
 \SetupKeyvalOptions{
-    family = @PLtoolkit,
-    prefix = @PLtoolkit@,
+    family = @PJLtoolkit,
+    prefix = @PJLtoolkit@,
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
@@ -1163,29 +1163,29 @@
 \DeclareBoolOption[false]{garamond}
 \DeclareBoolOption[false]{biolinum}
 \ProcessKeyvalOptions*\relax
-\if@PLtoolkit@draft
-    \@PLtoolkit@fasttrue
+\if@PJLtoolkit@draft
+    \@PJLtoolkit@fasttrue
 \fi
-\if@PLtoolkit@fast
-    \PassOptionsToPackage{fast}{PLdate}
-    \PassOptionsToPackage{fast}{PLdraft}
-    \PassOptionsToPackage{fast}{PLlogo}
+\if@PJLtoolkit@fast
+    \PassOptionsToPackage{fast}{PJLdate}
+    \PassOptionsToPackage{fast}{PJLdraft}
+    \PassOptionsToPackage{fast}{PJLlogo}
 \fi
-\if@PLtoolkit@nothms
-    \PassOptionsToPackage{nothms}{PLthm}
+\if@PJLtoolkit@nothms
+    \PassOptionsToPackage{nothms}{PJLthm}
 \fi
 
-\if@PLtoolkit@author
-    \RequirePackage{PLauthor}
+\if@PJLtoolkit@author
+    \RequirePackage{PJLauthor}
 \fi
-\if@PLtoolkit@amssim
-    \RequirePackage{PLamssim}
+\if@PJLtoolkit@amssim
+    \RequirePackage{PJLamssim}
 \fi
-\RequirePackage{PLdate}
-\RequirePackage{PLdraft}
-\RequirePackage{PLlogo}
-\RequirePackage{PLpaper}
-\RequirePackage{PLthm}
+\RequirePackage{PJLdate}
+\RequirePackage{PJLdraft}
+\RequirePackage{PJLlogo}
+\RequirePackage{PJLpaper}
+\RequirePackage{PJLthm}
 
 % \RequirePackage{iftex}
 % \ifPDFTeX
@@ -1195,38 +1195,38 @@
 %
 \RequirePackage{mathtools}
 
-% \PL@font@alreadyset should contain the current font name
+% \PJL@font@alreadyset should contain the current font name
 % A message can then be shown as: Font "(font name)" has been set
-\ifdefined\PL@font@alreadyset\else
+\ifdefined\PJL@font@alreadyset\else
 
-\if@PLtoolkit@palatino
+\if@PJLtoolkit@palatino
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
     \PassOptionsToPackage{defaultsups}{newpxtext}
     \RequirePackage{newpxtext}
     \RequirePackage{newpxmath}
     \let\openbox\relax
-    \PLsetlinespacing{\setstretch{1.07}}
+    \PJLsetlinespacing{\setstretch{1.07}}
 \fi
 
-\if@PLtoolkit@times
+\if@PJLtoolkit@times
     \RequirePackage{amssymb}
     \PassOptionsToPackage{defaultsups}{newtxtext}
     \RequirePackage{newtxtext}
     \RequirePackage{newtxmath}
     \let\openbox\relax
-    \PLsetlinespacing{\setstretch{1.00}}
+    \PJLsetlinespacing{\setstretch{1.00}}
 \fi
 
-\if@PLtoolkit@garamond
+\if@PJLtoolkit@garamond
     \RequirePackage{amssymb}
     \RequirePackage{ebgaramond-maths}
     \RequirePackage{ebgaramond}
     % \RequirePackage{garamondlibre}
-    \PLsetlinespacing{\setstretch{1.00}}
+    \PJLsetlinespacing{\setstretch{1.00}}
 \fi
 
-\if@PLtoolkit@biolinum
+\if@PJLtoolkit@biolinum
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
     % \RequirePackage[sansmath]{libertinust1math}
@@ -1241,12 +1241,12 @@
             ItalicFont     = LinBiolinum_RI.otf ,
             BoldItalicFont = LinBiolinum_RBO.otf ]
     \fi
-    \PLsetlinespacing{\setstretch{1.05}}
+    \PJLsetlinespacing{\setstretch{1.05}}
 \fi
 
 \fi
 
 \RequirePackage{microtype}
-%</PLtoolkit>
+%</PJLtoolkit>
 
 \endinput

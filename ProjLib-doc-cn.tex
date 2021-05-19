@@ -4,7 +4,7 @@
 %%================================
 %% 引入工具集
 %%================================
-\usepackage{PLtoolkit}
+\usepackage{PJLtoolkit}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
@@ -32,7 +32,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
+    {color,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -61,15 +61,15 @@
 %%================================
 %% 名称
 %%================================
-\providecommand{\PLtoolkit}{\textsf{PLtoolkit}}
-\providecommand{\PLamssim}{\textsf{PLamssim}}
-\providecommand{\PLauthor}{\textsf{PLauthor}}
-\providecommand{\PLdatestr}{\textsf{PLdate}}
-\providecommand{\PLdraft}{\textsf{PLdraft}}
-\providecommand{\PLlang}{\textsf{PLlang}}
-\providecommand{\PLlogo}{\textsf{PLlogo}}
-\providecommand{\PLpaper}{\textsf{PLpaper}}
-\providecommand{\PLthm}{\textsf{PLthm}}
+\providecommand{\PJLtoolkit}{\textsf{PJLtoolkit}}
+\providecommand{\PJLamssim}{\textsf{PJLamssim}}
+\providecommand{\PJLauthor}{\textsf{PJLauthor}}
+\providecommand{\PJLdatestr}{\textsf{PJLdate}}
+\providecommand{\PJLdraft}{\textsf{PJLdraft}}
+\providecommand{\PJLlang}{\textsf{PJLlang}}
+\providecommand{\PJLlogo}{\textsf{PJLlogo}}
+\providecommand{\PJLpaper}{\textsf{PJLpaper}}
+\providecommand{\PJLthm}{\textsf{PJLthm}}
 
 %%================================
 %% 正文
@@ -78,35 +78,35 @@
 
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/05/12}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/05/19}}
 \date{2021年5月，北京}
 
 \maketitle
 
 \begin{abstract}
-    \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \PLtoolkit{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
+    \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \PJLtoolkit{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
 \end{abstract}
 
 % \tableofcontents
 
-\section{PLtoolkit}
+\section{PJLtoolkit}
 
 \subsection{如何加载}
 
 只需要在导言部分加入这一行即可：
 
 \begin{code}
-  \usepackage{PLtoolkit}
+  \usepackage{PJLtoolkit}
 \end{code}
 
 \begin{remind}[注意事项]
-    由于其内部使用了 \textsf{cleveref}，\PLtoolkit{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
+    由于其内部使用了 \textsf{cleveref}，\PJLtoolkit{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
 \end{remind}
 \medskip
 
 \subsection{选项}
 
-\PLtoolkit{} 提供下列选项以供选择：
+\PJLtoolkit{} 提供下列选项以供选择：
 \begin{itemize}
     \item \texttt{draft} 或 \texttt{fast}
         \begin{itemize}
@@ -118,37 +118,37 @@
         \end{itemize}
     \item \texttt{author}
         \begin{itemize}
-            \item 加载 \PLauthor{}。关于其详细功能，请参阅有关这一宏包的小节。
+            \item 加载 \PJLauthor{}。关于其详细功能，请参阅有关这一宏包的小节。
         \end{itemize}
     \item \texttt{amssim}
         \begin{itemize}
-            \item 加载 \PLamssim{}。关于其详细功能，请参阅有关这一宏包的小节。
+            \item 加载 \PJLamssim{}。关于其详细功能，请参阅有关这一宏包的小节。
         \end{itemize}
     \item \texttt{nothms}
         \begin{itemize}
             \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
         \end{itemize}
 \end{itemize}
-另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \PLpaper{} 的 \texttt{paperstyle} 和 \texttt{preview} 等。详细信息可以参阅对应的小节。
+另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \PJLpaper{} 的 \texttt{paperstyle} 和 \texttt{preview} 等。详细信息可以参阅对应的小节。
 
 \section{具体组件}
 
-\subsection{PLamssim}
+\subsection{PJLamssim}
 
-\PLamssim{} 用于模拟 \textsf{amsart} 文档类的部分功能，包括：
+\PJLamssim{} 用于模拟 \textsf{amsart} 文档类的部分功能，包括：
 \begin{itemize}
-    \item \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email|、\lstinline|\dedicatory| 命令 (前三者由 \PLauthor{} 提供)
+    \item \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email|、\lstinline|\dedicatory| 命令 (前三者由 \PJLauthor{} 提供)
     \item \lstinline|\keywords| 命令
     \item \lstinline|\subjclass| 命令
     \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
     \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
 \end{itemize}
 
-这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PLamssim{} 不会起到任何效果。
+这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLamssim{} 不会起到任何效果。
 
-\subsection{PLauthor}
+\subsection{PJLauthor}
 
-\PLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
+\PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
 \begin{code}
   \author{(*\meta{author 1}*)}
   \address{(*\meta{address 1}*)}
@@ -160,25 +160,25 @@
 \end{code}
 其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
 
-\subsection{PLdate}
+\subsection{PJLdate}
 
-\PLdatestr{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为：\PLdate{2022-04-01}。
+\PJLdatestr{} 提供了 \lstinline|\PJLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PJLdate{2022-04-01}| 会被显示为：\PJLdate{2022-04-01}。
 
-关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
-\subsection{PLdraft}
+\subsection{PJLdraft}
 
-\PLdraft{} 提供了下列命令：
+\PJLdraft{} 提供了下列命令：
 \begin{itemize}
     \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
     \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
 \end{itemize}
 
-关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
-\subsection{PLlang}
+\subsection{PJLlang}
 
-\PLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。可以通过下列命令来选定语言：
+\PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。可以通过下列命令来选定语言：
 \begin{itemize}
     \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}|，用于指定语言，在其后将使用对应的语言设定。
     \begin{itemize}
@@ -215,9 +215,9 @@
 例如，\lstinline|\AddLanguageSetting(German){\color{orange}}| 可以让所有德语以橙色显示（当然，还需要再加上 \lstinline|\AddLanguageSetting{\color{black}}| 来修正其他语言的颜色）。
 
 
-\subsection{PLlogo}
+\subsection{PJLlogo}
 
-\PLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
+\PJLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
 % \begin{itemize}
 %     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
 %     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
@@ -242,9 +242,9 @@
     \lstinline|\Huge|:& {\Huge\ProjLib}
 \end{longtable}
 
-\subsection{PLpaper}
+\subsection{PJLpaper}
 
-\PLpaper{} 主要用于调节纸张颜色。它支持下列选项：
+\PJLpaper{} 主要用于调节纸张颜色。它支持下列选项：
 
 \begin{itemize}
     \item \texttt{paperstyle = \meta{paper style name}}
@@ -263,9 +263,9 @@
 
 为了使用的方便，建议把这些选项作为文档类的全局参数，这样对于文档的纸张设定一目了然。
 
-\subsection{PLthm}
+\subsection{PJLthm}
 
-\PLthm{} 提供定理类环境的设置。它支持下列选项：
+\PJLthm{} 提供定理类环境的设置。它支持下列选项：
 \begin{itemize}
     \item \texttt{nothms}
     \begin{itemize}
@@ -273,7 +273,7 @@
     \end{itemize}
 \end{itemize}
 
-预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PLlang{} 的小节。
+预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
 在引用定理类环境时，建议使用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|。这样就不必每次都写上相应环境的名称了。
 
@@ -350,13 +350,13 @@
 \section{目前存在的问题}
 
 \begin{itemize}[itemsep=1em]
-    \item \PLauthor{} 仍然处于初步阶段，在很多方面还远远比不上相对成熟的 \textsf{authblk}。
-    \item \PLlang{}：针对 \textsf{polyglossia} 的设置仍然存在许多问题，因此现在主要功能都是通过 \textsf{babel} 实现的。
-    \item \PLpaper{} 的 \texttt{preview} 功能主要是通过 \textsf{geometry} 宏包实现的，因此在 \textsc{\textsf{Koma}} 文档类中效果不好。
-    \item \PLthm{} 对于定理类环境的编号与样式设定目前还无法由用户更改。
-    \item \PLthm{}：智能引用针对所有 \PLlang{} 已支持语言的本地化尚不完整，主要是中文、日文与俄文。
+    \item \PJLauthor{} 仍然处于初步阶段，在很多方面还远远比不上相对成熟的 \textsf{authblk}。
+    \item \PJLlang{}：针对 \textsf{polyglossia} 的设置仍然存在许多问题，因此现在主要功能都是通过 \textsf{babel} 实现的。
+    \item \PJLpaper{} 的 \texttt{preview} 功能主要是通过 \textsf{geometry} 宏包实现的，因此在 \textsc{\textsf{Koma}} 文档类中效果不好。
+    \item \PJLthm{} 对于定理类环境的编号与样式设定目前还无法由用户更改。
+    \item \PJLthm{}：智能引用针对所有 \PJLlang{} 已支持语言的本地化尚不完整，主要是中文、日文与俄文。
     \item 错误处理功能不完善，在出现一些问题时没有相应的错误提示。
-    \item 代码中有许多可优化之处，有些部分耗时过长，特别是 \PLthm{} 对定理类环境的定义。
+    \item 代码中有许多可优化之处，有些部分耗时过长，特别是 \PJLthm{} 对定理类环境的定义。
 \end{itemize}
 
 
@@ -365,13 +365,13 @@
 
 \subsection{标准文档类}
 
-在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
+在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PJLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
 
 \begin{code}
 \documentclass{article}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
@@ -379,7 +379,7 @@
 
 \title{Le Titre}
 \author{Auteur}
-\date{\PLdate{2022-04-01}}
+\date{\PJLdate{2022-04-01}}
 
 \maketitle
 
@@ -400,20 +400,20 @@ Référence du théorème: \cref{thm:abc} % It is recommended to use clever refe
 \end{code}
 
 \bigskip
-如果使用了 \PLamssim{}，那么文章中就可以采用 \AmS{} 文档类的写法 (当然，此时原始的写法也是成立的，因此始终添加 \texttt{amssim} 这一参数通常是没有问题的)。此时上文引入 \PLtoolkit{} 的那一行应该写为：
+如果使用了 \PJLamssim{}，那么文章中就可以采用 \AmS{} 文档类的写法 (当然，此时原始的写法也是成立的，因此始终添加 \texttt{amssim} 这一参数通常是没有问题的)。此时上文引入 \PJLtoolkit{} 的那一行应该写为：
 \begin{code}
-\usepackage[amssim,palatino]{PLtoolkit}
+\usepackage[amssim,palatino]{PJLtoolkit}
 \end{code}
 
 \clearpage
 \subsection{\texorpdfstring{\AmS{}}{AMS} 文档类}
 
-在 \AmS{} 文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
+在 \AmS{} 文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PJLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
 \begin{code}
 \documentclass{amsart}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
@@ -426,7 +426,7 @@ Référence du théorème: \cref{thm:abc} % It is recommended to use clever refe
 \author{Auteur 1}
 \address{Adresse 1}
 \email{\href{Courriel 2}{Courriel 2}}
-\date{\PLdate{2022-04-01}}
+\date{\PJLdate{2022-04-01}}
 \subjclass{*****}
 \keywords{...}
 
