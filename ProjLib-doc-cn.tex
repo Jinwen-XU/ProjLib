@@ -78,7 +78,7 @@
 
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/05/19}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/05/20}}
 \date{2021年5月，北京}
 
 \maketitle
@@ -124,9 +124,9 @@
         \begin{itemize}
             \item 加载 \PJLamssim{}。关于其详细功能，请参阅有关这一宏包的小节。
         \end{itemize}
-    \item \texttt{nothms}
+    \item \texttt{nothms}、\texttt{regionalref}
         \begin{itemize}
-            \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
+            \item 来自 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
         \end{itemize}
 \end{itemize}
 另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \PJLpaper{} 的 \texttt{paperstyle} 和 \texttt{preview} 等。详细信息可以参阅对应的小节。
@@ -271,6 +271,10 @@
     \begin{itemize}
         \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
     \end{itemize}
+    \item \texttt{regionalref}
+    \begin{itemize}
+        \item 在智能引用时，定理类环境的名称随当前语言而变化（默认情况下，引用时会始终采用定理类环境所处语境下的名称；例如，在英文语境中书写的定理，即使稍后在中文语境下引用时，仍将显示为 Theorem）。在 \texttt{fast} 模式下，这一选项默认启用。
+    \end{itemize}
 \end{itemize}
 
 预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
@@ -346,17 +350,17 @@
 \end{proofidea}
 
 
-\bigskip
+\medskip
 \section{目前存在的问题}
 
-\begin{itemize}[itemsep=1em]
+\begin{itemize}[itemsep=.6em]
     \item \PJLauthor{} 仍然处于初步阶段，在很多方面还远远比不上相对成熟的 \textsf{authblk}。
     \item \PJLlang{}：针对 \textsf{polyglossia} 的设置仍然存在许多问题，因此现在主要功能都是通过 \textsf{babel} 实现的。
     \item \PJLpaper{} 的 \texttt{preview} 功能主要是通过 \textsf{geometry} 宏包实现的，因此在 \textsc{\textsf{Koma}} 文档类中效果不好。
     \item \PJLthm{} 对于定理类环境的编号与样式设定目前还无法由用户更改。
     \item \PJLthm{}：智能引用针对所有 \PJLlang{} 已支持语言的本地化尚不完整，主要是中文、日文与俄文。
     \item 错误处理功能不完善，在出现一些问题时没有相应的错误提示。
-    \item 代码中有许多可优化之处，有些部分耗时过长，特别是 \PJLthm{} 对定理类环境的定义。
+    \item 代码中仍有许多可优化之处，有些部分耗时过长，特别是 \PJLthm{} 对定理类环境的定义。
 \end{itemize}
 
 

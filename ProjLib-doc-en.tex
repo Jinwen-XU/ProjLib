@@ -76,7 +76,7 @@
 
 \title{\ProjLib{}~~Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/05/19}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/05/20}}
 \date{May 2021, Beijing}
 
 \maketitle
@@ -110,7 +110,7 @@ Just add the following line to your preamble:
         \begin{itemize}
             \item Fast mode. The functionality is appropriately reduced to get faster compilation speed, recommended to use during the writing phase.
         \end{itemize}
-    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum}
+    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum}
         \begin{itemize}
             \item Font options. As the name suggest, font with corresponding name will be loaded.
         \end{itemize}
@@ -122,9 +122,9 @@ Just add the following line to your preamble:
         \begin{itemize}
             \item Load \PJLamssim{}. For more information about its functionality, see the section on this package.
         \end{itemize}
-    \item \texttt{nothms}
+    \item \texttt{nothms}, \texttt{regionalref}
         \begin{itemize}
-            \item The theorem-like environments will not be defined. You should use this option if you wish to apply your own theorem styles.
+            \item Options from \PJLthm{}, please refer to the section on this package for details.
         \end{itemize}
 \end{itemize}
 In addition, there are also some options of the components that can (and should) be passed as global options of the document class, such as \texttt{paperstyle} and \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding section.
@@ -246,7 +246,7 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
         \begin{itemize}
             \item Set the paper color style. The options available for \meta{paper style name} are: \texttt{yellow}, \texttt{dark} and \texttt{nord}.
         \end{itemize}
-    \item \texttt{yellowpaper}、\texttt{darkpaper}、\texttt{nordpaper}
+    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
         \begin{itemize}
             \item Set the paper color style. The effect is the same as \texttt{paperstyle} with the corresponding \meta{paper style name} specified.
         \end{itemize}
@@ -261,11 +261,15 @@ It is recommended to pass these options as global options of the document class.
 \subsection{PJLthm}
 
 \PJLthm{} offers the configuration of theorem-like environments. It has the following option:
-% \vspace{-.3\baselineskip}
+
 \begin{itemize}
     \item \texttt{nothms}
     \begin{itemize}
-        \item The theorem-like environments will not be defined. You should use this option if you wish to apply your own theorem styles.
+        \item The theorem-like environments will not be defined. You may use this option if you wish to apply your own theorem styles.
+    \end{itemize}
+    \item \texttt{regionalref}
+    \begin{itemize}
+        \item When referencing, the name of the theorem-like environment changes with the current language (by default, the name will always remain the same; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''). In \texttt{fast} mode, this option is automatically enabled.
     \end{itemize}
 \end{itemize}
 
@@ -287,7 +291,7 @@ If you need to define a new theorem-like environment, you must first define the 
     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
 \end{remind}
 
-\medskip
+\clearpage% \medskip
 And then define this environment in one of following five ways:
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
@@ -354,11 +358,11 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     \item \PJLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
     \item \PJLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PJLlang{}, especially for Chinese, Japanese and Russian.
     \item The error handling mechanism is incomplete: there is no corresponding error prompt when some problems occur.
-    \item There are many things that can be optimized in the code. Some codes take too long to run, especially the definition of theorem-like environments in \PJLthm{}.
+    \item There are still many things that can be optimized in the code. Some takes too long to run, especially the definition of theorem-like environments in \PJLthm{}.
 \end{itemize}
 
 
-\clearpage
+\medskip % \clearpage
 \section{Usage example}
 
 \subsection{Standard classes}

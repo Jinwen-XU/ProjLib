@@ -764,7 +764,12 @@
     prefix = @PJLthm@
 }
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{regionalref}
 \ProcessKeyvalOptions*\relax
+\if@PJLthm@fast
+    \@PJLthm@regionalreftrue
+\fi
 
 \RequirePackage{PJLlang}
 \RequirePackage{amsmath,amsthm}
@@ -787,6 +792,69 @@
     {\expandafter\PassFirstToSecond%
         \expandafter{\temp}{\endgroup\InnerCreateTheorem{#1}}}%
 }%
+\if@PJLthm@regionalref
+\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()}{%
+% #1 = star or no star
+% #2 = name of environment
+% #3 = emptiness or star to append to name of environment
+% #4 = numbered like
+% #5 = numbered within
+% #6 = existed environment
+    \IfBooleanTF{#1}{%
+        \IfValueTF{#4}
+            {\@firstoftwo}
+            {\IfValueTF{#5}{\@firstoftwo}{\@secondoftwo}}%
+    }{%
+        \IfValueTF{#4}
+            {\IfValueTF{#5}{\@firstoftwo}{\@secondoftwo}}{
+            \@secondoftwo}
+    }%
+    {%
+        \GenericError{}%
+        {\string\CreateTheorem\space syntax error\on@line}{%
+        You cannot call the starred variant with optional argument,\MessageBreak
+        nor call the unstarred variant with several optional arguments.}%
+        {}%
+    }{%
+        \IfValueTF{#6}{%
+            \IfBooleanTF{#1}{%
+                \ifcsmacro{#2#3}%
+                {\renewenvironment{#2#3}{\begin{#6*}}{\end{#6*}}}%
+                {\newenvironment{#2#3}{\begin{#6*}}{\end{#6*}}}%
+            }{%
+                \ifcsmacro{#2#3}%
+                {\renewenvironment{#2#3}{\begin{#6}}{\end{#6}}}%
+                {\newenvironment{#2#3}{\begin{#6}}{\end{#6}}}%
+            }
+        }{%
+            \IfBooleanTF{#1}{%
+                \newtheorem*{#2#3}{\csname#2name\csname\languagename ABBR\endcsname\endcsname}
+            }{%
+                \IfValueTF{#5}{%
+                    \newtheorem{PJL#2#3}{\csname#2name\csname\languagename ABBR\endcsname\endcsname}[#5]%
+                    \newaliascnt{#2#3}{PJL#2#3}%
+                }{%
+                    \IfValueTF{#4}{%
+                            \newtheorem{PJL#2#3}[#4]{\csname#2name\csname\languagename ABBR\endcsname\endcsname}
+                        }{%
+                            \newtheorem{PJL#2#3}{\csname#2name\csname\languagename ABBR\endcsname\endcsname}  
+                            \newaliascnt{#2#3}{PJL#2#3}%
+                        }%
+                }%
+                \crefname{PJL#2#3}%
+                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                \Crefname{PJL#2#3}%
+                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                \NewDocumentEnvironment{#2#3}{}
+                    {\begin{PJL#2#3}}
+                    {\end{PJL#2#3}}
+            }%
+        }%
+    }%
+}%
+\else
 \NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()}{%
 % #1 = star or no star
 % #2 = name of environment
@@ -853,7 +921,7 @@
             \NewDocumentEnvironment{#2#3}{}
                 {\csname#2\csname\languagename ABBR\endcsname#3\endcsname}%
                 {\csname end#2\csname\languagename ABBR\endcsname#3\endcsname}%
-        }
+        }%
     }%
 }%
 \NewDocumentCommand{\CreateTheoremNumberedLikeAliasCounter}{mmm}{%
@@ -867,6 +935,7 @@
         {\csname#1name#2\endcsname}%
         {\csname#1name#2\endcsname}%
 }%
+\fi
 
 %% English theorems names
 \def\theoremnameEN{Theorem}
@@ -1158,6 +1227,7 @@
 \DeclareBoolOption[false]{author}
 \DeclareBoolOption[false]{amssim}
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{regionalref}
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
@@ -1170,9 +1240,13 @@
     \PassOptionsToPackage{fast}{PJLdate}
     \PassOptionsToPackage{fast}{PJLdraft}
     \PassOptionsToPackage{fast}{PJLlogo}
+    \PassOptionsToPackage{fast}{PJLthm}
 \fi
 \if@PJLtoolkit@nothms
     \PassOptionsToPackage{nothms}{PJLthm}
+\fi
+\if@PJLtoolkit@regionalref
+    \PassOptionsToPackage{regionalref}{PJLthm}
 \fi
 
 \if@PJLtoolkit@author
