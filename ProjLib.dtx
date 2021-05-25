@@ -18,47 +18,47 @@
 %
 %<*PJLamssim>
 \ProvidesPackage{PJLamssim}
-    [2021/05/19 Simulate some features of amsart]
+    [2021/05/25 Simulate some features of amsart]
 %</PJLamssim>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/05/19 Enhanced author information block]
+    [2021/05/25 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/05/19 Convert yyyy-mm-dd to normal datetime format]
+    [2021/05/25 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/05/19 Some useful macros for the draft stage]
+    [2021/05/25 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/05/19 Multi-language configuration]
+    [2021/05/25 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/05/19 The ProjLib logo]
+    [2021/05/25 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/05/19 Paper style configuration]
+    [2021/05/25 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/05/19 Theorem setup and configuration]
+    [2021/05/25 Theorem setup and configuration]
 %</PJLthm>
 %
 %<*PJLtoolkit>
 \ProvidesPackage{PJLtoolkit}
-    [2021/05/19 Collective interface of ProjLib Toolkit]
+    [2021/05/25 Collective interface of ProjLib Toolkit]
 %</PJLtoolkit>
 %
 \RequirePackage{kvoptions}
@@ -524,31 +524,32 @@
 \newcommand{\PJLlang@langconfig@russian}{%
     \selectlanguage{russian}%
 }
+
+\RequirePackage{xstring}
 \NewDocumentCommand\AddLanguageSetting{d()m}{%
 \IfNoValueTF{#1}%
     {\gappto{\PJLlang@langconfig@common}{#2}}%
     {%
-        \ifstrequal{#1}{chinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{Chinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{schinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{SChinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{simplifiedchinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{SimplifiedChinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}{}%
-        \ifstrequal{#1}{tchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{TChinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{traditionalchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{TraditionalChinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}{}%
-        \ifstrequal{#1}{japanese}{\gappto{\PJLlang@langconfig@japanese}{#2}}{}%
-        \ifstrequal{#1}{Japanese}{\gappto{\PJLlang@langconfig@japanese}{#2}}{}%
-        \ifstrequal{#1}{english}{\gappto{\PJLlang@langconfig@english}{#2}}{}%
-        \ifstrequal{#1}{English}{\gappto{\PJLlang@langconfig@english}{#2}}{}%
-        \ifstrequal{#1}{french}{\gappto{\PJLlang@langconfig@french}{#2}}{}%
-        \ifstrequal{#1}{French}{\gappto{\PJLlang@langconfig@french}{#2}}{}%
-        \ifstrequal{#1}{ngerman}{\gappto{\PJLlang@langconfig@german}{#2}}{}%
-        \ifstrequal{#1}{german}{\gappto{\PJLlang@langconfig@german}{#2}}{}%
-        \ifstrequal{#1}{German}{\gappto{\PJLlang@langconfig@german}{#2}}{}%
-        \ifstrequal{#1}{russian}{\gappto{\PJLlang@langconfig@russian}{#2}}{}%
-        \ifstrequal{#1}{Russian}{\gappto{\PJLlang@langconfig@russian}{#2}}{}%
+        \lowercase{\IfStrEqCase{#1}}{%
+            {cn}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
+            {chinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
+            {schinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
+            {simplifiedchinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
+            {tc}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
+            {tchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
+            {traditionalchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
+            {jp}{\gappto{\PJLlang@langconfig@japanese}{#2}}%
+            {japanese}{\gappto{\PJLlang@langconfig@japanese}{#2}}%
+            {en}{\gappto{\PJLlang@langconfig@english}{#2}}%
+            {english}{\gappto{\PJLlang@langconfig@english}{#2}}%
+            {fr}{\gappto{\PJLlang@langconfig@french}{#2}}%
+            {french}{\gappto{\PJLlang@langconfig@french}{#2}}%
+            {de}{\gappto{\PJLlang@langconfig@german}{#2}}%
+            {ngerman}{\gappto{\PJLlang@langconfig@german}{#2}}%
+            {german}{\gappto{\PJLlang@langconfig@german}{#2}}%
+            {ru}{\gappto{\PJLlang@langconfig@russian}{#2}}%
+            {russian}{\gappto{\PJLlang@langconfig@russian}{#2}}%
+        }%
     }%
 }
 
@@ -561,27 +562,26 @@
 %
 \newcommand{\UseLanguageCORE}[1]{%
     \PJLlang@langconfig@common%
-    \ifstrequal{#1}{chinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{Chinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{schinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{simplifiedchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SimplifiedChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{tchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{traditionalchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TraditionalChinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{japanese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{Japanese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{english}{\PJL@config@linespacing\PJLlang@langconfig@english}{}%
-    \ifstrequal{#1}{English}{\PJL@config@linespacing\PJLlang@langconfig@english}{}%
-    \ifstrequal{#1}{french}{\PJL@config@linespacing\PJLlang@langconfig@french}{}%
-    \ifstrequal{#1}{French}{\PJL@config@linespacing\PJLlang@langconfig@french}{}%
-    \ifstrequal{#1}{ngerman}{\PJL@config@linespacing\PJLlang@langconfig@german}{}%
-    \ifstrequal{#1}{german}{\PJL@config@linespacing\PJLlang@langconfig@german}{}%
-    \ifstrequal{#1}{German}{\PJL@config@linespacing\PJLlang@langconfig@german}{}%
-    \ifstrequal{#1}{russian}{\PJL@config@linespacing\PJLlang@langconfig@russian}{}%
-    \ifstrequal{#1}{Russian}{\PJL@config@linespacing\PJLlang@langconfig@russian}{}%
+    \lowercase{\IfStrEqCase{#1}}{%
+        {cn}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
+        {chinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
+        {schinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
+        {simplifiedchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
+        {tc}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}%
+        {tchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}%
+        {traditionalchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}%
+        {jp}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}%
+        {japanese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}%
+        {en}{\PJL@config@linespacing\PJLlang@langconfig@english}%
+        {english}{\PJL@config@linespacing\PJLlang@langconfig@english}%
+        {fr}{\PJL@config@linespacing\PJLlang@langconfig@french}%
+        {french}{\PJL@config@linespacing\PJLlang@langconfig@french}%
+        {de}{\PJL@config@linespacing\PJLlang@langconfig@german}%
+        {ngerman}{\PJL@config@linespacing\PJLlang@langconfig@german}%
+        {german}{\PJL@config@linespacing\PJLlang@langconfig@german}%
+        {ru}{\PJL@config@linespacing\PJLlang@langconfig@russian}%
+        {russian}{\PJL@config@linespacing\PJLlang@langconfig@russian}%
+    }%
 }
 \newcommand{\UseLanguage}[1]{%
     \ifx\@onlypreamble\@notprerr%
@@ -593,27 +593,26 @@
 \newcommand{\UseOtherLanguage}[2]{%
 \begingroup%
     \PJLlang@langconfig@common%
-    \ifstrequal{#1}{chinese}{\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{Chinese}{\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{schinese}{\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SChinese}{\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{simplifiedchinese}{\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{SimplifiedChinese}{\PJLlang@langconfig@chinese}{}%
-    \ifstrequal{#1}{tchinese}{\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TChinese}{\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{traditionalchinese}{\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{TraditionalChinese}{\PJLlang@langconfig@tchinese}{}%
-    \ifstrequal{#1}{japanese}{\PJLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{Japanese}{\PJLlang@langconfig@japanese}{}%
-    \ifstrequal{#1}{english}{\PJLlang@langconfig@english}{}%
-    \ifstrequal{#1}{English}{\PJLlang@langconfig@english}{}%
-    \ifstrequal{#1}{french}{\PJLlang@langconfig@french}{}%
-    \ifstrequal{#1}{French}{\PJLlang@langconfig@french}{}%
-    \ifstrequal{#1}{ngerman}{\PJLlang@langconfig@german}{}%
-    \ifstrequal{#1}{german}{\PJLlang@langconfig@german}{}%
-    \ifstrequal{#1}{German}{\PJLlang@langconfig@german}{}%
-    \ifstrequal{#1}{russian}{\PJLlang@langconfig@russian}{}%
-    \ifstrequal{#1}{Russian}{\PJLlang@langconfig@russian}{}%
+    \lowercase{\IfStrEqCase{#1}}{%
+        {cn}{\PJLlang@langconfig@chinese}%
+        {chinese}{\PJLlang@langconfig@chinese}%
+        {schinese}{\PJLlang@langconfig@chinese}%
+        {simplifiedchinese}{\PJLlang@langconfig@chinese}%
+        {tc}{\PJLlang@langconfig@tchinese}%
+        {tchinese}{\PJLlang@langconfig@tchinese}%
+        {traditionalchinese}{\PJLlang@langconfig@tchinese}%
+        {jp}{\PJLlang@langconfig@japanese}%
+        {japanese}{\PJLlang@langconfig@japanese}%
+        {en}{\PJLlang@langconfig@english}%
+        {english}{\PJLlang@langconfig@english}%
+        {fr}{\PJLlang@langconfig@french}%
+        {french}{\PJLlang@langconfig@french}%
+        {de}{\PJLlang@langconfig@german}%
+        {ngerman}{\PJLlang@langconfig@german}%
+        {german}{\PJLlang@langconfig@german}%
+        {ru}{\PJLlang@langconfig@russian}%
+        {russian}{\PJLlang@langconfig@russian}%
+    }%
     #2%
 \endgroup%
 }
@@ -636,54 +635,38 @@
 
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
-\RequirePackage{iftex}
-% \ifPDFTeX
-% \RequirePackage{fontenc}
-% \newcommand{\PJLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
-% \else
-% \RequirePackage{fontspec}
-% \newcommand{\PJLlogo@font}{\fontspec{LinBiolinum_R.otf}\selectfont}
-% \fi
 \ifdefined\fontspec
-    \newcommand{\PJLlogo@font}{\normalfont\fontspec{LinBiolinum_R.otf}\selectfont}
+  \newfontface{\PJLlogo@font}{LinBiolinum_R.otf}
 \else
-    \PassOptionsToPackage{T1}{fontenc}
-    \RequirePackage{fontenc}
-    \newcommand{\PJLlogo@font}{\normalfont\fontfamily{LinuxBiolinumT-TLF}\selectfont}
+  \RequirePackage[T1]{fontenc}
+  \newcommand{\PJLlogo@font}{\fontfamily{LinuxBiolinumT-TLF}\selectfont}
 \fi
-% \DeclareSymbolFont{PJLupright}{OT1}{zplm}{b}{n}
-\DeclareSymbolFont{PJLupright}{U}{zeur}{b}{n}
-\DeclareMathSymbol{\PJLSigma}{\mathalpha}{PJLupright}{"06}
 
-\providecommand*{\ProjLib}{%
-\begingroup%
-\PJLlogo@font%
-\color{blue!60!cyan}P%
-\color{blue!45!cyan}r%
-\color{blue!30!cyan}o%
-\color{green!70!black}\j%
-% \kern-0.235em\raisebox{0.57em}{\scalebox{0.3}{\rotatebox{-10}{$\PJLSigma$}}}%
-% \kern-0.01em%
-\kern-0.266em\raisebox{0.56em}{\scalebox{0.4}{\rotatebox{-10}{$\PJLSigma$}}}%
-\kern-0.065em%
-\color{red!20!yellow}L%
-\color{red!40!yellow}i%
-\color{red!60!yellow}b%
-\endgroup%
+\newcommand{\PJLSigmaJ}{%
+  \vbox{\offinterlineskip
+    \ialign{%
+      \hfil##\hfil\cr
+      \hidewidth\hskip0.15ex\scalebox{0.4}{\rotatebox{-10}{\usefont{U}{zeur}{b}{n}\symbol{"06}}}\hidewidth\cr
+      \noalign{\kern0.15ex}
+      \j\cr
+    }%
+  }%
 }
 
-\providecommand*{\ProjLibText}{%
-\begingroup%
-\PJLlogo@font%
-\color{blue!60!cyan}P%
-\color{blue!45!cyan}r%
-\color{blue!30!cyan}o%
-\color{green!70!black}j%
-\color{red!20!yellow}L%
-\color{red!40!yellow}i%
-\color{red!60!yellow}b%
-\endgroup%
+\newcommand{\ProjLib@generic}[1]{%
+  \begingroup
+  \normalfont\PJLlogo@font
+  \textcolor{blue!60!cyan}{P}%
+  \textcolor{blue!45!cyan}{r}%
+  \textcolor{blue!30!cyan}{o}%
+  \textcolor{green!70!black}{#1}%
+  \textcolor{red!20!yellow}{L}%
+  \textcolor{red!40!yellow}{i}%
+  \textcolor{red!60!yellow}{b}%
+  \endgroup
 }
+\DeclareRobustCommand*{\ProjLib}{\ProjLib@generic{\PJLSigmaJ}}
+\DeclareRobustCommand*{\ProjLibText}{\ProjLib@generic{j}}
 %</PJLlogo>
 %
 %<*PJLpaper>
@@ -777,20 +760,59 @@
 \PassOptionsToPackage{nameinlink}{cleveref}
 \RequirePackage{cleveref}
 
+% Macro for naming theorems
+\NewDocumentCommand{\NameTheorem}{omm}{%
+    \protected@edef\PJLthm@temp{#2}%
+    \expandafter\IfEndWith\expandafter{\PJLthm@temp}{*}{%
+        \expandafter\StrGobbleRight\expandafter{\PJLthm@temp}{1}[\PJLthm@temp]%
+    }{}%
+    \IfValueTF{#1}{%
+        \lowercase{\IfStrEqCase{#1}}{%
+            {cn}{\def\PJL@temp@abbr{CN}}%
+            {chinese}{\def\PJL@temp@abbr{CN}}%
+            {schinese}{\def\PJL@temp@abbr{CN}}%
+            {simplifiedchinese}{\def\PJL@temp@abbr{CN}}%
+            {tc}{\def\PJL@temp@abbr{TC}}%
+            {tchinese}{\def\PJL@temp@abbr{TC}}%
+            {traditionalchinese}{\def\PJL@temp@abbr{TC}}%
+            {jp}{\def\PJL@temp@abbr{JP}}%
+            {japanese}{\def\PJL@temp@abbr{JP}}%
+            {en}{\def\PJL@temp@abbr{EN}}%
+            {english}{\def\PJL@temp@abbr{EN}}%
+            {fr}{\def\PJL@temp@abbr{FR}}%
+            {french}{\def\PJL@temp@abbr{FR}}%
+            {de}{\def\PJL@temp@abbr{DE}}%
+            {ngerman}{\def\PJL@temp@abbr{DE}}%
+            {german}{\def\PJL@temp@abbr{DE}}%
+            {ru}{\def\PJL@temp@abbr{RU}}%
+            {russian}{\def\PJL@temp@abbr{RU}}%
+        }%
+        \expandafter\def\csname\PJLthm@temp name\PJL@temp@abbr\endcsname{#3}%
+    }{%
+        \expandafter\def\csname\PJLthm@temp nameEN\endcsname{#3}%
+        \expandafter\def\csname\PJLthm@temp nameFR\endcsname{#3}%
+        \expandafter\def\csname\PJLthm@temp nameDE\endcsname{#3}%
+        \expandafter\def\csname\PJLthm@temp nameCN\endcsname{#3}%
+        \expandafter\def\csname\PJLthm@temp nameTC\endcsname{#3}%
+        \expandafter\def\csname\PJLthm@temp nameJP\endcsname{#3}%
+        \expandafter\def\csname\PJLthm@temp nameRU\endcsname{#3}%
+    }%
+}
+
 % Macro for creating theorems
 \RequirePackage{xstring}
 \newcommand\PassFirstToSecond[2]{#2{#1}}%
 \NewDocumentCommand{\CreateTheorem}{sm}{%
     \begingroup
-    \protected@edef\temp{#2}%
-    \expandafter\IfEndWith\expandafter{\temp}{*}{%
-        \expandafter\StrGobbleRight\expandafter{\temp}{1}[\temp]%
+    \protected@edef\PJLthm@temp{#2}%
+    \expandafter\IfEndWith\expandafter{\PJLthm@temp}{*}{%
+        \expandafter\StrGobbleRight\expandafter{\PJLthm@temp}{1}[\PJLthm@temp]%
         \PassFirstToSecond{*}%
     }{%
         \PassFirstToSecond{}%
     }%
     {\expandafter\PassFirstToSecond%
-        \expandafter{\temp}{\endgroup\InnerCreateTheorem{#1}}}%
+        \expandafter{\PJLthm@temp}{\endgroup\InnerCreateTheorem{#1}}}%
 }%
 \if@PJLthm@regionalref
 \NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()}{%
