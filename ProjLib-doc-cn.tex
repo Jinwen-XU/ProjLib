@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[allowbf]{lebhart}
+\documentclass[allowbf,regionalref]{lebhart}
 
 %%================================
 %% 引入工具集
@@ -39,23 +39,23 @@
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
 
 %%================================
-%% remind
+%% tip
 %%================================
-\newenvironment{remind}[1][提示]{%
+\newenvironment{tip}[1][提示]{%
     \begin{tcolorbox}[breakable,
         enhanced,
         width = \textwidth,
-        colback = white, colbacktitle = paper,
+        colback = paper, colbacktitle = paper,
         colframe = gray!50, boxrule=0.2mm,
         coltitle = black,
         fonttitle = \sffamily,
-        attach boxed title to top left = {yshift=-\tcboxedtitleheight/2,  xshift=\tcboxedtitlewidth/4},
+        attach boxed title to top left = {yshift=-\tcboxedtitleheight/2, xshift=.5cm},
         boxed title style = {boxrule=0pt, colframe=paper},
         before skip = 0.3cm,
         after skip = 0.3cm,
         top = 3mm,
         bottom = 3mm,
-        title={\sffamily #1}]%
+        title={\scshape\sffamily #1}]%
 }{\end{tcolorbox}}
 
 %%================================
@@ -78,8 +78,8 @@
 
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/05/25}}
-\date{2021年5月，北京}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/06/07}}
+\date{2021年6月，北京}
 
 \maketitle
 
@@ -99,9 +99,9 @@
   \usepackage{PJLtoolkit}
 \end{code}
 
-\begin{remind}[注意事项]
+\begin{tip}[注意事项]
     由于其内部使用了 \textsf{cleveref}，\PJLtoolkit{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
-\end{remind}
+\end{tip}
 \medskip
 
 \subsection{选项}
@@ -162,14 +162,14 @@
 
 \subsection{PJLdate}
 
-\PJLdatestr{} 提供了 \lstinline|\PJLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为对应语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PJLdate{2022-04-01}| 会被显示为：\PJLdate{2022-04-01}。
+\PJLdatestr{} 提供了 \lstinline|\PJLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PJLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
 
 关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
 \subsection{PJLdraft}
 
 \PJLdraft{} 提供了下列命令：
-\begin{itemize}
+\begin{itemize}\setstretch{1.15}
     \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
     \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
 \end{itemize}
@@ -191,14 +191,18 @@
 \end{itemize}
 
 \meta{language name} 有下列选择 (不区分大小写，如 \texttt{French} 或 \texttt{french} 均可)：
-\begin{itemize}
+\begin{itemize}\setstretch{1.15}
     \item 简体中文：\texttt{CN}、\texttt{Chinese}、\texttt{SChinese} 或 \texttt{SimplifiedChinese}
     \item 繁体中文：\texttt{TC}、\texttt{TChinese} 或 \texttt{TraditionalChinese}
-    \item 英文：\texttt{EN} 或 \texttt{English}
-    \item 法文：\texttt{FR} 或 \texttt{French}
-    \item 德文：\texttt{DE}、\texttt{German} 或 \texttt{ngerman}
-    \item 日文：\texttt{JP} 或 \texttt{Japanese}
-    \item 俄文：\texttt{RU} 或 \texttt{Russian}
+    \item 英语：\texttt{EN} 或 \texttt{English}
+    \item 法语：\texttt{FR} 或 \texttt{French}
+    \item 德语：\texttt{DE}、\texttt{German} 或 \texttt{ngerman}
+    \item 意大利语：\texttt{IT} 或 \texttt{Italian}
+    \item 葡萄牙语：\texttt{PT} 或 \texttt{Portuguese}
+    \item 巴西葡萄牙语：\texttt{BR} 或 \texttt{Brazilian}
+    \item 西班牙语：\texttt{ES} 或 \texttt{Spanish}
+    \item 日语：\texttt{JP} 或 \texttt{Japanese}
+    \item 俄语：\texttt{RU} 或 \texttt{Russian}
 \end{itemize}
 
 另外，还可以通过下面的方式来填加相应语言的设置：
@@ -229,18 +233,23 @@
 %     \item \lstinline|\huge|:\quad {\huge\ProjLib}
 %     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
 % \end{itemize}
-% \vspace{-0.5\baselineskip}
-\begin{longtable}{ll}
-    \lstinline|\tiny|:& {\tiny\ProjLib}\\
-    \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
-    \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
-    \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
-    \lstinline|\large|:& {\large\ProjLib}\\
-    \lstinline|\Large|:& {\Large\ProjLib}\\
-    \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
-    \lstinline|\huge|:& {\huge\ProjLib}\\
-    \lstinline|\Huge|:& {\Huge\ProjLib}
-\end{longtable}
+
+\vspace{-0.5\baselineskip}
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
 
 \subsection{PJLpaper}
 
@@ -277,11 +286,11 @@
     \end{itemize}
 \end{itemize}
 
-预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。这些定理类环境在显示时会依据当前语言而相应变化，例如在中文模式下 \texttt{theorem} 会显示为“定理”，而在英文模式下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
+预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{observation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应带有星号 \lstinline|*| 的无编号版本。它们在显示时会依据当前语言而变化，例如在中文语境下 \texttt{theorem} 会显示为“定理”，而在英文语境下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
-\begin{remind}
+\begin{tip}
     在引用定理类环境时，建议使用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|。这样就不必每次都写上相应环境的名称了。
-\end{remind}
+\end{tip}
 
 \medskip
 % 若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称 \lstinline|\|\meta{name of environment}\meta{language abbr}，其中 \meta{language abbr} 是语言的简写，分别为：
@@ -292,9 +301,9 @@
 %     \texttt{FR} & 法文  & &\\
 % \end{longtable}
 
-% \begin{remind}
+% \begin{tip}
 %     如果要定义名称后带有星号 \lstinline|*| 的环境，那么在上面的 \meta{name of environment} 中不用写星号。
-% \end{remind}
+% \end{tip}
 若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称：
 \vspace{-.15\baselineskip}%
 \begin{itemize}
@@ -334,9 +343,9 @@
         \end{itemize}
 \end{itemize}
 
-\begin{remind}
+\begin{tip}
     其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
-\end{remind}
+\end{tip}
 
 % \def\proofideanameCN{思路}
 \NameTheorem[CN]{proofidea}{思路}

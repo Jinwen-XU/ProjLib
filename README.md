@@ -2,8 +2,13 @@
 
 # ProjLib Toolkit
 
-A collection of tools that help you write LaTeX document. With `PJLtoolkit` loaded, you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
+> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" in English, but I prefer the French interpretation "***Proj**et **Lib**re*".
 
+## Introduction
+
+`ProjLib` is a collection of tools that help you write LaTeX document. With `PJLtoolkit` loaded, you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
+
+The collection includes:
 1. `PJLamssim.sty`
     - Simulate some features of `amsart` in the standard classes
 1. `PJLauthor.sty`
@@ -16,7 +21,7 @@ A collection of tools that help you write LaTeX document. With `PJLtoolkit` load
 1. `PJLlang.sty`
     - Multi-language configuration based on `babel` or `polyglossia`
     - Offers `\UseLanguage`, `\UseOtherLanguage` and `\AddLanguageSetting`
-    - Currently support Chinese (simplified and traditional), English, French, German, Japanese and Russian, *more to be added*
+    - Currently support Chinese (simplified and traditional), English, French, German, Italien, Japanese, Portuguese, Portuguese (Brazilian), Russian and Spanish
 1. `PJLlogo.sty`
     - Draw the ProjLib logo
 1. `PJLpaper.sty`
@@ -24,14 +29,20 @@ A collection of tools that help you write LaTeX document. With `PJLtoolkit` load
 1. `PJLthm.sty`
     - Theorem setup and configuration
     - Offers a macro `\CreateTheorem` for creating theorem-like environments with multi-language support
-    - Preset environments include: `assumption`, `axiom`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
+    - Preset environments include: `assumption`, `axiom`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. `PJLtoolkit.sty`, *the all-in-one solution*
     - A collective interface of ProjLib Toolkit, loading all the packages above
     - Provide some pre-defined font configuration
 
 > Since `PJLthm.sty` (and thus `PJLtoolkit.sty`) uses `cleveref`, it should be loaded after `varioref` and `hyperref`.
 
-Demonstration:
+## How to get these files
+You can get the `.sty` files mentioned above simply by compiling `ProjLib.ins`:
+```
+latex ProjLib.ins
+```
+
+## An example
 ```latex
 \documentclass{amsart}
 \usepackage[a4paper,margin=.75in]{geometry}

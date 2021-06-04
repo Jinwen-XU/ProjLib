@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[allowbf]{lebhart}
+\documentclass[allowbf,regionalref]{lebhart}
 
 %%================================
 %% Import toolkit
@@ -37,17 +37,17 @@
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
 
 %%================================
-%% remind
+%% tip
 %%================================
-\newenvironment{remind}[1][Remind]{%
+\newenvironment{tip}[1][Tip]{%
     \begin{tcolorbox}[breakable,
         enhanced,
         width = \textwidth,
-        colback = white, colbacktitle = paper,
+        colback = paper, colbacktitle = paper,
         colframe = gray!50, boxrule=0.2mm,
         coltitle = black,
         fonttitle = \sffamily,
-        attach boxed title to top left = {yshift=-\tcboxedtitleheight/2,  xshift=\tcboxedtitlewidth/4},
+        attach boxed title to top left = {yshift=-\tcboxedtitleheight/2, xshift=.5cm},
         boxed title style = {boxrule=0pt, colframe=paper},
         before skip = 0.3cm,
         after skip = 0.3cm,
@@ -74,10 +74,10 @@
 %%================================
 \begin{document}
 
-\title{\ProjLib{}~~Toolkit\\[.3\baselineskip]\normalsize User Manual}
+\title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/05/25}}
-\date{May 2021, Beijing}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/07}}
+\date{June 2021, Beijing}
 
 \maketitle
 
@@ -97,9 +97,9 @@ Just add the following line to your preamble:
   \usepackage{PJLtoolkit}
 \end{code}
 
-\begin{remind}[Attention]
+\begin{tip}[Attention]
     Since \textsf{cleveref} is used internally, \PJLtoolkit{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
-\end{remind}
+\end{tip}
 \medskip
 
 \subsection{Options}
@@ -160,7 +160,7 @@ The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\
 
 \subsection{PJLdate}
 
-\PJLdatestr{} offers the \lstinline|\PJLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PJLdate{2022-04-01}| would become: \PJLdate{2022-04-01}.
+\PJLdatestr{} offers the \lstinline|\PJLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PJLdate{2022-04-01}| would become ``\PJLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PJLdate{2022-04-01}}''.
 
 For details on how to select a language, please refer to the section on \PJLlang{}.
 
@@ -190,11 +190,15 @@ For details on how to select a language, please refer to the section on \PJLlang
     \item English: \texttt{EN} or \texttt{English}
     \item French: \texttt{FR} or \texttt{French}
     \item German: \texttt{DE}, \texttt{German} or \texttt{ngerman}
+    \item Italian: \texttt{IT} or \texttt{Italian}
+    \item Portuguese: \texttt{PT} or \texttt{Portuguese}
+    \item Portuguese (Brazilian): \texttt{BR} or \texttt{Brazilian}
+    \item Spanish: \texttt{ES} or \texttt{Spanish}
     \item Japanese: \texttt{JP} or \texttt{Japanese}
     \item Russian: \texttt{RU} or \texttt{Russian}
 \end{itemize}
 
-\medskip
+% \medskip
 In addition, you can also add new settings to selected language:
 \begin{itemize}
     \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
@@ -223,24 +227,30 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 %     \item \lstinline|\huge|:\quad {\huge\ProjLib}
 %     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
 % \end{itemize}
-\bigskip
-\begin{longtable}{ll}
-    \lstinline|\tiny|:& {\tiny\ProjLib}\\
-    \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
-    \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
-    \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
-    \lstinline|\large|:& {\large\ProjLib}\\
-    \lstinline|\Large|:& {\Large\ProjLib}\\
-    \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
-    \lstinline|\huge|:& {\huge\ProjLib}\\
-    \lstinline|\Huge|:& {\Huge\ProjLib}
-\end{longtable}
+% \bigskip
+
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
 
 \clearpage
 \subsection{PJLpaper}
 
 \PJLpaper{} is mainly used to adjust the paper color. It has the following options:
 
+\vspace{-.3\baselineskip}
 \begin{itemize}
     \item \texttt{paperstyle = \meta{paper style name}}
         \begin{itemize}
@@ -248,20 +258,22 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
         \end{itemize}
     \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
         \begin{itemize}
-            \item Set the paper color style. The effect is the same as \texttt{paperstyle} with the corresponding \meta{paper style name} specified.
+            \item Same as \texttt{paperstyle} with the corresponding \meta{paper style name} specified.
         \end{itemize}
     \item \texttt{preview}
         \begin{itemize}
             \item Preview mode. Crop the white edges of pdf file for the convenience of reading.
         \end{itemize}
 \end{itemize}
+\vspace{-.3\baselineskip}
 
-It is recommended to pass these options as global options of the document class. In this way, the paper settings would be clear at a glance.
+It is recommended to use them as global options of the document class. In this way, the paper settings would be clear at a glance.
 
 \subsection{PJLthm}
 
 \PJLthm{} offers the configuration of theorem-like environments. It has the following option:
 
+\vspace{-.3\baselineskip}
 \begin{itemize}
     \item \texttt{nothms}
     \begin{itemize}
@@ -273,11 +285,11 @@ It is recommended to pass these options as global options of the document class.
     \end{itemize}
 \end{itemize}
 
-Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The display of these environments will change according to the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PJLlang{}.
+Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The titles will change with the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PJLlang{}.
 
-\begin{remind}
-    When referencing a theorem-like environment, it is recommended to use smart reference \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
-\end{remind}
+\begin{tip}
+    When referencing a theorem-like environment, it is recommended to use \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
+\end{tip}
 
 \medskip
 % If you need to define a new theorem-like environment, you must first define the name of the environment in the language used: \lstinline|\|\meta{name of environment}\meta{language abbr}, where \meta{language abbr} is the abbreviation of language, which can be:
@@ -289,18 +301,18 @@ Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjec
 %     \texttt{FR} & French & &\\
 % \end{longtable}
 
-% \begin{remind}
+% \begin{tip}
 %     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
-% \end{remind}
+% \end{tip}
 If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use:
 \begin{itemize}
     \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
 \end{itemize}
 For \meta{language name}, please refer to the section on \PJLlang{}. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
 
-
-\clearpage% \medskip
+\medskip
 And then define this environment in one of following five ways:
+\vspace{-.3\baselineskip}
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
         \begin{itemize}
@@ -330,9 +342,9 @@ And then define this environment in one of following five ways:
         \end{itemize}
 \end{itemize}
 
-\begin{remind}
-    It uses \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
-\end{remind}
+\begin{tip}
+    This macro utilizes the feature of \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
+\end{tip}
 
 % \def\proofideanameEN{Idea}
 \NameTheorem[EN]{proofidea}{Idea}
@@ -361,13 +373,13 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \section{Known issues}
 
 \begin{itemize}[itemsep=.6em]
-    \item \PJLauthor{} is still in its preliminary stage, and thus its effect is still not as good as the relatively mature \textsf{authblk} in some aspects.
+    \item \PJLauthor{} is still in its preliminary stage, its effect is not as good as the relatively mature \textsf{authblk}.
     \item \PJLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
     \item \PJLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.
     \item \PJLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
     \item \PJLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PJLlang{}, especially for Chinese, Japanese and Russian.
-    \item The error handling mechanism is incomplete: there is no corresponding error prompt when some problems occur.
-    \item There are still many things that can be optimized in the code. Some takes too long to run, especially the definition of theorem-like environments in \PJLthm{}.
+    \item Error handling mechanism is incomplete: no corresponding error prompt when some problems occur.
+    \item There are still many things that can be optimized in the code. Some takes too long to run, especially the setup of theorem-like environments in \PJLthm{}.
 \end{itemize}
 
 
