@@ -21,7 +21,7 @@ The collection includes:
 1. `PJLlang.sty`
     - Multi-language configuration based on `babel` or `polyglossia`
     - Offers `\UseLanguage`, `\UseOtherLanguage` and `\AddLanguageSetting`
-    - Currently support Chinese (simplified and traditional), English, French, German, Italien, Japanese, Portuguese, Portuguese (Brazilian), Russian and Spanish
+    - Currently support Chinese (simplified and traditional), English, French, German, Italien, Japanese, Portuguese (European and Brazilian), Russian and Spanish
 1. `PJLlogo.sty`
     - Draw the ProjLib logo
 1. `PJLpaper.sty`
