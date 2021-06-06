@@ -18,47 +18,47 @@
 %
 %<*PJLamssim>
 \ProvidesPackage{PJLamssim}
-    [2021/05/25 Simulate some features of amsart]
+    [2021/06/07 Simulate some features of amsart]
 %</PJLamssim>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/05/25 Enhanced author information block]
+    [2021/06/07 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/05/25 Convert yyyy-mm-dd to normal datetime format]
+    [2021/06/07 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/05/25 Some useful macros for the draft stage]
+    [2021/06/07 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/05/25 Multi-language configuration]
+    [2021/06/07 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/05/25 The ProjLib logo]
+    [2021/06/07 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/05/25 Paper style configuration]
+    [2021/06/07 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/05/25 Theorem setup and configuration]
+    [2021/06/07 Theorem setup and configuration]
 %</PJLthm>
 %
 %<*PJLtoolkit>
 \ProvidesPackage{PJLtoolkit}
-    [2021/05/25 Collective interface of ProjLib Toolkit]
+    [2021/06/07 Collective interface of ProjLib Toolkit]
 %</PJLtoolkit>
 %
 \RequirePackage{kvoptions}
@@ -800,9 +800,13 @@
     prefix = @PJLthm@
 }
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \DeclareBoolOption[false]{regionalref}
 \ProcessKeyvalOptions*\relax
+\if@PJLthm@draft
+    \@PJLthm@fasttrue
+\fi
 \if@PJLthm@fast
     \@PJLthm@regionalreftrue
 \fi
