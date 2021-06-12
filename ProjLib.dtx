@@ -789,9 +789,11 @@
 
 \pagecolor{paper}
 \PJLglobalcolor{maintext}
+\AtEndPreamble{
 \ifdefined\tcbset%
     \tcbset{colupper=maintext,collower=maintext}
 \fi
+}
 %</PJLpaper>
 %
 %<*PJLthm>
