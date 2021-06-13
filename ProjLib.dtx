@@ -597,10 +597,10 @@
 \newcommand{\PJLsetlinespacing}[1]{\renewcommand{\PJL@config@linespacing}{#1}}
 \newcommand{\PJLsetCJKlinespacing}[1]{\renewcommand{\PJL@config@CJKlinespacing}{#1}}
 % Parindent configuration
-\def\PJL@config@parindent{\setlength{\parindent}{1.5em}}
-\def\PJL@config@CJKparindent{\setlength{\parindent}{2em}}
-\newcommand{\PJLsetparindent}[1]{\renewcommand{\PJL@config@parindent}{\setlength{\parindent}{#1}}}
-\newcommand{\PJLsetCJKparindent}[1]{\renewcommand{\PJL@config@CJKparindent}{\setlength{\parindent}{#1}}}
+\def\PJL@config@parindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{1.5em}}}
+\def\PJL@config@CJKparindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{2em}}}
+\newcommand{\PJLsetparindent}[1]{\renewcommand{\PJL@config@parindent}{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{#1}}}}
+\newcommand{\PJLsetCJKparindent}[1]{\renewcommand{\PJL@config@CJKparindent}{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{#1}}}}
 % All-in-all configuration
 \def\PJL@config@CJK{\PJL@config@CJKlinespacing\PJL@config@CJKparindent}
 \def\PJL@config@Latin{\PJL@config@linespacing\PJL@config@parindent}
