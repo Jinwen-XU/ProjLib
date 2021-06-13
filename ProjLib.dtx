@@ -591,41 +591,49 @@
 }
 
 \RequirePackage{setspace}
-%
+% Line spacing configuration
 \def\PJL@config@linespacing{\setstretch{1.00}}
 \def\PJL@config@CJKlinespacing{\onehalfspacing}
 \newcommand{\PJLsetlinespacing}[1]{\renewcommand{\PJL@config@linespacing}{#1}}
 \newcommand{\PJLsetCJKlinespacing}[1]{\renewcommand{\PJL@config@CJKlinespacing}{#1}}
+% Parindent configuration
+\def\PJL@config@parindent{\setlength{\parindent}{1.5em}}
+\def\PJL@config@CJKparindent{\setlength{\parindent}{2em}}
+\newcommand{\PJLsetparindent}[1]{\renewcommand{\PJL@config@parindent}{\setlength{\parindent}{#1}}}
+\newcommand{\PJLsetCJKparindent}[1]{\renewcommand{\PJL@config@CJKparindent}{\setlength{\parindent}{#1}}}
+% All-in-all configuration
+\def\PJL@config@CJK{\PJL@config@CJKlinespacing\PJL@config@CJKparindent}
+\def\PJL@config@Latin{\PJL@config@linespacing\PJL@config@parindent}
 %
 \newcommand{\UseLanguageCORE}[1]{%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
-        {cn}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
-        {chinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
-        {schinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
-        {simplifiedchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@chinese}%
-        {tc}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}%
-        {tchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}%
-        {traditionalchinese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@tchinese}%
-        {jp}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}%
-        {japanese}{\PJL@config@CJKlinespacing\PJLlang@langconfig@japanese}%
-        {en}{\PJL@config@linespacing\PJLlang@langconfig@english}%
-        {english}{\PJL@config@linespacing\PJLlang@langconfig@english}%
-        {fr}{\PJL@config@linespacing\PJLlang@langconfig@french}%
-        {french}{\PJL@config@linespacing\PJLlang@langconfig@french}%
-        {de}{\PJL@config@linespacing\PJLlang@langconfig@german}%
-        {ngerman}{\PJL@config@linespacing\PJLlang@langconfig@german}%
-        {german}{\PJL@config@linespacing\PJLlang@langconfig@german}%
-        {it}{\PJL@config@linespacing\PJLlang@langconfig@italian}%
-        {italian}{\PJL@config@linespacing\PJLlang@langconfig@italian}%
-        {pt}{\PJL@config@linespacing\PJLlang@langconfig@portuguese}%
-        {portuguese}{\PJL@config@linespacing\PJLlang@langconfig@portuguese}%
-        {br}{\PJL@config@linespacing\PJLlang@langconfig@brazilian}%
-        {brazilian}{\PJL@config@linespacing\PJLlang@langconfig@brazilian}%
-        {es}{\PJL@config@linespacing\PJLlang@langconfig@spanish}%
-        {spanish}{\PJL@config@linespacing\PJLlang@langconfig@spanish}%
-        {ru}{\PJL@config@linespacing\PJLlang@langconfig@russian}%
-        {russian}{\PJL@config@linespacing\PJLlang@langconfig@russian}%
+        {cn}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
+        {chinese}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
+        {schinese}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
+        {simplifiedchinese}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
+        {tc}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
+        {tchinese}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
+        {traditionalchinese}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
+        {jp}{\PJL@config@CJK\PJLlang@langconfig@japanese}%
+        {japanese}{\PJL@config@CJK\PJLlang@langconfig@japanese}%
+        {en}{\PJL@config@Latin\PJLlang@langconfig@english}%
+        {english}{\PJL@config@Latin\PJLlang@langconfig@english}%
+        {fr}{\PJL@config@Latin\PJLlang@langconfig@french}%
+        {french}{\PJL@config@Latin\PJLlang@langconfig@french}%
+        {de}{\PJL@config@Latin\PJLlang@langconfig@german}%
+        {ngerman}{\PJL@config@Latin\PJLlang@langconfig@german}%
+        {german}{\PJL@config@Latin\PJLlang@langconfig@german}%
+        {it}{\PJL@config@Latin\PJLlang@langconfig@italian}%
+        {italian}{\PJL@config@Latin\PJLlang@langconfig@italian}%
+        {pt}{\PJL@config@Latin\PJLlang@langconfig@portuguese}%
+        {portuguese}{\PJL@config@Latin\PJLlang@langconfig@portuguese}%
+        {br}{\PJL@config@Latin\PJLlang@langconfig@brazilian}%
+        {brazilian}{\PJL@config@Latin\PJLlang@langconfig@brazilian}%
+        {es}{\PJL@config@Latin\PJLlang@langconfig@spanish}%
+        {spanish}{\PJL@config@Latin\PJLlang@langconfig@spanish}%
+        {ru}{\PJL@config@Latin\PJLlang@langconfig@russian}%
+        {russian}{\PJL@config@Latin\PJLlang@langconfig@russian}%
     }%
 }
 \newcommand{\UseLanguage}[1]{%
@@ -1490,6 +1498,7 @@
 \DeclareBoolOption[false]{amssim}
 \DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{regionalref}
+\DeclareBoolOption[false]{useosf}
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
@@ -1543,6 +1552,7 @@
     \RequirePackage{newpxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.07}}
+    \if@PJLtoolkit@useosf\useosf\fi
 \fi
 
 \if@PJLtoolkit@times
@@ -1552,11 +1562,14 @@
     \RequirePackage{newtxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.00}}
+    \if@PJLtoolkit@useosf\useosf\fi
 \fi
 
 \if@PJLtoolkit@garamond
     \RequirePackage{amssymb}
-    \PassOptionsToPackage{lining}{ebgaramond}
+    \if@PJLtoolkit@useosf\else
+        \PassOptionsToPackage{lining}{ebgaramond}
+    \fi
     \RequirePackage{ebgaramond-maths}
     \RequirePackage{ebgaramond}
     % \RequirePackage{garamondlibre}
@@ -1568,6 +1581,9 @@
     % \RequirePackage{mathpazo}
     % \RequirePackage[sansmath]{libertinust1math}
     \ifPDFTeX
+        \if@PJLtoolkit@useosf
+            \PassOptionsToPackage{osf}{biolinum}
+        \fi
         \RequirePackage{biolinum}
         \renewcommand*\familydefault{\biolinum@family}
     \else
@@ -1576,7 +1592,8 @@
         \setmainfont{LinBiolinum_R.otf}[
             BoldFont       = LinBiolinum_RB.otf ,
             ItalicFont     = LinBiolinum_RI.otf ,
-            BoldItalicFont = LinBiolinum_RBO.otf ]
+            BoldItalicFont = LinBiolinum_RBO.otf,
+            \if@PJLtoolkit@useosf Numbers = OldStyle\fi ]
     \fi
     \PJLsetlinespacing{\setstretch{1.05}}
     \RequirePackage[italic,defaultmathsizes]{mathastext}
