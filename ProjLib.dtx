@@ -16,6 +16,11 @@
 %</driver>
 \NeedsTeXFormat{LaTeX2e}[2020-10-01]
 %
+%<*ProjLib>
+\ProvidesPackage{ProjLib}
+    [2021/06/07 The collective interface of ProjLib toolkit]
+%</ProjLib>
+%
 %<*PJLamssim>
 \ProvidesPackage{PJLamssim}
     [2021/06/07 Simulate some features of amsart]
@@ -1493,7 +1498,7 @@
 }
 %</PJLthm>
 %
-%<*PJLtoolkit>
+%<*ProjLib,PJLtoolkit>
 \SetupKeyvalOptions{
     family = @PJLtoolkit,
     prefix = @PJLtoolkit@,
@@ -1608,6 +1613,6 @@
 \fi
 
 \RequirePackage{microtype}
-%</PJLtoolkit>
+%</ProjLib,PJLtoolkit>
 
 \endinput
