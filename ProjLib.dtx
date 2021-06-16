@@ -173,9 +173,15 @@
     \ifx\@date\@empty\vspace{-2\baselineskip}%
     \else\@date\fi%
     \ifx\PJL@dedicatory\@empty\else%
-    \par\vspace{-\parskip}\bigskip%
-    {\itshape\PJL@dedicatory}\fi}
-    {}{\FAIL}
+        \ifx\@date\@empty\vspace{2\baselineskip}\fi%
+        \par\vspace{-\parskip}\bigskip%
+        {\itshape\PJL@dedicatory}%
+        \ifx\@date\@empty%
+            \vspace{-1.7\baselineskip}%
+            \vspace{-\parskip}%
+        \fi%
+    \fi%
+}{}{\FAIL}
 % Add keywords to maketitle
 \pretocmd{\maketitle}{%
     \ifx\PJL@keywords\@empty\else%
