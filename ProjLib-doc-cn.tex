@@ -1,10 +1,10 @@
 %! TEX program = xelatex
-\documentclass[allowbf,regionalref]{lebhart}
+\documentclass[allowbf,regionalref,puretext]{lebhart}
 
 %%================================
 %% 引入工具集
 %%================================
-\usepackage{PJLtoolkit}
+\usepackage{ProjLib}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
@@ -32,7 +32,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
+    {color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -61,10 +61,11 @@
 %%================================
 %% 名称
 %%================================
+\providecommand{\ProjLibPackage}{\textsf{ProjLib}}
 \providecommand{\PJLtoolkit}{\textsf{PJLtoolkit}}
 \providecommand{\PJLamssim}{\textsf{PJLamssim}}
 \providecommand{\PJLauthor}{\textsf{PJLauthor}}
-\providecommand{\PJLdatestr}{\textsf{PJLdate}}
+\providecommand{\PJLdatePackage}{\textsf{PJLdate}}
 \providecommand{\PJLdraft}{\textsf{PJLdraft}}
 \providecommand{\PJLlang}{\textsf{PJLlang}}
 \providecommand{\PJLlogo}{\textsf{PJLlogo}}
@@ -78,43 +79,44 @@
 
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/06/07}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/06/17}}
 \date{2021年6月，北京}
 
 \maketitle
 
 \begin{abstract}
-    \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \PJLtoolkit{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
+    \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \ProjLibPackage{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
 \end{abstract}
 
 % \tableofcontents
 
-\section{PJLtoolkit}
+\section{主宏包}
 
 \subsection{如何加载}
 
 只需要在导言部分加入这一行即可：
 
 \begin{code}
-  \usepackage{PJLtoolkit}
+  \usepackage{ProjLib}
 \end{code}
 
 \begin{tip}[注意事项]
-    由于其内部使用了 \textsf{cleveref}，\PJLtoolkit{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
+    由于其内部使用了 \textsf{cleveref}，\ProjLibPackage{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
 \end{tip}
 \medskip
 
 \subsection{选项}
 
-\PJLtoolkit{} 提供下列选项以供选择：
+\ProjLibPackage{} 提供下列选项以供选择：
 \begin{itemize}
     \item \texttt{draft} 或 \texttt{fast}
         \begin{itemize}
             \item 快速模式。功能会适当缩减，但能够提高编译速度，建议在撰写阶段使用。
         \end{itemize}
-    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum}
+    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum} $|$ \texttt{useosf}
         \begin{itemize}
             \item 字体选项。顾名思义，会加载相应名称的字体。
+            \item \texttt{useosf} 选项用来启用“旧式”数字。
         \end{itemize}
     \item \texttt{author}
         \begin{itemize}
@@ -162,7 +164,7 @@
 
 \subsection{PJLdate}
 
-\PJLdatestr{} 提供了 \lstinline|\PJLdate|\meta{yyyy-mm-dd} 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PJLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
+\PJLdatePackage{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} (或 \lstinline|\PJLdate|\meta{yyyy-mm-dd}) 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
 
 关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
@@ -389,13 +391,13 @@
 
 \subsection{标准文档类}
 
-在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PJLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
+在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \ProjLibPackage{}，即可直接开始写作。下面是一段完整的示例。
 
 \begin{code}
 \documentclass{article}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
@@ -424,20 +426,20 @@ Référence du théorème: \cref{thm:abc} % It is recommended to use clever refe
 \end{code}
 
 \bigskip
-如果使用了 \PJLamssim{}，那么文章中就可以采用 \AmS{} 文档类的写法 (当然，此时原始的写法也是成立的，因此始终添加 \texttt{amssim} 这一参数通常是没有问题的)。此时上文引入 \PJLtoolkit{} 的那一行应该写为：
+如果使用了 \PJLamssim{}，那么文章中就可以采用 \AmS{} 文档类的写法 (当然，此时原始的写法也是成立的，因此始终添加 \texttt{amssim} 这一参数通常是没有问题的)。此时上文引入 \ProjLibPackage{} 的那一行应该写为：
 \begin{code}
-\usepackage[amssim,palatino]{PJLtoolkit}
+\usepackage[amssim,palatino]{ProjLib}
 \end{code}
 
 \clearpage
 \subsection{\texorpdfstring{\AmS{}}{AMS} 文档类}
 
-在 \AmS{} 文档类中，通常只需简要设置页面尺寸、超链接，再载入 \PJLtoolkit{}，即可直接开始写作。下面是一段完整的示例。
+在 \AmS{} 文档类中，通常只需简要设置页面尺寸、超链接，再载入 \ProjLibPackage{}，即可直接开始写作。下面是一段完整的示例。
 \begin{code}
 \documentclass{amsart}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 

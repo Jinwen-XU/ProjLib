@@ -1,10 +1,10 @@
 %! TEX program = xelatex
-\documentclass[allowbf,regionalref]{lebhart}
+\documentclass[allowbf,regionalref,puretext]{lebhart}
 
 %%================================
 %% Import toolkit
 %%================================
-\usepackage{PJLtoolkit}
+\usepackage{ProjLib}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
@@ -30,7 +30,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
+    {color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -59,10 +59,11 @@
 %%================================
 %% 名称
 %%================================
+\providecommand{\ProjLibPackage}{\textsf{ProjLib}}
 \providecommand{\PJLtoolkit}{\textsf{PJLtoolkit}}
 \providecommand{\PJLamssim}{\textsf{PJLamssim}}
 \providecommand{\PJLauthor}{\textsf{PJLauthor}}
-\providecommand{\PJLdatestr}{\textsf{PJLdate}}
+\providecommand{\PJLdatePackage}{\textsf{PJLdate}}
 \providecommand{\PJLdraft}{\textsf{PJLdraft}}
 \providecommand{\PJLlang}{\textsf{PJLlang}}
 \providecommand{\PJLlogo}{\textsf{PJLlogo}}
@@ -76,43 +77,44 @@
 
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/07}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/17}}
 \date{June 2021, Beijing}
 
 \maketitle
 
 \begin{abstract}
-    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With \PJLtoolkit{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities are introduced.
+    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With \ProjLibPackage{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities are introduced.
 \end{abstract}
 
 % \tableofcontents
 
-\section{PJLtoolkit}
+\section{The main package}
 
 \subsection{How to load it}
 
 Just add the following line to your preamble:
 
 \begin{code}
-  \usepackage{PJLtoolkit}
+  \usepackage{ProjLib}
 \end{code}
 
 \begin{tip}[Attention]
-    Since \textsf{cleveref} is used internally, \PJLtoolkit{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
+    Since \textsf{cleveref} is used internally, \ProjLibPackage{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
 \end{tip}
 \medskip
 
 \subsection{Options}
 
-\PJLtoolkit{} offers the following options:
+\ProjLibPackage{} offers the following options:
 \begin{itemize}
     \item \texttt{draft} or \texttt{fast}
         \begin{itemize}
             \item Fast mode. The functionality is appropriately reduced to get faster compilation speed, recommended to use during the writing phase.
         \end{itemize}
-    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum}
+    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} $|$ \texttt{useosf}
         \begin{itemize}
-            \item Font options. As the name suggest, font with corresponding name will be loaded.
+            \item Font options. As the name suggest, font with corresponding name will be loaded. 
+            \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
     \item \texttt{author}
         \begin{itemize}
@@ -160,7 +162,7 @@ The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\
 
 \subsection{PJLdate}
 
-\PJLdatestr{} offers the \lstinline|\PJLdate|\meta{yyyy-mm-dd} macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PJLdate{2022-04-01}| would become ``\PJLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PJLdate{2022-04-01}}''.
+\PJLdatePackage{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} (or \lstinline|\PJLdate|\meta{yyyy-mm-dd}) macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become ``\PLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PLdate{2022-04-01}}''.
 
 For details on how to select a language, please refer to the section on \PJLlang{}.
 
@@ -388,13 +390,13 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 
 \subsection{Standard classes}
 
-In standard classes, one usually only need to configure the page size, hyperlinks and load \PJLtoolkit{} before actually start writing the document. Below is a complete example.
+In standard classes, one usually only need to configure the page size, hyperlinks and load \ProjLibPackage{} before actually start writing the document. Below is a complete example.
 
 \begin{code}
 \documentclass{article}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
@@ -423,20 +425,20 @@ Référence du théorème: \cref{thm:abc} % It is recommended to use clever refe
 \end{code}
 
 \bigskip
-If \PJLamssim{} is loaded, then one can adopt the \AmS{} writing style in the document (of course, the original way is also valid, so always adding the option \texttt{amssim} usually does not cause problems). This way, the line that introduces \PJLtoolkit{} should be written as:
+If \PJLamssim{} is loaded, then one can adopt the \AmS{} writing style in the document (of course, the original way is also valid, so always adding the option \texttt{amssim} usually does not cause problems). This way, the line that introduces \ProjLibPackage{} should be written as:
 \begin{code}
-\usepackage[amssim,palatino]{PJLtoolkit}
+\usepackage[amssim,palatino]{ProjLib}
 \end{code}
 
 \clearpage
 \subsection{The \texorpdfstring{\AmS{}}{AMS} classes}
 
-In \AmS{} classes, one usually only need to configure the page size, hyperlinks and load \PJLtoolkit{} before actually start writing the document. Below is a complete example.
+In \AmS{} classes, one usually only need to configure the page size, hyperlinks and load \ProjLibPackage{} before actually start writing the document. Below is a complete example.
 \begin{code}
 \documentclass{amsart}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load the toolkit and use font Palatino
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
 
 \UseLanguage{French} % Use French from here
 
