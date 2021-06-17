@@ -6,7 +6,7 @@
 
 ## Introduction
 
-`ProjLib` is a collection of tools that help you write LaTeX document. With `PJLtoolkit` loaded, you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
+`ProjLib` is a collection of tools that help you write LaTeX document. With package `ProjLib` loaded (note that it is case-sensitive), you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
 
 The collection includes:
 1. `PJLamssim.sty`
@@ -15,7 +15,7 @@ The collection includes:
     - Enhanced author information block
     - Offers `\address`, `\curraddr` and `\email`
 1. `PJLdate.sty`
-    - Offers a macro `\PJLdate` to convert `yyyy-mm-dd` to normal datetime format, with multi-language support
+    - Offers a macro `\PLdate` (or `\PJLdate`) to convert `yyyy-mm-dd` to normal datetime format, with multi-language support
 1. `PJLdraft.sty`
     - Useful macros during the draft stage: `\dnf` and `\needgraph`, with multi-language support
 1. `PJLlang.sty`
@@ -30,7 +30,7 @@ The collection includes:
     - Theorem setup and configuration
     - Offers a macro `\CreateTheorem` for creating theorem-like environments with multi-language support
     - Preset environments include: `assumption`, `axiom`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
-1. `PJLtoolkit.sty`, *the all-in-one solution*
+1. `PJLtoolkit.sty` (this is the internal name of the `ProjLib` package)
     - A collective interface of ProjLib Toolkit, loading all the packages above
     - Provide some pre-defined font configuration
 
@@ -47,11 +47,11 @@ latex ProjLib.ins
 \documentclass{amsart}
 \usepackage[a4paper,margin=.75in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit}
+\usepackage[palatino]{ProjLib}
 
 %% You can also comment the above lines and try the following (require xelatex or lualatex):
 % \documentclass[a4paper,allowbf]{lebhart}
-% \usepackage{PJLtoolkit}
+% \usepackage{ProjLib}
 
 %% Using \UseLanguage to select language, by default "English" is selected
 \UseLanguage{French} % Use French from here
@@ -65,7 +65,7 @@ latex ProjLib.ins
 \author{Auteur 1}
 \address{Adresse 1}
 \email{\href{Courriel 2}{Courriel 2}}
-\date{\PJLdate{2022-04-01}}
+\date{\PLdate{2022-04-01}}
 \subjclass{*****}
 \keywords{...}
 
