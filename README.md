@@ -24,6 +24,8 @@ The collection includes:
     - Currently support Chinese (simplified and traditional), English, French, German, Italien, Japanese, Portuguese (European and Brazilian), Russian and Spanish
 1. `PJLlogo.sty`
     - Draw the ProjLib logo
+1. `PJLmath.sty`
+    - Useful math macros and shortcuts
 1. `PJLpaper.sty`
     - Paper style configuration: yellow theme, dark theme and nord theme
 1. `PJLthm.sty`

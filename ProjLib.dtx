@@ -51,6 +51,11 @@
     [2021/06/17 The ProjLib logo]
 %</PJLlogo>
 %
+%<*PJLmath>
+\ProvidesPackage{PJLmath}
+    [2021/06/17 Useful math macros and shortcuts]
+%</PJLmath>
+%
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
     [2021/06/17 Paper style configuration]
@@ -741,6 +746,288 @@
 \DeclareRobustCommand*{\ProjLib}{\ProjLib@generic{\PJLSigmaJ}}
 \DeclareRobustCommand*{\ProjLibText}{\ProjLib@generic{j}}
 %</PJLlogo>
+%
+%<*PJLmath>
+\RequirePackage{mathtools}
+\RequirePackage{mathrsfs}
+\@ifpackageloaded{unicode-math}{}{\RequirePackage{amssymb}}
+
+%%================================
+%% Shorthands
+%%================================
+\def\N{\ensuremath{\mathbb{N}}}
+\def\Z{\ensuremath{\mathbb{Z}}}
+\def\Q{\ensuremath{\mathbb{Q}}}
+\def\R{\ensuremath{\mathbb{R}}}
+\def\C{\ensuremath{\mathbb{C}}}
+\def\F{\ensuremath{\mathbb{F}}}
+\def\A{\ensuremath{\mathbb{A}}}
+
+\def\bb#1{\ensuremath{\mathbb{#1}}}
+\def\bbA{\ensuremath{\mathbb{A}}}
+\def\bbB{\ensuremath{\mathbb{B}}}
+\def\bbC{\ensuremath{\mathbb{C}}}
+\def\bbD{\ensuremath{\mathbb{D}}}
+\def\bbE{\ensuremath{\mathbb{E}}}
+\def\bbF{\ensuremath{\mathbb{F}}}
+\def\bbG{\ensuremath{\mathbb{G}}}
+\def\bbH{\ensuremath{\mathbb{H}}}
+\def\bbI{\ensuremath{\mathbb{I}}}
+\def\bbJ{\ensuremath{\mathbb{J}}}
+\def\bbK{\ensuremath{\mathbb{K}}}
+\def\bbL{\ensuremath{\mathbb{L}}}
+\def\bbM{\ensuremath{\mathbb{M}}}
+\def\bbN{\ensuremath{\mathbb{N}}}
+\def\bbO{\ensuremath{\mathbb{O}}}
+\def\bbP{\ensuremath{\mathbb{P}}}
+\def\bbQ{\ensuremath{\mathbb{Q}}}
+\def\bbR{\ensuremath{\mathbb{R}}}
+\def\bbS{\ensuremath{\mathbb{S}}}
+\def\bbT{\ensuremath{\mathbb{T}}}
+\def\bbU{\ensuremath{\mathbb{U}}}
+\def\bbV{\ensuremath{\mathbb{V}}}
+\def\bbW{\ensuremath{\mathbb{W}}}
+\def\bbX{\ensuremath{\mathbb{X}}}
+\def\bbY{\ensuremath{\mathbb{Y}}}
+\def\bbZ{\ensuremath{\mathbb{Z}}}
+
+\def\mc#1{\ensuremath{\mathcal{#1}}}
+\def\mcA{\ensuremath{\mathcal{A}}}
+\def\mcB{\ensuremath{\mathcal{B}}}
+\def\mcC{\ensuremath{\mathcal{C}}}
+\def\mcD{\ensuremath{\mathcal{D}}}
+\def\mcE{\ensuremath{\mathcal{E}}}
+\def\mcF{\ensuremath{\mathcal{F}}}
+\def\mcG{\ensuremath{\mathcal{G}}}
+\def\mcH{\ensuremath{\mathcal{H}}}
+\def\mcI{\ensuremath{\mathcal{I}}}
+\def\mcJ{\ensuremath{\mathcal{J}}}
+\def\mcK{\ensuremath{\mathcal{K}}}
+\def\mcL{\ensuremath{\mathcal{L}}}
+\def\mcM{\ensuremath{\mathcal{M}}}
+\def\mcN{\ensuremath{\mathcal{N}}}
+\def\mcO{\ensuremath{\mathcal{O}}}
+\def\mcP{\ensuremath{\mathcal{P}}}
+\def\mcQ{\ensuremath{\mathcal{Q}}}
+\def\mcR{\ensuremath{\mathcal{R}}}
+\def\mcS{\ensuremath{\mathcal{S}}}
+\def\mcT{\ensuremath{\mathcal{T}}}
+\def\mcU{\ensuremath{\mathcal{U}}}
+\def\mcV{\ensuremath{\mathcal{V}}}
+\def\mcW{\ensuremath{\mathcal{W}}}
+\def\mcX{\ensuremath{\mathcal{X}}}
+\def\mcY{\ensuremath{\mathcal{Y}}}
+\def\mcZ{\ensuremath{\mathcal{Z}}}
+
+\def\cal#1{\ensuremath{\mathcal{#1}}}
+\def\calA{\ensuremath{\mathcal{A}}}
+\def\calB{\ensuremath{\mathcal{B}}}
+\def\calC{\ensuremath{\mathcal{C}}}
+\def\calD{\ensuremath{\mathcal{D}}}
+\def\calE{\ensuremath{\mathcal{E}}}
+\def\calF{\ensuremath{\mathcal{F}}}
+\def\calG{\ensuremath{\mathcal{G}}}
+\def\calH{\ensuremath{\mathcal{H}}}
+\def\calI{\ensuremath{\mathcal{I}}}
+\def\calJ{\ensuremath{\mathcal{J}}}
+\def\calK{\ensuremath{\mathcal{K}}}
+\def\calL{\ensuremath{\mathcal{L}}}
+\def\calM{\ensuremath{\mathcal{M}}}
+\def\calN{\ensuremath{\mathcal{N}}}
+\def\calO{\ensuremath{\mathcal{O}}}
+\def\calP{\ensuremath{\mathcal{P}}}
+\def\calQ{\ensuremath{\mathcal{Q}}}
+\def\calR{\ensuremath{\mathcal{R}}}
+\def\calS{\ensuremath{\mathcal{S}}}
+\def\calT{\ensuremath{\mathcal{T}}}
+\def\calU{\ensuremath{\mathcal{U}}}
+\def\calV{\ensuremath{\mathcal{V}}}
+\def\calW{\ensuremath{\mathcal{W}}}
+\def\calX{\ensuremath{\mathcal{X}}}
+\def\calY{\ensuremath{\mathcal{Y}}}
+\def\calZ{\ensuremath{\mathcal{Z}}}
+
+\def\mf#1{\ensuremath{\mathfrak{#1}}}
+\def\mfa{\ensuremath{\mathfrak{a}}}
+\def\mfb{\ensuremath{\mathfrak{b}}}
+\def\mfc{\ensuremath{\mathfrak{c}}}
+\def\mfd{\ensuremath{\mathfrak{d}}}
+\def\mfe{\ensuremath{\mathfrak{e}}}
+\def\mff{\ensuremath{\mathfrak{f}}}
+\def\mfg{\ensuremath{\mathfrak{g}}}
+\def\mfh{\ensuremath{\mathfrak{h}}}
+\def\mfi{\ensuremath{\mathfrak{i}}}
+\def\mfj{\ensuremath{\mathfrak{j}}}
+\def\mfk{\ensuremath{\mathfrak{k}}}
+\def\mfl{\ensuremath{\mathfrak{l}}}
+\def\mfm{\ensuremath{\mathfrak{m}}}
+\def\mfn{\ensuremath{\mathfrak{n}}}
+\def\mfo{\ensuremath{\mathfrak{o}}}
+\def\mfp{\ensuremath{\mathfrak{p}}}
+\def\mfq{\ensuremath{\mathfrak{q}}}
+\def\mfr{\ensuremath{\mathfrak{r}}}
+\def\mfs{\ensuremath{\mathfrak{s}}}
+\def\mft{\ensuremath{\mathfrak{t}}}
+\def\mfu{\ensuremath{\mathfrak{u}}}
+\def\mfv{\ensuremath{\mathfrak{v}}}
+\def\mfw{\ensuremath{\mathfrak{w}}}
+\def\mfx{\ensuremath{\mathfrak{x}}}
+\def\mfy{\ensuremath{\mathfrak{y}}}
+\def\mfz{\ensuremath{\mathfrak{z}}}
+\def\mfA{\ensuremath{\mathfrak{A}}}
+\def\mfB{\ensuremath{\mathfrak{B}}}
+\def\mfC{\ensuremath{\mathfrak{C}}}
+\def\mfD{\ensuremath{\mathfrak{D}}}
+\def\mfE{\ensuremath{\mathfrak{E}}}
+\def\mfF{\ensuremath{\mathfrak{F}}}
+\def\mfG{\ensuremath{\mathfrak{G}}}
+\def\mfH{\ensuremath{\mathfrak{H}}}
+\def\mfI{\ensuremath{\mathfrak{I}}}
+\def\mfJ{\ensuremath{\mathfrak{J}}}
+\def\mfK{\ensuremath{\mathfrak{K}}}
+\def\mfL{\ensuremath{\mathfrak{L}}}
+\def\mfM{\ensuremath{\mathfrak{M}}}
+\def\mfN{\ensuremath{\mathfrak{N}}}
+\def\mfO{\ensuremath{\mathfrak{O}}}
+\def\mfP{\ensuremath{\mathfrak{P}}}
+\def\mfQ{\ensuremath{\mathfrak{Q}}}
+\def\mfR{\ensuremath{\mathfrak{R}}}
+\def\mfS{\ensuremath{\mathfrak{S}}}
+\def\mfT{\ensuremath{\mathfrak{T}}}
+\def\mfU{\ensuremath{\mathfrak{U}}}
+\def\mfV{\ensuremath{\mathfrak{V}}}
+\def\mfW{\ensuremath{\mathfrak{W}}}
+\def\mfX{\ensuremath{\mathfrak{X}}}
+\def\mfY{\ensuremath{\mathfrak{Y}}}
+\def\mfZ{\ensuremath{\mathfrak{Z}}}
+
+\def\frak#1{\ensuremath{\mathfrak{#1}}}
+\def\fraka{\ensuremath{\mathfrak{a}}}
+\def\frakb{\ensuremath{\mathfrak{b}}}
+\def\frakc{\ensuremath{\mathfrak{c}}}
+\def\frakd{\ensuremath{\mathfrak{d}}}
+\def\frake{\ensuremath{\mathfrak{e}}}
+\def\frakf{\ensuremath{\mathfrak{f}}}
+\def\frakg{\ensuremath{\mathfrak{g}}}
+\def\frakh{\ensuremath{\mathfrak{h}}}
+\def\fraki{\ensuremath{\mathfrak{i}}}
+\def\frakj{\ensuremath{\mathfrak{j}}}
+\def\frakk{\ensuremath{\mathfrak{k}}}
+\def\frakl{\ensuremath{\mathfrak{l}}}
+\def\frakm{\ensuremath{\mathfrak{m}}}
+\def\frakn{\ensuremath{\mathfrak{n}}}
+\def\frako{\ensuremath{\mathfrak{o}}}
+\def\frakp{\ensuremath{\mathfrak{p}}}
+\def\frakq{\ensuremath{\mathfrak{q}}}
+\def\frakr{\ensuremath{\mathfrak{r}}}
+\def\fraks{\ensuremath{\mathfrak{s}}}
+\def\frakt{\ensuremath{\mathfrak{t}}}
+\def\fraku{\ensuremath{\mathfrak{u}}}
+\def\frakv{\ensuremath{\mathfrak{v}}}
+\def\frakw{\ensuremath{\mathfrak{w}}}
+\def\frakx{\ensuremath{\mathfrak{x}}}
+\def\fraky{\ensuremath{\mathfrak{y}}}
+\def\frakz{\ensuremath{\mathfrak{z}}}
+\def\frakA{\ensuremath{\mathfrak{A}}}
+\def\frakB{\ensuremath{\mathfrak{B}}}
+\def\frakC{\ensuremath{\mathfrak{C}}}
+\def\frakD{\ensuremath{\mathfrak{D}}}
+\def\frakE{\ensuremath{\mathfrak{E}}}
+\def\frakF{\ensuremath{\mathfrak{F}}}
+\def\frakG{\ensuremath{\mathfrak{G}}}
+\def\frakH{\ensuremath{\mathfrak{H}}}
+\def\frakI{\ensuremath{\mathfrak{I}}}
+\def\frakJ{\ensuremath{\mathfrak{J}}}
+\def\frakK{\ensuremath{\mathfrak{K}}}
+\def\frakL{\ensuremath{\mathfrak{L}}}
+\def\frakM{\ensuremath{\mathfrak{M}}}
+\def\frakN{\ensuremath{\mathfrak{N}}}
+\def\frakO{\ensuremath{\mathfrak{O}}}
+\def\frakP{\ensuremath{\mathfrak{P}}}
+\def\frakQ{\ensuremath{\mathfrak{Q}}}
+\def\frakR{\ensuremath{\mathfrak{R}}}
+\def\frakS{\ensuremath{\mathfrak{S}}}
+\def\frakT{\ensuremath{\mathfrak{T}}}
+\def\frakU{\ensuremath{\mathfrak{U}}}
+\def\frakV{\ensuremath{\mathfrak{V}}}
+\def\frakW{\ensuremath{\mathfrak{W}}}
+\def\frakX{\ensuremath{\mathfrak{X}}}
+\def\frakY{\ensuremath{\mathfrak{Y}}}
+\def\frakZ{\ensuremath{\mathfrak{Z}}}
+
+\def\ms#1{\ensuremath{\mathscr{#1}}}
+\def\msA{\ensuremath{\mathscr{A}}}
+\def\msB{\ensuremath{\mathscr{B}}}
+\def\msC{\ensuremath{\mathscr{C}}}
+\def\msD{\ensuremath{\mathscr{D}}}
+\def\msE{\ensuremath{\mathscr{E}}}
+\def\msF{\ensuremath{\mathscr{F}}}
+\def\msG{\ensuremath{\mathscr{G}}}
+\def\msH{\ensuremath{\mathscr{H}}}
+\def\msI{\ensuremath{\mathscr{I}}}
+\def\msJ{\ensuremath{\mathscr{J}}}
+\def\msK{\ensuremath{\mathscr{K}}}
+\def\msL{\ensuremath{\mathscr{L}}}
+\def\msM{\ensuremath{\mathscr{M}}}
+\def\msN{\ensuremath{\mathscr{N}}}
+\def\msO{\ensuremath{\mathscr{O}}}
+\def\msP{\ensuremath{\mathscr{P}}}
+\def\msQ{\ensuremath{\mathscr{Q}}}
+\def\msR{\ensuremath{\mathscr{R}}}
+\def\msS{\ensuremath{\mathscr{S}}}
+\def\msT{\ensuremath{\mathscr{T}}}
+\def\msU{\ensuremath{\mathscr{U}}}
+\def\msV{\ensuremath{\mathscr{V}}}
+\def\msW{\ensuremath{\mathscr{W}}}
+\def\msX{\ensuremath{\mathscr{X}}}
+\def\msY{\ensuremath{\mathscr{Y}}}
+\def\msZ{\ensuremath{\mathscr{Z}}}
+
+\def\scr#1{\ensuremath{\mathscr{#1}}}
+\def\scrA{\ensuremath{\mathscr{A}}}
+\def\scrB{\ensuremath{\mathscr{B}}}
+\def\scrC{\ensuremath{\mathscr{C}}}
+\def\scrD{\ensuremath{\mathscr{D}}}
+\def\scrE{\ensuremath{\mathscr{E}}}
+\def\scrF{\ensuremath{\mathscr{F}}}
+\def\scrG{\ensuremath{\mathscr{G}}}
+\def\scrH{\ensuremath{\mathscr{H}}}
+\def\scrI{\ensuremath{\mathscr{I}}}
+\def\scrJ{\ensuremath{\mathscr{J}}}
+\def\scrK{\ensuremath{\mathscr{K}}}
+\def\scrL{\ensuremath{\mathscr{L}}}
+\def\scrM{\ensuremath{\mathscr{M}}}
+\def\scrN{\ensuremath{\mathscr{N}}}
+\def\scrO{\ensuremath{\mathscr{O}}}
+\def\scrP{\ensuremath{\mathscr{P}}}
+\def\scrQ{\ensuremath{\mathscr{Q}}}
+\def\scrR{\ensuremath{\mathscr{R}}}
+\def\scrS{\ensuremath{\mathscr{S}}}
+\def\scrT{\ensuremath{\mathscr{T}}}
+\def\scrU{\ensuremath{\mathscr{U}}}
+\def\scrV{\ensuremath{\mathscr{V}}}
+\def\scrW{\ensuremath{\mathscr{W}}}
+\def\scrX{\ensuremath{\mathscr{X}}}
+\def\scrY{\ensuremath{\mathscr{Y}}}
+\def\scrZ{\ensuremath{\mathscr{Z}}}
+
+%%================================
+%% Symbols for number theory
+%%================================
+\ifdefined\@@pmod\else
+\let\@@pmod\pmod
+\DeclareRobustCommand{\pmod}{\@ifstar\@pmods\@@pmod}
+\def\@pmods#1{\mkern4mu({\operator@font mod}\mkern 6mu#1)}
+\fi
+
+\newcommand{\genlegendre}[4]{%
+  \genfrac{(}{)}{}{#1}{#3}{#4}%
+  \if\relax\detokenize{#2}\relax\else_{\!#2}\fi%
+}
+\newcommand{\legendre}[3][]{\genlegendre{}{#1}{#2}{#3}}
+\newcommand{\dlegendre}[3][]{\genlegendre{0}{#1}{#2}{#3}}
+\newcommand{\tlegendre}[3][]{\genlegendre{1}{#1}{#2}{#3}}
+%</PJLmath>
 %
 %<*PJLpaper>
 \RequirePackage{ifthen}
@@ -1541,6 +1828,7 @@
 \RequirePackage{PJLdate}
 \RequirePackage{PJLdraft}
 \RequirePackage{PJLlogo}
+\RequirePackage{PJLmath}
 \RequirePackage{PJLpaper}
 \RequirePackage{PJLthm}
 
@@ -1550,14 +1838,14 @@
 % \RequirePackage{inputenc}
 % \fi
 %
-\RequirePackage{mathtools}
+% \RequirePackage{mathtools}
 
 % \PJL@font@alreadyset should contain the current font name
 % A message can then be shown as: Font "(font name)" has been set
 \ifdefined\PJL@font@alreadyset\else
 
 \if@PJLtoolkit@palatino
-    \RequirePackage{amssymb}
+    % \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
     \PassOptionsToPackage{defaultsups}{newpxtext}
     \RequirePackage{newpxtext}
@@ -1568,7 +1856,7 @@
 \fi
 
 \if@PJLtoolkit@times
-    \RequirePackage{amssymb}
+    % \RequirePackage{amssymb}
     \PassOptionsToPackage{defaultsups}{newtxtext}
     \RequirePackage{newtxtext}
     \RequirePackage{newtxmath}
@@ -1578,7 +1866,7 @@
 \fi
 
 \if@PJLtoolkit@garamond
-    \RequirePackage{amssymb}
+    % \RequirePackage{amssymb}
     \if@PJLtoolkit@useosf\else
         \PassOptionsToPackage{lining}{ebgaramond}
     \fi
@@ -1589,7 +1877,7 @@
 \fi
 
 \if@PJLtoolkit@biolinum
-    \RequirePackage{amssymb}
+    % \RequirePackage{amssymb}
     % \RequirePackage{mathpazo}
     % \RequirePackage[sansmath]{libertinust1math}
     \ifPDFTeX
