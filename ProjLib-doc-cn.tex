@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[allowbf,regionalref,puretext]{lebhart}
+\documentclass[Chinese,English,French,allowbf,puretext]{lebhart}
 
 %%================================
 %% 引入工具集
@@ -8,7 +8,7 @@
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
-\UseLanguage{Chinese}
+% \UseLanguage{Chinese}
 
 %%================================
 %% 排版代码
@@ -32,7 +32,8 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib
+    {color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
+    mathfrak,mf,frak,mfA,mathbb,bb,N,Z,Q,R,C,F,A,mathcal,mc,cal,mathscr,ms,scr,
     }
 }
 \lstnewenvironment{code}% 
@@ -69,6 +70,7 @@
 \providecommand{\PJLdraft}{\textsf{PJLdraft}}
 \providecommand{\PJLlang}{\textsf{PJLlang}}
 \providecommand{\PJLlogo}{\textsf{PJLlogo}}
+\providecommand{\PJLmath}{\textsf{PJLmath}}
 \providecommand{\PJLpaper}{\textsf{PJLpaper}}
 \providecommand{\PJLthm}{\textsf{PJLthm}}
 
@@ -131,7 +133,7 @@
             \item 来自 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
         \end{itemize}
 \end{itemize}
-另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \PJLpaper{} 的 \texttt{paperstyle} 和 \texttt{preview} 等。详细信息可以参阅对应的小节。
+另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{CN} / \texttt{chinese} / \texttt{Chinese} 等语言选项 (来自 \PJLlang{})，\texttt{paperstyle} 和 \texttt{preview} 等纸张选项 (来自 \PJLpaper{})。详细信息可以参阅对应的小节。
 
 \section{具体组件}
 
@@ -180,7 +182,17 @@
 
 \subsection{PJLlang}
 
-\PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。可以通过下列命令来选定语言：
+\PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。
+
+\medskip
+\PJLlang{} 提供语言选项，这些选项的名称有三种，分别是缩写（如 \texttt{EN}）、小写（如 \texttt{english}）、首字母大写（如 \texttt{English}）。具体的选项名称可以参见下文的 \meta{language name}。其中，第一个指定的语言 \meta{first language} 会被作为默认语言，相当于在文档开头指定 \lstinline|\UseLanguage{|\meta{first language}\lstinline|}|。
+
+\begin{tip}
+    为了提高编译速度，建议使用语言选项，并将其作为全局参数传递。这样，只会对指定语言进行设置，节省了 \TeX{} 内存，从而能显著提高编译速度。
+\end{tip}
+
+\medskip
+在文档中，可以通过下列命令来选定语言：
 \begin{itemize}
     \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}|，用于指定语言，在其后将使用对应的语言设定。
     \begin{itemize}
@@ -192,6 +204,7 @@
     \end{itemize}
 \end{itemize}
 
+\medskip
 \meta{language name} 有下列选择 (不区分大小写，如 \texttt{French} 或 \texttt{french} 均可)：
 \begin{itemize}\setstretch{1.15}
     \item 简体中文：\texttt{CN}、\texttt{Chinese}、\texttt{SChinese} 或 \texttt{SimplifiedChinese}
@@ -207,6 +220,7 @@
     \item 俄语：\texttt{RU} 或 \texttt{Russian}
 \end{itemize}
 
+\medskip
 另外，还可以通过下面的方式来填加相应语言的设置：
 \begin{itemize}
     \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
@@ -220,7 +234,7 @@
 \end{itemize}
 例如，\lstinline|\AddLanguageSetting(German){\color{orange}}| 可以让所有德语以橙色显示（当然，还需要再加上 \lstinline|\AddLanguageSetting{\color{black}}| 来修正其他语言的颜色）。
 
-
+\clearpage
 \subsection{PJLlogo}
 
 \PJLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
@@ -253,6 +267,53 @@
 \end{center}
 % \end{longtable}
 
+\subsection{PJLmath}
+
+\PJLmath{} 提供下列捷径：
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ 或 \lstinline|\frak|$\cdot$。例如，\lstinline|\mfA| (或 \lstinline|\mf{A}|) 与 \lstinline|\mathfrak{A}| 效果相同. 这对大写、小写字母都有效：
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$。这只针对大写字母或数字 \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    对于常见的代数结构有这些特殊命令：\lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ 或 \lstinline|\cal|$\cdot$。这只针对大写字母。
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ 或 \lstinline|\scr|$\cdot$。这只针对大写字母。
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+% 另外，\PJLmath{} 还提供一些学科相关的命令。
+
+% \subsubsection{Number theory}
+
+% \begin{longtable}[l]{ p{3.5cm} p{5cm} p{5cm} }
+% \verb|\legendre| & \verb|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & automatic sizing \\
+% & \verb|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \verb|\tlegendre| & \verb|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & text style \\
+% \verb|\dlegendre| & \verb|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & display style \\
+% \end{longtable}
+
+% There's also a starred version of \verb|\pmod|, which eliminate the spacing before it:
+
+% \verb|a\pmod*{4}| $\rightarrow a\pmod*{4}$.
+
+% Compared with:
+
+% \verb|a\pmod{4}| $\rightarrow a\pmod{4}$.
+
+\clearpage
 \subsection{PJLpaper}
 
 \PJLpaper{} 主要用于调节纸张颜色。它支持下列选项：

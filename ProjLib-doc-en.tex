@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[allowbf,regionalref,puretext]{lebhart}
+\documentclass[English,French,allowbf,regionalref,puretext]{lebhart}
 
 %%================================
 %% Import toolkit
@@ -30,7 +30,8 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib
+    {color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
+    mathfrak,mf,frak,mfA,mathbb,bb,N,Z,Q,R,C,F,A,mathcal,mc,cal,mathscr,ms,scr,
     }
 }
 \lstnewenvironment{code}% 
@@ -67,6 +68,7 @@
 \providecommand{\PJLdraft}{\textsf{PJLdraft}}
 \providecommand{\PJLlang}{\textsf{PJLlang}}
 \providecommand{\PJLlogo}{\textsf{PJLlogo}}
+\providecommand{\PJLmath}{\textsf{PJLmath}}
 \providecommand{\PJLpaper}{\textsf{PJLpaper}}
 \providecommand{\PJLthm}{\textsf{PJLthm}}
 
@@ -129,7 +131,7 @@ Just add the following line to your preamble:
             \item Options from \PJLthm{}, please refer to the section on this package for details.
         \end{itemize}
 \end{itemize}
-In addition, there are also some options of the components that can (and should) be passed as global options of the document class, such as \texttt{paperstyle} and \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding section.
+In addition, there are also some options of the components that should be passed as global options of your document class, such as the language options \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc.\,of \PJLlang{}, \\and \texttt{paperstyle}, \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding sections.
 
 \section{The components}
 
@@ -178,13 +180,24 @@ For details on how to select a language, please refer to the section on \PJLlang
 
 \subsection{PJLlang}
 
-\PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). The language can be selected by the following macros:
+\PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). 
+
+\medskip
+\PJLlang{} provides language options. The names of these options have three types, which are abbreviations (such as \texttt{EN}), lowercase (such as \texttt{english}), and capital letters (such as \texttt{English}). For the option names of a specific language, please refer to \meta{language name} below. Among them, the first specified language \meta{first language} will be used as the default language, which is equivalent to specifying \lstinline|\UseLanguage{|\meta{first language}\lstinline|}| at the beginning of your document.
+
+\begin{tip}
+    It is recommended to use these language options and pass them as global options. In this way, only the specified language is set, thus saving the \TeX{} memory and significantly improving the compilation speed.
+\end{tip}
+
+\medskip
+The language can be selected by the following macros:
 
 \begin{itemize}
     \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}| is used to specify the language. The corresponding setting of the language will be applied after it. It can be used either in the preamble or in the main body. When no language is specified, ``English" is selected by default.
     \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|, which uses the specified language settings to typeset \meta{content}. Compared with \lstinline|\UseLanguage|, it will not modify the line spacing, so line spacing would remain stable when CJK and Western texts are mixed.
 \end{itemize}
 
+\medskip
 \meta{language name} can be (it is not case sensitive, for example, \texttt{French} and \texttt{french} have the same effect):
 \begin{itemize}
     \item Simplified Chinese: \texttt{CN}, \texttt{Chinese}, \texttt{SChinese} or \texttt{SimplifiedChinese}
@@ -200,7 +213,7 @@ For details on how to select a language, please refer to the section on \PJLlang
     \item Russian: \texttt{RU} or \texttt{Russian}
 \end{itemize}
 
-% \medskip
+\medskip
 In addition, you can also add new settings to selected language:
 \begin{itemize}
     \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
@@ -214,7 +227,7 @@ In addition, you can also add new settings to selected language:
 \end{itemize}
 For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make all German text displayed in orange (of course, one then need to add \lstinline|\AddLanguageSetting{\color{black}}| in order to correct the color of the text in other languages).
 
-
+\clearpage
 \subsection{PJLlogo}
 
 \PJLlogo{} offers the \lstinline|\ProjLib| macro to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
@@ -247,7 +260,34 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 \end{center}
 % \end{longtable}
 
-\clearpage
+\subsection{PJLmath}
+
+\PJLmath{} offers the following shortcuts:
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ or \lstinline|\frak|$\cdot$ . For example, \lstinline|\mfA| (or \lstinline|\mf{A}|) has the same effect as \lstinline|\mathfrak{A}|. This works for both upper and lower case, producing:
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . This only works for uppercase alphabet and the number \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    There are also special command for well-known algebraic structures: \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . This only works for uppercase alphabet.
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . This only works for uppercase alphabet.
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+% \clearpage
 \subsection{PJLpaper}
 
 \PJLpaper{} is mainly used to adjust the paper color. It has the following options:
@@ -385,7 +425,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \end{itemize}
 
 
-\medskip % \clearpage
+\clearpage
 \section{Usage example}
 
 \subsection{Standard classes}

@@ -458,7 +458,76 @@
     prefix = @PJLlang@
 }
 \DeclareBoolOption[false]{polyglossia}
+
+\newif\if@PJLlang@enable@all\@PJLlang@enable@alltrue
+\newif\if@PJLlang@enable@EN\@PJLlang@enable@ENfalse
+\newif\if@PJLlang@enable@FR\@PJLlang@enable@FRfalse
+\newif\if@PJLlang@enable@DE\@PJLlang@enable@DEfalse
+\newif\if@PJLlang@enable@IT\@PJLlang@enable@ITfalse
+\newif\if@PJLlang@enable@PT\@PJLlang@enable@PTfalse
+\newif\if@PJLlang@enable@BR\@PJLlang@enable@BRfalse
+\newif\if@PJLlang@enable@ES\@PJLlang@enable@ESfalse
+\newif\if@PJLlang@enable@CN\@PJLlang@enable@CNfalse
+\newif\if@PJLlang@enable@TC\@PJLlang@enable@TCfalse
+\newif\if@PJLlang@enable@JP\@PJLlang@enable@JPfalse
+\newif\if@PJLlang@enable@RU\@PJLlang@enable@RUfalse
+\DeclareVoidOption{EN}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}}
+\DeclareVoidOption{english}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}}
+\DeclareVoidOption{English}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}}
+\DeclareVoidOption{FR}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}}
+\DeclareVoidOption{french}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}}
+\DeclareVoidOption{French}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}}
+\DeclareVoidOption{DE}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
+\DeclareVoidOption{german}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
+\DeclareVoidOption{ngerman}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
+\DeclareVoidOption{German}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
+\DeclareVoidOption{IT}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}}
+\DeclareVoidOption{italian}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}}
+\DeclareVoidOption{Italian}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}}
+\DeclareVoidOption{PT}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}}
+\DeclareVoidOption{portuguese}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}}
+\DeclareVoidOption{Portuguese}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}}
+\DeclareVoidOption{BR}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}}
+\DeclareVoidOption{brazilian}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}}
+\DeclareVoidOption{Brazilian}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}}
+\DeclareVoidOption{ES}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}}
+\DeclareVoidOption{spanish}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}}
+\DeclareVoidOption{Spanish}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}}
+\DeclareVoidOption{CN}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{chinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{Chinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{schinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{SChinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{simplifiedchinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{SimplifiedChinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
+\DeclareVoidOption{TC}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
+\DeclareVoidOption{tchinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
+\DeclareVoidOption{TChinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
+\DeclareVoidOption{traditionalchinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
+\DeclareVoidOption{TraditionalChinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
+\DeclareVoidOption{JP}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}}
+\DeclareVoidOption{japanese}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}}
+\DeclareVoidOption{Japanese}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}}
+\DeclareVoidOption{RU}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}}
+\DeclareVoidOption{russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}}
+\DeclareVoidOption{Russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}}
 \ProcessKeyvalOptions*\relax
+
+\providecommand{\PJLlang@mainlang}{EN}
+
+\if@PJLlang@enable@all
+    \@PJLlang@enable@ENtrue
+    \@PJLlang@enable@FRtrue
+    \@PJLlang@enable@DEtrue
+    \@PJLlang@enable@ITtrue
+    \@PJLlang@enable@PTtrue
+    \@PJLlang@enable@BRtrue
+    \@PJLlang@enable@EStrue
+    \@PJLlang@enable@CNtrue
+    \@PJLlang@enable@TCtrue
+    \@PJLlang@enable@JPtrue
+    \@PJLlang@enable@RUtrue
+\fi
 
 \newcommand\englishABBR{EN}
 \newcommand\frenchABBR{FR}
@@ -695,7 +764,19 @@
 \endgroup%
 }
 
-\UseLanguage{English}
+\IfStrEqCase{\PJLlang@mainlang}{%
+    {EN}{\UseLanguage{EN}}%
+    {FR}{\UseLanguage{FR}}%
+    {DE}{\UseLanguage{DE}}%
+    {IT}{\UseLanguage{IT}}%
+    {PT}{\UseLanguage{PT}}%
+    {BR}{\UseLanguage{BR}}%
+    {ES}{\UseLanguage{ES}}%
+    {CN}{\UseLanguage{CN}}%
+    {TC}{\UseLanguage{TC}}%
+    {JP}{\UseLanguage{JP}}%
+    {RU}{\UseLanguage{RU}}%
+}
 %</PJLlang>
 %
 %<*PJLlogo>
@@ -1321,17 +1402,17 @@
 %                 \newtheorem*{#2TC#3}{\csname#2nameTC\endcsname}%
 %                 \newtheorem*{#2JP#3}{\csname#2nameJP\endcsname}%
 %                 \newtheorem*{#2RU#3}{\csname#2nameRU\endcsname}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameEN\endcsname}{\newtheorem*{#2EN#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameFR\endcsname}{\newtheorem*{#2FR#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameDE\endcsname}{\newtheorem*{#2DE#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameIT\endcsname}{\newtheorem*{#2IT#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2namePT\endcsname}{\newtheorem*{#2PT#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameBR\endcsname}{\newtheorem*{#2BR#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameES\endcsname}{\newtheorem*{#2ES#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameCN\endcsname}{\newtheorem*{#2CN#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameTC\endcsname}{\newtheorem*{#2TC#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameJP\endcsname}{\newtheorem*{#2JP#3}}%
-                \expandafter\PassFirstToSecond\expandafter{\csname#2nameRU\endcsname}{\newtheorem*{#2RU#3}}%
+                \if@PJLlang@enable@EN\expandafter\PassFirstToSecond\expandafter{\csname#2nameEN\endcsname}{\newtheorem*{#2EN#3}}\fi%
+                \if@PJLlang@enable@FR\expandafter\PassFirstToSecond\expandafter{\csname#2nameFR\endcsname}{\newtheorem*{#2FR#3}}\fi%
+                \if@PJLlang@enable@DE\expandafter\PassFirstToSecond\expandafter{\csname#2nameDE\endcsname}{\newtheorem*{#2DE#3}}\fi%
+                \if@PJLlang@enable@IT\expandafter\PassFirstToSecond\expandafter{\csname#2nameIT\endcsname}{\newtheorem*{#2IT#3}}\fi%
+                \if@PJLlang@enable@PT\expandafter\PassFirstToSecond\expandafter{\csname#2namePT\endcsname}{\newtheorem*{#2PT#3}}\fi%
+                \if@PJLlang@enable@BR\expandafter\PassFirstToSecond\expandafter{\csname#2nameBR\endcsname}{\newtheorem*{#2BR#3}}\fi%
+                \if@PJLlang@enable@ES\expandafter\PassFirstToSecond\expandafter{\csname#2nameES\endcsname}{\newtheorem*{#2ES#3}}\fi%
+                \if@PJLlang@enable@CN\expandafter\PassFirstToSecond\expandafter{\csname#2nameCN\endcsname}{\newtheorem*{#2CN#3}}\fi%
+                \if@PJLlang@enable@TC\expandafter\PassFirstToSecond\expandafter{\csname#2nameTC\endcsname}{\newtheorem*{#2TC#3}}\fi%
+                \if@PJLlang@enable@JP\expandafter\PassFirstToSecond\expandafter{\csname#2nameJP\endcsname}{\newtheorem*{#2JP#3}}\fi%
+                \if@PJLlang@enable@RU\expandafter\PassFirstToSecond\expandafter{\csname#2nameRU\endcsname}{\newtheorem*{#2RU#3}}\fi%
             }{%
                 \IfValueTF{#5}{%
                     \newcounter{#2#3}[{#5}]%
@@ -1344,17 +1425,17 @@
                         {\newcounter{#2#3}}%
                 }%
                 %---------------------------------------------------------------
-                \CreateTheoremNumberedLikeAliasCounter{#2}{EN}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{FR}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{DE}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{IT}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{PT}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{BR}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{ES}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}%
-                \CreateTheoremNumberedLikeAliasCounter{#2}{RU}{#3}%
+                \if@PJLlang@enable@EN\CreateTheoremNumberedLikeAliasCounter{#2}{EN}{#3}\fi%
+                \if@PJLlang@enable@FR\CreateTheoremNumberedLikeAliasCounter{#2}{FR}{#3}\fi%
+                \if@PJLlang@enable@DE\CreateTheoremNumberedLikeAliasCounter{#2}{DE}{#3}\fi%
+                \if@PJLlang@enable@IT\CreateTheoremNumberedLikeAliasCounter{#2}{IT}{#3}\fi%
+                \if@PJLlang@enable@PT\CreateTheoremNumberedLikeAliasCounter{#2}{PT}{#3}\fi%
+                \if@PJLlang@enable@BR\CreateTheoremNumberedLikeAliasCounter{#2}{BR}{#3}\fi%
+                \if@PJLlang@enable@ES\CreateTheoremNumberedLikeAliasCounter{#2}{ES}{#3}\fi%
+                \if@PJLlang@enable@CN\CreateTheoremNumberedLikeAliasCounter{#2}{CN}{#3}\fi%
+                \if@PJLlang@enable@TC\CreateTheoremNumberedLikeAliasCounter{#2}{TC}{#3}\fi%
+                \if@PJLlang@enable@JP\CreateTheoremNumberedLikeAliasCounter{#2}{JP}{#3}\fi%
+                \if@PJLlang@enable@RU\CreateTheoremNumberedLikeAliasCounter{#2}{RU}{#3}\fi%
                 %---------------------------------------------------------------
             }%
             \NewDocumentEnvironment{#2#3}{}
