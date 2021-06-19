@@ -1190,6 +1190,7 @@
     prefix = @PJLthm@
 }
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{nothmnum}
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \DeclareBoolOption[false]{regionalref}
@@ -1729,6 +1730,17 @@
     \newaliascnt{PJLthm@highest}{section}
 }
 \if@PJLthm@nothms\else
+\if@PJLthm@nothmnum
+\CreateTheorem*{theorem}
+\CreateTheorem*{lemma}
+\CreateTheorem*{proposition}
+\CreateTheorem*{corollary}
+\CreateTheorem*{definition-proposition}
+\CreateTheorem*{definition-theorem}
+\CreateTheorem*{property}
+\CreateTheorem*{fact}
+\CreateTheorem*{conjecture}
+\else
 \CreateTheorem{theorem}<PJLthm@highest>
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
@@ -1738,6 +1750,7 @@
 \CreateTheorem{property}[theorem]
 \CreateTheorem{fact}[theorem]
 \CreateTheorem{conjecture}[theorem]
+\fi
 \CreateTheorem*{theorem*}
 \CreateTheorem*{lemma*}
 \CreateTheorem*{proposition*}
@@ -1749,6 +1762,18 @@
 \CreateTheorem*{conjecture*}
 
 \theoremstyle{definition}
+\if@PJLthm@nothmnum
+\CreateTheorem*{definition}
+\CreateTheorem*{axiom}
+\CreateTheorem*{assumption}
+\CreateTheorem*{convention}
+\CreateTheorem*{hypothesis}
+\CreateTheorem*{notation}
+\CreateTheorem*{example}
+\CreateTheorem*{problem}
+\CreateTheorem*{question}
+\CreateTheorem*{exercise}
+\else
 \CreateTheorem{definition}[theorem]
 \CreateTheorem{axiom}[theorem]
 \CreateTheorem{assumption}[theorem]
@@ -1759,6 +1784,7 @@
 \CreateTheorem{problem}[theorem]
 \CreateTheorem{question}[theorem]
 \CreateTheorem{exercise}[theorem]
+\fi
 \CreateTheorem*{definition*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
@@ -1771,9 +1797,14 @@
 \CreateTheorem*{exercise*}
 
 \theoremstyle{remark}
+\if@PJLthm@nothmnum
+\CreateTheorem*{remark}
+\CreateTheorem*{observation}
+\else
 \CreateTheorem{remark}<PJLthm@highest>
-\CreateTheorem*{remark*}
 \CreateTheorem{observation}<PJLthm@highest>
+\fi
+\CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
 
@@ -1877,6 +1908,7 @@
 \DeclareBoolOption[false]{author}
 \DeclareBoolOption[false]{amssim}
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{nothmnum}
 \DeclareBoolOption[false]{regionalref}
 \DeclareBoolOption[false]{useosf}
 \DeclareBoolOption[false]{palatino}
@@ -1895,6 +1927,9 @@
 \fi
 \if@PJLtoolkit@nothms
     \PassOptionsToPackage{nothms}{PJLthm}
+\fi
+\if@PJLtoolkit@nothmnum
+    \PassOptionsToPackage{nothmnum}{PJLthm}
 \fi
 \if@PJLtoolkit@regionalref
     \PassOptionsToPackage{regionalref}{PJLthm}
