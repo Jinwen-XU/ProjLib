@@ -79,7 +79,7 @@
 
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/17}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/19}}
 \date{June 2021, Beijing}
 
 \maketitle
@@ -111,12 +111,16 @@ Just add the following line to your preamble:
 \begin{itemize}
     \item \texttt{draft} or \texttt{fast}
         \begin{itemize}
-            \item Fast mode. The functionality is appropriately reduced to get faster compilation speed, recommended to use during the writing phase.
+            \item Fast mode. The functionality will be appropriately reduced to get faster compilation speed, recommended to use during the writing phase.
         \end{itemize}
-    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} $|$ \texttt{useosf}
+    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} ~$|$~ \texttt{useosf}
         \begin{itemize}
             \item Font options. As the name suggest, font with corresponding name will be loaded. 
             \item The \texttt{useosf} option is used to enable the old-style figures.
+        \end{itemize}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
+        \begin{itemize}
+            \item Options from \PJLthm{}, please refer to the section on this package for details.
         \end{itemize}
     \item \texttt{author}
         \begin{itemize}
@@ -125,10 +129,6 @@ Just add the following line to your preamble:
     \item \texttt{amssim}
         \begin{itemize}
             \item Load \PJLamssim{}. For more information about its functionality, see the section on this package.
-        \end{itemize}
-    \item \texttt{nothms}, \texttt{regionalref}
-        \begin{itemize}
-            \item Options from \PJLthm{}, please refer to the section on this package for details.
         \end{itemize}
 \end{itemize}
 In addition, there are also some options of the components that should be passed as global options of your document class, such as the language options \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc.\,of \PJLlang{}, \\and \texttt{paperstyle}, \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding sections.
@@ -319,14 +319,19 @@ It is recommended to use them as global options of the document class. In this w
 \begin{itemize}
     \item \texttt{nothms}
     \begin{itemize}
-        \item The theorem-like environments will not be defined. You may use this option if you wish to apply your own theorem styles.
+        \item Theorem-like environments will not be defined. You may use this option if you wish to apply your own theorem styles.
+    \end{itemize}
+    \item \texttt{nothmnum}
+    \begin{itemize}
+        \item Theorem-like environments will not be numbered.
     \end{itemize}
     \item \texttt{regionalref}
     \begin{itemize}
-        \item When referencing, the name of the theorem-like environment changes with the current language (by default, the name will always remain the same; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''). In \texttt{fast} mode, this option is automatically enabled.
+        \item When referencing, name of the theorem-like environment will change with the current language (by default, the name will always remain the same; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''). In \texttt{fast} mode, this option is automatically enabled.
     \end{itemize}
 \end{itemize}
 
+\medskip
 Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The titles will change with the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PJLlang{}.
 
 \begin{tip}
@@ -346,13 +351,14 @@ Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjec
 % \begin{tip}
 %     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
 % \end{tip}
+\medskip
 If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use:
 \begin{itemize}
     \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
 \end{itemize}
 For \meta{language name}, please refer to the section on \PJLlang{}. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
 
-\medskip
+\bigskip
 And then define this environment in one of following five ways:
 \vspace{-.3\baselineskip}
 \begin{itemize}
@@ -372,6 +378,7 @@ And then define this environment in one of following five ways:
         \begin{itemize}
             \item Define a numbered environment \meta{name of environment}, numbered within the counter \meta{numbered within}
         \end{itemize}
+    \clearpage
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
     \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
         \begin{itemize}
