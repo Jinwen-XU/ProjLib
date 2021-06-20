@@ -1093,6 +1093,13 @@
 \def\scrZ{\ensuremath{\mathscr{Z}}}
 
 %%================================
+%% General symbols
+%%================================
+\providecommand*{\injection}{\ensuremath{\hookrightarrow}}
+\providecommand*{\surjection}{\ensuremath{\twoheadrightarrow}}
+\providecommand*{\bijection}{\ensuremath{\xrightarrow{\sim}}}
+
+%%================================
 %% Symbols for number theory
 %%================================
 \ifdefined\@@pmod\else
@@ -1965,7 +1972,7 @@
     \RequirePackage{mathpazo}
     \PassOptionsToPackage{defaultsups}{newpxtext}
     \RequirePackage{newpxtext}
-    \RequirePackage{newpxmath}
+    % \RequirePackage{newpxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.07}}
     \if@PJLtoolkit@useosf\useosf\fi
