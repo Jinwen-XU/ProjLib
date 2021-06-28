@@ -81,7 +81,7 @@
 
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/06/19}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/06/28}}
 \date{2021年6月，北京}
 
 \maketitle
@@ -443,6 +443,7 @@
 \begin{itemize}[itemsep=.6em]
     \item \PJLauthor{} 仍然处于初步阶段，在很多方面还远远比不上相对成熟的 \textsf{authblk}。
     \item \PJLlang{}：针对 \textsf{polyglossia} 的设置仍然存在许多问题，因此现在主要功能都是通过 \textsf{babel} 实现的。
+    \item \PJLlang{}：语言选项的设定存在问题，如 \texttt{chinese} 会导致 \textsf{babel} 报错，并且不同选项间还可能产生冲突。
     \item \PJLpaper{} 的 \texttt{preview} 功能主要是通过 \textsf{geometry} 宏包实现的，因此在 \textsc{\textsf{Koma}} 文档类中效果不好。
     \item \PJLthm{} 对于定理类环境的编号与样式设定目前还无法由用户更改。
     \item \PJLthm{}：智能引用针对所有 \PJLlang{} 已支持语言的本地化尚不完整，主要是中文、日文与俄文。

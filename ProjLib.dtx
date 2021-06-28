@@ -18,57 +18,57 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/06/19 The collective interface of ProjLib toolkit]
+    [2021/06/28 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLamssim>
 \ProvidesPackage{PJLamssim}
-    [2021/06/19 Simulate some features of amsart]
+    [2021/06/28 Simulate some features of amsart]
 %</PJLamssim>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/06/19 Enhanced author information block]
+    [2021/06/28 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/06/19 Convert yyyy-mm-dd to normal datetime format]
+    [2021/06/28 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/06/19 Some useful macros for the draft stage]
+    [2021/06/28 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/06/19 Multi-language configuration]
+    [2021/06/28 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/06/19 The ProjLib logo]
+    [2021/06/28 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/06/19 Useful math macros and shortcuts]
+    [2021/06/28 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/06/19 Paper style configuration]
+    [2021/06/28 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/06/19 Theorem setup and configuration]
+    [2021/06/28 Theorem setup and configuration]
 %</PJLthm>
 %
 %<*PJLtoolkit>
 \ProvidesPackage{PJLtoolkit}
-    [2021/06/19 Collective interface of ProjLib Toolkit]
+    [2021/06/28 Collective interface of ProjLib Toolkit]
 %</PJLtoolkit>
 %
 \RequirePackage{kvoptions}
@@ -471,28 +471,28 @@
 \newif\if@PJLlang@enable@TC\@PJLlang@enable@TCfalse
 \newif\if@PJLlang@enable@JP\@PJLlang@enable@JPfalse
 \newif\if@PJLlang@enable@RU\@PJLlang@enable@RUfalse
-\DeclareVoidOption{EN}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}}
-\DeclareVoidOption{english}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}}
-\DeclareVoidOption{English}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}}
-\DeclareVoidOption{FR}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}}
-\DeclareVoidOption{french}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}}
-\DeclareVoidOption{French}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}}
-\DeclareVoidOption{DE}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
-\DeclareVoidOption{german}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
-\DeclareVoidOption{ngerman}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
-\DeclareVoidOption{German}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}}
-\DeclareVoidOption{IT}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}}
-\DeclareVoidOption{italian}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}}
-\DeclareVoidOption{Italian}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}}
-\DeclareVoidOption{PT}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}}
-\DeclareVoidOption{portuguese}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}}
-\DeclareVoidOption{Portuguese}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}}
-\DeclareVoidOption{BR}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}}
-\DeclareVoidOption{brazilian}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}}
-\DeclareVoidOption{Brazilian}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}}
-\DeclareVoidOption{ES}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}}
-\DeclareVoidOption{spanish}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}}
-\DeclareVoidOption{Spanish}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}}
+\DeclareVoidOption{EN}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}\PassOptionsToPackage{english}{babel}}
+\DeclareVoidOption{english}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}\PassOptionsToPackage{english}{babel}}
+\DeclareVoidOption{English}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}\PassOptionsToPackage{english}{babel}}
+\DeclareVoidOption{FR}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}\PassOptionsToPackage{french}{babel}}
+\DeclareVoidOption{french}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}\PassOptionsToPackage{french}{babel}}
+\DeclareVoidOption{French}{\@PJLlang@enable@allfalse\@PJLlang@enable@FRtrue\providecommand{\PJLlang@mainlang}{FR}\PassOptionsToPackage{french}{babel}}
+\DeclareVoidOption{DE}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}\PassOptionsToPackage{ngerman}{babel}}
+\DeclareVoidOption{german}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}\PassOptionsToPackage{ngerman}{babel}}
+\DeclareVoidOption{ngerman}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}\PassOptionsToPackage{ngerman}{babel}}
+\DeclareVoidOption{German}{\@PJLlang@enable@allfalse\@PJLlang@enable@DEtrue\providecommand{\PJLlang@mainlang}{DE}\PassOptionsToPackage{ngerman}{babel}}
+\DeclareVoidOption{IT}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}\PassOptionsToPackage{italian}{babel}}
+\DeclareVoidOption{italian}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}\PassOptionsToPackage{italian}{babel}}
+\DeclareVoidOption{Italian}{\@PJLlang@enable@allfalse\@PJLlang@enable@ITtrue\providecommand{\PJLlang@mainlang}{IT}\PassOptionsToPackage{italian}{babel}}
+\DeclareVoidOption{PT}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}\PassOptionsToPackage{portuguese}{babel}}
+\DeclareVoidOption{portuguese}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}\PassOptionsToPackage{portuguese}{babel}}
+\DeclareVoidOption{Portuguese}{\@PJLlang@enable@allfalse\@PJLlang@enable@PTtrue\providecommand{\PJLlang@mainlang}{PT}\PassOptionsToPackage{portuguese}{babel}}
+\DeclareVoidOption{BR}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}\PassOptionsToPackage{brazilian}{babel}}
+\DeclareVoidOption{brazilian}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}\PassOptionsToPackage{brazilian}{babel}}
+\DeclareVoidOption{Brazilian}{\@PJLlang@enable@allfalse\@PJLlang@enable@BRtrue\providecommand{\PJLlang@mainlang}{BR}\PassOptionsToPackage{brazilian}{babel}}
+\DeclareVoidOption{ES}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}\PassOptionsToPackage{spanish}{babel}}
+\DeclareVoidOption{spanish}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}\PassOptionsToPackage{spanish}{babel}}
+\DeclareVoidOption{Spanish}{\@PJLlang@enable@allfalse\@PJLlang@enable@EStrue\providecommand{\PJLlang@mainlang}{ES}\PassOptionsToPackage{spanish}{babel}}
 \DeclareVoidOption{CN}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
 \DeclareVoidOption{chinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
 \DeclareVoidOption{Chinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@CNtrue\providecommand{\PJLlang@mainlang}{CN}}
@@ -505,12 +505,12 @@
 \DeclareVoidOption{TChinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
 \DeclareVoidOption{traditionalchinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
 \DeclareVoidOption{TraditionalChinese}{\@PJLlang@enable@allfalse\@PJLlang@enable@TCtrue\providecommand{\PJLlang@mainlang}{TC}}
-\DeclareVoidOption{JP}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}}
-\DeclareVoidOption{japanese}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}}
-\DeclareVoidOption{Japanese}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}}
-\DeclareVoidOption{RU}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}}
-\DeclareVoidOption{russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}}
-\DeclareVoidOption{Russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}}
+\DeclareVoidOption{JP}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}\PassOptionsToPackage{japanese}{babel}}
+\DeclareVoidOption{japanese}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}\PassOptionsToPackage{japanese}{babel}}
+\DeclareVoidOption{Japanese}{\@PJLlang@enable@allfalse\@PJLlang@enable@JPtrue\providecommand{\PJLlang@mainlang}{JP}\PassOptionsToPackage{japanese}{babel}}
+\DeclareVoidOption{RU}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}\PassOptionsToPackage{russian}{babel}}
+\DeclareVoidOption{russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}\PassOptionsToPackage{russian}{babel}}
+\DeclareVoidOption{Russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}\PassOptionsToPackage{russian}{babel}}
 \ProcessKeyvalOptions*\relax
 
 \providecommand{\PJLlang@mainlang}{EN}
@@ -563,13 +563,17 @@
         \WarningFilter{polyglossia}{Asking to add empty feature to latin font(Script="CJK" to scripttag "")}
     \fi
 \else
-    \ifPDFTeX\else
-        \PassOptionsToPackage{japanese,russian}{babel}
+    \if@PJLlang@enable@all
+        \ifPDFTeX\else
+            \PassOptionsToPackage{japanese,russian}{babel}
+        \fi
+        \PassOptionsToPackage{italian,portuguese,brazilian,spanish,es-notilde,es-noquoting,ngerman,french,english,shorthands=off}{babel}
     \fi
-    \PassOptionsToPackage{italian,portuguese,brazilian,spanish,es-notilde,es-noquoting,ngerman,french,english,shorthands=off}{babel}
     \PassOptionsToPackage{italian,brazilian,spanish,ngerman,french,english}{cleveref}
     \RequirePackage{babel}
-    \frenchsetup{PartNameFull=false}
+    \if@PJLlang@enable@FR
+        \frenchsetup{PartNameFull=false}
+    \fi
 \fi
 %
 \let\today@PJLoriginal\today

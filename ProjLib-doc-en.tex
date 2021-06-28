@@ -79,7 +79,7 @@
 
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/19}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/06/28}}
 \date{June 2021, Beijing}
 
 \maketitle
@@ -424,6 +424,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \begin{itemize}[itemsep=.6em]
     \item \PJLauthor{} is still in its preliminary stage, its effect is not as good as the relatively mature \textsf{authblk}.
     \item \PJLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
+    \item \PJLlang{}: There are some problems with the language options. For example, \texttt{chinese} will cause errors with \textsf{babel}. Also, conflicts among multiple options may occur.
     \item \PJLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.
     \item \PJLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
     \item \PJLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PJLlang{}, especially for Chinese, Japanese and Russian.
