@@ -2,13 +2,20 @@
 
 # ProjLib Toolkit
 
-> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" in English, but I prefer the French interpretation "***Proj**et **Lib**re*".
+> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or "***Proj**et **Lib**re*" (in French). Personally, I prefer the French interpretation.
 
 ## Introduction
 
 `ProjLib` is a collection of tools that help you write LaTeX document. With package `ProjLib` loaded (note that it is case-sensitive), you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
 
-The collection includes:
+To get started, simply put this line in your preamble:
+```latex
+\usepackage{ProjLib}
+```
+> For the options and detailed usage, please refer to the documentation.
+
+## The components
+The components include:
 1. `PJLamssim.sty`
     - Simulate some features of `amsart` in the standard classes
 1. `PJLauthor.sty`
