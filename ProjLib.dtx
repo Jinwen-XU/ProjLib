@@ -71,18 +71,27 @@
     [2021/07/05 Collective interface of ProjLib Toolkit]
 %</PJLtoolkit>
 %
+%# 下面两行引入宏包的代码是所有文件共用的。
+%# The following two lines are common to all files.
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 %
 %<*PJLamssim>
+%# 在 AMS 文档类中不执行任何操作
+%# Do nothing if AMS class detected
 \ifdefined\subjclass\endinput\fi
 
+%# 使用 PJLauthor 的作者块功能
+%# Use `PJLauthor`'s author block function
 \RequirePackage{PJLauthor}
 \RequirePackage{calc}
 
+%# 设定带条件的加粗
+%# Set the conditional bold face
 \providecommand{\conditionalbfseries}{\bfseries}
 
-% keywords
+%# 关键词的标签
+%# keywords' label
 \def\keywordsnameEN{\textsc{Key words and phrases}}
 \def\keywordsnameFR{\textsc{Mots et phrases clés}}
 \def\keywordsnameDE{\textsc{Schlüsselwörter und Phrasen}}
@@ -95,18 +104,18 @@
 \def\keywordsnameJP{キーワード}
 \def\keywordsnameRU{Ключевые слова и фразы}
 
-\ifdefined\keywords\else
-    \def\PJL@keywords{}
-    \newcommand*{\keywords}[1]{\def\PJL@keywords{#1}}
-\fi
+%# 关键词
+%# keywords
+\def\PJL@keywords{}
+\providecommand*{\keywords}[1]{\def\PJL@keywords{#1}}
 
-% dedicatory
-\ifdefined\dedicatory\else
-    \def\PJL@dedicatory{}
-    \newcommand*{\dedicatory}[1]{\def\PJL@dedicatory{#1}}
-\fi
+%# 献给
+%# dedicatory
+\def\PJL@dedicatory{}
+\providecommand*{\dedicatory}[1]{\def\PJL@dedicatory{#1}}
 
-% \thanks: behave like article-style when in \author, and ams-style (no marker) when outside
+%# 致谢，在 \author 中使用时呈现为 article 风格，在外面单独用是则呈现为 AMS 风格
+%# \thanks: behave like article-style when in \author, and ams-style (no marker) when outside
 \AtEndPreamble{
 % In case that \@author changes again
 \let\footnotemark@PJLoriginal\footnotemark%
@@ -138,7 +147,8 @@
 % \apptocmd{\@author}{\let\footnotemark\relax}{}{\FAIL}
 }
 
-%% Modify abstract to allow it before maketitle
+%# 重定义 abstract 环境以允许其出现在 maketitle 的前面
+%# Modify abstract to allow it before maketitle
 \let\abstract@PJLoriginal\abstract%
 \let\endabstract@PJLoriginal\endabstract%
 \newif\if@PJLamssim@maketitle\@PJLamssim@maketitlefalse
@@ -176,9 +186,11 @@
     \fi%
 }
 
-%% Modify maketitle
+%# 修改 maketitle 以包含上面的诸多改动
+%# Modify maketitle to reflect the modifications above
 \AtEndPreamble{%
-% Add dedicatory to @maketitle
+%## 将 dedicatory 添加进 \@maketitle
+%## Add dedicatory to \@maketitle
 \patchcmd{\@maketitle}{\@date}{%
     \ifx\@date\@empty\vspace{-2\baselineskip}%
     \else\@date\fi%
@@ -192,14 +204,16 @@
         \fi%
     \fi%
 }{}{\FAIL}
-% Add keywords to maketitle
+%## 将 keywords 添加进 \maketitle
+%## Add keywords to \maketitle
 \pretocmd{\maketitle}{%
     \ifx\PJL@keywords\@empty\else%
     \PJL@prethanks{{\protect\conditionalbfseries%
     \csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}%
     ~\PJL@keywords}%
     \fi}{}{\FAIL}
-% Add abstract to maketitle
+%## 将 abstract 添加进 \maketitle
+%## Add abstract to \maketitle
 \apptocmd{\maketitle}{%
     \if@PJLamssim@absbefore%
         \begin{abstract@PJLoriginal}%
@@ -216,11 +230,14 @@
     \global\let\keywords\relax
     \global\@PJLamssim@maketitletrue
 }{}{\FAIL}
-% Disbale the \newpage in maketitle
+%##- 这段未被采用的代码将使 maketitle 中的 \newpage 失效
+%##- Disbale the \newpage in maketitle
 % \let\maketitle@PJLoriginal=\maketitle
 % \renewcommand*{\maketitle}{{\let\newpage\relax\maketitle@PJLoriginal}}
 }
 
+%# 定义 \subjclass，这段代码改编自 AMS 文档类
+%# Define \subjclass, the code is adopted from AMS classes
 \newcommand*\subjclass[2][2020]{%
     \def\@subjclass{#2}%
     \@ifundefined{subjclassname@#1}{%
@@ -243,13 +260,15 @@
 %</PJLamssim>
 %
 %<*PJLauthor>
+%# 在 AMS 文档类中不执行任何操作
+%# Do nothing if AMS class detected
 \ifdefined\subjclass\endinput\fi
-
-\RequirePackage{PJLlang}
 
 %%================================
 %% Font and style
 %%================================
+%# 各个作者信息元素的字体
+%# Font of the elements in the author block
 \def\PJLauthor@font@author{\normalsize\normalfont\scshape}
 \def\PJLauthor@font@address{\small\normalfont\itshape}
 \def\PJLauthor@font@curraddr{\small\normalfont\itshape}
@@ -258,27 +277,34 @@
 %%================================
 %% Lengths
 %%================================
-% Space between author and address
+%# author 和 address 之间的距离
+%# Space between author and address
 \newlength{\PJLauthor@length@innersep}
 \setlength{\PJLauthor@length@innersep}{.3\baselineskip}
-
-% Space between different author blocks
+%# 两个作者块之间的距离
+%# Space between different author blocks
 \newlength{\PJLauthor@length@sep}
 \setlength{\PJLauthor@length@sep}{.5\baselineskip}
-
-% Space between affiliation and date
+%# 作者块和日期之间的距离
+%# Space between affiliation and date
 \newlength{\PJLauthor@length@aftersep}
 \setlength{\PJLauthor@length@aftersep}{.3\baselineskip}
 
 %%================================
 %% The macros
 %%================================
+%# 用来记录当前是否有附加作者信息，以便调整距离
+%# To record whether there's affiliation so as to adjust the vertical space
 \newif\if@PJLauthor@affilon
+%# 作者
+%# author
 \renewcommand*{\author}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
     \vspace{\PJLauthor@length@sep}%
     \PJLauthor@font@author{#1}\\\phantom{}
     \@PJLauthor@affilonfalse}}
+%# 地址
+%# address
 \providecommand*{\address}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
         \if@PJLauthor@affilon\else%
@@ -287,6 +313,8 @@
         \@PJLauthor@affilontrue%
         \PJLauthor@font@address{#1}\\\phantom{}}%
 }
+%# 当前地址
+%# curraddr
 \providecommand*{\curraddr}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
         \if@PJLauthor@affilon\else%
@@ -295,6 +323,8 @@
         \@PJLauthor@affilontrue%
         \PJLauthor@font@curraddr{#1}\\\phantom{}}%
 }
+%# 电子邮箱
+%# email
 \providecommand*{\email}[1]{%
     \gappto\@author{\phantom{A}\\[-\baselineskip]%
         \if@PJLauthor@affilon\else%
@@ -307,9 +337,15 @@
 %%================================
 %% Adjustment
 %%================================
+%# 去除 maketitle 中默认对 author 的处理
+%# Remove the tabular around \@author in maketitle
 \patchcmd{\@maketitle}{\begin{tabular}[t]{c}}{}{}{}
 \patchcmd{\@maketitle}{\end{tabular}}{}{}{}
-\def\@author{} % Remove "No \author given."
+%# 下面这一行是为了避免错误 "No \author given."
+%# The follwing line is for avoiding the error "No \author given."
+\def\@author{}
+%# 修正作者块的前后等距离
+%# Adjust the spacing before and after the author block
 \pretocmd{\@maketitle}{%
     \pretocmd{\@author}{\vspace{-\PJLauthor@length@sep}}{}{\FAIL}%
     \apptocmd{\@author}{%
@@ -323,29 +359,51 @@
 %</PJLauthor>
 %
 %<*PJLdate>
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{
     family = @PJLdate,
     prefix = @PJLdate@,
 }
+%# 草稿模式或快速模式
+%# Draft mode or fast mode
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
+%# 下面的代码设定了选项之间的关系
+%# The following code sets the relationship between options
 \if@PJLdate@draft
     \@PJLdate@fasttrue
 \fi
+%# 将 PJLdate 与 PLdate 等同
+%# To make PLdate and PJLdate equivalent
 \DeclareDocumentCommand{\PLdate}{}{\PJLdate}
+%# 快速模式下直接输出原日期字符串
+%# Directly output the original date string in fast mode
 \if@PJLdate@fast\let\PJLdate\relax\endinput\fi
 
+%# 载入多语言支持
+%# Load multi-language support
 \RequirePackage{PJLlang}
 
-% The following line is for "authblk"
+%# 下面一行是为了避免使用 authblk 时产生的错误
+%# The following line is for "authblk"
 \robustify\@latex@warning@no@line
+
+%# 消除一些警告
+%# Eliminate some warnings
 \RequirePackage{silence}
 \WarningFilter*{datetime2}{Date-Time Language Module}
+%# 分别引入负责西文日期和 CJK 日期的宏包
+%# Use packages resp. for western date and CJK date
 \PassOptionsToPackage{fr-FR,en-US}{datetime2}
 \RequirePackage{datetime2}
 \RequirePackage{zhnumber}
 
+%# 在 CJK 模式下将 DTMdate 定义为 zhdate
+%# Maps DTMdate to zhdate in CJK context
 \let\@DTMdate@PJLoriginal\@DTMdate
 \gappto{\PJLlang@langconfig@common}{%
     \let\@DTMdate\@DTMdate@PJLoriginal%
@@ -368,27 +426,46 @@
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
+
+%# 提供命令 PJLdate
+%# Provide the macro PJLdate
 \providecommand*{\PJLdate}[1]{\DTMdate{#1}}
 %</PJLdate>
 %
 %<*PJLdraft>
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{
     family = @PJLdraft,
     prefix = @PJLdraft@,
 }
+%# 草稿模式或快速模式
+%# Draft mode or fast mode
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
+%# 下面的代码设定了选项之间的关系
+%# The following code sets the relationship between options
 \if@PJLdraft@draft
     \@PJLdraft@fasttrue
 \fi
 
+%# 载入多语言支持
+%# Load multi-language support
 \RequirePackage{PJLlang}
+%# 载入颜色支持
+%# Load support for colors
 \RequirePackage{xcolor}
 
+%# 命令中的默认字体
+%# Default font in the macro
 \def\dnfFont{\ttfamily}
 \def\needgraphFont{\ttfamily}
 
+%# 命令中的文字
+%# Text in the macro
 \def\dnfTextEN{To be finished}
 \def\needgraphTextEN{A graph is needed here}
 \def\dnfTextFR{Pas encore fini}
@@ -412,15 +489,21 @@
 \def\dnfTextRU{Не закончен}
 \def\needgraphTextRU{Еще нужна картинка}
 
+%# 命令中的颜色
+%# Default color in the macro
 \definecolor{dnfColor}{RGB}{21,122,20}
 \definecolor{needgraphColor}{RGB}{70,130,180}
 
 \if@PJLdraft@fast
+%# 快速模式用 fbox 定义
+%# Use fbox in fast mode
     \newcommand{\plainBox}[2][-paper]{\textcolor{#1}{%
     \setlength{\fboxsep}{1.5pt}%
     \setlength{\fboxrule}{1.2pt}%
     \fbox{#2}}}
 \else
+%# 正常模式用 tcolorbox 定义
+%# Use tcolorbox in normal mode
     \PassOptionsToPackage{many}{tcolorbox}
     \RequirePackage{tcolorbox}
     \newtcbox{\plainBox}[1][-paper]{enhanced jigsaw,%
@@ -431,9 +514,13 @@
     }
 \fi
 
+%# 命令中的计数器
+%# Counters for the macro
 \newcounter{dnfcnt}
 \newcounter{needgraphcnt}
 
+%# 尚未完成的标记
+%# Mark for ``did not finish''
 \NewDocumentCommand{\dnf}{d<>}{%
     \noindent\plainBox[dnfColor]%
     {\normalfont\dnfFont\bfseries\small%
@@ -441,6 +528,8 @@
     \stepcounter{dnfcnt}~\#\thednfcnt%
     \IfNoValueF{#1}{\,: #1}}%
 }
+%# 需要图片的标记
+%# Mark for ``Graph needed''
 \NewDocumentCommand{\needgraph}{d<>}{%
     \begin{center}%
         \plainBox[needgraphColor]%
@@ -453,12 +542,18 @@
 %</PJLdraft>
 %
 %<*PJLlang>
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{%
     family = @PJLlang,
     prefix = @PJLlang@
 }
+%# 使用 polyglossia 而不是 babel 进行设置，目前还不完善
+%# Use polyglossia instead of babel
 \DeclareBoolOption[false]{polyglossia}
 
+%# 用于记录该语言是否被启用
+%# To record whether the language is enabled in the document
 \newif\if@PJLlang@enable@all\@PJLlang@enable@alltrue
 \newif\if@PJLlang@enable@EN\@PJLlang@enable@ENfalse
 \newif\if@PJLlang@enable@FR\@PJLlang@enable@FRfalse
@@ -471,7 +566,11 @@
 \newif\if@PJLlang@enable@TC\@PJLlang@enable@TCfalse
 \newif\if@PJLlang@enable@JP\@PJLlang@enable@JPfalse
 \newif\if@PJLlang@enable@RU\@PJLlang@enable@RUfalse
+%# 用来存储要传递给babel的选项
+%# To store the option list to pass to babel
 \def\PJLlang@babeloptions{}
+%# 语言选项：启用该语言并添加相应的 babel 参数
+%# The language options: enable the corresponding language and add the corresponding options to babel
 \DeclareVoidOption{EN}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}\gpreto{\PJLlang@babeloptions}{,english}}
 \DeclareVoidOption{english}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}\gpreto{\PJLlang@babeloptions}{,english}}
 \DeclareVoidOption{English}{\@PJLlang@enable@allfalse\@PJLlang@enable@ENtrue\providecommand{\PJLlang@mainlang}{EN}\gpreto{\PJLlang@babeloptions}{,english}}
@@ -512,10 +611,16 @@
 \DeclareVoidOption{RU}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}\gpreto{\PJLlang@babeloptions}{,russian}}
 \DeclareVoidOption{russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}\gpreto{\PJLlang@babeloptions}{,russian}}
 \DeclareVoidOption{Russian}{\@PJLlang@enable@allfalse\@PJLlang@enable@RUtrue\providecommand{\PJLlang@mainlang}{RU}\gpreto{\PJLlang@babeloptions}{,russian}}
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
 
+%# 默认语言：英语
+%# Default main language: English
 \providecommand{\PJLlang@mainlang}{EN}
 
+%# 启用全部支持的语言
+%# Enable all supported language
 \if@PJLlang@enable@all
     \@PJLlang@enable@ENtrue
     \@PJLlang@enable@FRtrue
@@ -530,6 +635,8 @@
     \@PJLlang@enable@RUtrue
 \fi
 
+%# 语言名称的缩写
+%# Abbreviation of language name
 \newcommand\englishABBR{EN}
 \newcommand\frenchABBR{FR}
 \newcommand\ngermanABBR{DE}
@@ -542,6 +649,8 @@
 \newcommand\japaneseABBR{JP}
 \newcommand\russianABBR{RU}
 
+%# 在 pdfLaTeX 编译时载入编码设置
+%# Load the encoding settings when pdfLaTeX is used
 \RequirePackage{iftex}
 \ifPDFTeX
 \RequirePackage[T1]{fontenc}
@@ -549,6 +658,8 @@
 \fi
 
 \if@PJLlang@polyglossia
+%# polyglossia 对应的设置
+%# Configure with `polyglossia`
     \RequirePackage{polyglossia}
     \setdefaultlanguage{english}
     \setotherlanguage[frenchpart=false]{french}
@@ -564,6 +675,8 @@
         \WarningFilter{polyglossia}{Asking to add empty feature to latin font(Script="CJK" to scripttag "")}
     \fi
 \else
+%# babel 对应的设置
+%# Configure with `babel`
     \if@PJLlang@enable@all
         \ifPDFTeX\else
             \PassOptionsToPackage{japanese,russian}{babel}
@@ -578,7 +691,9 @@
         \frenchsetup{PartNameFull=false}
     \fi
 \fi
-%
+
+%# 本地化 \today
+%# Localize \today
 \let\today@PJLoriginal\today
 \newcommand{\PJLlang@langconfig@common}{%
     \ifdefined\DTMtoday%
@@ -587,6 +702,9 @@
         \let\today\today@PJLoriginal%
     \fi%
 }
+
+%# 各个语言的设置
+%# The configuration for each language
 \newcommand{\PJLlang@langconfig@chinese}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
@@ -647,6 +765,8 @@
     \selectlanguage{russian}%
 }
 
+%# 用于增加语言设置的用户指令 AddLanguageSetting
+%# User command for adding language settings
 \RequirePackage{xstring}
 \NewDocumentCommand\AddLanguageSetting{d()m}{%
 \IfNoValueTF{#1}%
@@ -684,20 +804,25 @@
 }
 
 \RequirePackage{setspace}
-% Line spacing configuration
+%# 行距的设置
+%# Line spacing configuration
 \def\PJL@config@linespacing{\setstretch{1.00}}
 \def\PJL@config@CJKlinespacing{\onehalfspacing}
 \newcommand{\PJLsetlinespacing}[1]{\renewcommand{\PJL@config@linespacing}{#1}}
 \newcommand{\PJLsetCJKlinespacing}[1]{\renewcommand{\PJL@config@CJKlinespacing}{#1}}
-% Parindent configuration
+%# 缩进的设置
+%# Parindent configuration
 \def\PJL@config@parindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{1.5em}}}
 \def\PJL@config@CJKparindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{2em}}}
 \newcommand{\PJLsetparindent}[1]{\renewcommand{\PJL@config@parindent}{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{#1}}}}
 \newcommand{\PJLsetCJKparindent}[1]{\renewcommand{\PJL@config@CJKparindent}{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{#1}}}}
-% All-in-all configuration
+%# 合并设置
+%# All-in-all configuration
 \def\PJL@config@CJK{\PJL@config@CJKlinespacing\PJL@config@CJKparindent}
 \def\PJL@config@Latin{\PJL@config@linespacing\PJL@config@parindent}
 %
+%# UseLanguage 的核心部分，只能在正文中使用
+%# The core part of UseLanguage, can be used only in the main text, not preamble
 \newcommand{\UseLanguageCORE}[1]{%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
@@ -729,6 +854,8 @@
         {russian}{\PJL@config@Latin\PJLlang@langconfig@russian}%
     }%
 }
+%# 用于选定语言的 UseLanguage
+%# Macro for selecting language
 \newcommand{\UseLanguage}[1]{%
     \ifx\@onlypreamble\@notprerr%
         \UseLanguageCORE{#1}%
@@ -736,6 +863,8 @@
         \AfterEndPreamble{\UseLanguageCORE{#1}}%
     \fi%
 }
+%# 用于局部选定语言的 UseOtherLanguage
+%# Macro for selecting language locally
 \newcommand{\UseOtherLanguage}[2]{%
 \begingroup%
     \PJLlang@langconfig@common%
@@ -771,6 +900,8 @@
 \endgroup%
 }
 
+%# 运行默认语言的设置
+%# Execute the configuration of the main language
 \IfStrEqCase{\PJLlang@mainlang}{%
     {EN}{\UseLanguage{EN}}%
     {FR}{\UseLanguage{FR}}%
@@ -787,18 +918,30 @@
 %</PJLlang>
 %
 %<*PJLlogo>
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{
     family = @PJLlogo,
     prefix = @PJLlogo@,
 }
+%# 草稿模式或快速模式
+%# Draft mode or fast mode
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
+%# 下面的代码设定了选项之间的关系
+%# The following code sets the relationship between options
 \if@PJLlogo@draft
     \@PJLlogo@fasttrue
 \fi
+%# 快速模式下直接输出字符串 ProjLib
+%# Directly output the string ``ProjLib'' in fast mode
 \if@PJLlogo@fast\def\ProjLib{{\normalfont ProjLib}}\endinput\fi
 
+%# 以下选取字体并定义 Logo
+%# Below select the font and define the logo
 \RequirePackage{xcolor}
 \RequirePackage{graphicx}
 \ifdefined\fontspec
@@ -836,6 +979,8 @@
 %</PJLlogo>
 %
 %<*PJLmath>
+%# 载入常用数学宏包
+%# Load commonly used math packages
 \RequirePackage{mathtools}
 \RequirePackage{mathrsfs}
 \@ifpackageloaded{unicode-math}{}{\RequirePackage{amssymb}}
@@ -843,6 +988,8 @@
 %%================================
 %% Shorthands
 %%================================
+%# 常见代数结构的捷径
+%# Shortcuts for commonly used algebraic structures
 \def\N{\ensuremath{\mathbb{N}}}
 \def\Z{\ensuremath{\mathbb{Z}}}
 \def\Q{\ensuremath{\mathbb{Q}}}
@@ -851,6 +998,8 @@
 \def\F{\ensuremath{\mathbb{F}}}
 \def\A{\ensuremath{\mathbb{A}}}
 
+%# mathbb 的捷径
+%# Shortcuts for blackboard bold face
 \def\bb#1{\ensuremath{\mathbb{#1}}}
 \def\bbA{\ensuremath{\mathbb{A}}}
 \def\bbB{\ensuremath{\mathbb{B}}}
@@ -879,6 +1028,8 @@
 \def\bbY{\ensuremath{\mathbb{Y}}}
 \def\bbZ{\ensuremath{\mathbb{Z}}}
 
+%# mathcal 的捷径
+%# Shortcuts for calligraphic shape
 \def\mc#1{\ensuremath{\mathcal{#1}}}
 \def\mcA{\ensuremath{\mathcal{A}}}
 \def\mcB{\ensuremath{\mathcal{B}}}
@@ -935,6 +1086,8 @@
 \def\calY{\ensuremath{\mathcal{Y}}}
 \def\calZ{\ensuremath{\mathcal{Z}}}
 
+%# mathfrak 的捷径
+%# Shortcuts for Fraktur shape
 \def\mf#1{\ensuremath{\mathfrak{#1}}}
 \def\mfa{\ensuremath{\mathfrak{a}}}
 \def\mfb{\ensuremath{\mathfrak{b}}}
@@ -1043,6 +1196,8 @@
 \def\frakY{\ensuremath{\mathfrak{Y}}}
 \def\frakZ{\ensuremath{\mathfrak{Z}}}
 
+%# mathscr 的捷径
+%# Shortcuts for script shape
 \def\ms#1{\ensuremath{\mathscr{#1}}}
 \def\msA{\ensuremath{\mathscr{A}}}
 \def\msB{\ensuremath{\mathscr{B}}}
@@ -1130,6 +1285,8 @@
 %<*PJLpaper>
 \RequirePackage{ifthen}
 
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{%
     family = @PJLpaper,
     prefix = @PJLpaper@,
@@ -1137,11 +1294,16 @@
 }
 
 \DeclareStringOption[normal]{paperstyle}
+%# 几种纸张颜色的选项
+%# Several options of different paper color style
 \DeclareVoidOption{yellowpaper}{\kvsetkeys{@PJLpaper}{paperstyle=yellow}}
 \DeclareVoidOption{darkpaper}{\kvsetkeys{@PJLpaper}{paperstyle=dark}}
 \DeclareVoidOption{nordpaper}{\kvsetkeys{@PJLpaper}{paperstyle=nord}}
+%# 预览模式：减去边框
+%# Preview mode: crop the edge
 \DeclareBoolOption[false]{preview}
-
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
 
 %%================================
@@ -1192,6 +1354,8 @@
     \color{#1}\global\let\default@color\current@color
 }
 
+%# 设置纸张颜色、文字颜色
+%# Set the paper and text color
 \pagecolor{paper}
 \PJLglobalcolor{maintext}
 \AtEndPreamble{
@@ -1202,16 +1366,30 @@
 %</PJLpaper>
 %
 %<*PJLthm>
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{%
     family = @PJLthm,
     prefix = @PJLthm@
 }
+%# 不建立定理类环境
+%# Do not setup theorem-like environments
 \DeclareBoolOption[false]{nothms}
+%# 不编号定理类环境
+%# Do not number theorem-like environments
 \DeclareBoolOption[false]{nothmnum}
+%# 草稿模式或快速模式
+%# Draft mode or fast mode
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+%# 引用的名称将随当前语言的不同而改变
+%# Reference name will change with the current language
 \DeclareBoolOption[false]{regionalref}
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
+%# 下面的代码设定了选项之间的关系
+%# The following code sets the relationship between options
 \if@PJLthm@draft
     \@PJLthm@fasttrue
 \fi
@@ -1225,7 +1403,8 @@
 \PassOptionsToPackage{nameinlink}{cleveref}
 \RequirePackage{cleveref}
 
-% Macro for naming theorems
+%# 用于命名定理类环境的用户命令
+%# Macro for naming theorems
 \NewDocumentCommand{\NameTheorem}{omm}{%
     \protected@edef\PJLthm@temp{#2}%
     \expandafter\IfEndWith\expandafter{\PJLthm@temp}{*}{%
@@ -1276,7 +1455,8 @@
     }%
 }
 
-% Macro for creating theorems
+%# 用于创建定理类环境的用户命令
+%# Macro for creating theorems
 \RequirePackage{xstring}
 \newcommand\PassFirstToSecond[2]{#2{#1}}%
 \NewDocumentCommand{\CreateTheorem}{sm}{%
@@ -1486,7 +1666,8 @@
 }%
 \fi
 
-%% English theorems names
+%# 英文定理名称
+%# English theorems names
 \def\theoremnameEN{{Theorem}}
 \def\lemmanameEN{{Lemma}}
 \def\propositionnameEN{{Proposition}}
@@ -1509,7 +1690,8 @@
 \expandafter\def\csname definition-propositionnameEN\endcsname{\definitionnameEN-\propositionnameEN}
 \expandafter\def\csname definition-theoremnameEN\endcsname{\definitionnameEN-\theoremnameEN}
 
-%% French theorems names
+%# 法语定理名称
+%# French theorems names
 \def\theoremnameFR{{Théorème}}
 \def\lemmanameFR{{Lemme}}
 \def\propositionnameFR{{Proposition}}
@@ -1532,7 +1714,8 @@
 \expandafter\def\csname definition-propositionnameFR\endcsname{\definitionnameFR-\propositionnameFR}
 \expandafter\def\csname definition-theoremnameFR\endcsname{\definitionnameFR-\theoremnameFR}
 
-%% German theorems names
+%# 德语定理名称
+%# German theorems names
 \def\theoremnameDE{{Satz}}
 \def\lemmanameDE{{Lemma}}
 \def\propositionnameDE{{Proposition}}
@@ -1555,7 +1738,8 @@
 \expandafter\def\csname definition-propositionnameDE\endcsname{\definitionnameDE-\propositionnameDE}
 \expandafter\def\csname definition-theoremnameDE\endcsname{\definitionnameDE-\theoremnameDE}
 
-%% Italian theorems names
+%# 意大利语定理名称
+%# Italian theorems names
 \def\theoremnameIT{{Teorema}}
 \def\lemmanameIT{{Lemma}}
 \def\propositionnameIT{{Proposizione}}
@@ -1578,7 +1762,8 @@
 \expandafter\def\csname definition-propositionnameIT\endcsname{\definitionnameIT-\propositionnameIT}
 \expandafter\def\csname definition-theoremnameIT\endcsname{\definitionnameIT-\theoremnameIT}
 
-%% Portuguese theorems names
+%# 葡萄牙语定理名称
+%# Portuguese theorems names
 \def\theoremnamePT{{Teorema}}
 \def\lemmanamePT{{Lema}}
 \def\propositionnamePT{{Proposição}}
@@ -1601,7 +1786,8 @@
 \expandafter\def\csname definition-propositionnamePT\endcsname{\definitionnamePT-\propositionnamePT}
 \expandafter\def\csname definition-theoremnamePT\endcsname{\definitionnamePT-\theoremnamePT}
 
-%% Brazilian theorems names
+%# 巴西葡萄牙语定理名称
+%# Brazilian theorems names
 \def\theoremnameBR{{Teorema}}
 \def\lemmanameBR{{Lema}}
 \def\propositionnameBR{{Proposição}}
@@ -1624,7 +1810,8 @@
 \expandafter\def\csname definition-propositionnameBR\endcsname{\definitionnameBR-\propositionnameBR}
 \expandafter\def\csname definition-theoremnameBR\endcsname{\definitionnameBR-\theoremnameBR}
 
-%% Spanish theorems names
+%# 西班牙语定理名称
+%# Spanish theorems names
 \def\theoremnameES{{Teorema}}
 \def\lemmanameES{{Lema}}
 \def\propositionnameES{{Proposición}}
@@ -1647,7 +1834,8 @@
 \expandafter\def\csname definition-propositionnameES\endcsname{\definitionnameES-\propositionnameES}
 \expandafter\def\csname definition-theoremnameES\endcsname{\definitionnameES-\theoremnameES}
 
-%% Chinese theorems names
+%# 中文定理名称
+%# Chinese theorems names
 \def\theoremnameCN{{定理}}
 \def\lemmanameCN{{引理}}
 \def\propositionnameCN{{命题}}
@@ -1692,7 +1880,8 @@
 \expandafter\def\csname definition-propositionnameTC\endcsname{\definitionnameTC-\propositionnameTC}
 \expandafter\def\csname definition-theoremnameTC\endcsname{\definitionnameTC-\theoremnameTC}
 
-%% Japanese theorems names
+%# 日文定理名称
+%# Japanese theorems names
 \def\theoremnameJP{{定理}}
 \def\lemmanameJP{{補題}}
 \def\propositionnameJP{{命題}}
@@ -1715,7 +1904,8 @@
 \expandafter\def\csname definition-propositionnameJP\endcsname{\definitionnameJP-\propositionnameJP}
 \expandafter\def\csname definition-theoremnameJP\endcsname{\definitionnameJP-\theoremnameJP}
 
-%% Russian theorems names
+%# 俄文定理名称
+%# Russian theorems names
 \def\theoremnameRU{{Теорема}} % Теоре́ма
 \def\lemmanameRU{{Лемма}} % Ле́мма
 \def\propositionnameRU{{Предложение}} % Предложе́ние
@@ -1738,14 +1928,17 @@
 \expandafter\def\csname definition-propositionnameRU\endcsname{\definitionnameRU-\propositionnameRU}
 \expandafter\def\csname definition-theoremnameRU\endcsname{\definitionnameRU-\theoremnameRU}
 
+%# 判断最高级别的标题是 section 还是 chapter
+%# Detect the highest level of title: section or chapter?
 \newif\ifPJLthm@IsBook
 \ifdefined\c@chapter\PJLthm@IsBooktrue\else\PJLthm@IsBookfalse\fi
-%% Theorem environments
 \ifbool{PJLthm@IsBook}{
     \newaliascnt{PJLthm@highest}{chapter}
 }{
     \newaliascnt{PJLthm@highest}{section}
 }
+%# 建立定理类环境
+%# Setup theorem-like environments
 \if@PJLthm@nothms\else
 \if@PJLthm@nothmnum
 \CreateTheorem*{theorem}
@@ -1827,7 +2020,8 @@
 
 \numberwithin{equation}{PJLthm@highest}
 
-% Some localization of cref
+%# 一些 cref 的本地化
+%# Some localization of cref
 \gappto{\PJLlang@langconfig@chinese}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{图}{图}%
@@ -1916,6 +2110,8 @@
 %</PJLthm>
 %
 %<*ProjLib,PJLtoolkit>
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
 \SetupKeyvalOptions{
     family = @PJLtoolkit,
     prefix = @PJLtoolkit@,
@@ -1933,13 +2129,21 @@
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
 \DeclareBoolOption[false]{biolinum}
+%# 处理选项
+%# Process options
 \ProcessKeyvalOptions*\relax
+
+%# 下面的代码设定了选项之间的关系
+%# The following code sets the relationship between options
 \if@PJLtoolkit@draft
     \@PJLtoolkit@fasttrue
 \fi
 \if@PJLtoolkit@amsfashion
     \@PJLtoolkit@amssimtrue
 \fi
+
+%# 向组件传递一些参数
+%# Pass some options to the components
 \if@PJLtoolkit@fast
     \PassOptionsToPackage{fast}{PJLdate}
     \PassOptionsToPackage{fast}{PJLdraft}
@@ -1956,12 +2160,16 @@
     \PassOptionsToPackage{regionalref}{PJLthm}
 \fi
 
+%# 加载不默认载入的组件
+%# Load those components not by default loaded
 \if@PJLtoolkit@author
     \RequirePackage{PJLauthor}
 \fi
 \if@PJLtoolkit@amssim
     \RequirePackage{PJLamssim}
 \fi
+%# 加载组件
+%# Load the components
 \RequirePackage{PJLdate}
 \RequirePackage{PJLdraft}
 \RequirePackage{PJLlogo}
@@ -1969,14 +2177,9 @@
 \RequirePackage{PJLpaper}
 \RequirePackage{PJLthm}
 
-% \RequirePackage{iftex}
-% \ifPDFTeX
-% \RequirePackage[T1]{fontenc}
-% \RequirePackage{inputenc}
-% \fi
+%# 配置字体选项
+%# Configure the font options below
 %
-% \RequirePackage{mathtools}
-
 % \PJL@font@alreadyset should contain the current font name
 % A message can then be shown as: Font "(font name)" has been set
 \ifdefined\PJL@font@alreadyset\else
@@ -2036,8 +2239,12 @@
     \RequirePackage[italic,defaultmathsizes]{mathastext}
 \fi
 
+%# 结束字体选项的配置
+%# End of the configuration of font options
 \fi
 
+%# 使用 microtype 优化排版细节
+%# Use `microtype` to get details better
 \RequirePackage{microtype}
 %</ProjLib,PJLtoolkit>
 
