@@ -1,3 +1,6 @@
 .DS_Store
 *.cls
 *.sty
+ProjLib-doc-cn.tex
+ProjLib-doc-en.tex
+ProjLib-doc-fr.tex
