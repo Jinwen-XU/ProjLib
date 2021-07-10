@@ -1,17 +1,20 @@
-%! TEX program = xelatex
-\documentclass[Chinese,English,French,allowbf,puretext]{lebhart}
+\documentclass[English,Chinese,French,allowbf,puretext]{lebhart}
 
 %%================================
-%% 引入工具集
+%% Import toolkit
 %%================================
 \usepackage{ProjLib}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
+\usepackage{multicol}
+\setlength{\columnsep}{2em}
+\setlength{\columnseprule}{.75pt}
+\def\columnseprulecolor{\color{gray!55}}
 
-% \UseLanguage{Chinese}
+\UseLanguage{Chinese}
 
 %%================================
-%% 排版代码
+%% For typesetting code
 %%================================
 \usepackage{listings}
 \definecolor{lightergray}{gray}{0.99}
@@ -28,16 +31,19 @@
     escapeinside={(*}{*)},
     % numbers=left,
     numberstyle=\scriptsize, stepnumber=1, numbersep=5pt,
-    firstnumber=last,
-} 
+    % firstnumber=last,
+}
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
+    {color,NameTheorem,CreateTheorem,proofideanameCN,proofideanameEN,proofideanameFR,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
     mathfrak,mf,frak,mfA,mathbb,bb,N,Z,Q,R,C,F,A,mathcal,mc,cal,mathscr,ms,scr,
+    abs,norm,injection,surjection,bijection,legendre,tlegendre,dlegendre,pmod
     }
 }
-\lstnewenvironment{code}% 
+\lstnewenvironment{code}%
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
+\lstnewenvironment{code*}%
+{\setkeys{lst}{numbers=left,columns=fullflexible,keepspaces=true}}{}
 
 %%================================
 %% tip
@@ -60,28 +66,29 @@
 }{\end{tcolorbox}}
 
 %%================================
-%% 名称
+%% Names
 %%================================
-\providecommand{\ProjLibPackage}{\textsf{ProjLib}}
-\providecommand{\PJLtoolkit}{\textsf{PJLtoolkit}}
-\providecommand{\PJLamssim}{\textsf{PJLamssim}}
-\providecommand{\PJLauthor}{\textsf{PJLauthor}}
-\providecommand{\PJLdatePackage}{\textsf{PJLdate}}
-\providecommand{\PJLdraft}{\textsf{PJLdraft}}
-\providecommand{\PJLlang}{\textsf{PJLlang}}
-\providecommand{\PJLlogo}{\textsf{PJLlogo}}
-\providecommand{\PJLmath}{\textsf{PJLmath}}
-\providecommand{\PJLpaper}{\textsf{PJLpaper}}
-\providecommand{\PJLthm}{\textsf{PJLthm}}
+\providecommand{\ProjLibPackage}{\mbox{\textsf{ProjLib}}}
+\providecommand{\PJLtoolkit}{\mbox{\textsf{PJLtoolkit}}}
+\providecommand{\PJLamssim}{\mbox{\textsf{PJLamssim}}}
+\providecommand{\PJLauthor}{\mbox{\textsf{PJLauthor}}}
+\providecommand{\PJLdatePackage}{\mbox{\textsf{PJLdate}}}
+\providecommand{\PJLdraft}{\mbox{\textsf{PJLdraft}}}
+\providecommand{\PJLlang}{\mbox{\textsf{PJLlang}}}
+\providecommand{\PJLlogo}{\mbox{\textsf{PJLlogo}}}
+\providecommand{\PJLmath}{\mbox{\textsf{PJLmath}}}
+\providecommand{\PJLpaper}{\mbox{\textsf{PJLpaper}}}
+\providecommand{\PJLthm}{\mbox{\textsf{PJLthm}}}
 
 %%================================
-%% 正文
+%% Main text
 %%================================
 \begin{document}
 
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/07/05}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/07/11}}
+\email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{2021年7月，北京}
 
 \maketitle
@@ -90,13 +97,33 @@
     \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \ProjLibPackage{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
 \end{abstract}
 
-% \tableofcontents
+\begin{multicols}{2}
+    \small
+    \tableofcontents
+\end{multicols}
 
-\section{主宏包}
+\medskip
+
+\section*{开始之前}
+\addcontentsline{toc}{section}{开始之前}
+
+为了使用这套工具集，你需要：
+\begin{itemize}
+    \item 安装一个尽可能新版本的 TeX Live 或 MikTeX 套装，并确保 \texttt{projlib} 被正确安装在你的 \TeX 封装中。
+    \item 熟悉 \LaTeX{} 的基本使用方式，并且知道如何用 \hologo{pdfLaTeX}、\hologo{XeLaTeX} 或 \hologo{LuaLaTeX} 编译你的文档。
+\end{itemize}
+
+\section{简介}
+
+\ProjLib{} 这一名称可以看成是英文 Project Library (项目库) 或法文 Projet Libre (自由项目) 的缩写 (作者更喜欢法文的全称)。其主要目的是提供多语言支持和带有智能引用的定理类环境。除此之外，还附加了一些额外功能，如支持作者附加信息、未完成标记、数学符号与捷径等。
+
+\ProjLib{} 工具箱由主宏包 \ProjLibPackage{} 以及一系列由“PJL”缩写开头的内部组件构成。你可以通过下一节的使用实例来了解它的使用方式。
+
+\section{使用示例}
 
 \subsection{如何加载}
 
-只需要在导言部分加入这一行即可：
+加载 \ProjLib{} 工具箱十分容易，只需要在导言部分加入这一行即可：
 
 \begin{code}
   \usepackage{ProjLib}
@@ -105,9 +132,124 @@
 \begin{tip}[注意事项]
     由于其内部使用了 \textsf{cleveref}，\ProjLibPackage{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
 \end{tip}
-\medskip
 
-\subsection{选项}
+\subsection{一篇完整的文档示例}
+
+首先来看一段完整的示例。
+
+\begin{code*}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
+
+\UseLanguage{French} % Use French from here
+
+\begin{document}
+
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+
+\maketitle
+
+\begin{abstract}
+    (*\meta{abstract text}*) \dnf<(*\meta{some hint}*)>
+\end{abstract}
+
+\section{Un théorème}
+
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+
+Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
+
+\end{document}
+\end{code*}
+
+\bigskip
+
+如果你觉得这个例子有些复杂，不要担心。现在我们来一点点地观察这个例子。
+
+\clearpage
+\subsubsection{初始化部分}
+
+\begin{code}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib}
+\end{code}
+
+在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \ProjLibPackage{}，即可直接开始写作。这里使用了 \ProjLibPackage{} 的 \texttt{palatino} 字体选项。关于 \ProjLibPackage{} 的所有可用选项，可以参阅下一节。
+
+当然，你也可以使用 \textsf{amsart} 文档类，设置是相同的。
+
+\subsubsection{设定语言}
+
+\begin{code}
+\UseLanguage{French}
+\end{code}
+
+这一行表明文档中将使用法语（如果你的文章中只出现英语，那么可以不需要设定语言）。你也可以在文章中间用同样的方式再次切换语言。支持的语言包括简体中文、繁体中文、日文、英语、法语、德语、西班牙语、葡萄牙语、巴西葡萄牙语、俄语\footnote{不过，你需要自行引入相应语言的支持与字体。例如，对于中文，你可能需要载入 \textsf{ctex} 宏包并设置字体。作为补充，你可以尝试作者的 \textsf{einfart} 或 \textsf{lebhart} 文档类，其中相应的设置都已经完成了，详细资料可以通过 \lstinline|texdoc minimalist| 或 \lstinline|texdoc colorist| 获知。}。
+
+对于这一命令的详细说明以及更多相关命令，可以参考后面关于多语言支持的小节。
+
+\subsubsection{标题与作者信息}
+
+\begin{code}
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+\end{code}
+
+这一部分是标题和作者信息块。这个例子中给出的是最基本的形式，事实上你还可以这样写：
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+
+另外，如果开启 \AmS{} 风格\footnote{这是由 \PJLamssim{} 模块实现的。由于这一模块修改了\LaTeX{} 的一些内部指令，有可能与一些宏包或文档类发生冲突，因此没有默认启用。}，那么文章中还可以采用 \AmS{} 文档类的写法 (此时原始的写法也是成立的)。为此，引入 \ProjLibPackage{} 时应该加入 \texttt{amsfashion} 选项：
+\begin{code}
+\usepackage[amsfashion,palatino]{ProjLib}
+\end{code}
+而相应地，你也就可以使用这些命令：
+\begin{code}
+\dedicatory{(*\meta{dedicatory}*)}
+\subjclass{*****}
+\keywords{(*\meta{keywords}*)}
+\end{code}
+另外，这种情况下，也可以允许摘要出现在 \lstinline|\maketitle| 的前面，如同在 \AmS{} 文档类中所要求的那样：
+\begin{code}
+\begin{abstract}
+    (*\meta{abstract text}*)
+\end{abstract}
+\maketitle
+\end{code}
+
+\subsubsection{未完成标记}
+\begin{code}
+\dnf<(*\meta{some hint}*)>
+\end{code}
+当你有一些地方尚未完成的时候，可以用这条指令标记出来，它在草稿阶段格外有用。
+
+\subsubsection{定理类环境}
+\begin{code}
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+Référence du théorème: \cref{thm:abc}
+\end{code}
+
+常见的定理类环境可以直接使用。在引用的时候，建议采用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|——这样就不必每次都写上相应环境的名称了。
+
+\section{主宏包的选项}
 
 \ProjLibPackage{} 提供下列选项以供选择：
 \begin{itemize}
@@ -135,9 +277,10 @@
 \end{itemize}
 另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{CN} / \texttt{chinese} / \texttt{Chinese} 等语言选项 (来自 \PJLlang{})，\texttt{paperstyle} 和 \texttt{preview} 等纸张选项 (来自 \PJLpaper{})。详细信息可以参阅对应的小节。
 
+\clearpage
 \section{具体组件}
 
-\subsection{PJLamssim}
+\subsection{PJLamssim：以 \texorpdfstring{\AmS}{AMS} 方式写作}
 
 \PJLamssim{} 用于模拟 \textsf{amsart} 文档类的部分功能，包括：
 \begin{itemize}
@@ -150,7 +293,7 @@
 
 这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLamssim{} 不会起到任何效果。
 
-\subsection{PJLauthor}
+\subsection{PJLauthor：增强的作者信息块}
 
 \PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
 \begin{code}
@@ -164,13 +307,13 @@
 \end{code}
 其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
 
-\subsection{PJLdate}
+\subsection{PJLdate：智能日期处理}
 
 \PJLdatePackage{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} (或 \lstinline|\PJLdate|\meta{yyyy-mm-dd}) 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
 
 关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
-\subsection{PJLdraft}
+\subsection{PJLdraft：未完成标记}
 
 \PJLdraft{} 提供了下列命令：
 \begin{itemize}\setstretch{1.15}
@@ -180,7 +323,7 @@
 
 关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
 
-\subsection{PJLlang}
+\subsection{PJLlang：多语言支持}
 
 \PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。
 
@@ -235,25 +378,13 @@
 例如，\lstinline|\AddLanguageSetting(German){\color{orange}}| 可以让所有德语以橙色显示（当然，还需要再加上 \lstinline|\AddLanguageSetting{\color{black}}| 来修正其他语言的颜色）。
 
 \clearpage
-\subsection{PJLlogo}
+\subsection{PJLlogo：\texorpdfstring{\ProjLib{} 图标}{ProjLib 图标}}
 
 \PJLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
-% \begin{itemize}
-%     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
-%     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
-%     \item \lstinline|\footnotesize|:\quad {\footnotesize\ProjLib}
-%     \item \lstinline|\normalsize|:\quad {\normalsize\ProjLib}
-%     \item \lstinline|\large|:\quad {\large\ProjLib}
-%     \item \lstinline|\Large|:\quad {\Large\ProjLib}
-%     \item \lstinline|\LARGE|:\quad {\LARGE\ProjLib}
-%     \item \lstinline|\huge|:\quad {\huge\ProjLib}
-%     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
-% \end{itemize}
 
 \vspace{-0.5\baselineskip}
-% \begin{longtable}{ll}
 \begin{center}
-    \begin{tabular}{ll} 
+    \begin{tabular}{ll}
         \lstinline|\tiny|:& {\tiny\ProjLib}\\
         \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
         \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
@@ -265,9 +396,8 @@
         \lstinline|\Huge|:& {\Huge\ProjLib}
     \end{tabular}
 \end{center}
-% \end{longtable}
 
-\subsection{PJLmath}
+\subsection{PJLmath：数学符号与捷径}
 
 \PJLmath{} 提供下列捷径：
 \begin{enumerate}[label=\roman*)]
@@ -294,27 +424,19 @@
     \end{equation*}
 \end{enumerate}
 
-% 另外，\PJLmath{} 还提供一些学科相关的命令。
+另外，\PJLmath{} 还提供了一些 \LaTeX 中未自带的符号。
 
-% \subsubsection{Number theory}
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm} }
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & 绝对值符号 \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & 范数符号 \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & 表示单射的箭头符号 \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & 表示满射的箭头符号 \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & 表示双射的箭头符号 \\
+\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre 符号 \\
+& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+\end{longtable}
 
-% \begin{longtable}[l]{ p{3.5cm} p{5cm} p{5cm} }
-% \verb|\legendre| & \verb|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & automatic sizing \\
-% & \verb|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
-% \verb|\tlegendre| & \verb|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & text style \\
-% \verb|\dlegendre| & \verb|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & display style \\
-% \end{longtable}
-
-% There's also a starred version of \verb|\pmod|, which eliminate the spacing before it:
-
-% \verb|a\pmod*{4}| $\rightarrow a\pmod*{4}$.
-
-% Compared with:
-
-% \verb|a\pmod{4}| $\rightarrow a\pmod{4}$.
-
-\clearpage
-\subsection{PJLpaper}
+\subsection{PJLpaper：纸张设置}
 
 \PJLpaper{} 主要用于调节纸张颜色。它支持下列选项：
 
@@ -335,7 +457,7 @@
 
 为了使用的方便，建议把这些选项作为文档类的全局参数，这样对于文档的纸张设定一目了然。
 
-\subsection{PJLthm}
+\subsection{PJLthm：带有智能引用与多语言支持的定理类环境}
 
 \PJLthm{} 提供定理类环境的设置。它支持下列选项：
 \begin{itemize}
@@ -360,17 +482,7 @@
 \end{tip}
 
 \medskip
-% 若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称 \lstinline|\|\meta{name of environment}\meta{language abbr}，其中 \meta{language abbr} 是语言的简写，分别为：
-% \begin{longtable}{ll|ll}
-%     \texttt{CN} & 简体中文  & \texttt{DE} & 德文\\
-%     \texttt{TC} & 繁体中文  & \texttt{JP} & 日文\\
-%     \texttt{EN} & 英文  & \texttt{RU} & 俄文\\
-%     \texttt{FR} & 法文  & &\\
-% \end{longtable}
 
-% \begin{tip}
-%     如果要定义名称后带有星号 \lstinline|*| 的环境，那么在上面的 \meta{name of environment} 中不用写星号。
-% \end{tip}
 若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称：
 \vspace{-.15\baselineskip}%
 \begin{itemize}
@@ -379,7 +491,7 @@
 \vspace{-.15\baselineskip}%
 其中，\meta{language name} 可参阅关于 \PJLlang{} 的小节。当不指定 \meta{language name}时，则会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}{...}| 与 \lstinline|\NameTheorem{envname}{...}| 效果相同。
 
-\medskip
+\clearpage
 然后用下面五种方式之一定义这一环境：
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
@@ -414,7 +526,6 @@
     其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
 \end{tip}
 
-% \def\proofideanameCN{思路}
 \NameTheorem[CN]{proofidea}{思路}
 \CreateTheorem*{proofidea*}
 \CreateTheorem{proofidea}<subsection>
@@ -436,8 +547,8 @@
     \lstinline|proofidea| 环境。
 \end{proofidea}
 
+\clearpage
 
-\medskip
 \section{目前存在的问题}
 
 \begin{itemize}[itemsep=.6em]
@@ -451,94 +562,7 @@
     \item 代码中仍有许多可优化之处，有些部分耗时过长，特别是 \PJLthm{} 对定理类环境的定义。
 \end{itemize}
 
-
-\clearpage
-\section{使用示例}
-
-\subsection{标准文档类}
-
-在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \ProjLibPackage{}，即可直接开始写作。下面是一段完整的示例。
-
-\begin{code}
-\documentclass{article}
-\usepackage[a4paper,margin=.75in]{geometry}
-\usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
-
-\UseLanguage{French} % Use French from here
-
-\begin{document}
-
-\title{Le Titre}
-\author{Auteur}
-\date{\PJLdate{2022-04-01}}
-
-\maketitle
-
-\begin{abstract}
-    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
-\end{abstract}
-
-\section{Un théorème}
-
-%% Theorem-like environments can be used directly
-\begin{theorem}\label{thm:abc}
-    Ceci est un théorème.
-\end{theorem}
-
-Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
-
 \end{document}
-\end{code}
-
-\bigskip
-如果使用了 \PJLamssim{}，那么文章中就可以采用 \AmS{} 文档类的写法 (当然，此时原始的写法也是成立的，因此始终添加 \texttt{amssim} 这一参数通常是没有问题的)。此时上文引入 \ProjLibPackage{} 的那一行应该写为：
-\begin{code}
-\usepackage[amssim,palatino]{ProjLib}
-\end{code}
-
-\clearpage
-\subsection{\texorpdfstring{\AmS{}}{AMS} 文档类}
-
-在 \AmS{} 文档类中，通常只需简要设置页面尺寸、超链接，再载入 \ProjLibPackage{}，即可直接开始写作。下面是一段完整的示例。
-\begin{code}
-\documentclass{amsart}
-\usepackage[a4paper,margin=.75in]{geometry}
-\usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
-
-\UseLanguage{French} % Use French from here
-
-\begin{document}
-
-\title{Le Titre}
-\author{Auteur 1}
-\address{Adresse 1}
-\email{\href{Courriel 1}{Courriel 1}}
-\author{Auteur 1}
-\address{Adresse 1}
-\email{\href{Courriel 2}{Courriel 2}}
-\date{\PJLdate{2022-04-01}}
-\subjclass{*****}
-\keywords{...}
-
-\begin{abstract}
-    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
-\end{abstract}
-
-\maketitle
-
-\section{Première section}
-
-%% Theorem-like environments can be used directly
-\begin{theorem}\label{thm:abc}
-    Ceci est un théorème.
-\end{theorem}
-
-Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
-
-\end{document}
-\end{code}
-
-
-\end{document}
+\endinput
+%%
+%% End of file `ProjLib-doc-cn.tex'.

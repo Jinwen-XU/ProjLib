@@ -1,0 +1,1633 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2021 by Jinwen XU 
+% -------------------------------
+% 
+% This file may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3c of this license or (at your option)
+% any later version. The latest version of this license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% \fi
+%
+%<*driver>
+\ProvidesFile{ProjLib-doc.dtx}
+%</driver>
+%
+\documentclass[English,Chinese,French,allowbf,puretext]{lebhart}
+
+%%================================
+%% Import toolkit
+%%================================
+\usepackage{ProjLib}
+\usepackage{longtable}  % breakable tables
+\usepackage{hologo}     % more TeX logo
+\usepackage{multicol}
+\setlength{\columnsep}{2em}
+\setlength{\columnseprule}{.75pt}
+\def\columnseprulecolor{\color{gray!55}}
+
+%<ProjLib-doc-cn>\UseLanguage{Chinese}
+%<ProjLib-doc-en>\UseLanguage{English}
+%<ProjLib-doc-fr>\UseLanguage{French}
+
+%%================================
+%% For typesetting code
+%%================================
+\usepackage{listings}
+\definecolor{lightergray}{gray}{0.99}
+\lstset{language=[LaTeX]TeX,
+    keywordstyle=\color{maintheme},
+    basicstyle=\ttfamily,
+    commentstyle=\color{forestgreen}\ttfamily,
+    stringstyle=\rmfamily,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{lightergray},
+    flexiblecolumns=true,
+    escapeinside={(*}{*)},
+    % numbers=left,
+    numberstyle=\scriptsize, stepnumber=1, numbersep=5pt,
+    % firstnumber=last,
+} 
+\providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
+\lstset{moretexcs=%
+    {color,NameTheorem,CreateTheorem,proofideanameCN,proofideanameEN,proofideanameFR,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
+    mathfrak,mf,frak,mfA,mathbb,bb,N,Z,Q,R,C,F,A,mathcal,mc,cal,mathscr,ms,scr,
+    abs,norm,injection,surjection,bijection,legendre,tlegendre,dlegendre,pmod
+    }
+}
+\lstnewenvironment{code}% 
+{\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
+\lstnewenvironment{code*}% 
+{\setkeys{lst}{numbers=left,columns=fullflexible,keepspaces=true}}{}
+
+%%================================
+%% tip
+%%================================
+%<ProjLib-doc-cn>\newenvironment{tip}[1][提示]{%
+%<ProjLib-doc-en>\newenvironment{tip}[1][Tip]{%
+%<ProjLib-doc-fr>\newenvironment{tip}[1][Astuce]{%
+    \begin{tcolorbox}[breakable,
+        enhanced,
+        width = \textwidth,
+        colback = paper, colbacktitle = paper,
+        colframe = gray!50, boxrule=0.2mm,
+        coltitle = black,
+        fonttitle = \sffamily,
+        attach boxed title to top left = {yshift=-\tcboxedtitleheight/2, xshift=.5cm},
+        boxed title style = {boxrule=0pt, colframe=paper},
+        before skip = 0.3cm,
+        after skip = 0.3cm,
+        top = 3mm,
+        bottom = 3mm,
+        title={\scshape\sffamily #1}]%
+}{\end{tcolorbox}}
+
+%%================================
+%% Names
+%%================================
+\providecommand{\ProjLibPackage}{\mbox{\textsf{ProjLib}}}
+\providecommand{\PJLtoolkit}{\mbox{\textsf{PJLtoolkit}}}
+\providecommand{\PJLamssim}{\mbox{\textsf{PJLamssim}}}
+\providecommand{\PJLauthor}{\mbox{\textsf{PJLauthor}}}
+\providecommand{\PJLdatePackage}{\mbox{\textsf{PJLdate}}}
+\providecommand{\PJLdraft}{\mbox{\textsf{PJLdraft}}}
+\providecommand{\PJLlang}{\mbox{\textsf{PJLlang}}}
+\providecommand{\PJLlogo}{\mbox{\textsf{PJLlogo}}}
+\providecommand{\PJLmath}{\mbox{\textsf{PJLmath}}}
+\providecommand{\PJLpaper}{\mbox{\textsf{PJLpaper}}}
+\providecommand{\PJLthm}{\mbox{\textsf{PJLthm}}}
+
+%%================================
+%% Main text
+%%================================
+\begin{document}
+
+%<*ProjLib-doc-cn>
+\title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
+\author{许锦文}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/07/11}}
+\email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
+\date{2021年7月，北京}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
+\author{Jinwen XU}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/07/11}}
+\email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
+\date{July 2021, Beijing}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\title{La boîte à outils~\,\ProjLib{}\\[.3\baselineskip]\normalsize Manuel d'utilisation}
+\author{Jinwen XU}
+\thanks{Correspondant à : \texttt{\ProjLib{}~2021/07/11}}
+\email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
+\date{juillet 2021, à Pékin}
+%</ProjLib-doc-fr>
+
+\maketitle
+
+%<*ProjLib-doc-cn>
+\begin{abstract}
+    \ProjLib{} 工具集之设计目的为简化 \LaTeX{} 文档撰写前的准备工作。只需要加载 \ProjLibPackage{}，多语言设置就已准备就绪，定理类环境已被设置好可供直接使用，并且引入了一系列辅助功能。
+\end{abstract}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\begin{abstract}
+    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With the package \ProjLibPackage{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities are introduced.
+\end{abstract}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\begin{abstract}
+    La boîte à outils \ProjLib{} est conçue pour simplifier la préparation avant d'écrire des documents \LaTeX{}. Avec le package \ProjLibPackage{} ajouté, vous n'avez plus besoin de créer des environnements de type théorème, ni de configurer les paramètres multilingues. De plus, une série de fonctionnalités auxiliaires sont introduites.
+\end{abstract}
+%</ProjLib-doc-fr>
+
+\begin{multicols}{2}
+    \small
+    \tableofcontents
+\end{multicols}
+
+\medskip
+
+%<*ProjLib-doc-cn>
+\section*{开始之前}
+\addcontentsline{toc}{section}{开始之前}
+
+为了使用这套工具集，你需要：
+\begin{itemize}
+    \item 安装一个尽可能新版本的 TeX Live 或 MikTeX 套装，并确保 \texttt{projlib} 被正确安装在你的 \TeX 封装中。
+    \item 熟悉 \LaTeX{} 的基本使用方式，并且知道如何用 \hologo{pdfLaTeX}、\hologo{XeLaTeX} 或 \hologo{LuaLaTeX} 编译你的文档。
+\end{itemize}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\section*{Before you start}
+\addcontentsline{toc}{section}{Before you start}
+
+In order to use the toolkit, you need to:
+\begin{itemize}
+     \item install TeX Live or MikTeX of the latest possible version, and to make sure that \texttt{projlib} is correctly installed in your \TeX{} system.
+     \item be familiar with the basic usage of \LaTeX{}, and to know how to compile your documents with \hologo{pdfLaTeX}, \hologo{XeLaTeX} or \hologo{LuaLaTeX}.
+\end{itemize}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\section*{Avant de commencer}
+\addcontentsline{toc}{section}{Avant de commencer}
+
+Pour utiliser la boîte à outils, vous devez :
+\begin{itemize}
+      \item installer TeX Live ou MikTeX de la dernière version possible, et vous assurer que \texttt{projlib} est correctement installé dans votre système \TeX{}.
+      \item être familiarisé avec l'utilisation de base de \LaTeX{}, et savoir comment compiler vos documents avec \hologo{pdfLaTeX}, \hologo{XeLaTeX} ou \hologo{LuaLaTeX}.
+\end{itemize}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\section{简介}
+
+\ProjLib{} 这一名称可以看成是英文 Project Library (项目库) 或法文 Projet Libre (自由项目) 的缩写 (作者更喜欢法文的全称)。其主要目的是提供多语言支持和带有智能引用的定理类环境。除此之外，还附加了一些额外功能，如支持作者附加信息、未完成标记、数学符号与捷径等。
+
+\ProjLib{} 工具箱由主宏包 \ProjLibPackage{} 以及一系列由“PJL”缩写开头的内部组件构成。你可以通过下一节的使用实例来了解它的使用方式。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\section{Introduction}
+
+The name \ProjLib{} can be regarded as the abbreviation of \emph{Project Library} in English or \emph{Projet Libre} in French (the author prefers the French interpretation). Its main purpose is to provide multi-language support and theorem-like environments with clever references. In addition, some additional features are provided, such as the enhanced author block, draft marks, mathematical symbols and shortcuts, etc.
+
+The \ProjLib{} toolkit is composed of the main package \ProjLibPackage{} and a series of components whose names begin with the abbreviation "PJL". You can learn how to use it through the usage examples in the next section.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\section{Introduction}
+
+Le nom \ProjLib{} peut être considéré comme l'abréviation de \emph{Project Library} en anglais ou de \emph{Projet Libre} en français (l'auteur préfère l'interprétation française). Son objectif principal est de fournir un support multilingue et des environnements de type théorème avec des références intelligentes. De plus, certaines fonctionnalités supplémentaires sont fournies, telles que le bloc auteur amélioré, les marques de brouillon, les symboles mathématiques et les raccourcis, etc.
+
+La boîte à outils \ProjLib{} est composée du package principal \ProjLibPackage{} et d'une série de composants dont les noms commencent par l'abréviation "PJL". Vous pouvez apprendre à l'utiliser à travers les exemples d'utilisation dans la section suivante.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\section{使用示例}
+
+\subsection{如何加载}
+
+加载 \ProjLib{} 工具箱十分容易，只需要在导言部分加入这一行即可：
+
+\begin{code}
+  \usepackage{ProjLib}
+\end{code}
+
+\begin{tip}[注意事项]
+    由于其内部使用了 \textsf{cleveref}，\ProjLibPackage{} 需要放在 \textsf{varioref}、\textsf{hyperref} 的后面。
+\end{tip}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\section{Usage example}
+
+\subsection{How to load it}
+
+Just add the following line to your preamble:
+
+\begin{code}
+  \usepackage{ProjLib}
+\end{code}
+
+\begin{tip}[Attention]
+    Since \textsf{cleveref} is used internally, \ProjLibPackage{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
+\end{tip}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\section{Exemple d'utilisation}
+
+\subsection{Comment l'ajouter}
+
+Ajoutez simplement la ligne suivante à votre préambule :
+
+\begin{code}
+   \usepackage{ProjLib}
+\end{code}
+
+\begin{tip}[Attention]
+     Comme \textsf{cleveref} est utilisé en interne, \ProjLibPackage{} doit être placé après \textsf{varioref} et \textsf{hyperref}.
+\end{tip}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{一篇完整的文档示例}
+
+首先来看一段完整的示例。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\medskip
+\subsection{Example - A complete document}
+
+Let's first look at a complete document.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\medskip
+\subsection{Exemple - Un document complet}
+
+Regardons d'abord un document complet.
+%</ProjLib-doc-fr>
+
+\begin{code*}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
+
+\UseLanguage{French} % Use French from here
+
+\begin{document}
+
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+
+\maketitle
+
+\begin{abstract}
+    (*\meta{abstract text}*) \dnf<(*\meta{some hint}*)>
+\end{abstract}
+
+\section{Un théorème}
+
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+
+Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
+
+\end{document}
+\end{code*}
+
+\bigskip
+
+%<*ProjLib-doc-cn>
+如果你觉得这个例子有些复杂，不要担心。现在我们来一点点地观察这个例子。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+If you find it a little complicated, don't worry. Let's now look at this example piece by piece.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+Si vous trouvez cela un peu compliqué, ne vous inquiétez pas. Examinons maintenant cet exemple pièce par pièce.
+%</ProjLib-doc-fr>
+
+\clearpage
+%<*ProjLib-doc-cn>
+\subsubsection{初始化部分}
+
+\begin{code}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib}
+\end{code}
+
+在标准文档类中，通常只需简要设置页面尺寸、超链接，再载入 \ProjLibPackage{}，即可直接开始写作。这里使用了 \ProjLibPackage{} 的 \texttt{palatino} 字体选项。关于 \ProjLibPackage{} 的所有可用选项，可以参阅下一节。
+
+当然，你也可以使用 \textsf{amsart} 文档类，设置是相同的。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{Initialization}
+
+\begin{code}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib}
+\end{code}
+
+In standard classes, one usually only need to configure the page size, hyperlinks and load \ProjLibPackage{} before actually start writing the document. The font option \texttt{palatino} of \ProjLibPackage{} is used here. For all available options of \ProjLibPackage{}, please refer to the next section.
+
+Of course, you can also use the document class \textsf{amsart}, the configurations are the same.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{Initialisation}
+
+\begin{code}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib}
+\end{code}
+
+Dans les classes standard, il suffit généralement de configurer la taille de la page, les liens hypertexte et d'ajouter \ProjLibPackage{} avant de commencer à écrire le document. L'option de police \texttt{palatino} de \ProjLibPackage{} est utilisée ici. Pour toutes les options disponibles de \ProjLibPackage{}, veuillez vous référer à la section suivante.
+
+Bien sûr, vous pouvez également utiliser la classe de document \textsf{amsart}, les configurations sont les mêmes.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{设定语言}
+
+\begin{code}
+\UseLanguage{French}
+\end{code}
+
+这一行表明文档中将使用法语（如果你的文章中只出现英语，那么可以不需要设定语言）。你也可以在文章中间用同样的方式再次切换语言。支持的语言包括简体中文、繁体中文、日文、英语、法语、德语、西班牙语、葡萄牙语、巴西葡萄牙语、俄语\footnote{不过，你需要自行引入相应语言的支持与字体。例如，对于中文，你可能需要载入 \textsf{ctex} 宏包并设置字体。作为补充，你可以尝试作者的 \textsf{einfart} 或 \textsf{lebhart} 文档类，其中相应的设置都已经完成了，详细资料可以通过 \lstinline|texdoc minimalist| 或 \lstinline|texdoc colorist| 获知。}。
+
+对于这一命令的详细说明以及更多相关命令，可以参考后面关于多语言支持的小节。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{Set the language}
+
+\begin{code}
+\UseLanguage{French}
+\end{code}
+
+This line indicates that French will be used in the document (by the way, if only English appears in your article, then there is no need to set the language). You can also switch the language in the same way later in the middle of the text. Supported languages include Simplified Chinese, Traditional Chinese, Japanese, English, French, German, Spanish, Portuguese, Brazilian Portuguese and Russian\footnote{However, you need to add the encoding support and fonts of the corresponding language by yourself. For example, for Chinese, you may need to load the \textsf{ctex} package and set the fonts. As a sidenote, you can try the author's document classes \textsf{einfart} or \textsf{lebhart}, in which the corresponding settings have been completed. For the details, run \lstinline|texdoc minimalist| or \lstinline|texdoc colorist| in the command line.}.
+
+For detailed description of this command and more related commands, please refer to the section on the multi-language support.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{Choisir la langue}
+
+\begin{code}
+\UseLanguage{French}
+\end{code}
+
+Cette ligne indique que le français sera utilisé dans le document (d'ailleurs, si seul l'anglais apparaît dans votre article, alors il n'est pas nécessaire de choisir la langue). Vous pouvez également changer de langue de la même manière plus tard au milieu du texte. Les langues prises en charge sont les suivantes : chinois simplifié, chinois traditionnel, japonais, anglais, français, allemand, espagnol, portugais, portugais brésilien et russe\footnote{Cependant, vous devez ajouter vous-même l'encodage et les polices de la langue correspondante. Par exemple, pour le chinois, vous devrez peut-être ajouter le package \textsf{ctex} et choisir les polices. Pour rappel, vous pouvez essayer les classes de documents \textsf{einfart} ou \textsf{lebhart} de l'auteur, dans lesquelles les paramètres correspondants ont été effectués. Pour les détails, exécutez \lstinline|texdoc minimalist| ou \lstinline|coloriste texdoc| en ligne de commande.}.
+
+Pour une description détaillée de cette commande et d'autres commandes associées, veuillez vous référer à la section sur le support multilingue.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{标题与作者信息}
+
+\begin{code}
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+\end{code}
+
+这一部分是标题和作者信息块。这个例子中给出的是最基本的形式，事实上你还可以这样写：
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+
+另外，如果开启 \AmS{} 风格\footnote{这是由 \PJLamssim{} 模块实现的。由于这一模块修改了\LaTeX{} 的一些内部指令，有可能与一些宏包或文档类发生冲突，因此没有默认启用。}，那么文章中还可以采用 \AmS{} 文档类的写法 (此时原始的写法也是成立的)。为此，引入 \ProjLibPackage{} 时应该加入 \texttt{amsfashion} 选项：
+\begin{code}
+\usepackage[amsfashion,palatino]{ProjLib}
+\end{code}
+而相应地，你也就可以使用这些命令：
+\begin{code}
+\dedicatory{(*\meta{dedicatory}*)}
+\subjclass{*****}
+\keywords{(*\meta{keywords}*)}
+\end{code}
+另外，这种情况下，也可以允许摘要出现在 \lstinline|\maketitle| 的前面，如同在 \AmS{} 文档类中所要求的那样：
+\begin{code}
+\begin{abstract}
+    (*\meta{abstract text}*)
+\end{abstract}
+\maketitle
+\end{code}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{Title and author information}
+
+\begin{code}
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+\end{code}
+
+This part is the title and author information block. The example shows the most basic usage, but in fact, you can also write:
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+
+In addition, if the \AmS{} simulation is enabled\footnote{This is achieved by the module \PJLamssim{}. Since this module modifies some internal macros of \LaTeX{}, it may conflict with some packages or document classes, and thus it is not enabled by default.}, then you can also write in the \AmS{} fashion (the original way still works). In this case, the line that introduces \ProjLibPackage{} should be written as:
+\begin{code}
+\usepackage[amsfashion,palatino]{ProjLib}
+\end{code}
+And correspondingly, you will also be able to use these macros:
+\begin{code}
+\dedicatory{(*\meta{dedicatory}*)}
+\subjclass{*****}
+\keywords{(*\meta{keywords}*)}
+\end{code}
+In addition, you can also write the abstract before \lstinline|\maketitle|, as the way required in the \AmS{} classes:
+\begin{code}
+\begin{abstract}
+    (*\meta{abstract text}*)
+\end{abstract}
+\maketitle
+\end{code}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{Le titre et les informations de l'auteur}
+
+\begin{code}
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+\end{code}
+
+Cette partie est le titre et le bloc d'informations de l'auteur. L'exemple montre l'utilisation la plus fondamentale, mais en fait, vous pouvez également écrire comme :
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+
+De plus, si la simulation d'\AmS{} est activée\footnote{Ceci est réalisé par le module \PJLamssim{}. Étant donné que ce module modifie certaines macros internes de \LaTeX{}, il peut provoquer des conflits avec certains packages ou classes de documents, et donc il n'est pas activé par défaut.}, alors vous pouvez également écrire à la manière \AmS{} (la manière originale fonctionne encore). Dans ce cas, la ligne qui introduit \ProjLibPackage{} doit être écrite comme :
+\begin{code}
+\usepackage[amsfashion,palatino]{ProjLib}
+\end{code}
+Et en conséquence, vous pourrez également utiliser ces macros :
+\begin{code}
+\dedicatory{(*\meta{dedicatory}*)}
+\subjclass{*****}
+\keywords{(*\meta{keywords}*)}
+\end{code}
+De plus, vous pouvez également placé le résumé avant \lstinline|\maketitle|, comme requis dans les classes \AmS{} :
+\begin{code}
+\begin{abstract}
+    (*\meta{abstract text}*)
+\end{abstract}
+\maketitle
+\end{code}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{未完成标记}
+\begin{code}
+\dnf<(*\meta{some hint}*)>
+\end{code}
+当你有一些地方尚未完成的时候，可以用这条指令标记出来，它在草稿阶段格外有用。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{Draft marks}
+\begin{code}
+\dnf<(*\meta{some hint}*)>
+\end{code}
+When you have some places that have not yet been finished yet, you can mark them with this command, which is especially useful during the draft stage.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{Marques de brouillon}
+\begin{code}
+\dnf<(*\meta{some hint}*)>
+\end{code}
+Lorsque vous avez des endroits qui ne sont pas encore finis, vous pouvez les marquer avec cette commande, ce qui est particulièrement utile lors de la phase de brouillon.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{定理类环境}
+\begin{code}
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+Référence du théorème: \cref{thm:abc}
+\end{code}
+
+常见的定理类环境可以直接使用。在引用的时候，建议采用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|——这样就不必每次都写上相应环境的名称了。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{Theorem-like environments}
+\begin{code}
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+Référence du théorème: \cref{thm:abc}
+\end{code}
+
+Commonly used theorem-like environments have been pre-defined. Also, when referencing a theorem-like environment, it is recommended to use \lstinline|\cref{|\meta{label}\texttt{\}} --- in this way, there is no need to explicitly write down the name of the corresponding environment every time.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{Environnements de type théorème}
+\begin{code}
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+Référence du théorème: \cref{thm:abc}
+\end{code}
+
+Les environnements de type théorème couramment utilisés ont été prédéfinis. De plus, lors du référencement d'un environnement de type théorème, il est recommandé d'utiliser \lstinline|\cref{|\meta{label}\texttt{\}} --- de cette manière, il ne serait pas nécessaire d'écrire explicitement le nom de l'environnement correspondant à chaque fois.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\section{主宏包的选项}
+
+\ProjLibPackage{} 提供下列选项以供选择：
+\begin{itemize}
+    \item \texttt{draft} 或 \texttt{fast}
+        \begin{itemize}
+            \item 快速模式。功能会适当缩减，但能够提高编译速度，建议在撰写阶段使用。
+        \end{itemize}
+    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum} ~$|$~ \texttt{useosf}
+        \begin{itemize}
+            \item 字体选项。顾名思义，会加载相应名称的字体。
+            \item \texttt{useosf} 选项用来启用“旧式”数字。
+        \end{itemize}
+    \item \texttt{nothms}、\texttt{nothmnum}、\texttt{regionalref}
+        \begin{itemize}
+            \item 来自 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
+        \end{itemize}
+    \item \texttt{amsfashion}
+        \begin{itemize}
+            \item 允许 \AmS{} 文档类的写法。与 \texttt{amssim} 选项相同。
+        \end{itemize}
+    \item \texttt{author}、\texttt{amssim}
+        \begin{itemize}
+            \item 加载 \PJLauthor{} 或 \PJLamssim{}。关于其详细功能，请参阅有关相关宏包的小节。
+        \end{itemize}
+\end{itemize}
+另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{CN} / \texttt{chinese} / \texttt{Chinese} 等语言选项 (来自 \PJLlang{})，\texttt{paperstyle} 和 \texttt{preview} 等纸张选项 (来自 \PJLpaper{})。详细信息可以参阅对应的小节。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\section{Options of the main package}
+
+\ProjLibPackage{} offers the following options:
+\begin{itemize}
+    \item \texttt{draft} or \texttt{fast}
+        \begin{itemize}
+            \item Fast mode. The functionality will be appropriately reduced to get faster compilation speed, recommended to use during the writing stage.
+        \end{itemize}
+    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} ~$|$~ \texttt{useosf}
+        \begin{itemize}
+            \item Font options. As the names suggest, font with corresponding name will be loaded. 
+            \item The \texttt{useosf} option is used to enable the old-style figures.
+        \end{itemize}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
+        \begin{itemize}
+            \item Options from \PJLthm{}, please refer to the section on this package for details.
+        \end{itemize}
+    \item \texttt{amsfashion}
+        \begin{itemize}
+            \item Allow the user to write document in the \AmS{} fashion. Same as the option \texttt{amssim}.
+        \end{itemize}
+    \item \texttt{author}, \texttt{amssim}
+        \begin{itemize}
+            \item Load \PJLauthor{} or \PJLamssim{}. For more information about their functionality, see the section on the corresponding package.
+        \end{itemize}
+\end{itemize}
+In addition, there are also some options of the components that should be passed as global options of your document class, such as the language options \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc.\,of \PJLlang{}, \\and \texttt{paperstyle}, \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding sections.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\section{Options du package principal}
+
+\ProjLibPackage{} a les options suivantes :
+\begin{itemize}
+    \item \texttt{draft} ou \texttt{fast}
+        \begin{itemize}
+            \item Mode brouillon. La fonctionnalité sera réduite de manière appropriée pour obtenir une vitesse de compilation plus rapide, recommandée à utiliser pendant la phase de brouillon.
+        \end{itemize}
+    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} ~$|$~ \texttt{useosf}
+        \begin{itemize}
+            \item Options de police. Comme les noms l'indiquent, la police avec le nom correspondant sera utilisée.
+            \item L'option \texttt{useosf} est pour activer les chiffres à l'ancienne.
+        \end{itemize}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
+        \begin{itemize}
+            \item Options de \PJLthm{}, veuillez vous référer à la section sur ce package pour plus de détails.
+        \end{itemize}
+    \item \texttt{amsfashion}
+        \begin{itemize}
+            \item Permet à l'utilisateur d'écrire à la manière \AmS{}. Identique à l'option \texttt{amssim}.
+        \end{itemize}
+    \item \texttt{author}, \texttt{amssim}
+        \begin{itemize}
+            \item Utilisez \PJLauthor{} ou \PJLamssim{}. Pour plus d'informations sur leurs fonctionnalités, consultez la section sur les packages correspondants.
+        \end{itemize}
+\end{itemize}
+De plus, il existe également certaines options des composants qui doivent être passées en tant qu'options globales de votre classe de document, telles que les options de langue de \PJLlang{} comme \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc., et les options de papier de \PJLpaper{} comme \texttt{paperstyle} et \texttt{preview}. Pour plus d'informations, veuillez vous référer aux sections correspondantes.
+%</ProjLib-doc-fr>
+
+\clearpage
+%<*ProjLib-doc-cn>
+\section{具体组件}
+
+\subsection{PJLamssim：以 \texorpdfstring{\AmS}{AMS} 方式写作}
+
+\PJLamssim{} 用于模拟 \textsf{amsart} 文档类的部分功能，包括：
+\begin{itemize}
+    \item \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email|、\lstinline|\dedicatory| 命令 (前三者由 \PJLauthor{} 提供)
+    \item \lstinline|\keywords| 命令
+    \item \lstinline|\subjclass| 命令
+    \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
+    \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
+\end{itemize}
+
+这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLamssim{} 不会起到任何效果。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\section{The components}
+
+\subsection{PJLamssim: writing in \texorpdfstring{\AmS}{AMS} fashion}
+
+\PJLamssim{} is used to simulate some features of the \textsf{amsart} class in a standard class, including:
+\begin{itemize}
+    \item the macros \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| and \lstinline|\dedicatory| (the first three are provided by \PJLauthor{});
+    \item the macro \lstinline|\keywords|;
+    \item the macro \lstinline|\subjclass|;
+    \item \lstinline|\thanks| can be written outside \lstinline|\author|;
+    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|.
+\end{itemize}
+
+These modifications would only take place in standard classes. In the \AmS{} classes, \PJLamssim{} does not have any effect.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\section{Les composants}
+
+\subsection{PJLamssim : écrire de la manière \texorpdfstring{\AmS}{AMS}}
+
+\PJLamssim{} est utilisé pour simuler certaines fonctionnalités de la classe \textsf{amsart} dans une classe standard, notamment :
+\begin{itemize}
+    \item les macros \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| et \lstinline|\dedicatory| (les trois premiers sont fournis par \PJLauthor{});
+    \item la macro \lstinline|\keywords|;
+    \item la macro \lstinline|\subjclass|;
+    \item \lstinline|\thanks| peut être écrit en dehors de \lstinline|\author|;
+    \item La environnement \lstinline|abstract| peut être placé avant \lstinline|\maketitle|.
+\end{itemize}
+
+Ces modifications n'auraient lieu que dans les classes standard. Dans les classes \AmS{}, \PJLamssim{} n'a aucun effet.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLauthor：增强的作者信息块}
+
+\PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
+\begin{code}
+  \author{(*\meta{author 1}*)}
+  \address{(*\meta{address 1}*)}
+  \email{(*\meta{email 1}*)}
+  \author{(*\meta{author 2}*)}
+  \address{(*\meta{address 2}*)}
+  \email{(*\meta{email 2}*)}
+  ...
+\end{code}
+其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLauthor: enhanced author block}
+
+\PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
+\begin{code}
+  \author{(*\meta{author 1}*)}
+  \address{(*\meta{address 1}*)}
+  \email{(*\meta{email 1}*)}
+  \author{(*\meta{author 2}*)}
+  \address{(*\meta{address 2}*)}
+  \email{(*\meta{email 2}*)}
+  ...
+\end{code}
+The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLauthor : bloc auteur amélioré}
+
+\PJLauthor{} propose les macros \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email|, et vous permet de saisir plusieurs groupes d'informations sur l'auteur. L'utilisation standard est comme ceci :
+\begin{code}
+  \author{(*\meta{author 1}*)}
+  \address{(*\meta{address 1}*)}
+  \email{(*\meta{email 1}*)}
+  \author{(*\meta{author 2}*)}
+  \address{(*\meta{address 2}*)}
+  \email{(*\meta{email 2}*)}
+  ...
+\end{code}
+L'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email| n'est pas important.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLdate：智能日期处理}
+
+\PJLdatePackage{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} (或 \lstinline|\PJLdate|\meta{yyyy-mm-dd}) 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
+
+关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLdate: date-time processing}
+
+\PJLdatePackage{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} (or \lstinline|\PJLdate|\meta{yyyy-mm-dd}) macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become ``\PLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PLdate{2022-04-01}}''.
+
+For details on how to select a language, please refer to the section on \PJLlang{}.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLdate : traitement de date-heure}
+
+\PJLdatePackage{} propose la macro \lstinline|\PLdate|\meta{yyyy-mm-dd} (ou \lstinline|\PJLdate|\meta{yyyy-mm-dd}) pour convertir \meta{yyyy-mm-dd} dans le format de date de la langue actuellement sélectionnée. Par exemple, dans le contexte français actuel, \lstinline|\PLdate{2022-04-01}| deviendrait ``\PLdate{2022-04-01}'', tandis que dans le contexte anglais ``\UseOtherLanguage{English}{\PLdate{2022-04-01}}''.
+
+Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLdraft：未完成标记}
+
+\PJLdraft{} 提供了下列命令：
+\begin{itemize}\setstretch{1.15}
+    \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
+    \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
+\end{itemize}
+
+关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLdraft: draft marks}
+
+\PJLdraft{} offers the following macros:
+\begin{itemize}
+    \item \lstinline|\dnf| or \lstinline|\dnf<...>|. The effect is: \dnf~ or \dnf<...>. \\The prompt text changes according to the current language. For example, it will be displayed as \UseOtherLanguage{French}{\dnf} in French mode.
+    \item \lstinline|\needgraph| or \lstinline|\needgraph<...>|. The effect is: \needgraph or \needgraph<...>The prompt text changes according to the current language. For example, in French mode, it will be displayed as \UseOtherLanguage{French}{\needgraph}
+\end{itemize}
+
+For details on how to select a language, please refer to the section on \PJLlang{}.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLdraft : marques de brouillon}
+
+\PJLdraft{} propose les macros suivantes :
+\begin{itemize}
+     \item \lstinline|\dnf| ou \lstinline|\dnf<...>|. L'effet est : \dnf~ ou \dnf<...>. \\Le texte à l'intérieur changera en fonction de la langue actuelle. Par exemple, il sera affiché sous la forme \UseOtherLanguage{English}{\dnf} en mode anglais.
+     \item \lstinline|\needgraph| ou \lstinline|\needgraph<...>|. L'effet est : \needgraph ou \needgraph<...>Le texte de l'invite change en fonction de la langue actuelle. Par exemple, en mode anglais, il sera affiché sous la forme \UseOtherLanguage{English}{\needgraph}
+\end{itemize}
+
+Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLlang：多语言支持}
+
+\PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。
+
+\medskip
+\PJLlang{} 提供语言选项，这些选项的名称有三种，分别是缩写（如 \texttt{EN}）、小写（如 \texttt{english}）、首字母大写（如 \texttt{English}）。具体的选项名称可以参见下文的 \meta{language name}。其中，第一个指定的语言 \meta{first language} 会被作为默认语言，相当于在文档开头指定 \lstinline|\UseLanguage{|\meta{first language}\lstinline|}|。
+
+\begin{tip}
+    为了提高编译速度，建议使用语言选项，并将其作为全局参数传递。这样，只会对指定语言进行设置，节省了 \TeX{} 内存，从而能显著提高编译速度。
+\end{tip}
+
+\medskip
+在文档中，可以通过下列命令来选定语言：
+\begin{itemize}
+    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}|，用于指定语言，在其后将使用对应的语言设定。
+    \begin{itemize}
+        \item 既可以用于导言部分，也可以用于正文部分。在不指定语言时，默认选定 “English”。
+    \end{itemize}
+    \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|，用指定的语言的设定排版 \meta{content}。
+    \begin{itemize}
+        \item 相比较 \lstinline|\UseLanguage|，它不会对行距进行修改，因此中西文字混排时能够保持行距稳定。
+    \end{itemize}
+\end{itemize}
+
+\medskip
+\meta{language name} 有下列选择 (不区分大小写，如 \texttt{French} 或 \texttt{french} 均可)：
+\begin{itemize}\setstretch{1.15}
+    \item 简体中文：\texttt{CN}、\texttt{Chinese}、\texttt{SChinese} 或 \texttt{SimplifiedChinese}
+    \item 繁体中文：\texttt{TC}、\texttt{TChinese} 或 \texttt{TraditionalChinese}
+    \item 英语：\texttt{EN} 或 \texttt{English}
+    \item 法语：\texttt{FR} 或 \texttt{French}
+    \item 德语：\texttt{DE}、\texttt{German} 或 \texttt{ngerman}
+    \item 意大利语：\texttt{IT} 或 \texttt{Italian}
+    \item 葡萄牙语：\texttt{PT} 或 \texttt{Portuguese}
+    \item 巴西葡萄牙语：\texttt{BR} 或 \texttt{Brazilian}
+    \item 西班牙语：\texttt{ES} 或 \texttt{Spanish}
+    \item 日语：\texttt{JP} 或 \texttt{Japanese}
+    \item 俄语：\texttt{RU} 或 \texttt{Russian}
+\end{itemize}
+
+\medskip
+另外，还可以通过下面的方式来填加相应语言的设置：
+\begin{itemize}
+    \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item 向所有支持的语言增加设置 \meta{settings}。
+    \end{itemize}
+    \item \lstinline|\AddLanguageSetting(|\meta{language name}\lstinline|){|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item 向指定的语言 \meta{language name} 增加设置 \meta{settings}。
+    \end{itemize}
+\end{itemize}
+例如，\lstinline|\AddLanguageSetting(German){\color{orange}}| 可以让所有德语以橙色显示（当然，还需要再加上 \lstinline|\AddLanguageSetting{\color{black}}| 来修正其他语言的颜色）。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLlang: multi-language support}
+
+\PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). 
+
+\medskip
+\PJLlang{} provides language options. The names of these options have three types, which are abbreviations (such as \texttt{EN}), lowercase (such as \texttt{english}), and capital letters (such as \texttt{English}). For the option names of a specific language, please refer to \meta{language name} below. Among them, the first specified language \meta{first language} will be used as the default language, which is equivalent to specifying \lstinline|\UseLanguage{|\meta{first language}\lstinline|}| at the beginning of your document.
+
+\begin{tip}
+    It is recommended to use these language options and pass them as global options. In this way, only the specified languages are set, thus saving the \TeX{} memory and significantly improving the compilation speed.
+\end{tip}
+
+\medskip
+The language can be selected by the following macros:
+
+\begin{itemize}
+    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}| is used to specify the language. The corresponding setting of the language will be applied after it. It can be used either in the preamble or in the main body. When no language is specified, ``English" is selected by default.
+    \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|, which uses the specified language settings to typeset \meta{content}. Compared with \lstinline|\UseLanguage|, it will not modify the line spacing, so line spacing would remain stable when CJK and Western texts are mixed.
+\end{itemize}
+
+\medskip
+\meta{language name} can be (it is not case sensitive, for example, \texttt{French} and \texttt{french} have the same effect):
+\begin{itemize}
+    \item Simplified Chinese: \texttt{CN}, \texttt{Chinese}, \texttt{SChinese} or \texttt{SimplifiedChinese}
+    \item Traditional Chinese: \texttt{TC}, \texttt{TChinese} or \texttt{TraditionalChinese}
+    \item English: \texttt{EN} or \texttt{English}
+    \item French: \texttt{FR} or \texttt{French}
+    \item German: \texttt{DE}, \texttt{German} or \texttt{ngerman}
+    \item Italian: \texttt{IT} or \texttt{Italian}
+    \item Portuguese: \texttt{PT} or \texttt{Portuguese}
+    \item Portuguese (Brazilian): \texttt{BR} or \texttt{Brazilian}
+    \item Spanish: \texttt{ES} or \texttt{Spanish}
+    \item Japanese: \texttt{JP} or \texttt{Japanese}
+    \item Russian: \texttt{RU} or \texttt{Russian}
+\end{itemize}
+
+\medskip
+In addition, you can also add new settings to selected language:
+\begin{itemize}
+    \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item Add \meta{settings} to all supported languages.
+    \end{itemize}
+    \item \lstinline|\AddLanguageSetting(|\meta{language name}\lstinline|){|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item Add \meta{settings} to the selected language \meta{language name}.
+    \end{itemize}
+\end{itemize}
+For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make all German text displayed in orange (of course, one then need to add \lstinline|\AddLanguageSetting{\color{black}}| in order to correct the color of the text in other languages).
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLlang : support multilingue}
+
+\PJLlang{} offre le support multilingue, notamment : chinois simplifié, chinois traditionnel, anglais, français, allemand, japonais et russe (parmi eux, le chinois, le japonais et le russe requièrent des moteurs \TeX{} et des polices appropriés).
+
+\medskip
+\PJLlang{} fournit des options de langue. Les noms de ces options ont trois types, qui sont des abréviations (comme \texttt{EN}), des minuscules (comme \texttt{english}) et des majuscules (comme \texttt{English}). Pour les noms d'options d'une langue spécifique, veuillez vous référer à \meta{language name} ci-dessous. Parmi eux, la première langue spécifiée \meta{first language} sera considérée comme langue par défaut, ce qui équivaut à spécifier \lstinline|\UseLanguage{|\meta{first language}\lstinline|}| au début de votre document.
+
+\begin{tip}
+    Il est recommandé d'utiliser ces options de langue et de les passer en tant qu'options globales. De cette façon, seules les langues spécifiées sont configurées, économisant ainsi la mémoire \TeX{} et améliorant considérablement la vitesse de compilation.
+\end{tip}
+
+\medskip
+La langue peut être sélectionnée par les macros suivantes :
+
+\begin{itemize}
+    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}| est utilisé pour spécifier la langue. Le réglage correspondant de la langue sera appliqué après celui-ci. Il peut être utilisé soit dans le préambule ou dans le texte. Lorsqu'aucune langue n'est spécifiée, « English » est sélectionné par défaut.
+    \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|, qui utilise les paramètres de langue spécifiés pour composer \meta{content}. Par rapport à \lstinline|\UseLanguage|, il ne modifiera pas l'interligne, donc l'interligne restera stable lorsque les textes CJK et occidentaux sont mélangés.
+\end{itemize}
+
+\medskip
+\meta{language name} peut être (il n'est pas sensible à la casse, par exemple, \texttt{French} et \texttt{french} ont le même effet) :
+\begin{itemize}
+    \item chinois simplifié : \texttt{CN}, \texttt{Chinese}, \texttt{SChinese} ou \texttt{SimplifiedChinese}
+    \item chinois traditionnel : \texttt{TC}, \texttt{TChinese} ou \texttt{TraditionalChinese}
+    \item anglais : \texttt{EN} ou \texttt{English}
+    \item français : \texttt{FR} ou \texttt{French}
+    \item allemand : \texttt{DE}, \texttt{German} ou \texttt{ngerman}
+    \item italien : \texttt{IT} ou \texttt{Italian}
+    \item portugais : \texttt{PT} ou \texttt{Portuguese}
+    \item portugais (brésilien) : \texttt{BR} ou \texttt{Brazilian}
+    \item espagnol : \texttt{ES} ou \texttt{Spanish}
+    \item japonais : \texttt{JP} ou \texttt{Japanese}
+    \item russe : \texttt{RU} ou \texttt{Russian}
+\end{itemize}
+
+\medskip
+De plus, vous pouvez également ajouter de nouveaux paramètres à la langue sélectionnée :
+\begin{itemize}
+    \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item Ajoutez \meta{settings} à toutes les langues prises en charge.
+    \end{itemize}
+    \item \lstinline|\AddLanguageSetting(|\meta{language name}\lstinline|){|\meta{settings}\lstinline|}|
+    \begin{itemize}
+        \item Ajoutez \meta{settings} à la langue \meta{language name} sélectionnée.
+    \end{itemize}
+\end{itemize}
+Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre tout le texte allemand affiché en orange (bien sûr, il faut alors ajouter \lstinline|\AddLanguageSetting{\color{black}}| afin de corriger la couleur du texte dans d'autres langues).
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\clearpage
+\subsection{PJLlogo：\texorpdfstring{\ProjLib{} 图标}{ProjLib 图标}}
+
+\PJLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
+
+\vspace{-0.5\baselineskip}
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLlogo: the logo \texorpdfstring{\ProjLib}{ProjLib}}
+
+\PJLlogo{} offers the macro \lstinline|\ProjLib| to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
+% \begin{itemize}
+%     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
+%     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
+%     \item \lstinline|\footnotesize|:\quad {\footnotesize\ProjLib}
+%     \item \lstinline|\normalsize|:\quad {\normalsize\ProjLib}
+%     \item \lstinline|\large|:\quad {\large\ProjLib}
+%     \item \lstinline|\Large|:\quad {\Large\ProjLib}
+%     \item \lstinline|\LARGE|:\quad {\LARGE\ProjLib}
+%     \item \lstinline|\huge|:\quad {\huge\ProjLib}
+%     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
+% \end{itemize}
+% \bigskip
+
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLlogo : le logo \texorpdfstring{\ProjLib}{ProjLib}}
+
+\PJLlogo{} propose la macro \lstinline|\ProjLib| pour dessiner le logo, qui ressemble à \ProjLib{}. Elle est similaire aux macros de texte ordinaires et peut être utilisée avec différentes macros de taille de texte :
+
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLmath：数学符号与捷径}
+
+\PJLmath{} 提供下列捷径：
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ 或 \lstinline|\frak|$\cdot$。例如，\lstinline|\mfA| (或 \lstinline|\mf{A}|) 与 \lstinline|\mathfrak{A}| 效果相同. 这对大写、小写字母都有效：
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$。这只针对大写字母或数字 \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    对于常见的代数结构有这些特殊命令：\lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ 或 \lstinline|\cal|$\cdot$。这只针对大写字母。
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ 或 \lstinline|\scr|$\cdot$。这只针对大写字母。
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+另外，\PJLmath{} 还提供了一些 \LaTeX 中未自带的符号。
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm} }
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & 绝对值符号 \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & 范数符号 \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & 表示单射的箭头符号 \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & 表示满射的箭头符号 \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & 表示双射的箭头符号 \\
+\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre 符号 \\
+& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre 符号 (text style) \\
+% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre 符号 (display style) \\
+\end{longtable}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\medskip
+\subsection{PJLmath: math symbols and shortcuts}
+
+\PJLmath{} offers the following shortcuts:
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ or \lstinline|\frak|$\cdot$ . For example, \lstinline|\mfA| (or \lstinline|\mf{A}|) has the same effect as \lstinline|\mathfrak{A}|. This works for both upper and lower case, producing:
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . This only works for uppercase alphabet and the number \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    There are also special command for well-known algebraic structures: \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . This only works for uppercase alphabet.
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . This only works for uppercase alphabet.
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+In addition, \PJLmath{} also provides some math symbols that are not by default included in \LaTeX{}.
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & absolute value symbol \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & norm symbol \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & arrow symbol for injection \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & arrow symbol for surjection \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & arrow symbol for bijection \\
+\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre symbol \\
+& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre symbol (text style) \\
+% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre symbol (display style) \\
+\end{longtable}
+%
+% There's also a starred version of \lstinline|\pmod|, which eliminate the spacing before it: \lstinline|a\pmod*{4}| $\rightarrow a\pmod*{4}$. Compared with: \lstinline|a\pmod{4}| $\rightarrow a\pmod{4}$.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLmath : symboles et raccourcis mathématiques}
+
+\PJLmath{} propose les raccourcis suivants :
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ ou \lstinline|\frak|$\cdot$ . Par exemple, \lstinline|\mfA| (ou \lstinline|\mf{A}|) a le même effet que \lstinline|\mathfrak{A}|. Cela fonctionne à la fois pour l'alphabet majuscule et minuscule, produisant :
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule et le nombre \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    Il y a aussi des commandes spéciales pour les structures algébriques bien connues : \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule.
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule.
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+De plus, \PJLmath{} fournit également des symboles mathématiques qui ne sont pas inclus par défaut avec \LaTeX{}.
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & symbole de valeur absolue \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & symbole de norme \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & symbole de flèche pour l'injection \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & symbole de flèche pour la surjection \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & symbole de flèche pour la bijection \\
+\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Symbole Legendre \\
+& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Symbole Legendre (text-style) \\
+% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Symbole Legendre (display-style) \\
+\end{longtable}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLpaper：纸张设置}
+
+\PJLpaper{} 主要用于调节纸张颜色。它支持下列选项：
+
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item 设定纸张色彩样式。\meta{paper style name} 可供选择的选项有：\texttt{yellow}、\texttt{dark} 与 \texttt{nord}。
+        \end{itemize}
+    \item \texttt{yellowpaper}、\texttt{darkpaper}、\texttt{nordpaper}
+        \begin{itemize}
+            \item 设定纸张色彩样式。效果与相应名称的 \texttt{paperstyle} 相同。
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item 预览模式，将会把 pdf 文件的白边去掉以方便阅读。
+        \end{itemize}
+\end{itemize}
+
+为了使用的方便，建议把这些选项作为文档类的全局参数，这样对于文档的纸张设定一目了然。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLpaper: paper configuration}
+
+\PJLpaper{} is mainly used to adjust the paper color. It has the following options:
+
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item Set the paper color style. The options available for \meta{paper style name} are: \texttt{yellow}, \texttt{dark} and \texttt{nord}.
+        \end{itemize}
+    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
+        \begin{itemize}
+            \item Same as \texttt{paperstyle} with the corresponding \meta{paper style name} specified.
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item Preview mode. Crop the white edges of pdf file for the convenience of reading.
+        \end{itemize}
+\end{itemize}
+\vspace{-.3\baselineskip}
+
+It is recommended to use them as global options of the document class. In this way, the paper settings would be clear at a glance.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLpaper : configuration papier}
+
+\PJLpaper{} est principalement utilisé pour ajuster la couleur du papier. Il a les options suivantes :
+
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item Définit le style de couleur du papier. Les options disponibles pour \meta{paper style name} sont : \texttt{yellow}, \texttt{dark} et \texttt{nord}.
+        \end{itemize}
+    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
+        \begin{itemize}
+            \item Identique à \texttt{paperstyle} avec le \meta{paper style name} correspondant spécifié.
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item Mode aperçu. Recadrez les bords blancs du fichier pdf pour faciliter la lecture.
+        \end{itemize}
+\end{itemize}
+\vspace{-.3\baselineskip}
+
+Il est recommandé de les passer comme options globales de la classe de document. De cette façon, les paramètres du papier seraient clairs en un coup d'œil.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsection{PJLthm：带有智能引用与多语言支持的定理类环境}
+
+\PJLthm{} 提供定理类环境的设置。它支持下列选项：
+\begin{itemize}
+    \item \texttt{nothms}
+    \begin{itemize}
+        \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
+    \end{itemize}
+    \item \texttt{nothmnum}
+    \begin{itemize}
+        \item 使定理类环境均不编号。
+    \end{itemize}
+    \item \texttt{regionalref}
+    \begin{itemize}
+        \item 在智能引用时，定理类环境的名称随当前语言而变化（默认情况下，引用时会始终采用定理类环境所处语境下的名称；例如，在英文语境中书写的定理，即使稍后在中文语境下引用时，仍将显示为 Theorem）。在 \texttt{fast} 模式下，这一选项默认启用。
+    \end{itemize}
+\end{itemize}
+
+预设的定理类环境包括：\texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{observation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应带有星号 \lstinline|*| 的无编号版本。它们在显示时会依据当前语言而变化，例如在中文语境下 \texttt{theorem} 会显示为“定理”，而在英文语境下则会显示为“Theorem”。关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
+
+\begin{tip}
+    在引用定理类环境时，建议使用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|。这样就不必每次都写上相应环境的名称了。
+\end{tip}
+
+\medskip
+% 若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称 \lstinline|\|\meta{name of environment}\meta{language abbr}，其中 \meta{language abbr} 是语言的简写，分别为：
+% \begin{longtable}{ll|ll}
+%     \texttt{CN} & 简体中文  & \texttt{DE} & 德文\\
+%     \texttt{TC} & 繁体中文  & \texttt{JP} & 日文\\
+%     \texttt{EN} & 英文  & \texttt{RU} & 俄文\\
+%     \texttt{FR} & 法文  & &\\
+% \end{longtable}
+
+% \begin{tip}
+%     如果要定义名称后带有星号 \lstinline|*| 的环境，那么在上面的 \meta{name of environment} 中不用写星号。
+% \end{tip}
+若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称：
+\vspace{-.15\baselineskip}%
+\begin{itemize}
+    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+\end{itemize}
+\vspace{-.15\baselineskip}%
+其中，\meta{language name} 可参阅关于 \PJLlang{} 的小节。当不指定 \meta{language name}时，则会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}{...}| 与 \lstinline|\NameTheorem{envname}{...}| 效果相同。
+
+\clearpage
+然后用下面五种方式之一定义这一环境：
+\begin{itemize}
+    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item 定义不编号的环境 \meta{name of environment}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item 定义编号环境 \meta{name of environment}，按顺序编号
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
+        \begin{itemize}
+            \item 定义编号环境 \meta{name of environment}，与 \meta{numbered like} 计数器共用编号
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
+        \begin{itemize}
+            \item 定义编号环境 \meta{name of environment}，在 \meta{numbered within} 计数器内编号
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
+    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
+        \begin{itemize}
+            \item 将 \meta{name of environment} 与 \meta{existed environment} 或 \meta{existed environment}\lstinline|*| 等同。
+            \item 这种方式通常在两种情况下比较有用：
+                \begin{enumerate}
+                    \item 希望定义更简洁的名称。例如，使用 \lstinline|\CreateTheorem{thm}(theorem)|，便可以直接用名称 \texttt{thm} 来撰写定理。
+                    \item 希望去除某些环境的编号。例如，使用 \lstinline|\CreateTheorem{remark}(remark*)|，便可以去除 \texttt{remark} 环境的编号。
+                \end{enumerate}
+        \end{itemize}
+\end{itemize}
+
+\begin{tip}
+    其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
+\end{tip}
+
+% \def\proofideanameCN{思路}
+\NameTheorem[CN]{proofidea}{思路}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
+
+\bigskip
+下面提供一个例子。这三行代码：
+\begin{code}
+  \NameTheorem[CN]{proofidea}{思路}
+  \CreateTheorem*{proofidea*}
+  \CreateTheorem{proofidea}<subsection>
+\end{code}
+可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea| (在 subsection 内编号)，它们支持在简体中文语境中使用，效果如下所示 (具体样式与所在的文档类有关) :
+
+\begin{proofidea*}
+    \lstinline|proofidea*| 环境。
+\end{proofidea*}
+
+\begin{proofidea}
+    \lstinline|proofidea| 环境。
+\end{proofidea}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{PJLthm: theorem-like environments with clever reference and multilingual support}
+
+\PJLthm{} offers the configuration of theorem-like environments. It has the following option:
+
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \texttt{nothms}
+    \begin{itemize}
+        \item Theorem-like environments will not be defined. You may use this option if you wish to apply your own theorem styles.
+    \end{itemize}
+    \item \texttt{nothmnum}
+    \begin{itemize}
+        \item Theorem-like environments will not be numbered.
+    \end{itemize}
+    \item \texttt{regionalref}
+    \begin{itemize}
+        \item When referencing, name of the theorem-like environment will change with the current language (by default, the name will always remain the same; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''). In \texttt{fast} mode, this option is automatically enabled.
+    \end{itemize}
+\end{itemize}
+
+\medskip
+Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, ~~\texttt{definition-theorem}, ~~\texttt{example}, ~~\texttt{exercise}, ~~\texttt{fact}, ~~\texttt{hypothesis}, ~~\texttt{lemma}, \\\texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The titles will change with the current language. For example, \texttt{theorem} will be displayed as ``Theorem" in English mode and ``Théorème" in French mode. For details on how to select a language, please refer to the section on \PJLlang{}.
+
+\begin{tip}
+    When referencing a theorem-like environment, it is recommended to use \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
+\end{tip}
+%
+% If you need to define a new theorem-like environment, you must first define the name of the environment in the language used: \lstinline|\|\meta{name of environment}\meta{language abbr}, where \meta{language abbr} is the abbreviation of language, which can be:
+% % \vspace{-.5\baselineskip}
+% \begin{longtable}{ll|ll}
+%     \texttt{CN} & Simplified Chinese & \texttt{DE} & German\\
+%     \texttt{TC} & Traditional Chinese & \texttt{JP} & Japanese\\
+%     \texttt{EN} & English & \texttt{RU} & Russian\\
+%     \texttt{FR} & French & &\\
+% \end{longtable}
+
+% \begin{tip}
+%     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
+% \end{tip}
+
+\bigskip
+If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use:
+\begin{itemize}
+    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+\end{itemize}
+For \meta{language name}, please refer to the section on \PJLlang{}. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
+
+\clearpage
+And then define this environment in one of following five ways:
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item Define an unnumbered environment \meta{name of environment}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item Define a numbered environment \meta{name of environment}, numbered in order 1,2,3,\dots
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
+        \begin{itemize}
+            \item Define a numbered environment \meta{name of environment}, which shares the counter \meta{numbered like}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
+        \begin{itemize}
+            \item Define a numbered environment \meta{name of environment}, numbered within the counter \meta{numbered within}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
+    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
+        \begin{itemize}
+            \item Identify \meta{name of environment} with \meta{existed environment} or \meta{existed environment}\lstinline|*|.
+            \item This method is usually useful in the following two situations:
+                \begin{enumerate}
+                    \item To use a more concise name. For example, with \lstinline|\CreateTheorem{thm}(theorem)|, one can then use the name \texttt{thm} to write theorem.
+                    \item To remove the numbering of some environments. For example, one can remove the numbering of the \texttt{remark} environment with \lstinline|\CreateTheorem{remark}(remark*)|.
+                \end{enumerate}
+        \end{itemize}
+\end{itemize}
+
+\begin{tip}
+    This macro utilizes the feature of \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
+\end{tip}
+
+% \def\proofideanameEN{Idea}
+\NameTheorem[EN]{proofidea}{Idea}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
+
+\bigskip
+Here is an example. The following code:
+\begin{code}
+  \NameTheorem[EN]{proofidea}{Idea}
+  \CreateTheorem*{proofidea*}
+  \CreateTheorem{proofidea}<subsection>
+\end{code}
+defines an unnumbered environment \lstinline|proofidea*| and a numbered environment \lstinline|proofidea| (numbered within subsection) respectively. They can be used in English context. The effect is as follows (the actual style is related to the document class):
+
+\begin{proofidea*}
+    The \lstinline|proofidea*| environment.
+\end{proofidea*}
+
+\begin{proofidea}
+    The \lstinline|proofidea| environment.
+\end{proofidea}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{PJLthm : environnements de type théorème avec référence intelligente et support multilingue}
+
+\PJLthm{} offre la configuration d'environnements de type théorème. Il a l'option suivante :
+
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \texttt{nothms}
+    \begin{itemize}
+        \item Les environnements de type théorème ne seront pas définis. Vous pouvez utiliser cette option si vous souhaitez appliquer vos propres styles de théorème.
+    \end{itemize}
+    \item \texttt{nothmnum}
+    \begin{itemize}
+        \item Les environnements de type théorème ne seront pas numérotés.
+    \end{itemize}
+    \item \texttt{regionalref}
+    \begin{itemize}
+        \item Lors du référencement, le nom de l'environnement de type théorème changera avec la langue actuelle (par défaut, le nom restera toujours le même ; par exemple, lors du référencement d'un théorème écrit dans le contexte anglais, même si l'on est actuellement dans le contexte français , il sera toujours affiché comme « Theorem »). En mode \texttt{fast}, cette option est automatiquement activée.
+    \end{itemize}
+\end{itemize}
+
+\medskip
+Les environnements prédéfinis incluent : \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{hypothesis}, \texttt{lemma}, \texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, et la version non numérotée correspondante avec un astérisque \lstinline|*| dans le nom. Les titres changeront avec la langue actuelle. Par exemple, \texttt{theorem} sera affiché comme « Theorem » en mode anglais et « Théorème » en mode français. Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
+
+\begin{tip}
+    Lors du référencement d'un environnement de type théorème, il est recommandé d'utiliser \lstinline|\cref{|\meta{label}\texttt{\}}. De cette façon, il n'est pas nécessaire d'écrire explicitement le nom de l'environnement correspondant à chaque fois.
+\end{tip}
+
+\medskip
+Si vous avez besoin de définir un nouvel environnement de type théorème, vous devez d'abord définir le nom de l'environnement dans le langage à utiliser :
+\begin{itemize}
+    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+\end{itemize}
+Pour \meta{language name}, veuillez vous référer à la section sur \PJLlang{}. Lorsque \meta{language name} n'est pas spécifié, le nom sera défini pour toutes les langues prises en charge. De plus, les environnements avec ou sans astérisque partagent le même nom, donc, \lstinline|\NameTheorem{envname*}{...}| a le même effet que \lstinline|\NameTheorem{envname}{...}| .
+
+\clearpage
+Ensuite, créez cet environnement de l'une des cinq manières suivantes :
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item Define an unnumbered environment \meta{name of environment}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
+        \begin{itemize}
+            \item Définir un environnement non numéroté \meta{name of environment}, numéroté dans l'ordre 1,2,3,\dots
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
+        \begin{itemize}
+            \item Définir un environnement numéroté \meta{name of environment}, qui partage le compteur \meta{numbered like}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
+        \begin{itemize}
+            \item Définir un environnement numéroté \meta{name of environment}, numéroté dans le compteur \meta{numbered within}
+        \end{itemize}
+    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
+    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
+        \begin{itemize}
+            \item Identifiez \meta{name of environment} avec \meta{existed environment} ou \meta{existed environment}\lstinline|*|.
+            \item Cette méthode est généralement utile dans les deux situations suivantes :
+                \begin{enumerate}
+                    \item Pour utiliser un nom plus concis. Par exemple, avec \lstinline|\CreateTheorem{thm}(theorem)|, on peut alors utiliser le nom \texttt{thm} pour écrire le théorème.
+                    \item Pour supprimer la numérotation de certains environnements. Par exemple, on peut supprimer la numérotation de l'environnement \texttt{remark} avec \lstinline|\CreateTheorem{remark}(remark*)|.
+                \end{enumerate}
+        \end{itemize}
+\end{itemize}
+
+\begin{tip}
+    Cette macro utilise la fonctionnalité de \textsf{amsthm} en interne, donc le traditionnel \texttt{theoremstyle} lui est également applicable. Il suffit de déclarer le style avant les définitions pertinentes.
+\end{tip}
+
+\NameTheorem[FR]{proofidea}{Idée}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
+
+\bigskip
+Voici un exemple. Le code suivant :
+\begin{code}
+  \NameTheorem[FR]{proofidea}{Idée}
+  \CreateTheorem*{proofidea*}
+  \CreateTheorem{proofidea}<subsection>
+\end{code}
+définit un environnement non numéroté \lstinline|proofidea*| et un environnement numéroté \lstinline|proofidea| (numérotés dans la sous-section) respectivement. Ils peuvent être utilisés dans le contexte français. L'effet est le suivant (le style réel est lié à votre classe de document) :
+
+\begin{proofidea*}
+    La environnement \lstinline|proofidea*| .
+\end{proofidea*}
+
+\begin{proofidea}
+    La environnement \lstinline|proofidea| .
+\end{proofidea}
+%</ProjLib-doc-fr>
+
+\clearpage
+
+%<*ProjLib-doc-cn>
+\section{目前存在的问题}
+
+\begin{itemize}[itemsep=.6em]
+    \item \PJLauthor{} 仍然处于初步阶段，在很多方面还远远比不上相对成熟的 \textsf{authblk}。
+    \item \PJLlang{}：针对 \textsf{polyglossia} 的设置仍然存在许多问题，因此现在主要功能都是通过 \textsf{babel} 实现的。
+    \item \PJLlang{}：语言选项的设定存在问题，如 \texttt{chinese} 会导致 \textsf{babel} 报错，并且不同选项间还可能产生冲突。
+    \item \PJLpaper{} 的 \texttt{preview} 功能主要是通过 \textsf{geometry} 宏包实现的，因此在 \textsc{\textsf{Koma}} 文档类中效果不好。
+    \item \PJLthm{} 对于定理类环境的编号与样式设定目前还无法由用户更改。
+    \item \PJLthm{}：智能引用针对所有 \PJLlang{} 已支持语言的本地化尚不完整，主要是中文、日文与俄文。
+    \item 错误处理功能不完善，在出现一些问题时没有相应的错误提示。
+    \item 代码中仍有许多可优化之处，有些部分耗时过长，特别是 \PJLthm{} 对定理类环境的定义。
+\end{itemize}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\section{Known issues}
+
+\begin{itemize}[itemsep=.6em]
+    \item \PJLauthor{} is still in its preliminary stage, its effect is not as good as the relatively mature \textsf{authblk}.
+    \item \PJLlang{}: It is still quite problematic with the configuration of \textsf{polyglossia}, so main features are implemented through \textsf{babel} for now.
+    \item \PJLlang{}: There are some problems with the language options. For example, \texttt{chinese} will cause errors with \textsf{babel}. Also, conflicts among multiple options may occur.
+    \item \PJLpaper{}: the \texttt{preview} option is mainly implemented with the help of package \textsf{geometry}, so it does not work quite as well in the \textsc{\textsf{Koma}} document classes.
+    \item \PJLthm{}: The numbering and theorem-style settings of the theorem-like environments cannot be accessed by the user at present.
+    \item \PJLthm{}: The localization of \textsf{cleveref} is not yet complete for all supported languages of \PJLlang{}, especially for Chinese, Japanese and Russian.
+    \item Error handling mechanism is incomplete: no corresponding error prompt when some problems occur.
+    \item There are still many things that can be optimized in the code. Some takes too long to run, especially the setup of theorem-like environments in \PJLthm{}.
+\end{itemize}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\section{Problèmes connus}
+
+\begin{itemize}[itemsep=.6em]
+    \item \PJLauthor{} est encore à son stade préliminaire, son effet n'est pas aussi bon que le \textsf{authblk} qui est relativement mature.
+    \item \PJLlang{} : C'est encore assez problématique avec la configuration de \textsf{polyglossia}, donc les fonctionnalités principales sont implémentées via \textsf{babel} pour le moment.
+    \item \PJLlang{} : Il y a quelques problèmes avec les options de langue. Par exemple, \texttt{chinese} provoquera des erreurs avec \textsf{babel}. D'autre part, des conflits entre plusieurs options peuvent survenir.
+    \item \PJLpaper{} : l'option \texttt{preview} est principalement implémentée à l'aide du package \textsf{geometry}, elle ne fonctionne donc pas aussi bien dans les classes de documents \textsc{\textsf{Koma}}.
+    \item \PJLthm{} : les paramètres de numérotation et de style théorème des environnements de type théorème ne sont actuellement pas accessibles à l'utilisateur.
+    \item \PJLthm{} : la localisation de \textsf{cleveref} n'est pas encore finie pour toutes les langues prises en charge par \PJLlang{}, en particulier pour le chinois, le japonais et le russe.
+    \item Le mécanisme de gestion des erreurs est incomplet : pas de messages correspondants lorsque certains problèmes surviennent.
+    \item Il y a encore beaucoup de choses qui peuvent être optimisées dans le code. Certains codes prennent trop de temps à s'exécuter, en particulier la configuration d'environnements de type théorème dans \PJLthm{}.
+\end{itemize}
+%</ProjLib-doc-fr>
+
+
+\end{document}

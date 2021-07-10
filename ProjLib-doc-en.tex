@@ -1,5 +1,4 @@
-%! TEX program = xelatex
-\documentclass[English,French,allowbf,regionalref,puretext]{lebhart}
+\documentclass[English,Chinese,French,allowbf,puretext]{lebhart}
 
 %%================================
 %% Import toolkit
@@ -7,9 +6,15 @@
 \usepackage{ProjLib}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
+\usepackage{multicol}
+\setlength{\columnsep}{2em}
+\setlength{\columnseprule}{.75pt}
+\def\columnseprulecolor{\color{gray!55}}
+
+\UseLanguage{English}
 
 %%================================
-%% For typestting code
+%% For typesetting code
 %%================================
 \usepackage{listings}
 \definecolor{lightergray}{gray}{0.99}
@@ -26,16 +31,19 @@
     escapeinside={(*}{*)},
     % numbers=left,
     numberstyle=\scriptsize, stepnumber=1, numbersep=5pt,
-    firstnumber=last,
-} 
+    % firstnumber=last,
+}
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
+    {color,NameTheorem,CreateTheorem,proofideanameCN,proofideanameEN,proofideanameFR,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,PJLdate,ProjLib,
     mathfrak,mf,frak,mfA,mathbb,bb,N,Z,Q,R,C,F,A,mathcal,mc,cal,mathscr,ms,scr,
+    abs,norm,injection,surjection,bijection,legendre,tlegendre,dlegendre,pmod
     }
 }
-\lstnewenvironment{code}% 
+\lstnewenvironment{code}%
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
+\lstnewenvironment{code*}%
+{\setkeys{lst}{numbers=left,columns=fullflexible,keepspaces=true}}{}
 
 %%================================
 %% tip
@@ -58,39 +66,60 @@
 }{\end{tcolorbox}}
 
 %%================================
-%% 名称
+%% Names
 %%================================
-\providecommand{\ProjLibPackage}{\textsf{ProjLib}}
-\providecommand{\PJLtoolkit}{\textsf{PJLtoolkit}}
-\providecommand{\PJLamssim}{\textsf{PJLamssim}}
-\providecommand{\PJLauthor}{\textsf{PJLauthor}}
-\providecommand{\PJLdatePackage}{\textsf{PJLdate}}
-\providecommand{\PJLdraft}{\textsf{PJLdraft}}
-\providecommand{\PJLlang}{\textsf{PJLlang}}
-\providecommand{\PJLlogo}{\textsf{PJLlogo}}
-\providecommand{\PJLmath}{\textsf{PJLmath}}
-\providecommand{\PJLpaper}{\textsf{PJLpaper}}
-\providecommand{\PJLthm}{\textsf{PJLthm}}
+\providecommand{\ProjLibPackage}{\mbox{\textsf{ProjLib}}}
+\providecommand{\PJLtoolkit}{\mbox{\textsf{PJLtoolkit}}}
+\providecommand{\PJLamssim}{\mbox{\textsf{PJLamssim}}}
+\providecommand{\PJLauthor}{\mbox{\textsf{PJLauthor}}}
+\providecommand{\PJLdatePackage}{\mbox{\textsf{PJLdate}}}
+\providecommand{\PJLdraft}{\mbox{\textsf{PJLdraft}}}
+\providecommand{\PJLlang}{\mbox{\textsf{PJLlang}}}
+\providecommand{\PJLlogo}{\mbox{\textsf{PJLlogo}}}
+\providecommand{\PJLmath}{\mbox{\textsf{PJLmath}}}
+\providecommand{\PJLpaper}{\mbox{\textsf{PJLpaper}}}
+\providecommand{\PJLthm}{\mbox{\textsf{PJLthm}}}
 
 %%================================
-%% 正文
+%% Main text
 %%================================
 \begin{document}
 
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
-\author{Jinwen Xu}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/07/05}}
+\author{Jinwen XU}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/07/11}}
+\email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{July 2021, Beijing}
 
 \maketitle
 
 \begin{abstract}
-    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With \ProjLibPackage{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities are introduced.
+    The \ProjLib{} toolkit is designed to simplify the preparation before writing \LaTeX{} documents. With the package \ProjLibPackage{} loaded, you no longer need to set up the theorem-like environments nor configure the appropriate multilingual settings. Additionally, a series of auxiliary functionalities are introduced.
 \end{abstract}
 
-% \tableofcontents
+\begin{multicols}{2}
+    \small
+    \tableofcontents
+\end{multicols}
 
-\section{The main package}
+\medskip
+
+\section*{Before you start}
+\addcontentsline{toc}{section}{Before you start}
+
+In order to use the toolkit, you need to:
+\begin{itemize}
+     \item install TeX Live or MikTeX of the latest possible version, and to make sure that \texttt{projlib} is correctly installed in your \TeX{} system.
+     \item be familiar with the basic usage of \LaTeX{}, and to know how to compile your documents with \hologo{pdfLaTeX}, \hologo{XeLaTeX} or \hologo{LuaLaTeX}.
+\end{itemize}
+
+\section{Introduction}
+
+The name \ProjLib{} can be regarded as the abbreviation of \emph{Project Library} in English or \emph{Projet Libre} in French (the author prefers the French interpretation). Its main purpose is to provide multi-language support and theorem-like environments with clever references. In addition, some additional features are provided, such as the enhanced author block, draft marks, mathematical symbols and shortcuts, etc.
+
+The \ProjLib{} toolkit is composed of the main package \ProjLibPackage{} and a series of components whose names begin with the abbreviation "PJL". You can learn how to use it through the usage examples in the next section.
+
+\section{Usage example}
 
 \subsection{How to load it}
 
@@ -103,19 +132,135 @@ Just add the following line to your preamble:
 \begin{tip}[Attention]
     Since \textsf{cleveref} is used internally, \ProjLibPackage{} needs to be placed after \textsf{varioref} and \textsf{hyperref}.
 \end{tip}
-\medskip
 
-\subsection{Options}
+\medskip
+\subsection{Example - A complete document}
+
+Let's first look at a complete document.
+
+\begin{code*}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
+
+\UseLanguage{French} % Use French from here
+
+\begin{document}
+
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+
+\maketitle
+
+\begin{abstract}
+    (*\meta{abstract text}*) \dnf<(*\meta{some hint}*)>
+\end{abstract}
+
+\section{Un théorème}
+
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+
+Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
+
+\end{document}
+\end{code*}
+
+\bigskip
+
+If you find it a little complicated, don't worry. Let's now look at this example piece by piece.
+
+\clearpage
+\subsubsection{Initialization}
+
+\begin{code}
+\documentclass{article}
+\usepackage[a4paper,margin=.75in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage[palatino]{ProjLib}
+\end{code}
+
+In standard classes, one usually only need to configure the page size, hyperlinks and load \ProjLibPackage{} before actually start writing the document. The font option \texttt{palatino} of \ProjLibPackage{} is used here. For all available options of \ProjLibPackage{}, please refer to the next section.
+
+Of course, you can also use the document class \textsf{amsart}, the configurations are the same.
+
+\subsubsection{Set the language}
+
+\begin{code}
+\UseLanguage{French}
+\end{code}
+
+This line indicates that French will be used in the document (by the way, if only English appears in your article, then there is no need to set the language). You can also switch the language in the same way later in the middle of the text. Supported languages include Simplified Chinese, Traditional Chinese, Japanese, English, French, German, Spanish, Portuguese, Brazilian Portuguese and Russian\footnote{However, you need to add the encoding support and fonts of the corresponding language by yourself. For example, for Chinese, you may need to load the \textsf{ctex} package and set the fonts. As a sidenote, you can try the author's document classes \textsf{einfart} or \textsf{lebhart}, in which the corresponding settings have been completed. For the details, run \lstinline|texdoc minimalist| or \lstinline|texdoc colorist| in the command line.}.
+
+For detailed description of this command and more related commands, please refer to the section on the multi-language support.
+
+\subsubsection{Title and author information}
+
+\begin{code}
+\title{(*\meta{title}*)}
+\author{(*\meta{author}*)}
+\date{\PLdate{2022-04-01}}
+\end{code}
+
+This part is the title and author information block. The example shows the most basic usage, but in fact, you can also write:
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+
+In addition, if the \AmS{} simulation is enabled\footnote{This is achieved by the module \PJLamssim{}. Since this module modifies some internal macros of \LaTeX{}, it may conflict with some packages or document classes, and thus it is not enabled by default.}, then you can also write in the \AmS{} fashion (the original way still works). In this case, the line that introduces \ProjLibPackage{} should be written as:
+\begin{code}
+\usepackage[amsfashion,palatino]{ProjLib}
+\end{code}
+And correspondingly, you will also be able to use these macros:
+\begin{code}
+\dedicatory{(*\meta{dedicatory}*)}
+\subjclass{*****}
+\keywords{(*\meta{keywords}*)}
+\end{code}
+In addition, you can also write the abstract before \lstinline|\maketitle|, as the way required in the \AmS{} classes:
+\begin{code}
+\begin{abstract}
+    (*\meta{abstract text}*)
+\end{abstract}
+\maketitle
+\end{code}
+
+\subsubsection{Draft marks}
+\begin{code}
+\dnf<(*\meta{some hint}*)>
+\end{code}
+When you have some places that have not yet been finished yet, you can mark them with this command, which is especially useful during the draft stage.
+
+\subsubsection{Theorem-like environments}
+\begin{code}
+\begin{theorem}\label{thm:abc}
+    Ceci est un théorème.
+\end{theorem}
+Référence du théorème: \cref{thm:abc}
+\end{code}
+
+Commonly used theorem-like environments have been pre-defined. Also, when referencing a theorem-like environment, it is recommended to use \lstinline|\cref{|\meta{label}\texttt{\}} --- in this way, there is no need to explicitly write down the name of the corresponding environment every time.
+
+\section{Options of the main package}
 
 \ProjLibPackage{} offers the following options:
 \begin{itemize}
     \item \texttt{draft} or \texttt{fast}
         \begin{itemize}
-            \item Fast mode. The functionality will be appropriately reduced to get faster compilation speed, recommended to use during the writing phase.
+            \item Fast mode. The functionality will be appropriately reduced to get faster compilation speed, recommended to use during the writing stage.
         \end{itemize}
     \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} ~$|$~ \texttt{useosf}
         \begin{itemize}
-            \item Font options. As the name suggest, font with corresponding name will be loaded. 
+            \item Font options. As the names suggest, font with corresponding name will be loaded.
             \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
     \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
@@ -133,22 +278,23 @@ Just add the following line to your preamble:
 \end{itemize}
 In addition, there are also some options of the components that should be passed as global options of your document class, such as the language options \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc.\,of \PJLlang{}, \\and \texttt{paperstyle}, \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding sections.
 
+\clearpage
 \section{The components}
 
-\subsection{PJLamssim}
+\subsection{PJLamssim: writing in \texorpdfstring{\AmS}{AMS} fashion}
 
 \PJLamssim{} is used to simulate some features of the \textsf{amsart} class in a standard class, including:
 \begin{itemize}
-    \item \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| and \lstinline|\dedicatory| macro(the first three are provided by \PJLauthor{})
-    \item \lstinline|\keywords| macro
-    \item \lstinline|\subjclass| macro
-    \item \lstinline|\thanks| can be written outside \lstinline|\author|
-    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|
+    \item the macros \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| and \lstinline|\dedicatory| (the first three are provided by \PJLauthor{});
+    \item the macro \lstinline|\keywords|;
+    \item the macro \lstinline|\subjclass|;
+    \item \lstinline|\thanks| can be written outside \lstinline|\author|;
+    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|.
 \end{itemize}
 
 These modifications would only take place in standard classes. In the \AmS{} classes, \PJLamssim{} does not have any effect.
 
-\subsection{PJLauthor}
+\subsection{PJLauthor: enhanced author block}
 
 \PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
 \begin{code}
@@ -162,13 +308,13 @@ These modifications would only take place in standard classes. In the \AmS{} cla
 \end{code}
 The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
 
-\subsection{PJLdate}
+\subsection{PJLdate: date-time processing}
 
 \PJLdatePackage{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} (or \lstinline|\PJLdate|\meta{yyyy-mm-dd}) macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become ``\PLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PLdate{2022-04-01}}''.
 
 For details on how to select a language, please refer to the section on \PJLlang{}.
 
-\subsection{PJLdraft}
+\subsection{PJLdraft: draft marks}
 
 \PJLdraft{} offers the following macros:
 \begin{itemize}
@@ -178,15 +324,15 @@ For details on how to select a language, please refer to the section on \PJLlang
 
 For details on how to select a language, please refer to the section on \PJLlang{}.
 
-\subsection{PJLlang}
+\subsection{PJLlang: multi-language support}
 
-\PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). 
+\PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support).
 
 \medskip
 \PJLlang{} provides language options. The names of these options have three types, which are abbreviations (such as \texttt{EN}), lowercase (such as \texttt{english}), and capital letters (such as \texttt{English}). For the option names of a specific language, please refer to \meta{language name} below. Among them, the first specified language \meta{first language} will be used as the default language, which is equivalent to specifying \lstinline|\UseLanguage{|\meta{first language}\lstinline|}| at the beginning of your document.
 
 \begin{tip}
-    It is recommended to use these language options and pass them as global options. In this way, only the specified language is set, thus saving the \TeX{} memory and significantly improving the compilation speed.
+    It is recommended to use these language options and pass them as global options. In this way, only the specified languages are set, thus saving the \TeX{} memory and significantly improving the compilation speed.
 \end{tip}
 
 \medskip
@@ -227,26 +373,12 @@ In addition, you can also add new settings to selected language:
 \end{itemize}
 For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make all German text displayed in orange (of course, one then need to add \lstinline|\AddLanguageSetting{\color{black}}| in order to correct the color of the text in other languages).
 
-\clearpage
-\subsection{PJLlogo}
+\subsection{PJLlogo: the logo \texorpdfstring{\ProjLib}{ProjLib}}
 
-\PJLlogo{} offers the \lstinline|\ProjLib| macro to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
-% \begin{itemize}
-%     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
-%     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
-%     \item \lstinline|\footnotesize|:\quad {\footnotesize\ProjLib}
-%     \item \lstinline|\normalsize|:\quad {\normalsize\ProjLib}
-%     \item \lstinline|\large|:\quad {\large\ProjLib}
-%     \item \lstinline|\Large|:\quad {\Large\ProjLib}
-%     \item \lstinline|\LARGE|:\quad {\LARGE\ProjLib}
-%     \item \lstinline|\huge|:\quad {\huge\ProjLib}
-%     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
-% \end{itemize}
-% \bigskip
+\PJLlogo{} offers the macro \lstinline|\ProjLib| to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
 
-% \begin{longtable}{ll}
 \begin{center}
-    \begin{tabular}{ll} 
+    \begin{tabular}{ll}
         \lstinline|\tiny|:& {\tiny\ProjLib}\\
         \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
         \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
@@ -258,9 +390,9 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
         \lstinline|\Huge|:& {\Huge\ProjLib}
     \end{tabular}
 \end{center}
-% \end{longtable}
 
-\subsection{PJLmath}
+\medskip
+\subsection{PJLmath: math symbols and shortcuts}
 
 \PJLmath{} offers the following shortcuts:
 \begin{enumerate}[label=\roman*)]
@@ -287,8 +419,19 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
     \end{equation*}
 \end{enumerate}
 
-% \clearpage
-\subsection{PJLpaper}
+In addition, \PJLmath{} also provides some math symbols that are not by default included in \LaTeX{}.
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & absolute value symbol \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & norm symbol \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & arrow symbol for injection \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & arrow symbol for surjection \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & arrow symbol for bijection \\
+\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre symbol \\
+& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+\end{longtable}
+
+\subsection{PJLpaper: paper configuration}
 
 \PJLpaper{} is mainly used to adjust the paper color. It has the following options:
 
@@ -311,7 +454,7 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 
 It is recommended to use them as global options of the document class. In this way, the paper settings would be clear at a glance.
 
-\subsection{PJLthm}
+\subsection{PJLthm: theorem-like environments with clever reference and multilingual support}
 
 \PJLthm{} offers the configuration of theorem-like environments. It has the following option:
 
@@ -338,27 +481,15 @@ Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjec
     When referencing a theorem-like environment, it is recommended to use \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
 \end{tip}
 
-\medskip
-% If you need to define a new theorem-like environment, you must first define the name of the environment in the language used: \lstinline|\|\meta{name of environment}\meta{language abbr}, where \meta{language abbr} is the abbreviation of language, which can be:
-% % \vspace{-.5\baselineskip}
-% \begin{longtable}{ll|ll}
-%     \texttt{CN} & Simplified Chinese & \texttt{DE} & German\\
-%     \texttt{TC} & Traditional Chinese & \texttt{JP} & Japanese\\
-%     \texttt{EN} & English & \texttt{RU} & Russian\\
-%     \texttt{FR} & French & &\\
-% \end{longtable}
 
-% \begin{tip}
-%     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
-% \end{tip}
-\medskip
+\bigskip
 If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use:
 \begin{itemize}
     \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
 \end{itemize}
 For \meta{language name}, please refer to the section on \PJLlang{}. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
 
-\bigskip
+\clearpage
 And then define this environment in one of following five ways:
 \vspace{-.3\baselineskip}
 \begin{itemize}
@@ -378,7 +509,6 @@ And then define this environment in one of following five ways:
         \begin{itemize}
             \item Define a numbered environment \meta{name of environment}, numbered within the counter \meta{numbered within}
         \end{itemize}
-    \clearpage
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
     \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
         \begin{itemize}
@@ -395,7 +525,6 @@ And then define this environment in one of following five ways:
     This macro utilizes the feature of \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
 \end{tip}
 
-% \def\proofideanameEN{Idea}
 \NameTheorem[EN]{proofidea}{Idea}
 \CreateTheorem*{proofidea*}
 \CreateTheorem{proofidea}<subsection>
@@ -417,8 +546,8 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     The \lstinline|proofidea| environment.
 \end{proofidea}
 
+\clearpage
 
-\medskip
 \section{Known issues}
 
 \begin{itemize}[itemsep=.6em]
@@ -432,94 +561,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     \item There are still many things that can be optimized in the code. Some takes too long to run, especially the setup of theorem-like environments in \PJLthm{}.
 \end{itemize}
 
-
-\clearpage
-\section{Usage example}
-
-\subsection{Standard classes}
-
-In standard classes, one usually only need to configure the page size, hyperlinks and load \ProjLibPackage{} before actually start writing the document. Below is a complete example.
-
-\begin{code}
-\documentclass{article}
-\usepackage[a4paper,margin=.75in]{geometry}
-\usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
-
-\UseLanguage{French} % Use French from here
-
-\begin{document}
-
-\title{Le Titre}
-\author{Auteur}
-\date{\PJLdate{2022-04-01}}
-
-\maketitle
-
-\begin{abstract}
-    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
-\end{abstract}
-
-\section{Un théorème}
-
-%% Theorem-like environments can be used directly
-\begin{theorem}\label{thm:abc}
-    Ceci est un théorème.
-\end{theorem}
-
-Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
-
 \end{document}
-\end{code}
-
-\bigskip
-If \PJLamssim{} is loaded, then one can adopt the \AmS{} writing style in the document (of course, the original way is also valid, so always adding the option \texttt{amssim} usually does not cause problems). This way, the line that introduces \ProjLibPackage{} should be written as:
-\begin{code}
-\usepackage[amssim,palatino]{ProjLib}
-\end{code}
-
-\clearpage
-\subsection{The \texorpdfstring{\AmS{}}{AMS} classes}
-
-In \AmS{} classes, one usually only need to configure the page size, hyperlinks and load \ProjLibPackage{} before actually start writing the document. Below is a complete example.
-\begin{code}
-\documentclass{amsart}
-\usepackage[a4paper,margin=.75in]{geometry}
-\usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{ProjLib} % Load the toolkit and use font Palatino
-
-\UseLanguage{French} % Use French from here
-
-\begin{document}
-
-\title{Le Titre}
-\author{Auteur 1}
-\address{Adresse 1}
-\email{\href{Courriel 1}{Courriel 1}}
-\author{Auteur 1}
-\address{Adresse 1}
-\email{\href{Courriel 2}{Courriel 2}}
-\date{\PJLdate{2022-04-01}}
-\subjclass{*****}
-\keywords{...}
-
-\begin{abstract}
-    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
-\end{abstract}
-
-\maketitle
-
-\section{Première section}
-
-%% Theorem-like environments can be used directly
-\begin{theorem}\label{thm:abc}
-    Ceci est un théorème.
-\end{theorem}
-
-Référence du théorème: \cref{thm:abc} % It is recommended to use clever reference
-
-\end{document}
-\end{code}
-
-
-\end{document}
+\endinput
+%%
+%% End of file `ProjLib-doc-en.tex'.
