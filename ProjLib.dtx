@@ -18,57 +18,57 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/07/11 The collective interface of ProjLib toolkit]
+    [2021/07/23 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLamssim>
 \ProvidesPackage{PJLamssim}
-    [2021/07/11 Simulate some features of amsart]
+    [2021/07/23 Simulate some features of amsart]
 %</PJLamssim>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/07/11 Enhanced author information block]
+    [2021/07/23 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/07/11 Convert yyyy-mm-dd to normal datetime format]
+    [2021/07/23 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/07/11 Some useful macros for the draft stage]
+    [2021/07/23 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/07/11 Multi-language configuration]
+    [2021/07/23 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/07/11 The ProjLib logo]
+    [2021/07/23 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/07/11 Useful math macros and shortcuts]
+    [2021/07/23 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/07/11 Paper style configuration]
+    [2021/07/23 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/07/11 Theorem setup and configuration]
+    [2021/07/23 Theorem setup and configuration]
 %</PJLthm>
 %
 %<*PJLtoolkit>
 \ProvidesPackage{PJLtoolkit}
-    [2021/07/11 Collective interface of ProjLib Toolkit]
+    [2021/07/23 Collective interface of ProjLib Toolkit]
 %</PJLtoolkit>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -614,6 +614,18 @@
 %# 处理选项
 %# Process options
 \ProcessKeyvalOptions*\relax
+
+%# 从全局参数中去除 chinese 和 Chinese
+%# Remove chinese and Chinese from global options
+\ExplSyntaxOn
+\cs_new_protected:cpn { @clearglobaloption } #1
+ {
+  \clist_remove_all:cn { @classoptionslist } { #1 }
+ }
+\ExplSyntaxOff
+
+\@clearglobaloption{chinese}
+\@clearglobaloption{Chinese}
 
 %# 默认语言：英语
 %# Default main language: English
