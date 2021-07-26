@@ -18,72 +18,172 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/07/23 The collective interface of ProjLib toolkit]
+    [2021/07/27 The collective interface of ProjLib toolkit]
 %</ProjLib>
-%
-%<*PJLamssim>
-\ProvidesPackage{PJLamssim}
-    [2021/07/23 Simulate some features of amsart]
-%</PJLamssim>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/07/23 Enhanced author information block]
+    [2021/07/27 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/07/23 Convert yyyy-mm-dd to normal datetime format]
+    [2021/07/27 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/07/23 Some useful macros for the draft stage]
+    [2021/07/27 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/07/23 Multi-language configuration]
+    [2021/07/27 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/07/23 The ProjLib logo]
+    [2021/07/27 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/07/23 Useful math macros and shortcuts]
+    [2021/07/27 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/07/23 Paper style configuration]
+    [2021/07/27 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/07/23 Theorem setup and configuration]
+    [2021/07/27 Theorem setup and configuration]
 %</PJLthm>
-%
-%<*PJLtoolkit>
-\ProvidesPackage{PJLtoolkit}
-    [2021/07/23 Collective interface of ProjLib Toolkit]
-%</PJLtoolkit>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
 %# The following two lines are common to all files.
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 %
-%<*PJLamssim>
+%<*PJLauthor>
 %# 在 AMS 文档类中不执行任何操作
 %# Do nothing if AMS class detected
 \ifdefined\subjclass\endinput\fi
 
-%# 使用 PJLauthor 的作者块功能
-%# Use `PJLauthor`'s author block function
-\RequirePackage{PJLauthor}
+%# 这段代码定义了宏包中的选项。
+%# This code defines the options in the package.
+\SetupKeyvalOptions{
+    family = @PJLauthor,
+    prefix = @PJLauthor@,
+}
+%# 支持 AMS 风格
+%# Support AMS fashion
+\DeclareBoolOption[false]{amsfashion}
+%# 处理选项
+%# Process options
+\ProcessKeyvalOptions*\relax
+
+%%================================
+%% Font and style
+%%================================
+%# 各个作者信息元素的字体
+%# Font of the elements in the author block
+\def\PJLauthor@font@author{\normalsize\normalfont\scshape}
+\def\PJLauthor@font@address{\small\normalfont\itshape}
+\def\PJLauthor@font@curraddr{\small\normalfont\itshape}
+\def\PJLauthor@font@email{\small\normalfont\ttfamily}
+
+%%================================
+%% Lengths
+%%================================
+%# author 和 address 之间的距离
+%# Space between author and address
+\newlength{\PJLauthor@length@innersep}
+\setlength{\PJLauthor@length@innersep}{.3\baselineskip}
+%# 两个作者块之间的距离
+%# Space between different author blocks
+\newlength{\PJLauthor@length@sep}
+\setlength{\PJLauthor@length@sep}{.5\baselineskip}
+%# 作者块和日期之间的距离
+%# Space between affiliation and date
+\newlength{\PJLauthor@length@aftersep}
+\setlength{\PJLauthor@length@aftersep}{.3\baselineskip}
+
+%%================================
+%% The macros
+%%================================
+%# 用来记录当前是否有附加作者信息，以便调整距离
+%# To record whether there's affiliation so as to adjust the vertical space
+\newif\if@PJLauthor@affilon
+%# 作者
+%# author
+\renewcommand*{\author}[1]{%
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+    \vspace{\PJLauthor@length@sep}%
+    \PJLauthor@font@author{#1}\\\phantom{}
+    \@PJLauthor@affilonfalse}}
+%# 地址
+%# address
+\providecommand*{\address}[1]{%
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+        \if@PJLauthor@affilon\else%
+            \vspace{\PJLauthor@length@innersep}%
+        \fi%
+        \@PJLauthor@affilontrue%
+        \PJLauthor@font@address{#1}\\\phantom{}}%
+}
+%# 当前地址
+%# curraddr
+\providecommand*{\curraddr}[1]{%
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+        \if@PJLauthor@affilon\else%
+            \vspace{\PJLauthor@length@innersep}%
+        \fi%
+        \@PJLauthor@affilontrue%
+        \PJLauthor@font@curraddr{#1}\\\phantom{}}%
+}
+%# 电子邮箱
+%# email
+\providecommand*{\email}[1]{%
+    \gappto\@author{\phantom{A}\\[-\baselineskip]%
+        \if@PJLauthor@affilon\else%
+            \vspace{\PJLauthor@length@innersep}%
+        \fi%
+        \@PJLauthor@affilontrue%
+        \PJLauthor@font@email{#1}\\\phantom{}}%
+}
+
+%%================================
+%% Adjustment
+%%================================
+%# 去除 maketitle 中默认对 author 的处理
+%# Remove the tabular around \@author in maketitle
+\patchcmd{\@maketitle}{\begin{tabular}[t]{c}}{}{}{}
+\patchcmd{\@maketitle}{\end{tabular}}{}{}{}
+%# 下面这一行是为了避免错误 "No \author given."
+%# The follwing line is for avoiding the error "No \author given."
+\def\@author{}
+%# 修正作者块的前后等距离
+%# Adjust the spacing before and after the author block
+\pretocmd{\@maketitle}{%
+    \pretocmd{\@author}{\vspace{-\PJLauthor@length@sep}}{}{\FAIL}%
+    \apptocmd{\@author}{%
+% Fix the space caused by `\\\phantom{}`
+        \vspace{-\baselineskip}%
+        \if@PJLauthor@affilon%
+            \vspace{\PJLauthor@length@aftersep}%
+        \fi%
+    }{}{\FAIL}%
+}{}{\FAIL}
+
+%# 若使用 AMS 风格
+%# If AMS fashion enabled
+\if@PJLauthor@amsfashion
+
+%# 使用 PJLlang 以支持自动语言转换
+%# Use `PJLlang` to support automatic language conversion
+\RequirePackage{PJLlang}
 \RequirePackage{calc}
 
 %# 设定带条件的加粗
@@ -257,105 +357,8 @@
   \textup{2010} Mathematics Subject Classification}
 \@namedef{subjclassname@2020}{%
   \textup{2020} Mathematics Subject Classification}
-%</PJLamssim>
-%
-%<*PJLauthor>
-%# 在 AMS 文档类中不执行任何操作
-%# Do nothing if AMS class detected
-\ifdefined\subjclass\endinput\fi
 
-%%================================
-%% Font and style
-%%================================
-%# 各个作者信息元素的字体
-%# Font of the elements in the author block
-\def\PJLauthor@font@author{\normalsize\normalfont\scshape}
-\def\PJLauthor@font@address{\small\normalfont\itshape}
-\def\PJLauthor@font@curraddr{\small\normalfont\itshape}
-\def\PJLauthor@font@email{\small\normalfont\ttfamily}
-
-%%================================
-%% Lengths
-%%================================
-%# author 和 address 之间的距离
-%# Space between author and address
-\newlength{\PJLauthor@length@innersep}
-\setlength{\PJLauthor@length@innersep}{.3\baselineskip}
-%# 两个作者块之间的距离
-%# Space between different author blocks
-\newlength{\PJLauthor@length@sep}
-\setlength{\PJLauthor@length@sep}{.5\baselineskip}
-%# 作者块和日期之间的距离
-%# Space between affiliation and date
-\newlength{\PJLauthor@length@aftersep}
-\setlength{\PJLauthor@length@aftersep}{.3\baselineskip}
-
-%%================================
-%% The macros
-%%================================
-%# 用来记录当前是否有附加作者信息，以便调整距离
-%# To record whether there's affiliation so as to adjust the vertical space
-\newif\if@PJLauthor@affilon
-%# 作者
-%# author
-\renewcommand*{\author}[1]{%
-    \gappto\@author{\phantom{A}\\[-\baselineskip]%
-    \vspace{\PJLauthor@length@sep}%
-    \PJLauthor@font@author{#1}\\\phantom{}
-    \@PJLauthor@affilonfalse}}
-%# 地址
-%# address
-\providecommand*{\address}[1]{%
-    \gappto\@author{\phantom{A}\\[-\baselineskip]%
-        \if@PJLauthor@affilon\else%
-            \vspace{\PJLauthor@length@innersep}%
-        \fi%
-        \@PJLauthor@affilontrue%
-        \PJLauthor@font@address{#1}\\\phantom{}}%
-}
-%# 当前地址
-%# curraddr
-\providecommand*{\curraddr}[1]{%
-    \gappto\@author{\phantom{A}\\[-\baselineskip]%
-        \if@PJLauthor@affilon\else%
-            \vspace{\PJLauthor@length@innersep}%
-        \fi%
-        \@PJLauthor@affilontrue%
-        \PJLauthor@font@curraddr{#1}\\\phantom{}}%
-}
-%# 电子邮箱
-%# email
-\providecommand*{\email}[1]{%
-    \gappto\@author{\phantom{A}\\[-\baselineskip]%
-        \if@PJLauthor@affilon\else%
-            \vspace{\PJLauthor@length@innersep}%
-        \fi%
-        \@PJLauthor@affilontrue%
-        \PJLauthor@font@email{#1}\\\phantom{}}%
-}
-
-%%================================
-%% Adjustment
-%%================================
-%# 去除 maketitle 中默认对 author 的处理
-%# Remove the tabular around \@author in maketitle
-\patchcmd{\@maketitle}{\begin{tabular}[t]{c}}{}{}{}
-\patchcmd{\@maketitle}{\end{tabular}}{}{}{}
-%# 下面这一行是为了避免错误 "No \author given."
-%# The follwing line is for avoiding the error "No \author given."
-\def\@author{}
-%# 修正作者块的前后等距离
-%# Adjust the spacing before and after the author block
-\pretocmd{\@maketitle}{%
-    \pretocmd{\@author}{\vspace{-\PJLauthor@length@sep}}{}{\FAIL}%
-    \apptocmd{\@author}{%
-% Fix the space caused by `\\\phantom{}`
-        \vspace{-\baselineskip}%
-        \if@PJLauthor@affilon%
-            \vspace{\PJLauthor@length@aftersep}%
-        \fi%
-    }{}{\FAIL}%
-}{}{\FAIL}
+\fi
 %</PJLauthor>
 %
 %<*PJLdate>
@@ -2121,18 +2124,17 @@
 }
 %</PJLthm>
 %
-%<*ProjLib,PJLtoolkit>
+%<*ProjLib>
 %# 这段代码定义了宏包中的选项。
 %# This code defines the options in the package.
 \SetupKeyvalOptions{
-    family = @PJLtoolkit,
-    prefix = @PJLtoolkit@,
+    family = @ProjLib,
+    prefix = @ProjLib@,
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
 \DeclareBoolOption[false]{author}
 \DeclareBoolOption[false]{amsfashion}
-\DeclareBoolOption[false]{amssim}
 \DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{nothmnum}
 \DeclareBoolOption[false]{regionalref}
@@ -2147,38 +2149,36 @@
 
 %# 下面的代码设定了选项之间的关系
 %# The following code sets the relationship between options
-\if@PJLtoolkit@draft
-    \@PJLtoolkit@fasttrue
-\fi
-\if@PJLtoolkit@amsfashion
-    \@PJLtoolkit@amssimtrue
+\if@ProjLib@draft
+    \@ProjLib@fasttrue
 \fi
 
 %# 向组件传递一些参数
 %# Pass some options to the components
-\if@PJLtoolkit@fast
+\if@ProjLib@fast
     \PassOptionsToPackage{fast}{PJLdate}
     \PassOptionsToPackage{fast}{PJLdraft}
     \PassOptionsToPackage{fast}{PJLlogo}
     \PassOptionsToPackage{fast}{PJLthm}
 \fi
-\if@PJLtoolkit@nothms
+\if@ProjLib@nothms
     \PassOptionsToPackage{nothms}{PJLthm}
 \fi
-\if@PJLtoolkit@nothmnum
+\if@ProjLib@nothmnum
     \PassOptionsToPackage{nothmnum}{PJLthm}
 \fi
-\if@PJLtoolkit@regionalref
+\if@ProjLib@regionalref
     \PassOptionsToPackage{regionalref}{PJLthm}
 \fi
 
 %# 加载不默认载入的组件
 %# Load those components not by default loaded
-\if@PJLtoolkit@author
+\if@ProjLib@amsfashion
+    \PassOptionsToPackage{amsfashion}{PJLauthor}
     \RequirePackage{PJLauthor}
 \fi
-\if@PJLtoolkit@amssim
-    \RequirePackage{PJLamssim}
+\if@ProjLib@author
+    \RequirePackage{PJLauthor}
 \fi
 %# 加载组件
 %# Load the components
@@ -2196,7 +2196,7 @@
 % A message can then be shown as: Font "(font name)" has been set
 \ifdefined\PJL@font@alreadyset\else
 
-\if@PJLtoolkit@palatino
+\if@ProjLib@palatino
     % \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
     \PassOptionsToPackage{defaultsups}{newpxtext}
@@ -2204,22 +2204,22 @@
     % \RequirePackage{newpxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.07}}
-    \if@PJLtoolkit@useosf\useosf\fi
+    \if@ProjLib@useosf\useosf\fi
 \fi
 
-\if@PJLtoolkit@times
+\if@ProjLib@times
     % \RequirePackage{amssymb}
     \PassOptionsToPackage{defaultsups}{newtxtext}
     \RequirePackage{newtxtext}
     \RequirePackage{newtxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.00}}
-    \if@PJLtoolkit@useosf\useosf\fi
+    \if@ProjLib@useosf\useosf\fi
 \fi
 
-\if@PJLtoolkit@garamond
+\if@ProjLib@garamond
     % \RequirePackage{amssymb}
-    \if@PJLtoolkit@useosf\else
+    \if@ProjLib@useosf\else
         \PassOptionsToPackage{lining}{ebgaramond}
     \fi
     \RequirePackage{ebgaramond-maths}
@@ -2228,12 +2228,12 @@
     \PJLsetlinespacing{\setstretch{1.00}}
 \fi
 
-\if@PJLtoolkit@biolinum
+\if@ProjLib@biolinum
     % \RequirePackage{amssymb}
     % \RequirePackage{mathpazo}
     % \RequirePackage[sansmath]{libertinust1math}
     \ifPDFTeX
-        \if@PJLtoolkit@useosf
+        \if@ProjLib@useosf
             \PassOptionsToPackage{osf}{biolinum}
         \fi
         \RequirePackage{biolinum}
@@ -2245,7 +2245,7 @@
             BoldFont       = LinBiolinum_RB.otf ,
             ItalicFont     = LinBiolinum_RI.otf ,
             BoldItalicFont = LinBiolinum_RBO.otf,
-            \if@PJLtoolkit@useosf Numbers = OldStyle\fi ]
+            \if@ProjLib@useosf Numbers = OldStyle\fi ]
     \fi
     \PJLsetlinespacing{\setstretch{1.05}}
     \RequirePackage[italic,defaultmathsizes]{mathastext}
@@ -2258,6 +2258,6 @@
 %# 使用 microtype 优化排版细节
 %# Use `microtype` to get details better
 \RequirePackage{microtype}
-%</ProjLib,PJLtoolkit>
+%</ProjLib>
 
 \endinput

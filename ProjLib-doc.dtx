@@ -91,7 +91,6 @@
 %%================================
 \providecommand{\ProjLibPackage}{\mbox{\textsf{ProjLib}}}
 \providecommand{\PJLtoolkit}{\mbox{\textsf{PJLtoolkit}}}
-\providecommand{\PJLamssim}{\mbox{\textsf{PJLamssim}}}
 \providecommand{\PJLauthor}{\mbox{\textsf{PJLauthor}}}
 \providecommand{\PJLdatePackage}{\mbox{\textsf{PJLdate}}}
 \providecommand{\PJLdraft}{\mbox{\textsf{PJLdraft}}}
@@ -109,7 +108,7 @@
 %<*ProjLib-doc-cn>
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/07/23}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/07/27}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{2021年7月，北京}
 %</ProjLib-doc-cn>
@@ -117,7 +116,7 @@
 %<*ProjLib-doc-en>
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/07/23}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/07/27}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{July 2021, Beijing}
 %</ProjLib-doc-en>
@@ -125,7 +124,7 @@
 %<*ProjLib-doc-fr>
 \title{La boîte à outils~\,\ProjLib{}\\[.3\baselineskip]\normalsize Manuel d'utilisation}
 \author{Jinwen XU}
-\thanks{Correspondant à : \texttt{\ProjLib{}~2021/07/23}}
+\thanks{Correspondant à : \texttt{\ProjLib{}~2021/07/27}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{juillet 2021, à Pékin}
 %</ProjLib-doc-fr>
@@ -429,7 +428,7 @@ Pour une description détaillée de cette commande et d'autres commandes associ�
 ...
 \end{code}
 
-另外，如果开启 \AmS{} 风格\footnote{这是由 \PJLamssim{} 模块实现的。由于这一模块修改了\LaTeX{} 的一些内部指令，有可能与一些宏包或文档类发生冲突，因此没有默认启用。}，那么文章中还可以采用 \AmS{} 文档类的写法 (此时原始的写法也是成立的)。为此，引入 \ProjLibPackage{} 时应该加入 \texttt{amsfashion} 选项：
+另外，如果开启 \AmS{} 风格，那么文章中还可以采用 \AmS{} 文档类的写法 (此时原始的写法也是成立的)。为此，引入 \ProjLibPackage{} 时应该加入 \texttt{amsfashion} 选项\footnote{由于这一选项会修改\LaTeX{} 的一些内部指令，有可能与一些宏包或文档类发生冲突，因此没有默认启用。}：
 \begin{code}
 \usepackage[amsfashion,palatino]{ProjLib}
 \end{code}
@@ -468,7 +467,7 @@ This part is the title and author information block. The example shows the most 
 ...
 \end{code}
 
-In addition, if the \AmS{} simulation is enabled\footnote{This is achieved by the module \PJLamssim{}. Since this module modifies some internal macros of \LaTeX{}, it may conflict with some packages or document classes, and thus it is not enabled by default.}, then you can also write in the \AmS{} fashion (the original way still works). In this case, the line that introduces \ProjLibPackage{} should be written as:
+In addition, if the \AmS{} simulation is enabled, you can also write in the \AmS{} fashion (the original way still works). For this, you should add the package option \texttt{amsfashion}\footnote{Since this option modifies some internal macros of \LaTeX{}, it may conflict with some packages or document classes, and thus it is not enabled by default.}, \emph{i.e.}, the line that introduces \ProjLibPackage{} should be written as:
 \begin{code}
 \usepackage[amsfashion,palatino]{ProjLib}
 \end{code}
@@ -507,7 +506,7 @@ Cette partie est le titre et le bloc d'informations de l'auteur. L'exemple montr
 ...
 \end{code}
 
-De plus, si la simulation d'\AmS{} est activée\footnote{Ceci est réalisé par le module \PJLamssim{}. Étant donné que ce module modifie certaines macros internes de \LaTeX{}, il peut provoquer des conflits avec certains packages ou classes de documents, et donc il n'est pas activé par défaut.}, alors vous pouvez également écrire à la manière \AmS{} (la manière originale fonctionne encore). Dans ce cas, la ligne qui introduit \ProjLibPackage{} doit être écrite comme :
+De plus, si la simulation d'\AmS{} est activée, alors vous pouvez également écrire à la manière \AmS{} (la manière originale fonctionne encore). Pour cela, vous devez ajouter l'option de package \texttt{amsfashion}\footnote{Étant donné que cette option modifie certaines macros internes de \LaTeX{}, elle peut entrer en conflit avec certains packages ou classes de documents, et n'est donc pas activée par défaut.}, c'est-à-dire que la ligne qui introduit \ProjLibPackage{} doit être écrite comme :
 \begin{code}
 \usepackage[amsfashion,palatino]{ProjLib}
 \end{code}
@@ -602,15 +601,15 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
         \end{itemize}
     \item \texttt{nothms}、\texttt{nothmnum}、\texttt{regionalref}
         \begin{itemize}
-            \item 来自 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
+            \item 来自用于设置定理类环境的组件 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
+        \end{itemize}
+    \item \texttt{author}
+        \begin{itemize}
+            \item 加载用于增强作者信息块的组件 \PJLauthor{}。关于其详细功能，请参阅有关该宏包的小节。
         \end{itemize}
     \item \texttt{amsfashion}
         \begin{itemize}
-            \item 允许 \AmS{} 文档类的写法。与 \texttt{amssim} 选项相同。
-        \end{itemize}
-    \item \texttt{author}、\texttt{amssim}
-        \begin{itemize}
-            \item 加载 \PJLauthor{} 或 \PJLamssim{}。关于其详细功能，请参阅有关相关宏包的小节。
+            \item 允许 \AmS{} 文档类的写法。此时 \texttt{author} 选项会被自动开启。
         \end{itemize}
 \end{itemize}
 另外，还有一些组件的参数可以作为文档类的全局参数传递，例如 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{CN} / \texttt{chinese} / \texttt{Chinese} 等语言选项 (来自 \PJLlang{})，\texttt{paperstyle} 和 \texttt{preview} 等纸张选项 (来自 \PJLpaper{})。详细信息可以参阅对应的小节。
@@ -632,15 +631,15 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
         \end{itemize}
     \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
         \begin{itemize}
-            \item Options from \PJLthm{}, please refer to the section on this package for details.
+            \item Options from the component \PJLthm{} used for setting theorem-like environments, please refer to the section on this package for details.
+        \end{itemize}
+    \item \texttt{author}
+        \begin{itemize}
+            \item Load the component \PJLauthor{} used to enhance the author information block. For more information about its functionality, see the section on this package.
         \end{itemize}
     \item \texttt{amsfashion}
         \begin{itemize}
-            \item Allow the user to write document in the \AmS{} fashion. Same as the option \texttt{amssim}.
-        \end{itemize}
-    \item \texttt{author}, \texttt{amssim}
-        \begin{itemize}
-            \item Load \PJLauthor{} or \PJLamssim{}. For more information about their functionality, see the section on the corresponding package.
+            \item Allow the user to write document in the \AmS{} fashion. In the mean time, the option \texttt{author} will be automatically turned on.
         \end{itemize}
 \end{itemize}
 In addition, there are also some options of the components that should be passed as global options of your document class, such as the language options \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc.\,of \PJLlang{}, \\and \texttt{paperstyle}, \texttt{preview} of \PJLpaper{}. For more information, please refer to the corresponding sections.
@@ -662,70 +661,32 @@ In addition, there are also some options of the components that should be passed
         \end{itemize}
     \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
         \begin{itemize}
-            \item Options de \PJLthm{}, veuillez vous référer à la section sur ce package pour plus de détails.
+            \item Options du composant \PJLthm{} utilisé pour définir des environnements de type théorème, veuillez vous référer à la section sur ce package pour plus de détails.
+        \end{itemize}
+    \item \texttt{author}
+        \begin{itemize}
+            \item Utilisez le composant \PJLauthor{} pour enrichir le bloc d'informations sur l'auteur. Pour plus d'informations sur ses fonctionnalités, consultez la section sur ce package.
         \end{itemize}
     \item \texttt{amsfashion}
         \begin{itemize}
-            \item Permet à l'utilisateur d'écrire à la manière \AmS{}. Identique à l'option \texttt{amssim}.
-        \end{itemize}
-    \item \texttt{author}, \texttt{amssim}
-        \begin{itemize}
-            \item Utilisez \PJLauthor{} ou \PJLamssim{}. Pour plus d'informations sur leurs fonctionnalités, consultez la section sur les packages correspondants.
+            \item Permet à l'utilisateur d'écrire à la manière \AmS{}. En attendant, l'option \texttt{author} sera automatiquement activée.
         \end{itemize}
 \end{itemize}
 De plus, il existe également certaines options des composants qui doivent être passées en tant qu'options globales de votre classe de document, telles que les options de langue de \PJLlang{} comme \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc., et les options de papier de \PJLpaper{} comme \texttt{paperstyle} et \texttt{preview}. Pour plus d'informations, veuillez vous référer aux sections correspondantes.
 %</ProjLib-doc-fr>
 
 \clearpage
+
 %<*ProjLib-doc-cn>
 \section{具体组件}
-
-\subsection{PJLamssim：以 \texorpdfstring{\AmS}{AMS} 方式写作}
-
-\PJLamssim{} 用于模拟 \textsf{amsart} 文档类的部分功能，包括：
-\begin{itemize}
-    \item \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email|、\lstinline|\dedicatory| 命令 (前三者由 \PJLauthor{} 提供)
-    \item \lstinline|\keywords| 命令
-    \item \lstinline|\subjclass| 命令
-    \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
-    \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
-\end{itemize}
-
-这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLamssim{} 不会起到任何效果。
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
 \section{The components}
-
-\subsection{PJLamssim: writing in \texorpdfstring{\AmS}{AMS} fashion}
-
-\PJLamssim{} is used to simulate some features of the \textsf{amsart} class in a standard class, including:
-\begin{itemize}
-    \item the macros \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| and \lstinline|\dedicatory| (the first three are provided by \PJLauthor{});
-    \item the macro \lstinline|\keywords|;
-    \item the macro \lstinline|\subjclass|;
-    \item \lstinline|\thanks| can be written outside \lstinline|\author|;
-    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|.
-\end{itemize}
-
-These modifications would only take place in standard classes. In the \AmS{} classes, \PJLamssim{} does not have any effect.
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
 \section{Les composants}
-
-\subsection{PJLamssim : écrire de la manière \texorpdfstring{\AmS}{AMS}}
-
-\PJLamssim{} est utilisé pour simuler certaines fonctionnalités de la classe \textsf{amsart} dans une classe standard, notamment :
-\begin{itemize}
-    \item les macros \lstinline|\address|, \lstinline|\curraddr|, \lstinline|\email| et \lstinline|\dedicatory| (les trois premiers sont fournis par \PJLauthor{});
-    \item la macro \lstinline|\keywords|;
-    \item la macro \lstinline|\subjclass|;
-    \item \lstinline|\thanks| peut être écrit en dehors de \lstinline|\author|;
-    \item La environnement \lstinline|abstract| peut être placé avant \lstinline|\maketitle|.
-\end{itemize}
-
-Ces modifications n'auraient lieu que dans les classes standard. Dans les classes \AmS{}, \PJLamssim{} n'a aucun effet.
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
@@ -742,6 +703,18 @@ Ces modifications n'auraient lieu que dans les classes standard. Dans les classe
   ...
 \end{code}
 其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
+
+\medskip
+另外，你可以通过选项 \texttt{amsfashion} 以使用 \AmS{} 方式写作。具体来说，效果为：
+\begin{itemize}
+    \item 提供 \lstinline|\dedicatory|、\lstinline|\keywords| 及 \lstinline|\subjclass| 命令
+    \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
+    \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
+\end{itemize}
+
+\begin{tip}[注意]
+    这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLauthor{} 不会起到任何效果。
+\end{tip}
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
@@ -758,6 +731,18 @@ Ces modifications n'auraient lieu que dans les classes standard. Dans les classe
   ...
 \end{code}
 The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
+
+\medskip
+In addition, you can use the option \texttt{amsfashion} to enable the \AmS{} fashion. More specifically, the effect is:
+\begin{itemize}
+    \item Provides the macros \lstinline|\dedicatory|, \lstinline|\keywords| and \lstinline|\subjclass|;
+    \item \lstinline|\thanks| can be written outside \lstinline|\author|;
+    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|.
+\end{itemize}
+
+\begin{tip}[Attention]
+    These modifications would only take place in standard classes. In the \AmS{} classes, \PJLauthor{} does not have any effect.
+\end{tip}
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
@@ -774,6 +759,18 @@ The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\
   ...
 \end{code}
 L'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email| n'est pas important.
+
+\medskip
+De plus, vous pouvez utiliser l'option \texttt{amsfashion} pour écrire à la manière \AmS{}. Plus précisément, l'effet est :
+\begin{itemize}
+    \item Fournit les macros \lstinline|\dedicatory|, \lstinline|\keywords| et \lstinline|\subjclass|;
+    \item \lstinline|\thanks| peut être écrit en dehors de la macro \lstinline|\author|;
+    \item La environnement \lstinline|abstract| peut être placé avant \lstinline|\maketitle|.
+\end{itemize}
+
+\begin{tip}[Attention]
+    Ces modifications n'auraient lieu que dans les classes standard. Dans les classes \AmS{}, \PJLauthor{} n'a aucun effet.
+\end{tip}
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
@@ -1079,7 +1076,7 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
 
 \PJLmath{} 提供下列捷径：
 \begin{enumerate}[label=\roman*)]
-    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ 或 \lstinline|\frak|$\cdot$。例如，\lstinline|\mfA| (或 \lstinline|\mf{A}|) 与 \lstinline|\mathfrak{A}| 效果相同. 这对大写、小写字母都有效：
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ 或 \lstinline|\frak|$\cdot$。例如，\lstinline|\mfA| (或 \lstinline|\mf{A}|) 与 \lstinline|\mathfrak{A}| 效果相同. 这对大写、小写字母都有效：\vspace{-\baselineskip}
     \begin{align*}
         \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
         \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
@@ -1110,8 +1107,8 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
 \lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & 表示单射的箭头符号 \\
 \lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & 表示满射的箭头符号 \\
 \lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & 表示双射的箭头符号 \\
-\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre 符号 \\
-& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre 符号 \\
+% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
 % \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre 符号 (text style) \\
 % \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre 符号 (display style) \\
 \end{longtable}
@@ -1154,8 +1151,8 @@ In addition, \PJLmath{} also provides some math symbols that are not by default 
 \lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & arrow symbol for injection \\
 \lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & arrow symbol for surjection \\
 \lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & arrow symbol for bijection \\
-\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre symbol \\
-& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre symbol \\
+% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
 % \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre symbol (text style) \\
 % \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre symbol (display style) \\
 \end{longtable}
@@ -1199,13 +1196,14 @@ De plus, \PJLmath{} fournit également des symboles mathématiques qui ne sont p
 \lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & symbole de flèche pour l'injection \\
 \lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & symbole de flèche pour la surjection \\
 \lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & symbole de flèche pour la bijection \\
-\lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Symbole Legendre \\
-& \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Symbole Legendre \\
+% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
 % \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Symbole Legendre (text-style) \\
 % \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Symbole Legendre (display-style) \\
 \end{longtable}
 %</ProjLib-doc-fr>
 
+\clearpage
 %<*ProjLib-doc-cn>
 \subsection{PJLpaper：纸张设置}
 

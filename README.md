@@ -2,11 +2,12 @@
 
 # ProjLib Toolkit
 
-> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or "***Proj**et **Lib**re*" (in French). Personally, I prefer the French interpretation.
+> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or "***Proj**et **Lib**re*" (in French).
+> Personally, I prefer later one.
 
 ## Introduction
 
-`ProjLib` is a collection of tools that help you write LaTeX document. With package `ProjLib` loaded (note that it is case-sensitive), you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
+`ProjLib` is a collection of tools that help you write LaTeX document. With the package `ProjLib` loaded (note that it is case-sensitive), you no longer need to set up the theorem-like environments nor to manually configure the appropriate multilingual settings. In addition, a series of auxiliary functionalities are introduced.
 
 To get started, simply put this line in your preamble:
 ```latex
@@ -16,11 +17,13 @@ To get started, simply put this line in your preamble:
 
 ## The components
 The components include:
-1. `PJLamssim.sty`
-    - Simulate some features of `amsart` in the standard classes
 1. `PJLauthor.sty`
     - Enhanced author information block
     - Offers `\address`, `\curraddr` and `\email`
+    - Write in the AMS fashion (with option `amsfashion`):
+        - Support `\dedicatory`, `\keywords` and `\subjclass`
+        - `\thanks` can be written outside `\author`;
+        - The `abstract` environment can be placed before `\maketitle`.
 1. `PJLdate.sty`
     - Offers a macro `\PLdate` (or `\PJLdate`) to convert `yyyy-mm-dd` to normal datetime format, with multi-language support
 1. `PJLdraft.sty`
@@ -39,16 +42,22 @@ The components include:
     - Theorem setup and configuration
     - Offers a macro `\CreateTheorem` for creating theorem-like environments with multi-language support
     - Preset environments include: `assumption`, `axiom`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
-1. `PJLtoolkit.sty` (this is the internal name of the `ProjLib` package)
+<!-- 1. `PJLtoolkit.sty` (this is the internal name of the `ProjLib` package)
     - A collective interface of ProjLib Toolkit, loading all the packages above
-    - Provide some pre-defined font configuration
+    - Provide some pre-defined font configuration -->
 
-> Since `PJLthm.sty` (and thus `PJLtoolkit.sty`) uses `cleveref`, it should be loaded after `varioref` and `hyperref`.
+> Since `PJLthm.sty` (and thus `ProjLib.sty`) uses `cleveref`, it should be loaded after `varioref` and `hyperref`.
 
 ## How to get these files
 You can get the `.sty` files mentioned above simply by compiling `ProjLib.ins`:
 ```
 latex ProjLib.ins
+```
+
+## How to get the source of the documentation
+You can get the `.tex` source files of the documentation by compiling `ProjLib-doc.ins`:
+```
+latex ProjLib-doc.ins
 ```
 
 ## An example
@@ -60,7 +69,7 @@ latex ProjLib.ins
 
 %% You can also comment the above lines and try the following (require xelatex or lualatex):
 % \documentclass[a4paper,allowbf]{lebhart}
-% \usepackage{ProjLib}
+% \usepackage[amsfashion]{ProjLib}
 
 %% Using \UseLanguage to select language, by default "English" is selected
 \UseLanguage{French} % Use French from here
