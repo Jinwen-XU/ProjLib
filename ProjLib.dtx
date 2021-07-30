@@ -1974,6 +1974,7 @@
 }
 %# 建立定理类环境
 %# Setup theorem-like environments
+\AtEndPreamble{
 \if@PJLthm@nothms\else
 \if@PJLthm@nothmnum
 \CreateTheorem*{theorem}
@@ -2052,6 +2053,7 @@
 \CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
+}
 
 %# 按照 thmnum 决定公式如何编号
 %# Number the equations with respect to thmnum
@@ -2169,7 +2171,9 @@
 \DeclareBoolOption[false]{amsfashion}
 \DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{nothmnum}
-\DeclareBoolOption[false]{regionalref}
+\DeclareStringOption{thmnum}[PJL@thmnum@default]
+\DeclareBoolOption[true]{regionalref}
+\DeclareBoolOption[false]{originalref}
 \DeclareBoolOption[false]{useosf}
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
@@ -2182,6 +2186,9 @@
 
 %# 下面的代码设定了选项之间的关系
 %# The following code sets the relationship between options
+\if@ProjLib@originalref
+    \@ProjLib@regionalreffalse
+\fi
 \if@ProjLib@draft
     \@ProjLib@fasttrue
 \fi
@@ -2200,8 +2207,15 @@
 \if@ProjLib@nothmnum
     \PassOptionsToPackage{nothmnum}{PJLthm}
 \fi
-\if@ProjLib@regionalref
-    \PassOptionsToPackage{regionalref}{PJLthm}
+\expandafter\ifstrempty\expandafter{\@ProjLib@thmnum}{}{
+    \expandafter\ifstrequal\expandafter{\@ProjLib@thmnum}{PJL@thmnum@default}{
+        \PassOptionsToPackage{thmnum}{PJLthm}
+    }{
+        \PassOptionsToPackage{thmnum=\@ProjLib@thmnum}{PJLthm}
+    }
+}
+\if@ProjLib@regionalref\else
+    \PassOptionsToPackage{originalref}{PJLthm}
 \fi
 
 %# 加载不默认载入的组件
