@@ -210,7 +210,7 @@ The \ProjLib{} toolkit is composed of the main package \ProjLibPackage{} and a s
 
 Le nom \ProjLib{} peut être considéré comme l'abréviation de \emph{Project Library} en anglais ou de \emph{Projet Libre} en français (l'auteur préfère l'interprétation française). Son objectif principal est de fournir un support multilingue et des environnements de type théorème avec des références intelligentes. De plus, certaines fonctionnalités supplémentaires sont fournies, telles que le bloc auteur amélioré, les marques de brouillon, les symboles mathématiques et les raccourcis, etc.
 
-La boîte à outils \ProjLib{} est composée du package principal \ProjLibPackage{} et d'une série de composants dont les noms commencent par l'abréviation « PJL ». Vous pouvez apprendre à l'utiliser à travers les exemples d'utilisation dans la section suivante.
+La boîte à outils \ProjLib{} est composée du package principal \ProjLibPackage{} et d'une série de composants dont les noms commencent par l'abréviation «~PJL~». Vous pouvez apprendre à l'utiliser à travers les exemples d'utilisation dans la section suivante.
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
@@ -599,7 +599,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item 字体选项。顾名思义，会加载相应名称的字体。
             \item \texttt{useosf} 选项用来启用“旧式”数字。
         \end{itemize}
-    \item \texttt{nothms}、\texttt{nothmnum}、\texttt{regionalref}
+    \item \texttt{nothms}、\texttt{nothmnum}、\texttt{regionalref}、\texttt{originalref}
         \begin{itemize}
             \item 来自用于设置定理类环境的组件 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
         \end{itemize}
@@ -629,7 +629,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item Font options. As the names suggest, font with corresponding name will be loaded. 
             \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options from the component \PJLthm{} used for setting theorem-like environments, please refer to the section on this package for details.
         \end{itemize}
@@ -659,7 +659,7 @@ In addition, there are also some options of the components that should be passed
             \item Options de police. Comme les noms l'indiquent, la police avec le nom correspondant sera utilisée.
             \item L'option \texttt{useosf} est pour activer les chiffres à l'ancienne.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options du composant \PJLthm{} utilisé pour définir des environnements de type théorème, veuillez vous référer à la section sur ce package pour plus de détails.
         \end{itemize}
@@ -792,7 +792,7 @@ For details on how to select a language, please refer to the section on \PJLlang
 %<*ProjLib-doc-fr>
 \subsection{PJLdate : traitement de date-heure}
 
-\PJLdatePackage{} propose la macro \lstinline|\PLdate|\meta{yyyy-mm-dd} (ou \lstinline|\PJLdate|\meta{yyyy-mm-dd}) pour convertir \meta{yyyy-mm-dd} dans le format de date de la langue actuellement sélectionnée. Par exemple, dans le contexte français actuel, \lstinline|\PLdate{2022-04-01}| deviendrait « \PLdate{2022-04-01} », tandis que dans le contexte anglais « \UseOtherLanguage{English}{\PLdate{2022-04-01}} ».
+\PJLdatePackage{} propose la macro \lstinline|\PLdate|\meta{yyyy-mm-dd} (ou \lstinline|\PJLdate|\meta{yyyy-mm-dd}) pour convertir \meta{yyyy-mm-dd} dans le format de date de la langue actuellement sélectionnée. Par exemple, dans le contexte français actuel, \lstinline|\PLdate{2022-04-01}| deviendrait «~\PLdate{2022-04-01}~», tandis que dans le contexte anglais «~\UseOtherLanguage{English}{\PLdate{2022-04-01}}~».
 
 Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
 %</ProjLib-doc-fr>
@@ -1290,9 +1290,10 @@ Il est recommandé de les passer comme options globales de la classe de document
     \begin{itemize}
         \item 使定理类环境均不编号。
     \end{itemize}
-    \item \texttt{regionalref}
+    \item \texttt{regionalref}、\texttt{originalref}
     \begin{itemize}
-        \item 在智能引用时，定理类环境的名称随当前语言而变化（默认情况下，引用时会始终采用定理类环境所处语境下的名称；例如，在英文语境中书写的定理，即使稍后在中文语境下引用时，仍将显示为 Theorem）。在 \texttt{fast} 模式下，这一选项默认启用。
+        \item 在智能引用时，定理类环境的名称是否随当前语言而变化。默认为 \texttt{regionalref}，即引用时采用当前语言对应的名称；例如，在中文语境中引用定理类环境时，无论原环境处在什么语境中，都将使用名称“定理、定义……”。若启用 \texttt{originalref}，则引用时会始终采用定理类环境所处语境下的名称；例如，在英文语境中书写的定理，即使稍后在中文语境下引用时，仍将显示为 Theorem。
+        \item 在 \texttt{fast} 模式下，\texttt{originalref} 将不起作用。
     \end{itemize}
 \end{itemize}
 
@@ -1395,9 +1396,10 @@ Il est recommandé de les passer comme options globales de la classe de document
     \begin{itemize}
         \item Theorem-like environments will not be numbered.
     \end{itemize}
-    \item \texttt{regionalref}
+    \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
-        \item When referencing, name of the theorem-like environment will change with the current language (by default, the name will always remain the same; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''). In \texttt{fast} mode, this option is automatically enabled.
+        \item When referencing, whether the name of the theorem-like environment changes with the current language. The default is \texttt{regionalref}, \emph{i.e.}, the name corresponding to the current language is used; for example, when referencing a theorem-like environment in English context, the names "Theorem, Definition..." will be used no matter which language context the original environment is in. If \texttt{originalref} is enabled, then the name will always remain the same as the original place; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''. 
+        \item In \texttt{fast} mode, the option \texttt{originalref} will have no effect.
     \end{itemize}
 \end{itemize}
 
@@ -1502,14 +1504,15 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     \begin{itemize}
         \item Les environnements de type théorème ne seront pas numérotés.
     \end{itemize}
-    \item \texttt{regionalref}
+    \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
-        \item Lors du référencement, le nom de l'environnement de type théorème changera avec la langue actuelle (par défaut, le nom restera toujours le même ; par exemple, lors du référencement d'un théorème écrit dans le contexte anglais, même si l'on est actuellement dans le contexte français , il sera toujours affiché comme « Theorem »). En mode \texttt{fast}, cette option est automatiquement activée.
+        \item Lors du référencement, si le nom de l'environnement de type théorème change avec la langue actuelle. Par défaut \texttt{regionalref} est activé, c'est-à-dire que le nom correspondant à la langue courante est utilisé ; par exemple, lors du référencement d'un environnement de type théorème dans un contexte français, les noms «~Théorème, Définition ...~» seront utilisés quel que soit le contexte linguistique dans lequel se trouve l'environnement d'origine. Si \texttt{originalref} est activé, alors le nom restera toujours le même que l'environnement d'origine ; par exemple, lors du référencement d'un théorème écrit dans le contexte français, même si l'on est actuellement dans le contexte anglais, il sera toujours affiché comme «~Théorème~». 
+        \item En mode \texttt{fast}, l'option \texttt{originalref} n'aura aucun effet.
     \end{itemize}
 \end{itemize}
 
 \medskip
-Les environnements prédéfinis incluent : \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{hypothesis}, \texttt{lemma}, \texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, et la version non numérotée correspondante avec un astérisque \lstinline|*| dans le nom. Les titres changeront avec la langue actuelle. Par exemple, \texttt{theorem} sera affiché comme « Theorem » en mode anglais et « Théorème » en mode français. Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
+Les environnements prédéfinis incluent : \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{hypothesis}, \texttt{lemma}, \texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, et la version non numérotée correspondante avec un astérisque \lstinline|*| dans le nom. Les titres changeront avec la langue actuelle. Par exemple, \texttt{theorem} sera affiché comme «~Theorem~» en mode anglais et «~Théorème~» en mode français. Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
 
 \begin{tip}
     Lors du référencement d'un environnement de type théorème, il est recommandé d'utiliser \lstinline|\cref{|\meta{label}\texttt{\}}. De cette façon, il n'est pas nécessaire d'écrire explicitement le nom de l'environnement correspondant à chaque fois.
@@ -1522,7 +1525,6 @@ Si vous avez besoin de définir un nouvel environnement de type théorème, vous
 \end{itemize}
 Pour \meta{language name}, veuillez vous référer à la section sur \PJLlang{}. Lorsque \meta{language name} n'est pas spécifié, le nom sera défini pour toutes les langues prises en charge. De plus, les environnements avec ou sans astérisque partagent le même nom, donc, \lstinline|\NameTheorem{envname*}{...}| a le même effet que \lstinline|\NameTheorem{envname}{...}| .
 
-\clearpage
 Ensuite, créez cet environnement de l'une des cinq manières suivantes :
 \vspace{-.3\baselineskip}
 \begin{itemize}
