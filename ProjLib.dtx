@@ -18,47 +18,47 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/07/27 The collective interface of ProjLib toolkit]
+    [2021/07/30 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/07/27 Enhanced author information block]
+    [2021/07/30 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/07/27 Convert yyyy-mm-dd to normal datetime format]
+    [2021/07/30 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/07/27 Some useful macros for the draft stage]
+    [2021/07/30 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/07/27 Multi-language configuration]
+    [2021/07/30 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/07/27 The ProjLib logo]
+    [2021/07/30 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/07/27 Useful math macros and shortcuts]
+    [2021/07/30 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/07/27 Paper style configuration]
+    [2021/07/30 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/07/27 Theorem setup and configuration]
+    [2021/07/30 Theorem setup and configuration]
 %</PJLthm>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -1399,12 +1399,16 @@
 \DeclareBoolOption[false]{fast}
 %# 引用的名称将随当前语言的不同而改变
 %# Reference name will change with the current language
-\DeclareBoolOption[false]{regionalref}
+\DeclareBoolOption[true]{regionalref}
+\DeclareBoolOption[false]{originalref}
 %# 处理选项
 %# Process options
 \ProcessKeyvalOptions*\relax
 %# 下面的代码设定了选项之间的关系
 %# The following code sets the relationship between options
+\if@PJLthm@originalref
+    \@PJLthm@regionalreffalse
+\fi
 \if@PJLthm@draft
     \@PJLthm@fasttrue
 \fi
@@ -2142,6 +2146,7 @@
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
+\DeclareBoolOption[false]{noto}
 \DeclareBoolOption[false]{biolinum}
 %# 处理选项
 %# Process options
@@ -2225,6 +2230,15 @@
     \RequirePackage{ebgaramond-maths}
     \RequirePackage{ebgaramond}
     % \RequirePackage{garamondlibre}
+    \PJLsetlinespacing{\setstretch{1.00}}
+\fi
+
+\if@ProjLib@noto
+    \if@ProjLib@useosf
+        \PassOptionsToPackage{oldstyle}{notomath}
+    \fi
+    \RequirePackage{anyfontsize}
+    \RequirePackage{notomath}
     \PJLsetlinespacing{\setstretch{1.00}}
 \fi
 
