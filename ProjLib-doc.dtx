@@ -599,7 +599,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item 字体选项。顾名思义，会加载相应名称的字体。
             \item \texttt{useosf} 选项用来启用“旧式”数字。
         \end{itemize}
-    \item \texttt{nothms}、\texttt{nothmnum}、\texttt{regionalref}、\texttt{originalref}
+    \item \texttt{nothms}、\texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}、\texttt{regionalref}、\texttt{originalref}
         \begin{itemize}
             \item 来自用于设置定理类环境的组件 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
         \end{itemize}
@@ -629,7 +629,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item Font options. As the names suggest, font with corresponding name will be loaded. 
             \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}, \texttt{originalref}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options from the component \PJLthm{} used for setting theorem-like environments, please refer to the section on this package for details.
         \end{itemize}
@@ -659,7 +659,7 @@ In addition, there are also some options of the components that should be passed
             \item Options de police. Comme les noms l'indiquent, la police avec le nom correspondant sera utilisée.
             \item L'option \texttt{useosf} est pour activer les chiffres à l'ancienne.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{regionalref}, \texttt{originalref}
+    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options du composant \PJLthm{} utilisé pour définir des environnements de type théorème, veuillez vous référer à la section sur ce package pour plus de détails.
         \end{itemize}
@@ -1286,9 +1286,9 @@ Il est recommandé de les passer comme options globales de la classe de document
     \begin{itemize}
         \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
     \end{itemize}
-    \item \texttt{nothmnum}
+    \item \texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}
     \begin{itemize}
-        \item 使定理类环境均不编号。
+        \item 使定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
     \end{itemize}
     \item \texttt{regionalref}、\texttt{originalref}
     \begin{itemize}
@@ -1392,9 +1392,9 @@ Il est recommandé de les passer comme options globales de la classe de document
     \begin{itemize}
         \item Theorem-like environments will not be defined. You may use this option if you wish to apply your own theorem styles.
     \end{itemize}
-    \item \texttt{nothmnum}
+    \item \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}
     \begin{itemize}
-        \item Theorem-like environments will not be numbered.
+        \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. Here, \meta{counter} should be a built-in counter (such as \texttt{subsection}) or a custom counter defined in the preamble. If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
     \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
@@ -1500,9 +1500,9 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     \begin{itemize}
         \item Les environnements de type théorème ne seront pas définis. Vous pouvez utiliser cette option si vous souhaitez appliquer vos propres styles de théorème.
     \end{itemize}
-    \item \texttt{nothmnum}
+    \item \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}
     \begin{itemize}
-        \item Les environnements de type théorème ne seront pas numérotés.
+        \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Ici, \meta{counter} doit être un compteur intégré (tel que \texttt{subsection}) ou un compteur défini dans le préambule. Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
     \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}

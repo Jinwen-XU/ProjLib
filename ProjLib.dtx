@@ -1393,6 +1393,9 @@
 %# 不编号定理类环境
 %# Do not number theorem-like environments
 \DeclareBoolOption[false]{nothmnum}
+%# 指定如何编号定理类环境
+%# Number theorem-like environments With ...
+\DeclareStringOption{thmnum}[PJL@thmnum@default]
 %# 草稿模式或快速模式
 %# Draft mode or fast mode
 \DeclareBoolOption[false]{draft}
@@ -1956,6 +1959,19 @@
 }{
     \newaliascnt{PJLthm@highest}{section}
 }
+%# 按照 thmnum 决定定理类环境如何编号
+%# Number the theorem-like environment with respect to thmnum
+\NewDocumentCommand{\CreateTheorem@thmnum}{m}{
+    \expandafter\ifstrempty\expandafter{\@PJLthm@thmnum}{
+        \CreateTheorem{#1}<PJLthm@highest>
+    }{
+        \expandafter\ifstrequal\expandafter{\@PJLthm@thmnum}{PJL@thmnum@default}{
+            \CreateTheorem{#1}
+        }{
+            \CreateTheorem{#1}<\@PJLthm@thmnum>
+        }
+    }
+}
 %# 建立定理类环境
 %# Setup theorem-like environments
 \if@PJLthm@nothms\else
@@ -1970,7 +1986,7 @@
 \CreateTheorem*{fact}
 \CreateTheorem*{conjecture}
 \else
-\CreateTheorem{theorem}<PJLthm@highest>
+\CreateTheorem@thmnum{theorem}
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
 \CreateTheorem{corollary}[theorem]
@@ -2030,14 +2046,26 @@
 \CreateTheorem*{remark}
 \CreateTheorem*{observation}
 \else
-\CreateTheorem{remark}<PJLthm@highest>
-\CreateTheorem{observation}<PJLthm@highest>
+\CreateTheorem@thmnum{remark}
+\CreateTheorem@thmnum{observation}
 \fi
 \CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
 
-\numberwithin{equation}{PJLthm@highest}
+%# 按照 thmnum 决定公式如何编号
+%# Number the equations with respect to thmnum
+\expandafter\ifstrempty\expandafter{\@PJLthm@thmnum}{
+% thmnum is not used.
+    \numberwithin{equation}{PJLthm@highest}
+}{
+    \expandafter\ifstrequal\expandafter{\@PJLthm@thmnum}{PJL@thmnum@default}{
+% thmnum is used, with no value.
+    }{
+% thmnum is used, with value \@PJLthm@thmnum.
+        \numberwithin{equation}{\@PJLthm@thmnum}
+    }
+}
 
 %# 一些 cref 的本地化
 %# Some localization of cref
