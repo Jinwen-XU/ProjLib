@@ -179,7 +179,7 @@
 
 %# 若使用 AMS 风格
 %# If AMS fashion enabled
-\if@PJLauthor@amsfashion
+\ifbool{@PJLauthor@amsfashion}{
 
 %# 使用 PJLlang 以支持自动语言转换
 %# Use `PJLlang` to support automatic language conversion
@@ -251,8 +251,8 @@
 %# Modify abstract to allow it before maketitle
 \let\abstract@PJLoriginal\abstract%
 \let\endabstract@PJLoriginal\endabstract%
-\newif\if@PJLamssim@maketitle\@PJLamssim@maketitlefalse
-\newif\if@PJLamssim@absbefore\@PJLamssim@absbeforefalse
+\newif\if@PJLauthor@maketitle\@PJLauthor@maketitlefalse
+\newif\if@PJLauthor@absbefore\@PJLauthor@absbeforefalse
 \RequirePackage{fancyvrb}
 % Taken from https://tex.stackexchange.com/a/596328
 % define the same as \protected@write, but with \immediate
@@ -274,7 +274,7 @@
     \VerbatimOut{\jobname.pjlabs}%
 }{
     \endVerbatimOut%
-    \if@PJLamssim@maketitle%
+    \if@PJLauthor@maketitle%
         \begin{abstract@PJLoriginal}%
             \input{\jobname.pjlabs}%
         \end{abstract@PJLoriginal}%
@@ -282,7 +282,7 @@
         %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PJL@keywords%
         % \fi%
     \else%
-        \global\@PJLamssim@absbeforetrue%
+        \global\@PJLauthor@absbeforetrue%
     \fi%
 }
 
@@ -315,7 +315,7 @@
 %## 将 abstract 添加进 \maketitle
 %## Add abstract to \maketitle
 \apptocmd{\maketitle}{%
-    \if@PJLamssim@absbefore%
+    \if@PJLauthor@absbefore%
         \begin{abstract@PJLoriginal}%
             \input{\jobname.pjlabs}%
             % \ifx\PJL@keywords\@empty\else%
@@ -328,7 +328,7 @@
     \global\let\email\relax
     \global\let\dedicatory\relax
     \global\let\keywords\relax
-    \global\@PJLamssim@maketitletrue
+    \global\@PJLauthor@maketitletrue
 }{}{\FAIL}
 %##- 这段未被采用的代码将使 maketitle 中的 \newpage 失效
 %##- Disbale the \newpage in maketitle
@@ -358,7 +358,7 @@
 \@namedef{subjclassname@2020}{%
   \textup{2020} Mathematics Subject Classification}
 
-\fi
+}
 %</PJLauthor>
 %
 %<*PJLdate>
@@ -411,7 +411,7 @@
 \gappto{\PJLlang@langconfig@common}{%
     \let\@DTMdate\@DTMdate@PJLoriginal%
 }
-\gappto{\PJLlang@langconfig@chinese}{%
+\gappto{\PJLlang@langconfig@schinese}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
@@ -659,7 +659,7 @@
 \newcommand\portugueseABBR{PT}
 \newcommand\brazilianABBR{BR}
 \newcommand\spanishABBR{ES}
-\newcommand\chineseABBR{CN}
+\newcommand\schineseABBR{CN}
 \newcommand\tchineseABBR{TC}
 \newcommand\japaneseABBR{JP}
 \newcommand\russianABBR{RU}
@@ -705,6 +705,9 @@
     \if@PJLlang@enable@FR
         \frenchsetup{PartNameFull=false}
     \fi
+
+    \babelprovide{schinese}
+    \babelprovide{tchinese}
 \fi
 
 %# 本地化 \today
@@ -720,7 +723,7 @@
 
 %# 各个语言的设置
 %# The configuration for each language
-\newcommand{\PJLlang@langconfig@chinese}{%
+\newcommand{\PJLlang@langconfig@schinese}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
     \def\contentsname{目录}%
@@ -733,7 +736,7 @@
     \def\refname{参考文献}%
     \def\bibname{参考文献}%
     \let\today\zhtoday%
-    \renewcommand{\languagename}{chinese}%
+    \renewcommand{\languagename}{schinese}%
 }
 \newcommand{\PJLlang@langconfig@tchinese}{%
     \def\abstractname{摘要}%
@@ -788,10 +791,10 @@
     {\gappto{\PJLlang@langconfig@common}{#2}}%
     {%
         \lowercase{\IfStrEqCase{#1}}{%
-            {cn}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
-            {chinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
-            {schinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
-            {simplifiedchinese}{\gappto{\PJLlang@langconfig@chinese}{#2}}%
+            {cn}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
+            {chinese}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
+            {schinese}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
+            {simplifiedchinese}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
             {tc}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
             {tchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
             {traditionalchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
@@ -841,10 +844,10 @@
 \newcommand{\UseLanguageCORE}[1]{%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
-        {cn}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
-        {chinese}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
-        {schinese}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
-        {simplifiedchinese}{\PJL@config@CJK\PJLlang@langconfig@chinese}%
+        {cn}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
+        {chinese}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
+        {schinese}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
+        {simplifiedchinese}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
         {tc}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
         {tchinese}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
         {traditionalchinese}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
@@ -884,10 +887,10 @@
 \begingroup%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
-        {cn}{\PJLlang@langconfig@chinese}%
-        {chinese}{\PJLlang@langconfig@chinese}%
-        {schinese}{\PJLlang@langconfig@chinese}%
-        {simplifiedchinese}{\PJLlang@langconfig@chinese}%
+        {cn}{\PJLlang@langconfig@schinese}%
+        {chinese}{\PJLlang@langconfig@schinese}%
+        {schinese}{\PJLlang@langconfig@schinese}%
+        {simplifiedchinese}{\PJLlang@langconfig@schinese}%
         {tc}{\PJLlang@langconfig@tchinese}%
         {tchinese}{\PJLlang@langconfig@tchinese}%
         {traditionalchinese}{\PJLlang@langconfig@tchinese}%
@@ -2071,7 +2074,7 @@
 
 %# 一些 cref 的本地化
 %# Some localization of cref
-\gappto{\PJLlang@langconfig@chinese}{%
+\gappto{\PJLlang@langconfig@schinese}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{图}{图}%
     \crefname{table}{表}{表}%
