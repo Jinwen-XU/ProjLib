@@ -884,7 +884,7 @@
 %# 用于局部选定语言的 UseOtherLanguage
 %# Macro for selecting language locally
 \newcommand{\UseOtherLanguage}[2]{%
-\begingroup%
+\begingroup\begingroup%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
         {cn}{\PJLlang@langconfig@schinese}%
@@ -915,7 +915,7 @@
         {russian}{\PJLlang@langconfig@russian}%
     }%
     #2%
-\endgroup%
+\endgroup\endgroup%
 }
 
 %# 运行默认语言的设置
