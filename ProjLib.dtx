@@ -1291,13 +1291,13 @@
 \def\@pmods#1{\mkern4mu({\operator@font mod}\mkern 6mu#1)}
 \fi
 
-\newcommand{\genlegendre}[4]{%
+\providecommand{\genlegendre}[4]{%
   \genfrac{(}{)}{}{#1}{#3}{#4}%
   \if\relax\detokenize{#2}\relax\else_{\!#2}\fi%
 }
-\newcommand{\legendre}[3][]{\genlegendre{}{#1}{#2}{#3}}
-\newcommand{\dlegendre}[3][]{\genlegendre{0}{#1}{#2}{#3}}
-\newcommand{\tlegendre}[3][]{\genlegendre{1}{#1}{#2}{#3}}
+\providecommand{\legendre}[3][]{\genlegendre{}{#1}{#2}{#3}}
+\providecommand{\dlegendre}[3][]{\genlegendre{0}{#1}{#2}{#3}}
+\providecommand{\tlegendre}[3][]{\genlegendre{1}{#1}{#2}{#3}}
 %</PJLmath>
 %
 %<*PJLpaper>
