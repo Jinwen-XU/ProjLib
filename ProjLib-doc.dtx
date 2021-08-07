@@ -403,7 +403,7 @@ For detailed description of this command and more related commands, please refer
 \UseLanguage{French}
 \end{code}
 
-Cette ligne indique que le français sera utilisé dans le document (d'ailleurs, si seul l'anglais apparaît dans votre article, alors il n'est pas nécessaire de choisir la langue). Vous pouvez également changer de langue de la même manière plus tard au milieu du texte. Les langues prises en charge sont les suivantes : chinois simplifié, chinois traditionnel, japonais, anglais, français, allemand, espagnol, portugais, portugais brésilien et russe\footnote{Cependant, vous devez ajouter vous-même l'encodage et les polices de la langue correspondante. Par exemple, pour le chinois, vous devrez peut-être ajouter le package \textsf{ctex} et choisir les polices. Pour rappel, vous pouvez essayer les classes de documents \textsf{einfart} ou \textsf{lebhart} de l'auteur, dans lesquelles les paramètres correspondants ont été effectués. Pour les détails, exécutez \lstinline|texdoc minimalist| ou \lstinline|coloriste texdoc| en ligne de commande.}.
+Cette ligne indique que le français sera utilisé dans le document (d'ailleurs, si seul l'anglais apparaît dans votre article, alors il n'est pas nécessaire de choisir la langue). Vous pouvez également changer de langue de la même manière plus tard au milieu du texte. Les langues prises en charge sont : chinois simplifié, chinois traditionnel, japonais, anglais, français, allemand, espagnol, portugais, portugais brésilien et russe\footnote{Cependant, vous devez ajouter vous-même l'encodage et les polices de la langue correspondante. Par exemple, pour le chinois, vous devrez peut-être ajouter le package \textsf{ctex} et choisir les polices. Pour rappel, vous pouvez essayer les classes de documents \textsf{einfart} ou \textsf{lebhart} de l'auteur, dans lesquelles les paramètres correspondants ont été effectués. Pour les détails, exécutez \lstinline|texdoc minimalist| ou \lstinline|coloriste texdoc| en ligne de commande.}.
 
 Pour une description détaillée de cette commande et d'autres commandes associées, veuillez vous référer à la section sur le support multilingue.
 %</ProjLib-doc-fr>
@@ -669,11 +669,13 @@ In addition, there are also some options of the components that should be passed
         \end{itemize}
     \item \texttt{amsfashion}
         \begin{itemize}
-            \item Permet à l'utilisateur d'écrire à la manière \AmS{}. En attendant, l'option \texttt{author} sera automatiquement activée.
+            \item Permet d'écrire à la manière \AmS{}. En attendant, l'option \texttt{author} sera automatiquement activée.
         \end{itemize}
 \end{itemize}
 De plus, il existe également certaines options des composants qui doivent être passées en tant qu'options globales de votre classe de document, telles que les options de langue de \PJLlang{} comme \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French} etc., et les options de papier de \PJLpaper{} comme \texttt{paperstyle} et \texttt{preview}. Pour plus d'informations, veuillez vous référer aux sections correspondantes.
 %</ProjLib-doc-fr>
+
+
 
 \clearpage
 
@@ -690,7 +692,19 @@ De plus, il existe également certaines options des composants qui doivent être
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
-\subsection{PJLauthor：增强的作者信息块}
+\subsection{主要功能}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{Main function}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{Fonction principale}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLauthor：增强的作者信息块}
 
 \PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
 \begin{code}
@@ -718,7 +732,7 @@ De plus, il existe également certaines options des composants qui doivent être
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
-\subsection{PJLauthor: enhanced author block}
+\subsubsection{PJLauthor: enhanced author block}
 
 \PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
 \begin{code}
@@ -746,7 +760,7 @@ In addition, you can use the option \texttt{amsfashion} to enable the \AmS{} fas
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
-\subsection{PJLauthor : bloc auteur amélioré}
+\subsubsection{PJLauthor : bloc auteur amélioré}
 
 \PJLauthor{} propose les macros \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email|, et vous permet de saisir plusieurs groupes d'informations sur l'auteur. L'utilisation standard est comme ceci :
 \begin{code}
@@ -773,68 +787,9 @@ De plus, vous pouvez utiliser l'option \texttt{amsfashion} pour écrire à la ma
 \end{tip}
 %</ProjLib-doc-fr>
 
-%<*ProjLib-doc-cn>
-\subsection{PJLdate：智能日期处理}
-
-\PJLdatePackage{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} (或 \lstinline|\PJLdate|\meta{yyyy-mm-dd}) 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
-
-关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
-%</ProjLib-doc-cn>
-%
-%<*ProjLib-doc-en>
-\subsection{PJLdate: date-time processing}
-
-\PJLdatePackage{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} (or \lstinline|\PJLdate|\meta{yyyy-mm-dd}) macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become ``\PLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PLdate{2022-04-01}}''.
-
-For details on how to select a language, please refer to the section on \PJLlang{}.
-%</ProjLib-doc-en>
-%
-%<*ProjLib-doc-fr>
-\subsection{PJLdate : traitement de date-heure}
-
-\PJLdatePackage{} propose la macro \lstinline|\PLdate|\meta{yyyy-mm-dd} (ou \lstinline|\PJLdate|\meta{yyyy-mm-dd}) pour convertir \meta{yyyy-mm-dd} dans le format de date de la langue actuellement sélectionnée. Par exemple, dans le contexte français actuel, \lstinline|\PLdate{2022-04-01}| deviendrait «~\PLdate{2022-04-01}~», tandis que dans le contexte anglais «~\UseOtherLanguage{English}{\PLdate{2022-04-01}}~».
-
-Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
-%</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
-\subsection{PJLdraft：未完成标记}
-
-\PJLdraft{} 提供了下列命令：
-\begin{itemize}\setstretch{1.15}
-    \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
-    \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
-\end{itemize}
-
-关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
-%</ProjLib-doc-cn>
-%
-%<*ProjLib-doc-en>
-\subsection{PJLdraft: draft marks}
-
-\PJLdraft{} offers the following macros:
-\begin{itemize}
-    \item \lstinline|\dnf| or \lstinline|\dnf<...>|. The effect is: \dnf~ or \dnf<...>. \\The prompt text changes according to the current language. For example, it will be displayed as \UseOtherLanguage{French}{\dnf} in French mode.
-    \item \lstinline|\needgraph| or \lstinline|\needgraph<...>|. The effect is: \needgraph or \needgraph<...>The prompt text changes according to the current language. For example, in French mode, it will be displayed as \UseOtherLanguage{French}{\needgraph}
-\end{itemize}
-
-For details on how to select a language, please refer to the section on \PJLlang{}.
-%</ProjLib-doc-en>
-%
-%<*ProjLib-doc-fr>
-\subsection{PJLdraft : marques de brouillon}
-
-\PJLdraft{} propose les macros suivantes :
-\begin{itemize}
-    \item \lstinline|\dnf| ou \lstinline|\dnf<...>|. L'effet est : \dnf~ ou \dnf<...>. \\Le texte à l'intérieur changera en fonction de la langue actuelle. Par exemple, il sera affiché sous la forme \UseOtherLanguage{English}{\dnf} en mode anglais.
-    \item \lstinline|\needgraph| ou \lstinline|\needgraph<...>|. L'effet est : \needgraph ou \needgraph<...>Le texte de l'invite change en fonction de la langue actuelle. Par exemple, en mode anglais, il sera affiché sous la forme \UseOtherLanguage{English}{\needgraph}
-\end{itemize}
-
-Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
-%</ProjLib-doc-fr>
-
-%<*ProjLib-doc-cn>
-\subsection{PJLlang：多语言支持}
+\subsubsection{PJLlang：多语言支持}
 
 \PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。
 
@@ -858,7 +813,8 @@ Pour plus de détails sur la façon de sélectionner une langue, veuillez vous r
     \end{itemize}
 \end{itemize}
 
-\medskip
+% \medskip
+\clearpage
 \meta{language name} 有下列选择 (不区分大小写，如 \texttt{French} 或 \texttt{french} 均可)：
 \begin{itemize}\setstretch{1.15}
     \item 简体中文：\texttt{CN}、\texttt{Chinese}、\texttt{SChinese} 或 \texttt{SimplifiedChinese}
@@ -890,7 +846,7 @@ Pour plus de détails sur la façon de sélectionner une langue, veuillez vous r
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
-\subsection{PJLlang: multi-language support}
+\subsubsection{PJLlang: multi-language support}
 
 \PJLlang{} offers multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian (among them, Chinese, Japanese, and Russian require appropriate \TeX{} engines and fonts to support). 
 
@@ -941,7 +897,7 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
-\subsection{PJLlang : support multilingue}
+\subsubsection{PJLlang : support multilingue}
 
 \PJLlang{} offre le support multilingue, notamment : chinois simplifié, chinois traditionnel, anglais, français, allemand, japonais et russe (parmi eux, le chinois, le japonais et le russe requièrent des moteurs \TeX{} et des polices appropriés).
 
@@ -991,294 +947,9 @@ De plus, vous pouvez également ajouter de nouveaux paramètres à la langue sé
 Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre tout le texte allemand affiché en orange (bien sûr, il faut alors ajouter \lstinline|\AddLanguageSetting{\color{black}}| afin de corriger la couleur du texte dans d'autres langues).
 %</ProjLib-doc-fr>
 
-%<*ProjLib-doc-cn>
-\clearpage
-\subsection{PJLlogo：\texorpdfstring{\ProjLib{} 图标}{ProjLib 图标}}
-
-\PJLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
-
-\vspace{-0.5\baselineskip}
-% \begin{longtable}{ll}
-\begin{center}
-    \begin{tabular}{ll} 
-        \lstinline|\tiny|:& {\tiny\ProjLib}\\
-        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
-        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
-        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
-        \lstinline|\large|:& {\large\ProjLib}\\
-        \lstinline|\Large|:& {\Large\ProjLib}\\
-        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
-        \lstinline|\huge|:& {\huge\ProjLib}\\
-        \lstinline|\Huge|:& {\Huge\ProjLib}
-    \end{tabular}
-\end{center}
-% \end{longtable}
-%</ProjLib-doc-cn>
-%
-%<*ProjLib-doc-en>
-\subsection{PJLlogo: the logo \texorpdfstring{\ProjLib}{ProjLib}}
-
-\PJLlogo{} offers the macro \lstinline|\ProjLib| to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
-% \begin{itemize}
-%     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
-%     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
-%     \item \lstinline|\footnotesize|:\quad {\footnotesize\ProjLib}
-%     \item \lstinline|\normalsize|:\quad {\normalsize\ProjLib}
-%     \item \lstinline|\large|:\quad {\large\ProjLib}
-%     \item \lstinline|\Large|:\quad {\Large\ProjLib}
-%     \item \lstinline|\LARGE|:\quad {\LARGE\ProjLib}
-%     \item \lstinline|\huge|:\quad {\huge\ProjLib}
-%     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
-% \end{itemize}
-% \bigskip
-
-% \begin{longtable}{ll}
-\begin{center}
-    \begin{tabular}{ll} 
-        \lstinline|\tiny|:& {\tiny\ProjLib}\\
-        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
-        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
-        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
-        \lstinline|\large|:& {\large\ProjLib}\\
-        \lstinline|\Large|:& {\Large\ProjLib}\\
-        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
-        \lstinline|\huge|:& {\huge\ProjLib}\\
-        \lstinline|\Huge|:& {\Huge\ProjLib}
-    \end{tabular}
-\end{center}
-% \end{longtable}
-%</ProjLib-doc-en>
-%
-%<*ProjLib-doc-fr>
-\subsection{PJLlogo : le logo \texorpdfstring{\ProjLib}{ProjLib}}
-
-\PJLlogo{} propose la macro \lstinline|\ProjLib| pour dessiner le logo, qui ressemble à \ProjLib{}. Elle est similaire aux macros de texte ordinaires et peut être utilisée avec différentes macros de taille de texte :
-
-% \begin{longtable}{ll}
-\begin{center}
-    \begin{tabular}{ll} 
-        \lstinline|\tiny|:& {\tiny\ProjLib}\\
-        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
-        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
-        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
-        \lstinline|\large|:& {\large\ProjLib}\\
-        \lstinline|\Large|:& {\Large\ProjLib}\\
-        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
-        \lstinline|\huge|:& {\huge\ProjLib}\\
-        \lstinline|\Huge|:& {\Huge\ProjLib}
-    \end{tabular}
-\end{center}
-% \end{longtable}
-%</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
-\subsection{PJLmath：数学符号与捷径}
-
-\PJLmath{} 提供下列捷径：
-\begin{enumerate}[label=\roman*)]
-    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ 或 \lstinline|\frak|$\cdot$。例如，\lstinline|\mfA| (或 \lstinline|\mf{A}|) 与 \lstinline|\mathfrak{A}| 效果相同. 这对大写、小写字母都有效：\vspace{-\baselineskip}
-    \begin{align*}
-        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
-        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
-    \end{align*}
-    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$。这只针对大写字母或数字 \( 1 \).
-    \begin{equation*}
-        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
-    \end{equation*}
-    对于常见的代数结构有这些特殊命令：\lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
-    \[
-        \N\Z\Q\R\C\F\A
-    \]
-    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ 或 \lstinline|\cal|$\cdot$。这只针对大写字母。
-    \begin{equation*}
-        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
-    \end{equation*}
-    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ 或 \lstinline|\scr|$\cdot$。这只针对大写字母。
-    \begin{equation*}
-        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
-    \end{equation*}
-\end{enumerate}
-
-另外，\PJLmath{} 还提供了一些 \LaTeX 中未自带的符号。
-
-\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm} }
-\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & 绝对值符号 \\
-\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & 范数符号 \\
-\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & 表示单射的箭头符号 \\
-\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & 表示满射的箭头符号 \\
-\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & 表示双射的箭头符号 \\
-% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre 符号 \\
-% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
-% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre 符号 (text style) \\
-% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre 符号 (display style) \\
-\end{longtable}
-%</ProjLib-doc-cn>
-%
-%<*ProjLib-doc-en>
-\medskip
-\subsection{PJLmath: math symbols and shortcuts}
-
-\PJLmath{} offers the following shortcuts:
-\begin{enumerate}[label=\roman*)]
-    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ or \lstinline|\frak|$\cdot$ . For example, \lstinline|\mfA| (or \lstinline|\mf{A}|) has the same effect as \lstinline|\mathfrak{A}|. This works for both upper and lower case, producing:
-    \begin{align*}
-        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
-        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
-    \end{align*}
-    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . This only works for uppercase alphabet and the number \( 1 \).
-    \begin{equation*}
-        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
-    \end{equation*}
-    There are also special command for well-known algebraic structures: \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
-    \[
-        \N\Z\Q\R\C\F\A
-    \]
-    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . This only works for uppercase alphabet.
-    \begin{equation*}
-        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
-    \end{equation*}
-    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . This only works for uppercase alphabet.
-    \begin{equation*}
-        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
-    \end{equation*}
-\end{enumerate}
-
-In addition, \PJLmath{} also provides some math symbols that are not by default included in \LaTeX{}.
-
-\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
-\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & absolute value symbol \\
-\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & norm symbol \\
-\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & arrow symbol for injection \\
-\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & arrow symbol for surjection \\
-\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & arrow symbol for bijection \\
-% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre symbol \\
-% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
-% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre symbol (text style) \\
-% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre symbol (display style) \\
-\end{longtable}
-%
-% There's also a starred version of \lstinline|\pmod|, which eliminate the spacing before it: \lstinline|a\pmod*{4}| $\rightarrow a\pmod*{4}$. Compared with: \lstinline|a\pmod{4}| $\rightarrow a\pmod{4}$.
-%</ProjLib-doc-en>
-%
-%<*ProjLib-doc-fr>
-\subsection{PJLmath : symboles et raccourcis mathématiques}
-
-\PJLmath{} propose les raccourcis suivants :
-\begin{enumerate}[label=\roman*)]
-    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ ou \lstinline|\frak|$\cdot$ . Par exemple, \lstinline|\mfA| (ou \lstinline|\mf{A}|) a le même effet que \lstinline|\mathfrak{A}|. Cela fonctionne à la fois pour l'alphabet majuscule et minuscule, produisant :
-    \begin{align*}
-        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
-        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
-    \end{align*}
-    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule et le nombre \( 1 \).
-    \begin{equation*}
-        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
-    \end{equation*}
-    Il y a aussi des commandes spéciales pour les structures algébriques bien connues : \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
-    \[
-        \N\Z\Q\R\C\F\A
-    \]
-    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule.
-    \begin{equation*}
-        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
-    \end{equation*}
-    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule.
-    \begin{equation*}
-        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
-    \end{equation*}
-\end{enumerate}
-
-De plus, \PJLmath{} fournit également des symboles mathématiques qui ne sont pas inclus par défaut avec \LaTeX{}.
-
-\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
-\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & symbole de valeur absolue \\
-\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & symbole de norme \\
-\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & symbole de flèche pour l'injection \\
-\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & symbole de flèche pour la surjection \\
-\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & symbole de flèche pour la bijection \\
-% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Symbole Legendre \\
-% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
-% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Symbole Legendre (text-style) \\
-% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Symbole Legendre (display-style) \\
-\end{longtable}
-%</ProjLib-doc-fr>
-
-\clearpage
-%<*ProjLib-doc-cn>
-\subsection{PJLpaper：纸张设置}
-
-\PJLpaper{} 主要用于调节纸张颜色。它支持下列选项：
-
-\begin{itemize}
-    \item \texttt{paperstyle = \meta{paper style name}}
-        \begin{itemize}
-            \item 设定纸张色彩样式。\meta{paper style name} 可供选择的选项有：\texttt{yellow}、\texttt{dark} 与 \texttt{nord}。
-        \end{itemize}
-    \item \texttt{yellowpaper}、\texttt{darkpaper}、\texttt{nordpaper}
-        \begin{itemize}
-            \item 设定纸张色彩样式。效果与相应名称的 \texttt{paperstyle} 相同。
-        \end{itemize}
-    \item \texttt{preview}
-        \begin{itemize}
-            \item 预览模式，将会把 pdf 文件的白边去掉以方便阅读。
-        \end{itemize}
-\end{itemize}
-
-为了使用的方便，建议把这些选项作为文档类的全局参数，这样对于文档的纸张设定一目了然。
-%</ProjLib-doc-cn>
-%
-%<*ProjLib-doc-en>
-\subsection{PJLpaper: paper configuration}
-
-\PJLpaper{} is mainly used to adjust the paper color. It has the following options:
-
-\vspace{-.3\baselineskip}
-\begin{itemize}
-    \item \texttt{paperstyle = \meta{paper style name}}
-        \begin{itemize}
-            \item Set the paper color style. The options available for \meta{paper style name} are: \texttt{yellow}, \texttt{dark} and \texttt{nord}.
-        \end{itemize}
-    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
-        \begin{itemize}
-            \item Same as \texttt{paperstyle} with the corresponding \meta{paper style name} specified.
-        \end{itemize}
-    \item \texttt{preview}
-        \begin{itemize}
-            \item Preview mode. Crop the white edges of pdf file for the convenience of reading.
-        \end{itemize}
-\end{itemize}
-\vspace{-.3\baselineskip}
-
-It is recommended to use them as global options of the document class. In this way, the paper settings would be clear at a glance.
-%</ProjLib-doc-en>
-%
-%<*ProjLib-doc-fr>
-\subsection{PJLpaper : configuration papier}
-
-\PJLpaper{} est principalement utilisé pour ajuster la couleur du papier. Il a les options suivantes :
-
-\vspace{-.3\baselineskip}
-\begin{itemize}
-    \item \texttt{paperstyle = \meta{paper style name}}
-        \begin{itemize}
-            \item Définit le style de couleur du papier. Les options disponibles pour \meta{paper style name} sont : \texttt{yellow}, \texttt{dark} et \texttt{nord}.
-        \end{itemize}
-    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
-        \begin{itemize}
-            \item Identique à \texttt{paperstyle} avec le \meta{paper style name} correspondant spécifié.
-        \end{itemize}
-    \item \texttt{preview}
-        \begin{itemize}
-            \item Mode aperçu. Recadrez les bords blancs du fichier pdf pour faciliter la lecture.
-        \end{itemize}
-\end{itemize}
-\vspace{-.3\baselineskip}
-
-Il est recommandé de les passer comme options globales de la classe de document. De cette façon, les paramètres du papier seraient clairs en un coup d'œil.
-%</ProjLib-doc-fr>
-
-%<*ProjLib-doc-cn>
-\subsection{PJLthm：带有智能引用与多语言支持的定理类环境}
+\subsubsection{PJLthm：带有智能引用与多语言支持的定理类环境}
 
 \PJLthm{} 提供定理类环境的设置。它支持下列选项：
 \begin{itemize}
@@ -1323,7 +994,6 @@ Il est recommandé de les passer comme options globales de la classe de document
 \vspace{-.15\baselineskip}%
 其中，\meta{language name} 可参阅关于 \PJLlang{} 的小节。当不指定 \meta{language name}时，则会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}{...}| 与 \lstinline|\NameTheorem{envname}{...}| 效果相同。
 
-\clearpage
 然后用下面五种方式之一定义这一环境：
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
@@ -1382,7 +1052,7 @@ Il est recommandé de les passer comme options globales de la classe de document
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
-\subsection{PJLthm: theorem-like environments with clever reference and multilingual support}
+\subsubsection{PJLthm: theorem-like environments with clever reference and multilingual support}
 
 \PJLthm{} offers the configuration of theorem-like environments. It has the following option:
 
@@ -1430,7 +1100,6 @@ If you need to define a new theorem-like environment, you must first define the 
 \end{itemize}
 For \meta{language name}, please refer to the section on \PJLlang{}. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
 
-\clearpage
 And then define this environment in one of following five ways:
 \vspace{-.3\baselineskip}
 \begin{itemize}
@@ -1490,7 +1159,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
-\subsection{PJLthm : environnements de type théorème avec référence intelligente et support multilingue}
+\subsubsection{PJLthm : environnements de type théorème avec référence intelligente et support multilingue}
 
 \PJLthm{} offre la configuration d'environnements de type théorème. Il a l'option suivante :
 
@@ -1581,6 +1250,368 @@ définit un environnement non numéroté \lstinline|proofidea*| et un environnem
     La environnement \lstinline|proofidea| .
 \end{proofidea}
 %</ProjLib-doc-fr>
+
+
+
+\bigskip
+
+%<*ProjLib-doc-cn>
+\subsection{次要功能}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsection{Secondary function}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsection{Fonction secondaire}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLdate：智能日期处理}
+
+\PJLdatePackage{} 提供了 \lstinline|\PLdate|\meta{yyyy-mm-dd} (或 \lstinline|\PJLdate|\meta{yyyy-mm-dd}) 命令，以将 \meta{yyyy-mm-dd} 转换为当前语言的日期格式显示。例如，在当前的中文语境下，\lstinline|\PLdate{2022-04-01}| 会被显示为“\PJLdate{2022-04-01}”，而在英文语境下则会被显示为“\UseOtherLanguage{English}{\PJLdate{2022-04-01}}”。
+
+关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{PJLdate: date-time processing}
+
+\PJLdatePackage{} offers the \lstinline|\PLdate|\meta{yyyy-mm-dd} (or \lstinline|\PJLdate|\meta{yyyy-mm-dd}) macro to convert \meta{yyyy-mm-dd} into the date format of the currently selected language. For example, in current English context, \lstinline|\PLdate{2022-04-01}| would become ``\PLdate{2022-04-01}'', while in French context as ``\UseOtherLanguage{French}{\PLdate{2022-04-01}}''.
+
+For details on how to select a language, please refer to the section on \PJLlang{}.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{PJLdate : traitement de date-heure}
+
+\PJLdatePackage{} propose la macro \lstinline|\PLdate|\meta{yyyy-mm-dd} (ou \lstinline|\PJLdate|\meta{yyyy-mm-dd}) pour convertir \meta{yyyy-mm-dd} dans le format de date de la langue actuellement sélectionnée. Par exemple, dans le contexte français actuel, \lstinline|\PLdate{2022-04-01}| deviendrait «~\PLdate{2022-04-01}~», tandis que dans le contexte anglais «~\UseOtherLanguage{English}{\PLdate{2022-04-01}}~».
+
+Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLdraft：未完成标记}
+
+\PJLdraft{} 提供了下列命令：
+\begin{itemize}\setstretch{1.15}
+    \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
+    \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
+\end{itemize}
+
+关于如何选定语言，请参阅关于 \PJLlang{} 的小节。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{PJLdraft: draft marks}
+
+\PJLdraft{} offers the following macros:
+\begin{itemize}
+    \item \lstinline|\dnf| or \lstinline|\dnf<...>|. The effect is: \dnf~ or \dnf<...>. \\The prompt text changes according to the current language. For example, it will be displayed as \UseOtherLanguage{French}{\dnf} in French mode.
+    \item \lstinline|\needgraph| or \lstinline|\needgraph<...>|. The effect is: \needgraph or \needgraph<...>The prompt text changes according to the current language. For example, in French mode, it will be displayed as \UseOtherLanguage{French}{\needgraph}
+\end{itemize}
+
+For details on how to select a language, please refer to the section on \PJLlang{}.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{PJLdraft : marques de brouillon}
+
+\PJLdraft{} propose les macros suivantes :
+\begin{itemize}
+    \item \lstinline|\dnf| ou \lstinline|\dnf<...>|. L'effet est : \dnf~ ou \dnf<...>. \\Le texte à l'intérieur changera en fonction de la langue actuelle. Par exemple, il sera affiché sous la forme \UseOtherLanguage{English}{\dnf} en mode anglais.
+    \item \lstinline|\needgraph| ou \lstinline|\needgraph<...>|. L'effet est : \needgraph ou \needgraph<...>Le texte de l'invite change en fonction de la langue actuelle. Par exemple, en mode anglais, il sera affiché sous la forme \UseOtherLanguage{English}{\needgraph}
+\end{itemize}
+
+Pour plus de détails sur la façon de sélectionner une langue, veuillez vous référer à la section sur \PJLlang{}.
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLlogo：\texorpdfstring{\ProjLib{} 图标}{ProjLib 图标}}
+
+\PJLlogo{} 提供了 \lstinline|\ProjLib| 命令用于绘制 Logo，效果为：\ProjLib{}。它与普通的文字指令效果类似，可以用于不同的字号：
+
+\vspace{-0.5\baselineskip}
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{PJLlogo: the logo \texorpdfstring{\ProjLib}{ProjLib}}
+
+\PJLlogo{} offers the macro \lstinline|\ProjLib| to draw the logo, which looks like \ProjLib{}. It is similar to ordinary text macros and can be used with different font size macros:
+% \begin{itemize}
+%     \item \lstinline|\tiny|:\quad {\tiny\ProjLib}
+%     \item \lstinline|\scriptsize|:\quad {\scriptsize\ProjLib}
+%     \item \lstinline|\footnotesize|:\quad {\footnotesize\ProjLib}
+%     \item \lstinline|\normalsize|:\quad {\normalsize\ProjLib}
+%     \item \lstinline|\large|:\quad {\large\ProjLib}
+%     \item \lstinline|\Large|:\quad {\Large\ProjLib}
+%     \item \lstinline|\LARGE|:\quad {\LARGE\ProjLib}
+%     \item \lstinline|\huge|:\quad {\huge\ProjLib}
+%     \item \lstinline|\Huge|:\quad {\Huge\ProjLib}
+% \end{itemize}
+% \bigskip
+
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{PJLlogo : le logo \texorpdfstring{\ProjLib}{ProjLib}}
+
+\PJLlogo{} propose la macro \lstinline|\ProjLib| pour dessiner le logo, qui ressemble à \ProjLib{}. Elle est similaire aux macros de texte ordinaires et peut être utilisée avec différentes macros de taille de texte :
+
+% \begin{longtable}{ll}
+\begin{center}
+    \begin{tabular}{ll} 
+        \lstinline|\tiny|:& {\tiny\ProjLib}\\
+        \lstinline|\scriptsize|:& {\scriptsize\ProjLib}\\
+        \lstinline|\footnotesize|:& {\footnotesize\ProjLib}\\
+        \lstinline|\normalsize|:& {\normalsize\ProjLib}\\
+        \lstinline|\large|:& {\large\ProjLib}\\
+        \lstinline|\Large|:& {\Large\ProjLib}\\
+        \lstinline|\LARGE|:& {\LARGE\ProjLib}\\
+        \lstinline|\huge|:& {\huge\ProjLib}\\
+        \lstinline|\Huge|:& {\Huge\ProjLib}
+    \end{tabular}
+\end{center}
+% \end{longtable}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLmath：数学符号与捷径}
+
+\PJLmath{} 提供下列捷径：
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ 或 \lstinline|\frak|$\cdot$。例如，\lstinline|\mfA| (或 \lstinline|\mf{A}|) 与 \lstinline|\mathfrak{A}| 效果相同. 这对大写、小写字母都有效：\vspace{-\baselineskip}
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$。这只针对大写字母或数字 \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    对于常见的代数结构有这些特殊命令：\lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ 或 \lstinline|\cal|$\cdot$。这只针对大写字母。
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ 或 \lstinline|\scr|$\cdot$。这只针对大写字母。
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+另外，\PJLmath{} 还提供了一些 \LaTeX 中未自带的符号。
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm} }
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & 绝对值符号 \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & 范数符号 \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & 表示单射的箭头符号 \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & 表示满射的箭头符号 \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & 表示双射的箭头符号 \\
+% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre 符号 \\
+% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre 符号 (text style) \\
+% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre 符号 (display style) \\
+\end{longtable}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\medskip
+\subsubsection{PJLmath: math symbols and shortcuts}
+
+\PJLmath{} offers the following shortcuts:
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ or \lstinline|\frak|$\cdot$ . For example, \lstinline|\mfA| (or \lstinline|\mf{A}|) has the same effect as \lstinline|\mathfrak{A}|. This works for both upper and lower case, producing:
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . This only works for uppercase alphabet and the number \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    There are also special command for well-known algebraic structures: \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . This only works for uppercase alphabet.
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . This only works for uppercase alphabet.
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+In addition, \PJLmath{} also provides some math symbols that are not by default included in \LaTeX{}.
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & absolute value symbol \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & norm symbol \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & arrow symbol for injection \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & arrow symbol for surjection \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & arrow symbol for bijection \\
+% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Legendre symbol \\
+% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre symbol (text style) \\
+% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre symbol (display style) \\
+\end{longtable}
+%
+% There's also a starred version of \lstinline|\pmod|, which eliminate the spacing before it: \lstinline|a\pmod*{4}| $\rightarrow a\pmod*{4}$. Compared with: \lstinline|a\pmod{4}| $\rightarrow a\pmod{4}$.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{PJLmath : symboles et raccourcis mathématiques}
+
+\PJLmath{} propose les raccourcis suivants :
+\begin{enumerate}[label=\roman*)]
+    \item \lstinline|\mathfrak{|$\cdot$\lstinline|}| $\longrightarrow$ \lstinline|\mf|$\cdot$ ou \lstinline|\frak|$\cdot$ . Par exemple, \lstinline|\mfA| (ou \lstinline|\mf{A}|) a le même effet que \lstinline|\mathfrak{A}|. Cela fonctionne à la fois pour l'alphabet majuscule et minuscule, produisant :
+    \begin{align*}
+        \mfa\mfb\mfc\mfd\mfe\mff\mfg\mfh\mfi\mfj\mfk\mfl\mfm\mfn&\mfo\mfp\mfq\mfr\mfs\mft\mfu\mfv\mfw\mfx\mfy\mfz\\
+        \mfA\mfB\mfC\mfD\mfE\mfF\mfG\mfH\mfI\mfJ\mfK\mfL\mfM\mfN&\mfO\mfP\mfQ\mfR\mfS\mfT\mfU\mfV\mfW\mfX\mfY\mfZ
+    \end{align*}
+    \item \lstinline|\mathbb{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\bb|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule et le nombre \( 1 \).
+    \begin{equation*}
+        \bbA\bbB\bbC\bbD\bbE\bbF\bbG\bbH\bbI\bbJ\bbK\bbL\bbM\bbN\bbO\bbP\bbQ\bbR\bbS\bbT\bbU\bbV\bbW\bbX\bbY\bbZ\bb1
+    \end{equation*}
+    Il y a aussi des commandes spéciales pour les structures algébriques bien connues : \lstinline|\N|, \lstinline|\Z|, \lstinline|\Q|, \lstinline|\R|, \lstinline|\C|, \lstinline|\F|, \lstinline|\A|.
+    \[
+        \N\Z\Q\R\C\F\A
+    \]
+    \item \lstinline|\mathcal{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\mc|$\cdot$ or \lstinline|\cal|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule.
+    \begin{equation*}
+        \mcA\mcB\mcC\mcD\mcE\mcF\mcG\mcH\mcI\mcJ\mcK\mcL\mcM\mcN\mcO\mcP\mcQ\mcR\mcS\mcT\mcU\mcV\mcW\mcX\mcY\mcZ
+    \end{equation*}
+    \item \lstinline|\mathscr{|$\cdot$\lstinline|}| \( \longrightarrow \) \lstinline|\ms|$\cdot$ or \lstinline|\scr|$\cdot$ . Cela ne fonctionne que pour l'alphabet majuscule.
+    \begin{equation*}
+        \msA\msB\msC\msD\msE\msF\msG\msH\msI\msJ\msK\msL\msM\msN\msO\msP\msQ\msR\msS\msT\msU\msV\msW\msX\msY\msZ
+    \end{equation*}
+\end{enumerate}
+
+De plus, \PJLmath{} fournit également des symboles mathématiques qui ne sont pas inclus par défaut avec \LaTeX{}.
+
+\begin{longtable}[l]{ p{4cm} p{6cm} p{6cm}}
+\lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & symbole de valeur absolue \\
+\lstinline|\norm| & \lstinline|\norm{a}| $\rightarrow \norm{a}$ & symbole de norme \\
+\lstinline|\injection| & \lstinline|\injection| $\rightarrow ~\injection$ & symbole de flèche pour l'injection \\
+\lstinline|\surjection| & \lstinline|\surjection| $\rightarrow ~\surjection$ & symbole de flèche pour la surjection \\
+\lstinline|\bijection| & \lstinline|\bijection| $\rightarrow ~\bijection$ & symbole de flèche pour la bijection \\
+% \lstinline|\legendre| & \lstinline|\legendre{a}{p}| $\rightarrow \legendre{a}{p}$ & Symbole Legendre \\
+% & \lstinline|\legendre[z]{a}{p}| $\rightarrow \legendre[z]{a}{p}$ & \\
+% \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Symbole Legendre (text-style) \\
+% \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Symbole Legendre (display-style) \\
+\end{longtable}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLpaper：纸张设置}
+
+\PJLpaper{} 主要用于调节纸张颜色。它支持下列选项：
+
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item 设定纸张色彩样式。\meta{paper style name} 可供选择的选项有：\texttt{yellow}、\texttt{dark} 与 \texttt{nord}。
+        \end{itemize}
+    \item \texttt{yellowpaper}、\texttt{darkpaper}、\texttt{nordpaper}
+        \begin{itemize}
+            \item 设定纸张色彩样式。效果与相应名称的 \texttt{paperstyle} 相同。
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item 预览模式，将会把 pdf 文件的白边去掉以方便阅读。
+        \end{itemize}
+\end{itemize}
+
+为了使用的方便，建议把这些选项作为文档类的全局参数，这样对于文档的纸张设定一目了然。
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{PJLpaper: paper configuration}
+
+\PJLpaper{} is mainly used to adjust the paper color. It has the following options:
+
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item Set the paper color style. The options available for \meta{paper style name} are: \texttt{yellow}, \texttt{dark} and \texttt{nord}.
+        \end{itemize}
+    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
+        \begin{itemize}
+            \item Same as \texttt{paperstyle} with the corresponding \meta{paper style name} specified.
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item Preview mode. Crop the white edges of pdf file for the convenience of reading.
+        \end{itemize}
+\end{itemize}
+\vspace{-.3\baselineskip}
+
+It is recommended to use them as global options of the document class. In this way, the paper settings would be clear at a glance.
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{PJLpaper : configuration papier}
+
+\PJLpaper{} est principalement utilisé pour ajuster la couleur du papier. Il a les options suivantes :
+
+\vspace{-.3\baselineskip}
+\begin{itemize}
+    \item \texttt{paperstyle = \meta{paper style name}}
+        \begin{itemize}
+            \item Définit le style de couleur du papier. Les options disponibles pour \meta{paper style name} sont : \texttt{yellow}, \texttt{dark} et \texttt{nord}.
+        \end{itemize}
+    \item \texttt{yellowpaper}, \texttt{darkpaper}, \texttt{nordpaper}
+        \begin{itemize}
+            \item Identique à \texttt{paperstyle} avec le \meta{paper style name} correspondant spécifié.
+        \end{itemize}
+    \item \texttt{preview}
+        \begin{itemize}
+            \item Mode aperçu. Recadrez les bords blancs du fichier pdf pour faciliter la lecture.
+        \end{itemize}
+\end{itemize}
+\vspace{-.3\baselineskip}
+
+Il est recommandé de les passer comme options globales de la classe de document. De cette façon, les paramètres du papier seraient clairs en un coup d'œil.
+%</ProjLib-doc-fr>
+
+
 
 \clearpage
 
