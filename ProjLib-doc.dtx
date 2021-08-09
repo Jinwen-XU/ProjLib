@@ -108,7 +108,7 @@
 %<*ProjLib-doc-cn>
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/08/07}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/08/07a}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{2021年8月，北京}
 %</ProjLib-doc-cn>
@@ -116,7 +116,7 @@
 %<*ProjLib-doc-en>
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/08/07}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/08/07a}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{August 2021, Beijing}
 %</ProjLib-doc-en>
@@ -124,7 +124,7 @@
 %<*ProjLib-doc-fr>
 \title{La boîte à outils~\,\ProjLib{}\\[.3\baselineskip]\normalsize Manuel d'utilisation}
 \author{Jinwen XU}
-\thanks{Correspondant à : \texttt{\ProjLib{}~2021/08/07}}
+\thanks{Correspondant à : \texttt{\ProjLib{}~2021/08/07a}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{Août 2021, à Pékin}
 %</ProjLib-doc-fr>
@@ -150,7 +150,8 @@
 %</ProjLib-doc-fr>
 
 \begin{multicols}{2}
-    \small
+%<!ProjLib-doc-fr>    \small
+%<ProjLib-doc-fr>    \footnotesize
     \tableofcontents
 \end{multicols}
 
@@ -1434,7 +1435,7 @@ Pour plus de détails sur la façon de sélectionner une langue, veuillez vous r
     \end{equation*}
 \end{enumerate}
 
-另外，\PJLmath{} 还提供了一些 \LaTeX 中未自带的符号。
+另外，\PJLmath{} 还提供了一些 \LaTeX{} 中未自带的符号。
 
 \begin{longtable}[l]{ p{4cm} p{6cm} p{6cm} }
 \lstinline|\abs| & \lstinline|\abs{a}| $\rightarrow \abs{a}$ & 绝对值符号 \\
@@ -1447,6 +1448,8 @@ Pour plus de détails sur la façon de sélectionner une langue, veuillez vous r
 % \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Legendre 符号 (text style) \\
 % \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Legendre 符号 (display style) \\
 \end{longtable}
+
+这些捷径和符号是以一种安全的方式定义的，它们不会与已有的命令或你自己定义的命令相冲突。因此即使你用不到这些捷径或符号，也不用担心它们的存在会带来错误。
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
@@ -1493,6 +1496,8 @@ In addition, \PJLmath{} also provides some math symbols that are not by default 
 \end{longtable}
 %
 % There's also a starred version of \lstinline|\pmod|, which eliminate the spacing before it: \lstinline|a\pmod*{4}| $\rightarrow a\pmod*{4}$. Compared with: \lstinline|a\pmod{4}| $\rightarrow a\pmod{4}$.
+
+These shortcuts and symbols are defined in such a way that they will not conflict with existing or user-defined commands. Thus, even if you do not use these shortcuts or symbols, there is no need to worry that their existence will bring errors.
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
@@ -1536,6 +1541,8 @@ De plus, \PJLmath{} fournit également des symboles mathématiques qui ne sont p
 % \lstinline|\tlegendre| & \lstinline|\tlegendre{a}{p}| $\rightarrow \tlegendre{a}{p}$ & Symbole Legendre (text-style) \\
 % \lstinline|\dlegendre| & \lstinline|\dlegendre{a}{p}| $\rightarrow \dlegendre{a}{p}$ & Symbole Legendre (display-style) \\
 \end{longtable}
+
+Ces raccourcis et symboles sont définis de telle manière qu'ils n'entrent pas en conflit avec les commandes existantes ou les commandes définies par l'utilisateur. Ainsi, même dans le cas où vous n'utilisez pas ces raccourcis ou symboles, ne vous inquiétez pas que leur existence apporte des erreurs.
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>

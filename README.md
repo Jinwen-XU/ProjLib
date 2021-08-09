@@ -2,8 +2,8 @@
 
 # ProjLib Toolkit
 
-> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or "***Proj**et **Lib**re*" (in French).
-> Personally, I prefer later one.
+> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French).
+> Personally, I prefer the later one.
 
 ## Introduction
 
@@ -60,6 +60,12 @@ You can get the `.tex` source files of the documentation by compiling `ProjLib-d
 latex ProjLib-doc.ins
 ```
 
+## How to compile the documentation
+It is recommended to use `latexmk` with option `-xelatex`:
+```
+latexmk -xelatex ProjLib-doc-**.tex
+```
+
 ## An example
 ```latex
 \documentclass{amsart}
@@ -88,7 +94,7 @@ latex ProjLib-doc.ins
 \keywords{...}
 
 \begin{abstract}
-    Ceci est un résumé. \dnf<Plus de contenu est nécessaire.>
+    Ceci est un résumé. \dnf<Some hint>
 \end{abstract}
 
 \maketitle
