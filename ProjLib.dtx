@@ -411,19 +411,19 @@
 \gappto{\PJLlang@langconfig@common}{%
     \let\@DTMdate\@DTMdate@PJLoriginal%
 }
-\gappto{\PJLlang@langconfig@schinese}{%
+\gappto{\PJLlang@langconfig@SC}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
-\gappto{\PJLlang@langconfig@tchinese}{%
+\gappto{\PJLlang@langconfig@TC}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
     }%
 }
-\gappto{\PJLlang@langconfig@japanese}{%
+\gappto{\PJLlang@langconfig@JP}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
@@ -723,7 +723,7 @@
 
 %# 各个语言的设置
 %# The configuration for each language
-\newcommand{\PJLlang@langconfig@schinese}{%
+\newcommand{\PJLlang@langconfig@SC}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
     \def\contentsname{目录}%
@@ -738,7 +738,7 @@
     \let\today\zhtoday%
     \renewcommand{\languagename}{schinese}%
 }
-\newcommand{\PJLlang@langconfig@tchinese}{%
+\newcommand{\PJLlang@langconfig@TC}{%
     \def\abstractname{摘要}%
     \def\proofname{證明}%
     \def\contentsname{目錄}%
@@ -753,33 +753,33 @@
     \let\today\zhtoday%
     \renewcommand{\languagename}{tchinese}%
 }
-\newcommand{\PJLlang@langconfig@japanese}{%
+\newcommand{\PJLlang@langconfig@JP}{%
     \selectlanguage{japanese}%
 }
-\newcommand{\PJLlang@langconfig@english}{%
+\newcommand{\PJLlang@langconfig@EN}{%
     \selectlanguage{english}%
 }
-\newcommand{\PJLlang@langconfig@french}{%
+\newcommand{\PJLlang@langconfig@FR}{%
     \selectlanguage{french}%
 % The line below is currently only needed for 'babel', but also works with 'polyglossia'
     \def\frenchpartname{Partie}%
 }
-\newcommand{\PJLlang@langconfig@german}{%
+\newcommand{\PJLlang@langconfig@DE}{%
     \selectlanguage{ngerman}%
 }
-\newcommand{\PJLlang@langconfig@italian}{%
+\newcommand{\PJLlang@langconfig@IT}{%
     \selectlanguage{italian}%
 }
-\newcommand{\PJLlang@langconfig@portuguese}{%
+\newcommand{\PJLlang@langconfig@PT}{%
     \selectlanguage{portuguese}%
 }
-\newcommand{\PJLlang@langconfig@brazilian}{%
+\newcommand{\PJLlang@langconfig@BR}{%
     \selectlanguage{brazilian}%
 }
-\newcommand{\PJLlang@langconfig@spanish}{%
+\newcommand{\PJLlang@langconfig@ES}{%
     \selectlanguage{spanish}%
 }
-\newcommand{\PJLlang@langconfig@russian}{%
+\newcommand{\PJLlang@langconfig@RU}{%
     \selectlanguage{russian}%
 }
 
@@ -791,32 +791,32 @@
     {\gappto{\PJLlang@langconfig@common}{#2}}%
     {%
         \lowercase{\IfStrEqCase{#1}}{%
-            {cn}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
-            {chinese}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
-            {schinese}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
-            {simplifiedchinese}{\gappto{\PJLlang@langconfig@schinese}{#2}}%
-            {tc}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
-            {tchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
-            {traditionalchinese}{\gappto{\PJLlang@langconfig@tchinese}{#2}}%
-            {jp}{\gappto{\PJLlang@langconfig@japanese}{#2}}%
-            {japanese}{\gappto{\PJLlang@langconfig@japanese}{#2}}%
-            {en}{\gappto{\PJLlang@langconfig@english}{#2}}%
-            {english}{\gappto{\PJLlang@langconfig@english}{#2}}%
-            {fr}{\gappto{\PJLlang@langconfig@french}{#2}}%
-            {french}{\gappto{\PJLlang@langconfig@french}{#2}}%
-            {de}{\gappto{\PJLlang@langconfig@german}{#2}}%
-            {ngerman}{\gappto{\PJLlang@langconfig@german}{#2}}%
-            {it}{\gappto{\PJLlang@langconfig@italian}{#2}}%
-            {italian}{\gappto{\PJLlang@langconfig@italian}{#2}}%
-            {pt}{\gappto{\PJLlang@langconfig@portuguese}{#2}}%
-            {portuguese}{\gappto{\PJLlang@langconfig@portuguese}{#2}}%
-            {br}{\gappto{\PJLlang@langconfig@brazilian}{#2}}%
-            {brazilian}{\gappto{\PJLlang@langconfig@brazilian}{#2}}%
-            {es}{\gappto{\PJLlang@langconfig@spanish}{#2}}%
-            {spanish}{\gappto{\PJLlang@langconfig@spanish}{#2}}%
-            {german}{\gappto{\PJLlang@langconfig@german}{#2}}%
-            {ru}{\gappto{\PJLlang@langconfig@russian}{#2}}%
-            {russian}{\gappto{\PJLlang@langconfig@russian}{#2}}%
+            {cn}{\gappto{\PJLlang@langconfig@SC}{#2}}%
+            {chinese}{\gappto{\PJLlang@langconfig@SC}{#2}}%
+            {schinese}{\gappto{\PJLlang@langconfig@SC}{#2}}%
+            {simplifiedchinese}{\gappto{\PJLlang@langconfig@SC}{#2}}%
+            {tc}{\gappto{\PJLlang@langconfig@TC}{#2}}%
+            {tchinese}{\gappto{\PJLlang@langconfig@TC}{#2}}%
+            {traditionalchinese}{\gappto{\PJLlang@langconfig@TC}{#2}}%
+            {jp}{\gappto{\PJLlang@langconfig@JP}{#2}}%
+            {japanese}{\gappto{\PJLlang@langconfig@JP}{#2}}%
+            {en}{\gappto{\PJLlang@langconfig@EN}{#2}}%
+            {english}{\gappto{\PJLlang@langconfig@EN}{#2}}%
+            {fr}{\gappto{\PJLlang@langconfig@FR}{#2}}%
+            {french}{\gappto{\PJLlang@langconfig@FR}{#2}}%
+            {de}{\gappto{\PJLlang@langconfig@DE}{#2}}%
+            {ngerman}{\gappto{\PJLlang@langconfig@DE}{#2}}%
+            {it}{\gappto{\PJLlang@langconfig@IT}{#2}}%
+            {italian}{\gappto{\PJLlang@langconfig@IT}{#2}}%
+            {pt}{\gappto{\PJLlang@langconfig@PT}{#2}}%
+            {portuguese}{\gappto{\PJLlang@langconfig@PT}{#2}}%
+            {br}{\gappto{\PJLlang@langconfig@BR}{#2}}%
+            {brazilian}{\gappto{\PJLlang@langconfig@BR}{#2}}%
+            {es}{\gappto{\PJLlang@langconfig@ES}{#2}}%
+            {spanish}{\gappto{\PJLlang@langconfig@ES}{#2}}%
+            {german}{\gappto{\PJLlang@langconfig@DE}{#2}}%
+            {ru}{\gappto{\PJLlang@langconfig@RU}{#2}}%
+            {russian}{\gappto{\PJLlang@langconfig@RU}{#2}}%
         }%
     }%
 }
@@ -844,32 +844,32 @@
 \newcommand{\UseLanguageCORE}[1]{%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
-        {cn}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
-        {chinese}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
-        {schinese}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
-        {simplifiedchinese}{\PJL@config@CJK\PJLlang@langconfig@schinese}%
-        {tc}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
-        {tchinese}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
-        {traditionalchinese}{\PJL@config@CJK\PJLlang@langconfig@tchinese}%
-        {jp}{\PJL@config@CJK\PJLlang@langconfig@japanese}%
-        {japanese}{\PJL@config@CJK\PJLlang@langconfig@japanese}%
-        {en}{\PJL@config@Latin\PJLlang@langconfig@english}%
-        {english}{\PJL@config@Latin\PJLlang@langconfig@english}%
-        {fr}{\PJL@config@Latin\PJLlang@langconfig@french}%
-        {french}{\PJL@config@Latin\PJLlang@langconfig@french}%
-        {de}{\PJL@config@Latin\PJLlang@langconfig@german}%
-        {ngerman}{\PJL@config@Latin\PJLlang@langconfig@german}%
-        {german}{\PJL@config@Latin\PJLlang@langconfig@german}%
-        {it}{\PJL@config@Latin\PJLlang@langconfig@italian}%
-        {italian}{\PJL@config@Latin\PJLlang@langconfig@italian}%
-        {pt}{\PJL@config@Latin\PJLlang@langconfig@portuguese}%
-        {portuguese}{\PJL@config@Latin\PJLlang@langconfig@portuguese}%
-        {br}{\PJL@config@Latin\PJLlang@langconfig@brazilian}%
-        {brazilian}{\PJL@config@Latin\PJLlang@langconfig@brazilian}%
-        {es}{\PJL@config@Latin\PJLlang@langconfig@spanish}%
-        {spanish}{\PJL@config@Latin\PJLlang@langconfig@spanish}%
-        {ru}{\PJL@config@Latin\PJLlang@langconfig@russian}%
-        {russian}{\PJL@config@Latin\PJLlang@langconfig@russian}%
+        {cn}{\PJL@config@CJK\PJLlang@langconfig@SC}%
+        {chinese}{\PJL@config@CJK\PJLlang@langconfig@SC}%
+        {schinese}{\PJL@config@CJK\PJLlang@langconfig@SC}%
+        {simplifiedchinese}{\PJL@config@CJK\PJLlang@langconfig@SC}%
+        {tc}{\PJL@config@CJK\PJLlang@langconfig@TC}%
+        {tchinese}{\PJL@config@CJK\PJLlang@langconfig@TC}%
+        {traditionalchinese}{\PJL@config@CJK\PJLlang@langconfig@TC}%
+        {jp}{\PJL@config@CJK\PJLlang@langconfig@JP}%
+        {japanese}{\PJL@config@CJK\PJLlang@langconfig@JP}%
+        {en}{\PJL@config@Latin\PJLlang@langconfig@EN}%
+        {english}{\PJL@config@Latin\PJLlang@langconfig@EN}%
+        {fr}{\PJL@config@Latin\PJLlang@langconfig@FR}%
+        {french}{\PJL@config@Latin\PJLlang@langconfig@FR}%
+        {de}{\PJL@config@Latin\PJLlang@langconfig@DE}%
+        {ngerman}{\PJL@config@Latin\PJLlang@langconfig@DE}%
+        {german}{\PJL@config@Latin\PJLlang@langconfig@DE}%
+        {it}{\PJL@config@Latin\PJLlang@langconfig@IT}%
+        {italian}{\PJL@config@Latin\PJLlang@langconfig@IT}%
+        {pt}{\PJL@config@Latin\PJLlang@langconfig@PT}%
+        {portuguese}{\PJL@config@Latin\PJLlang@langconfig@PT}%
+        {br}{\PJL@config@Latin\PJLlang@langconfig@BR}%
+        {brazilian}{\PJL@config@Latin\PJLlang@langconfig@BR}%
+        {es}{\PJL@config@Latin\PJLlang@langconfig@ES}%
+        {spanish}{\PJL@config@Latin\PJLlang@langconfig@ES}%
+        {ru}{\PJL@config@Latin\PJLlang@langconfig@RU}%
+        {russian}{\PJL@config@Latin\PJLlang@langconfig@RU}%
     }%
 }
 %# 用于选定语言的 UseLanguage
@@ -887,32 +887,32 @@
 \begingroup\begingroup%
     \PJLlang@langconfig@common%
     \lowercase{\IfStrEqCase{#1}}{%
-        {cn}{\PJLlang@langconfig@schinese}%
-        {chinese}{\PJLlang@langconfig@schinese}%
-        {schinese}{\PJLlang@langconfig@schinese}%
-        {simplifiedchinese}{\PJLlang@langconfig@schinese}%
-        {tc}{\PJLlang@langconfig@tchinese}%
-        {tchinese}{\PJLlang@langconfig@tchinese}%
-        {traditionalchinese}{\PJLlang@langconfig@tchinese}%
-        {jp}{\PJLlang@langconfig@japanese}%
-        {japanese}{\PJLlang@langconfig@japanese}%
-        {en}{\PJLlang@langconfig@english}%
-        {english}{\PJLlang@langconfig@english}%
-        {fr}{\PJLlang@langconfig@french}%
-        {french}{\PJLlang@langconfig@french}%
-        {de}{\PJLlang@langconfig@german}%
-        {ngerman}{\PJLlang@langconfig@german}%
-        {german}{\PJLlang@langconfig@german}%
-        {it}{\PJLlang@langconfig@italian}%
-        {italian}{\PJLlang@langconfig@italian}%
-        {pt}{\PJLlang@langconfig@portuguese}%
-        {portuguese}{\PJLlang@langconfig@portuguese}%
-        {br}{\PJLlang@langconfig@brazilian}%
-        {brazilian}{\PJLlang@langconfig@brazilian}%
-        {es}{\PJLlang@langconfig@spanish}%
-        {spanish}{\PJLlang@langconfig@spanish}%
-        {ru}{\PJLlang@langconfig@russian}%
-        {russian}{\PJLlang@langconfig@russian}%
+        {cn}{\PJLlang@langconfig@SC}%
+        {chinese}{\PJLlang@langconfig@SC}%
+        {schinese}{\PJLlang@langconfig@SC}%
+        {simplifiedchinese}{\PJLlang@langconfig@SC}%
+        {tc}{\PJLlang@langconfig@TC}%
+        {tchinese}{\PJLlang@langconfig@TC}%
+        {traditionalchinese}{\PJLlang@langconfig@TC}%
+        {jp}{\PJLlang@langconfig@JP}%
+        {japanese}{\PJLlang@langconfig@JP}%
+        {en}{\PJLlang@langconfig@EN}%
+        {english}{\PJLlang@langconfig@EN}%
+        {fr}{\PJLlang@langconfig@FR}%
+        {french}{\PJLlang@langconfig@FR}%
+        {de}{\PJLlang@langconfig@DE}%
+        {ngerman}{\PJLlang@langconfig@DE}%
+        {german}{\PJLlang@langconfig@DE}%
+        {it}{\PJLlang@langconfig@IT}%
+        {italian}{\PJLlang@langconfig@IT}%
+        {pt}{\PJLlang@langconfig@PT}%
+        {portuguese}{\PJLlang@langconfig@PT}%
+        {br}{\PJLlang@langconfig@BR}%
+        {brazilian}{\PJLlang@langconfig@BR}%
+        {es}{\PJLlang@langconfig@ES}%
+        {spanish}{\PJLlang@langconfig@ES}%
+        {ru}{\PJLlang@langconfig@RU}%
+        {russian}{\PJLlang@langconfig@RU}%
     }%
     #2%
 \endgroup\endgroup%
@@ -920,19 +920,7 @@
 
 %# 运行默认语言的设置
 %# Execute the configuration of the main language
-\IfStrEqCase{\PJLlang@mainlang}{%
-    {EN}{\UseLanguage{EN}}%
-    {FR}{\UseLanguage{FR}}%
-    {DE}{\UseLanguage{DE}}%
-    {IT}{\UseLanguage{IT}}%
-    {PT}{\UseLanguage{PT}}%
-    {BR}{\UseLanguage{BR}}%
-    {ES}{\UseLanguage{ES}}%
-    {CN}{\UseLanguage{CN}}%
-    {TC}{\UseLanguage{TC}}%
-    {JP}{\UseLanguage{JP}}%
-    {RU}{\UseLanguage{RU}}%
-}
+\expandafter\UseLanguage\expandafter{\PJLlang@mainlang}
 %</PJLlang>
 %
 %<*PJLlogo>
@@ -2074,7 +2062,7 @@
 
 %# 一些 cref 的本地化
 %# Some localization of cref
-\gappto{\PJLlang@langconfig@schinese}{%
+\gappto{\PJLlang@langconfig@SC}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{图}{图}%
     \crefname{table}{表}{表}%
@@ -2091,7 +2079,7 @@
     \def\creflastgroupconjunction{~和~}%
     \def\crefrangeconjunction{～}%
 }
-\gappto{\PJLlang@langconfig@tchinese}{%
+\gappto{\PJLlang@langconfig@TC}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{圖}{圖}%
     \crefname{table}{表}{表}%
@@ -2108,7 +2096,7 @@
     \def\creflastgroupconjunction{~與~}%
     \def\crefrangeconjunction{～}%
 }
-\gappto{\PJLlang@langconfig@japanese}{%
+\gappto{\PJLlang@langconfig@JP}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{図}{図}%
     \crefname{table}{表}{表}%
@@ -2125,7 +2113,7 @@
     \def\creflastgroupconjunction{~と~}%
     \def\crefrangeconjunction{〜}%
 }
-\gappto{\PJLlang@langconfig@russian}{%
+\gappto{\PJLlang@langconfig@RU}{%
     \crefname{equation}{уравнение}{уравнения}%
     \crefname{figure}{рис.}{рис.}%
     \crefname{table}{таблица}{таблицы}%
@@ -2142,7 +2130,7 @@
     \def\creflastgroupconjunction{~и~}%
     \def\crefrangeconjunction{~\textasciitilde~}%
 }
-\gappto{\PJLlang@langconfig@portuguese}{%
+\gappto{\PJLlang@langconfig@PT}{%
     \crefname{equation}{eq.}{eqs.}%
     \crefname{figure}{fig.}{figs.}%
     \crefname{table}{tabela}{tabelas}%
