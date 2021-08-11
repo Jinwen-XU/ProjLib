@@ -599,7 +599,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item 字体选项。顾名思义，会加载相应名称的字体。
             \item \texttt{useosf} 选项用来启用“旧式”数字。
         \end{itemize}
-    \item \texttt{nothms}、\texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}、\texttt{regionalref}、\texttt{originalref}
+    \item \texttt{nothms}、\texttt{delaythms}、\texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}、\texttt{regionalref}、\texttt{originalref}
         \begin{itemize}
             \item 来自用于设置定理类环境的组件 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
         \end{itemize}
@@ -629,7 +629,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item Font options. As the names suggest, font with corresponding name will be loaded. 
             \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
+    \item \texttt{nothms}, \texttt{delaythms}, \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options from the component \PJLthm{} used for setting theorem-like environments, please refer to the section on this package for details.
         \end{itemize}
@@ -659,7 +659,7 @@ In addition, there are also some options of the components that should be passed
             \item Options de police. Comme les noms l'indiquent, la police avec le nom correspondant sera utilisée.
             \item L'option \texttt{useosf} est pour activer les chiffres à l'ancienne.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
+    \item \texttt{nothms}, \texttt{delaythms}, \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options du composant \PJLthm{} utilisé pour définir des environnements de type théorème, veuillez vous référer à la section sur ce package pour plus de détails.
         \end{itemize}
@@ -957,9 +957,13 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
     \begin{itemize}
         \item 不设定定理类环境。如果你希望使用自己的定理样式，可以使用这一选项。
     \end{itemize}
+    \item \texttt{delaythms}
+    \begin{itemize}
+        \item 将定理类环境设定推迟到导言结尾。如果你希望定理类环境跟随自定义计数器编号，则应考虑这一选项。
+    \end{itemize}
     \item \texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}
     \begin{itemize}
-        \item 使定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
+        \item 使定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器 (在启用 \texttt{delaythms} 选项的情况下)。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
     \end{itemize}
     \item \texttt{regionalref}、\texttt{originalref}
     \begin{itemize}
@@ -994,6 +998,7 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
 \vspace{-.15\baselineskip}%
 其中，\meta{language name} 可参阅关于 \PJLlang{} 的小节。当不指定 \meta{language name}时，则会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}{...}| 与 \lstinline|\NameTheorem{envname}{...}| 效果相同。
 
+\bigskip
 然后用下面五种方式之一定义这一环境：
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
@@ -1040,6 +1045,7 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
   \CreateTheorem*{proofidea*}
   \CreateTheorem{proofidea}<subsection>
 \end{code}
+\clearpage\noindent
 可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea| (在 subsection 内编号)，它们支持在简体中文语境中使用，效果如下所示 (具体样式与所在的文档类有关) :
 
 \begin{proofidea*}
@@ -1062,9 +1068,13 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
     \begin{itemize}
         \item Theorem-like environments will not be defined. You may use this option if you wish to apply your own theorem styles.
     \end{itemize}
+    \item \texttt{delaythms}
+    \begin{itemize}
+        \item Defer the definition of theorem-like environments to the end of the preamble. Use this option if you want the theorem-like environments to be numbered within a custom counter.
+    \end{itemize}
     \item \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}
     \begin{itemize}
-        \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. Here, \meta{counter} should be a built-in counter (such as \texttt{subsection}) or a custom counter defined in the preamble. If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
+        \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. Here, \meta{counter} should be a built-in counter (such as \texttt{subsection}) or a custom counter defined in the preamble (with the option \texttt{delaythms} enabled). If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
     \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
@@ -1169,9 +1179,13 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     \begin{itemize}
         \item Les environnements de type théorème ne seront pas définis. Vous pouvez utiliser cette option si vous souhaitez appliquer vos propres styles de théorème.
     \end{itemize}
+    \item \texttt{delaythms}
+    \begin{itemize}
+        \item Reportez la définition des environnements de type théorème à la fin du préambule. Utilisez cette option si vous souhaitez que les environnements soient numérotés dans un compteur personnalisé.
+    \end{itemize}
     \item \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}
     \begin{itemize}
-        \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Ici, \meta{counter} doit être un compteur intégré (tel que \texttt{subsection}) ou un compteur défini dans le préambule. Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
+        \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Ici, \meta{counter} doit être un compteur intégré (tel que \texttt{subsection}) ou un compteur défini dans le préambule (avec l'option \texttt{delaythms} activée). Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
     \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
@@ -1199,19 +1213,19 @@ Ensuite, créez cet environnement de l'une des cinq manières suivantes :
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
         \begin{itemize}
-            \item Définir un environnement non numéroté \meta{name of environment}
+            \item Définir un environnement \meta{name of environment} non numéroté
         \end{itemize}
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
         \begin{itemize}
-            \item Définir un environnement numéroté \meta{name of environment}, numéroté dans l'ordre 1, 2, 3, \dots
+            \item Définir un environnement \meta{name of environment} numéroté dans l'ordre 1, 2, 3, \dots
         \end{itemize}
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
         \begin{itemize}
-            \item Définir un environnement numéroté \meta{name of environment}, qui partage le compteur \meta{numbered like}
+            \item Définir un environnement \meta{name of environment} numéroté, qui partage le compteur \meta{numbered like}
         \end{itemize}
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
         \begin{itemize}
-            \item Définir un environnement numéroté \meta{name of environment}, numéroté dans le compteur \meta{numbered within}
+            \item Définir un environnement \meta{name of environment} numéroté dans le compteur \meta{numbered within}
         \end{itemize}
     \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
     \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
