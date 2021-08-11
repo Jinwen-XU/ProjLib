@@ -1369,6 +1369,9 @@
 %# 不建立定理类环境
 %# Do not setup theorem-like environments
 \DeclareBoolOption[false]{nothms}
+%# 推迟建立定理类环境
+%# Delay the setup of theorem-like environments to the end of the preamble
+\DeclareBoolOption[false]{delaythms}
 %# 不编号定理类环境
 %# Do not number theorem-like environments
 \DeclareBoolOption[false]{nothmnum}
@@ -1925,9 +1928,10 @@
         }
     }
 }
+
 %# 建立定理类环境
 %# Setup theorem-like environments
-% \AtEndPreamble{
+\def\PJLthm@definethms{
 \if@PJLthm@nothms\else
 \if@PJLthm@nothmnum
 \CreateTheorem*{theorem}
@@ -2006,7 +2010,6 @@
 \CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
-% }
 
 %# 按照 thmnum 决定公式如何编号
 %# Number the equations with respect to thmnum
@@ -2021,6 +2024,14 @@
         \numberwithin{equation}{\@PJLthm@thmnum}
     }
 }
+
+} % End of \PJLthm@definethms
+
+\if@PJLthm@delaythms
+    \AtEndPreamble{\PJLthm@definethms}
+\else
+    \PJLthm@definethms
+\fi
 
 %# 一些 cref 的本地化
 %# Some localization of cref
@@ -2123,6 +2134,7 @@
 \DeclareBoolOption[false]{author}
 \DeclareBoolOption[false]{amsfashion}
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{delaythms}
 \DeclareBoolOption[false]{nothmnum}
 \DeclareStringOption{thmnum}[PJL@thmnum@default]
 \DeclareBoolOption[true]{regionalref}
@@ -2156,6 +2168,9 @@
 \fi
 \if@ProjLib@nothms
     \PassOptionsToPackage{nothms}{PJLthm}
+\fi
+\if@ProjLib@delaythms
+    \PassOptionsToPackage{delaythms}{PJLthm}
 \fi
 \if@ProjLib@nothmnum
     \PassOptionsToPackage{nothmnum}{PJLthm}
