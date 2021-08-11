@@ -18,47 +18,47 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/08/07a The collective interface of ProjLib toolkit]
+    [2021/08/11 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/08/07a Enhanced author information block]
+    [2021/08/11 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/08/07a Convert yyyy-mm-dd to normal datetime format]
+    [2021/08/11 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/08/07a Some useful macros for the draft stage]
+    [2021/08/11 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/08/07a Multi-language configuration]
+    [2021/08/11 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/08/07a The ProjLib logo]
+    [2021/08/11 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/08/07a Useful math macros and shortcuts]
+    [2021/08/11 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/08/07a Paper style configuration]
+    [2021/08/11 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/08/07a Theorem setup and configuration]
+    [2021/08/11 Theorem setup and configuration]
 %</PJLthm>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -411,7 +411,7 @@
 \gappto{\PJLlang@langconfig@common}{%
     \let\@DTMdate\@DTMdate@PJLoriginal%
 }
-\gappto{\PJLlang@langconfig@SC}{%
+\gappto{\PJLlang@langconfig@CN}{%
     \renewcommand*{\@DTMdate}[1]{%
     \expandafter\@dtm@parsedate#1\@dtm@endparsedate%
     \zhdate{\@dtm@year/\@dtm@month/\@dtm@day}%
@@ -672,10 +672,10 @@
  {
   \str_case_e:nn { \str_foldcase:n { #1 } }
    {
-        {cn}                    {SC}
-        {chinese}               {SC}
-        {schinese}              {SC}
-        {simplifiedchinese}     {SC}
+        {cn}                    {CN}
+        {chinese}               {CN}
+        {schinese}              {CN}
+        {simplifiedchinese}     {CN}
         {tc}                    {TC}
         {tchinese}              {TC}
         {traditionalchinese}    {TC}
@@ -794,7 +794,7 @@
 
 %# 各个语言的设置
 %# The configuration for each language
-\newcommand{\PJLlang@langconfig@SC}{%
+\newcommand{\PJLlang@langconfig@CN}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
     \def\contentsname{目录}%
@@ -1927,7 +1927,7 @@
 }
 %# 建立定理类环境
 %# Setup theorem-like environments
-\AtEndPreamble{
+% \AtEndPreamble{
 \if@PJLthm@nothms\else
 \if@PJLthm@nothmnum
 \CreateTheorem*{theorem}
@@ -2006,7 +2006,7 @@
 \CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
-}
+% }
 
 %# 按照 thmnum 决定公式如何编号
 %# Number the equations with respect to thmnum
@@ -2024,7 +2024,7 @@
 
 %# 一些 cref 的本地化
 %# Some localization of cref
-\gappto{\PJLlang@langconfig@SC}{%
+\gappto{\PJLlang@langconfig@CN}{%
     \crefname{equation}{式}{式}%
     \crefname{figure}{图}{图}%
     \crefname{table}{表}{表}%
