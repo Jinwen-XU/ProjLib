@@ -1409,27 +1409,31 @@
 
 %# 用于命名定理类环境的用户命令
 %# Macro for naming theorems
-\NewDocumentCommand{\NameTheorem}{omm}{%
-    \protected@edef\PJLthm@temp{#2}%
+\NewDocumentCommand{\NameTheorem}{somm}{%
+    \protected@edef\PJLthm@temp{#3}%
     \expandafter\IfEndWith\expandafter{\PJLthm@temp}{*}{%
         \expandafter\StrGobbleRight\expandafter{\PJLthm@temp}{1}[\PJLthm@temp]%
     }{}%
-    \IfValueTF{#1}{%
-        \expandafter\def\expandafter\PJL@temp@abbr\expandafter%
-            {\expandafter\StrToABBR\expandafter{#1}}%
-        \expandafter\def\csname\PJLthm@temp name\PJL@temp@abbr\endcsname{#3}%
+    \IfBooleanTF{#1}{%
+        \CreateTheoremSetKeys{\PJLthm@temp}{#4}%
     }{%
-        \expandafter\def\csname\PJLthm@temp nameEN\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameFR\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameDE\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameIT\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp namePT\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameBR\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameES\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameCN\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameTC\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameJP\endcsname{#3}%
-        \expandafter\def\csname\PJLthm@temp nameRU\endcsname{#3}%
+        \IfValueTF{#2}{%
+            \expandafter\def\expandafter\PJL@temp@abbr\expandafter%
+                {\expandafter\StrToABBR\expandafter{#2}}%
+            \expandafter\def\csname\PJLthm@temp name\PJL@temp@abbr\endcsname{#4}%
+        }{%
+            \expandafter\def\csname\PJLthm@temp nameEN\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameFR\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameDE\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameIT\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp namePT\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameBR\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameES\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameCN\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameTC\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameJP\endcsname{#4}%
+            \expandafter\def\csname\PJLthm@temp nameRU\endcsname{#4}%
+        }%
     }%
 }
 
@@ -1450,13 +1454,14 @@
         \expandafter{\PJLthm@temp}{\endgroup\InnerCreateTheorem{#1}}}%
 }%
 \if@PJLthm@regionalref
-\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()}{%
+\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()g}{%
 % #1 = star or no star
 % #2 = name of environment
 % #3 = emptiness or star to append to name of environment
 % #4 = numbered like
 % #5 = numbered within
 % #6 = existed environment
+% #7 = key-value configuration of names
     \IfBooleanTF{#1}{%
         \IfValueTF{#4}
             {\@firstoftwo}
@@ -1510,9 +1515,12 @@
             }%
         }%
     }%
+    \IfValueTF{#7}{%
+        \CreateTheoremSetKeys{#2}{#7}%
+    }{}%
 }%
 \else
-\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()}{%
+\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>d()g}{%
 % #1 = Tokens denoting an xparse-boolean value;
 %      value "true" -> the call was \CreateTheorem*{...}...
 %      value "false" -> the call was \CreateTheorem{...}...
@@ -1532,6 +1540,7 @@
 %      to the environment's counter and whose stepping resets
 %      the environment's counter.
 % #6 = existed environment name (the environment to copy)
+% #7 = key-value configuration of names
     \IfBooleanTF{#1}{%
         \IfValueTF{#4}
             {\@firstoftwo}
@@ -1619,6 +1628,9 @@
                 {\csname end#2\csname\languagename ABBR\endcsname#3\endcsname}%
         }%
     }%
+    \IfValueTF{#7}{%
+        \CreateTheoremSetKeys{#2}{#7}%
+    }{}%
 }%
 \NewDocumentCommand{\CreateTheoremNumberedLikeAliasCounter}{mmm}{%
     \newaliascnt{#1#2#3}{#1#3}%
@@ -1643,6 +1655,84 @@
     }%
 }%
 \fi
+
+% See https://tex.stackexchange.com/a/610604
+\ExplSyntaxOn
+
+% Helper-macros/scratch-macros
+%-----------------------------
+\cs_new:Nn  \PJLthm_exchange_i_iii_ii:nnn  { #1 {#3} {#2} }
+\cs_new:Nn  \__PJLthm_languageprefix:  {}
+\cs_new:Nn  \__PJLthm_countername:  {}
+
+% Message-management:
+%--------------------
+\msg_new:nnnn {PJLthm}
+              {Undefined Language Dependent Specification Class}
+              {\token_to_str:N \CreateTheorem :\ Value\ `\tl_to_str:n{#2}'\ for\ invalid\ key\ `#1'.} 
+              {Providing\ Language-dependent\ specifications\ for\ element\ `#1'\ is\ currently\ not\ implemented.}
+
+% Nested key=value-interface by means of package l3keys:
+%-------------------------------------------------------
+% (l3keys is similar to pgfkeys.)
+% The outer level of key=value-specifications, i.e.,   <language-ID>={...},
+% is processed via  \keyval_parse:nnn  which was added tpo expl3 in 2020/12/19.
+% The inner level of key=value-specifications,
+%   i.e., the single keys whose values are to be specified dependant on the language,
+%   i.e., the "..."-content of the outer lever's {...},
+% is processed via  \keys_set:nn  .
+% The keys for the inner level are defined via  \keys_define:nn .
+
+\NewDocumentCommand \CreateTheoremSetKeys { mm } {
+  % #1 = name of counter
+  % #2 = keyval-list of language-specifications
+  \cs_set:Nn \__PJLthm_countername: {#1}
+  \keyval_parse:nnn { \PJLthm_exchange_i_iii_ii:nnn { \PJLthm_setlanguagespecificparameters:nn } {} } 
+                    { \PJLthm_setlanguagespecificparameters:nn }
+                    { #2 }
+}
+
+\cs_new_protected:Nn \PJLthm_setlanguagespecificparameters:nn {
+  % #1 = language-prefix
+  % #2 = key-val-list for language whose prefix is language-prefix
+  \cs_set:Nx \__PJLthm_languageprefix: {\StrToABBR{#1}}
+  \exp_args:No \tl_if_empty:nTF {\__PJLthm_languageprefix:} 
+    { \msg_error:nn { PJLthm }
+                    { No language \exp_not:n{#1} defined }
+    }%
+    {%
+        \newaliascnt {\__PJLthm_countername: \__PJLthm_languageprefix:} {\__PJLthm_countername:}%
+        \aliascntresetthe {\__PJLthm_countername: \__PJLthm_languageprefix:}%
+        \keys_set:nn { PJLthm } { #2 } 
+    }%
+}%
+\keys_define:nn { PJLthm } {
+  crefname.code:n  = \cs_if_exist:NTF \crefname  {
+                        \exp_args:Nx \crefname {\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                     }{},
+  crefname.value_required:n = true,
+  Crefname.code:n  = \cs_if_exist:NTF \Crefname  { 
+                        \exp_args:Nx \Crefname {\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                     }{},
+  Crefname.value_required:n = true,
+  name.code:n  = \exp_args:Nx \cs_set:cpn {\__PJLthm_countername: name \__PJLthm_languageprefix:} {#1},
+  name.value_required:n = true,
+  autorefname.code:n  = \exp_args:Nx \cs_set:cpn  {\__PJLthm_countername: \__PJLthm_languageprefix: autorefname} {#1},
+  autorefname.value_required:n = true,
+  theoremheading.code:n= \exp_args:Nx \cs_set:cpn  {\__PJLthm_countername: \__PJLthm_languageprefix: heading} {#1},
+  theoremheading.value_required:n = true,
+  the.code:n= \exp_args:Nx \cs_set:cpn  {the \__PJLthm_countername: \__PJLthm_languageprefix: } {#1},
+  the.value_required:n = true,
+  %
+  % Define keys for more Language Dependent Specification Classes.
+  %
+  unknown.code:n = \msg_error:nnxx {PJLthm} 
+                                   {Undefined Language Dependent Specification Class}
+                                   {\exp_args:No \exp_not:n \l_keys_key_str}
+                                   {\exp_not:n{#1}},
+}
+
+\ExplSyntaxOff
 
 %# 英文定理名称
 %# English theorems names
