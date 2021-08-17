@@ -15,7 +15,7 @@
 \ProvidesFile{ProjLib-doc.dtx}
 %</driver>
 %
-\documentclass[English,Chinese,French,allowbf,puretext]{lebhart}
+\documentclass[allowbf,puretext]{lebhart}
 
 %%================================
 %% Import toolkit
@@ -107,7 +107,7 @@
 %<*ProjLib-doc-cn>
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/08/11}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/08/17}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{2021年8月，北京}
 %</ProjLib-doc-cn>
@@ -115,7 +115,7 @@
 %<*ProjLib-doc-en>
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/08/11}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/08/17}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{August 2021, Beijing}
 %</ProjLib-doc-en>
@@ -123,7 +123,7 @@
 %<*ProjLib-doc-fr>
 \title{La boîte à outils~\,\ProjLib{}\\[.3\baselineskip]\normalsize Manuel d'utilisation}
 \author{Jinwen XU}
-\thanks{Correspondant à : \texttt{\ProjLib{}~2021/08/11}}
+\thanks{Correspondant à : \texttt{\ProjLib{}~2021/08/17}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{Août 2021, à Pékin}
 %</ProjLib-doc-fr>
@@ -221,7 +221,7 @@ La boîte à outils \ProjLib{} est composée du package principal \ProjLibPackag
 加载 \ProjLib{} 工具箱十分容易，只需要在导言部分加入这一行即可：
 
 \begin{code}
-  \usepackage{ProjLib}
+\usepackage{ProjLib}
 \end{code}
 
 \begin{tip}[注意事项]
@@ -237,7 +237,7 @@ La boîte à outils \ProjLib{} est composée du package principal \ProjLibPackag
 Just add the following line to your preamble:
 
 \begin{code}
-  \usepackage{ProjLib}
+\usepackage{ProjLib}
 \end{code}
 
 \begin{tip}[Attention]
@@ -253,7 +253,7 @@ Just add the following line to your preamble:
 Ajoutez simplement la ligne suivante à votre préambule :
 
 \begin{code}
-   \usepackage{ProjLib}
+\usepackage{ProjLib}
 \end{code}
 
 \begin{tip}[Attention]
@@ -708,13 +708,13 @@ De plus, il existe également certaines options des composants qui doivent être
 
 \PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
 \begin{code}
-  \author{(*\meta{author 1}*)}
-  \address{(*\meta{address 1}*)}
-  \email{(*\meta{email 1}*)}
-  \author{(*\meta{author 2}*)}
-  \address{(*\meta{address 2}*)}
-  \email{(*\meta{email 2}*)}
-  ...
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
 \end{code}
 其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
 
@@ -736,13 +736,13 @@ De plus, il existe également certaines options des composants qui doivent être
 
 \PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
 \begin{code}
-  \author{(*\meta{author 1}*)}
-  \address{(*\meta{address 1}*)}
-  \email{(*\meta{email 1}*)}
-  \author{(*\meta{author 2}*)}
-  \address{(*\meta{address 2}*)}
-  \email{(*\meta{email 2}*)}
-  ...
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
 \end{code}
 The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
 
@@ -764,13 +764,13 @@ In addition, you can use the option \texttt{amsfashion} to enable the \AmS{} fas
 
 \PJLauthor{} propose les macros \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email|, et vous permet de saisir plusieurs groupes d'informations sur l'auteur. L'utilisation standard est comme ceci :
 \begin{code}
-  \author{(*\meta{author 1}*)}
-  \address{(*\meta{address 1}*)}
-  \email{(*\meta{email 1}*)}
-  \author{(*\meta{author 2}*)}
-  \address{(*\meta{address 2}*)}
-  \email{(*\meta{email 2}*)}
-  ...
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
 \end{code}
 L'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email| n'est pas important.
 
@@ -861,7 +861,7 @@ De plus, vous pouvez utiliser l'option \texttt{amsfashion} pour écrire à la ma
 The language can be selected by the following macros:
 
 \begin{itemize}
-    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}| is used to specify the language. The corresponding setting of the language will be applied after it. It can be used either in the preamble or in the main body. When no language is specified, ``English" is selected by default.
+    \item \lstinline|\UseLanguage{|\meta{language name}\lstinline|}| is used to specify the language. The corresponding settings of the language will be applied after it. It can be used either in the preamble or in the main body. When no language is specified, ``English" is selected by default.
     \item \lstinline|\UseOtherLanguage{|\meta{language name}\lstinline|}{|\meta{content}\lstinline|}|, which uses the specified language settings to typeset \meta{content}. Compared with \lstinline|\UseLanguage|, it will not modify the line spacing, so line spacing would remain stable when CJK and Western texts are mixed.
 \end{itemize}
 
@@ -979,27 +979,47 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
 \end{tip}
 
 \medskip
-% 若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称 \lstinline|\|\meta{name of environment}\meta{language abbr}，其中 \meta{language abbr} 是语言的简写，分别为：
-% \begin{longtable}{ll|ll}
-%     \texttt{CN} & 简体中文  & \texttt{DE} & 德文\\
-%     \texttt{TC} & 繁体中文  & \texttt{JP} & 日文\\
-%     \texttt{EN} & 英文  & \texttt{RU} & 俄文\\
-%     \texttt{FR} & 法文  & &\\
-% \end{longtable}
-
-% \begin{tip}
-%     如果要定义名称后带有星号 \lstinline|*| 的环境，那么在上面的 \meta{name of environment} 中不用写星号。
-% \end{tip}
-若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称：
-\vspace{-.15\baselineskip}%
+若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称。有两种方式：
 \begin{itemize}
-    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+    \item 简易设置：\lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+        \begin{itemize}
+            \item 这种方式只设置单独的显示名称，智能引用等名称与之取为相同（特别地，以这种方式设置时智能引用名称将不区分单复数）。当不指定 \meta{language name}时，会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}| 与 \lstinline|\NameTheorem{envname}| 效果相同。
+        \end{itemize}
+    \item 详细设置（推荐）：
+\begin{code}
+\NameTheorem{(*\meta{name of environment}*)}{
+    (*\meta{language name 1}*)={
+        name=(*\meta{Name}*),
+        crefname={(*\meta{name}*)}{(*\meta{names}*)},
+        Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+        autorefname=(*\meta{name}*),
+        theoremheading=(*\meta{Name}*),
+    },
+    (*\meta{language name 2}*)={...},
+}
+\end{code}
+或
+\begin{code}
+\NameTheorem[(*\meta{language name}*)]{(*\meta{name of environment}*)}{
+    name=(*\meta{Name}*),
+    crefname={(*\meta{name}*)}{(*\meta{names}*)},
+    Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+    autorefname=(*\meta{name}*),
+    theoremheading=(*\meta{Name}*),
+}
+\end{code}
+        \begin{itemize}
+            \item 这种方式可以具体设置各个名称。当不指定 \meta{language name}时，将允许使用完整界面；在指定语言时则只设定相应语言。同样，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}| 与 \lstinline|\NameTheorem{envname}| 效果相同。
+        \end{itemize}
 \end{itemize}
-\vspace{-.15\baselineskip}%
-其中，\meta{language name} 可参阅关于 \PJLlang{} 的小节。当不指定 \meta{language name}时，则会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}{...}| 与 \lstinline|\NameTheorem{envname}{...}| 效果相同。
 
-\bigskip
-然后用下面五种方式之一定义这一环境：
+\begin{tip}
+    除此以外，你也可以在定义相应的定理类环境时为之命名，可以参见后文对 \lstinline|\CreateTheorem| 的说明。
+\end{tip}
+
+\clearpage
+% \bigskip
+然后，用下面五种方式之一定义这一环境：
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
         \begin{itemize}
@@ -1033,6 +1053,21 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
     其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
 \end{tip}
 
+\bigskip
+你也可以在定义定理类环境的同时为之命名，只需要在之后再加入一组括号进行设置：
+\begin{code}
+\CreateTheorem{(*\meta{name of environment}*)}{
+    (*\meta{language name 1}*)={
+        name=(*\meta{Name}*),
+        crefname={(*\meta{name}*)}{(*\meta{names}*)},
+        Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+        autorefname=(*\meta{name}*),
+        theoremheading=(*\meta{Name}*),
+    },
+    (*\meta{language name 2}*)={...},
+}
+\end{code}
+
 % \def\proofideanameCN{思路}
 \NameTheorem[CN]{proofidea}{思路}
 \CreateTheorem*{proofidea*}
@@ -1041,11 +1076,10 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
 \bigskip
 下面提供一个例子。这三行代码：
 \begin{code}
-  \NameTheorem[CN]{proofidea}{思路}
-  \CreateTheorem*{proofidea*}
-  \CreateTheorem{proofidea}<subsection>
+\NameTheorem[CN]{proofidea}{思路}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
 \end{code}
-\clearpage\noindent
 可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea| (在 subsection 内编号)，它们支持在简体中文语境中使用，效果如下所示 (具体样式与所在的文档类有关) :
 
 \begin{proofidea*}
@@ -1055,6 +1089,31 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
 \begin{proofidea}
     \lstinline|proofidea| 环境。
 \end{proofidea}
+
+\medskip
+当然，你也可以使用更加精细的名称：
+\begin{code}
+\NameTheorem{proofidea}{
+    CN = {
+        name = 思路,
+        crefname = {思路}{思路},
+        Crefname = {思路}{思路},
+    }
+}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
+\end{code}
+或者在定义时设置名称（对于 \lstinline|proofidea*| 与 \lstinline|proofidea| 只需要设置一次即可）：
+\begin{code}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>{
+    CN = {
+        name = 思路,
+        crefname = {思路}{思路},
+        Crefname = {思路}{思路},
+    }
+}
+\end{code}
 %</ProjLib-doc-cn>
 %
 %<*ProjLib-doc-en>
@@ -1089,26 +1148,45 @@ Preset environments include: \texttt{assumption}, \texttt{axiom}, \texttt{conjec
 \begin{tip}
     When referencing a theorem-like environment, it is recommended to use \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
 \end{tip}
-%
-% If you need to define a new theorem-like environment, you must first define the name of the environment in the language used: \lstinline|\|\meta{name of environment}\meta{language abbr}, where \meta{language abbr} is the abbreviation of language, which can be:
-% % \vspace{-.5\baselineskip}
-% \begin{longtable}{ll|ll}
-%     \texttt{CN} & Simplified Chinese & \texttt{DE} & German\\
-%     \texttt{TC} & Traditional Chinese & \texttt{JP} & Japanese\\
-%     \texttt{EN} & English & \texttt{RU} & Russian\\
-%     \texttt{FR} & French & &\\
-% \end{longtable}
-
-% \begin{tip}
-%     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
-% \end{tip}
 
 \bigskip
-If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use:
+If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use. There are two ways for this:
 \begin{itemize}
-    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+    \item Simple settings: \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+    \begin{itemize}
+        \item This approach only sets one main name, the other names, such as those used for clever reference, are set to be the same (in particular, for clever reference, the singular and plural form will not be distinguished). When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}| has the same effect as \lstinline|\NameTheorem{envname}| .
+    \end{itemize}
+    \item Detailed settings (recommended):
+\begin{code}
+\NameTheorem{(*\meta{name of environment}*)}{
+    (*\meta{language name 1}*)={
+        name=(*\meta{Name}*),
+        crefname={(*\meta{name}*)}{(*\meta{names}*)},
+        Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+        autorefname=(*\meta{name}*),
+        theoremheading=(*\meta{Name}*),
+    },
+    (*\meta{language name 2}*)={...},
+}
+\end{code}
+or
+\begin{code}
+\NameTheorem[(*\meta{language name}*)]{(*\meta{name of environment}*)}{
+    name=(*\meta{Name}*),
+    crefname={(*\meta{name}*)}{(*\meta{names}*)},
+    Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+    autorefname=(*\meta{name}*),
+    theoremheading=(*\meta{Name}*),
+}
+\end{code}
+        \begin{itemize}
+            \item This approach sets all the names. When \meta{language name} is not specified, the full interface will be enabled; when it is specified, only the names of the corresponding language are set. Similarly, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}| has the same effect as \lstinline|\NameTheorem{envname}| .
+        \end{itemize}
 \end{itemize}
-For \meta{language name}, please refer to the section on \PJLlang{}. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
+
+\begin{tip}
+    In addition, you can also name a theorem-like environment while defining it, see the description of \lstinline|\CreateTheorem| later.
+\end{tip}
 
 And then define this environment in one of following five ways:
 \vspace{-.3\baselineskip}
@@ -1145,7 +1223,21 @@ And then define this environment in one of following five ways:
     This macro utilizes the feature of \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
 \end{tip}
 
-% \def\proofideanameEN{Idea}
+\bigskip
+You can also name a theorem-like environment while defining it, by adding afterwards a group of parentheses containing the settings:
+\begin{code}
+\CreateTheorem{(*\meta{name of environment}*)}{
+    (*\meta{language name 1}*)={
+        name=(*\meta{Name}*),
+        crefname={(*\meta{name}*)}{(*\meta{names}*)},
+        Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+        autorefname=(*\meta{name}*),
+        theoremheading=(*\meta{Name}*),
+    },
+    (*\meta{language name 2}*)={...},
+}
+\end{code}
+
 \NameTheorem[EN]{proofidea}{Idea}
 \CreateTheorem*{proofidea*}
 \CreateTheorem{proofidea}<subsection>
@@ -1153,9 +1245,9 @@ And then define this environment in one of following five ways:
 \bigskip
 Here is an example. The following code:
 \begin{code}
-  \NameTheorem[EN]{proofidea}{Idea}
-  \CreateTheorem*{proofidea*}
-  \CreateTheorem{proofidea}<subsection>
+\NameTheorem[EN]{proofidea}{Idea}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
 \end{code}
 defines an unnumbered environment \lstinline|proofidea*| and a numbered environment \lstinline|proofidea| (numbered within subsection) respectively. They can be used in English context. The effect is as follows (the actual style is related to the document class):
 
@@ -1166,6 +1258,31 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
 \begin{proofidea}
     The \lstinline|proofidea| environment.
 \end{proofidea}
+
+\medskip
+Of course, you can also use a set of more detailed name:
+\begin{code}
+\NameTheorem{proofidea}{
+    EN = {
+        name = Idea,
+        crefname = {idea}{ideas},
+        Crefname = {Idea}{Ideas},
+    }
+}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
+\end{code}
+or set the names while defining them (for \lstinline|proofidea*| and \lstinline|proofidea|, set once suffices):
+\begin{code}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>{
+    EN = {
+        name = Idea,
+        crefname = {idea}{ideas},
+        Crefname = {Idea}{Ideas},
+    }
+}
+\end{code}
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
@@ -1202,11 +1319,43 @@ Les environnements prédéfinis incluent : \texttt{assumption}, \texttt{axiom},
 \end{tip}
 
 \medskip
-Si vous avez besoin de définir un nouvel environnement de type théorème, vous devez d'abord définir le nom de l'environnement dans le langage à utiliser :
+Si vous avez besoin de définir un nouvel environnement de type théorème, vous devez d'abord définir le nom de l'environnement dans le langage à utiliser. Il y a deux façons pour cela:
 \begin{itemize}
-    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+    \item Paramètres simples : \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
+    \begin{itemize}
+        \item Cette approche ne définit qu'un seul nom principal. Les autres noms, tels que ceux utilisés pour référence intelligente, sont définis pour être identiques (en particulier, pour référence intelligente, les noms singulier et pluriel ne seront pas distingués). Lorsque \meta{language name} n'est pas spécifié, le nom sera défini pour toutes les langues prises en charge. De plus, les environnements avec ou sans astérisque partagent le même nom, donc, \lstinline|\NameTheorem{envname*}| a le même effet que \lstinline|\NameTheorem{envname}| .
+    \end{itemize}
+    \item Paramètres détaillés (recommandés) :
+\begin{code}
+\NameTheorem{(*\meta{name of environment}*)}{
+    (*\meta{language name 1}*)={
+        name=(*\meta{Name}*),
+        crefname={(*\meta{name}*)}{(*\meta{names}*)},
+        Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+        autorefname=(*\meta{name}*),
+        theoremheading=(*\meta{Name}*),
+    },
+    (*\meta{language name 2}*)={...},
+}
+\end{code}
+ou
+\begin{code}
+\NameTheorem[(*\meta{language name}*)]{(*\meta{name of environment}*)}{
+    name=(*\meta{Name}*),
+    crefname={(*\meta{name}*)}{(*\meta{names}*)},
+    Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+    autorefname=(*\meta{name}*),
+    theoremheading=(*\meta{Name}*),
+}
+\end{code}
+        \begin{itemize}
+            \item Cette approche définit tous les noms. Lorsque \meta{language name} n'est pas spécifié, l'interface complète sera activée ; lorsqu'il est spécifié, seuls les noms de la langue correspondante sont définis. De même, les environnements avec ou sans astérisque partagent le même nom, donc \lstinline|\NameTheorem{envname*}| a le même effet que \lstinline|\NameTheorem{envname}| .
+        \end{itemize}
 \end{itemize}
-Pour \meta{language name}, veuillez vous référer à la section sur \PJLlang{}. Lorsque \meta{language name} n'est pas spécifié, le nom sera défini pour toutes les langues prises en charge. De plus, les environnements avec ou sans astérisque partagent le même nom, donc, \lstinline|\NameTheorem{envname*}{...}| a le même effet que \lstinline|\NameTheorem{envname}{...}| .
+
+\begin{tip}
+    De plus, vous pouvez également nommer un environnement de type théorème tout en le définissant, voir la description de \lstinline|\CreateTheorem| plus tard.
+\end{tip}
 
 Ensuite, créez cet environnement de l'une des cinq manières suivantes :
 \vspace{-.3\baselineskip}
@@ -1243,6 +1392,21 @@ Ensuite, créez cet environnement de l'une des cinq manières suivantes :
     Cette macro utilise la fonctionnalité de \textsf{amsthm} en interne, donc le traditionnel \texttt{theoremstyle} lui est également applicable. Il suffit de déclarer le style avant les définitions pertinentes.
 \end{tip}
 
+\bigskip
+Vous pouvez également nommer un environnement de type théorème lors de sa définition, en ajoutant ensuite un groupe de parenthèses contenant les paramètres :
+\begin{code}
+\CreateTheorem{(*\meta{name of environment}*)}{
+    (*\meta{language name 1}*)={
+        name=(*\meta{Name}*),
+        crefname={(*\meta{name}*)}{(*\meta{names}*)},
+        Crefname={(*\meta{Name}*)}{(*\meta{Names}*)},
+        autorefname=(*\meta{name}*),
+        theoremheading=(*\meta{Name}*),
+    },
+    (*\meta{language name 2}*)={...},
+}
+\end{code}
+
 \NameTheorem[FR]{proofidea}{Idée}
 \CreateTheorem*{proofidea*}
 \CreateTheorem{proofidea}<subsection>
@@ -1250,9 +1414,9 @@ Ensuite, créez cet environnement de l'une des cinq manières suivantes :
 \bigskip
 Voici un exemple. Le code suivant :
 \begin{code}
-  \NameTheorem[FR]{proofidea}{Idée}
-  \CreateTheorem*{proofidea*}
-  \CreateTheorem{proofidea}<subsection>
+\NameTheorem[FR]{proofidea}{Idée}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
 \end{code}
 définit un environnement non numéroté \lstinline|proofidea*| et un environnement numéroté \lstinline|proofidea| (numérotés dans la sous-section) respectivement. Ils peuvent être utilisés dans le contexte français. L'effet est le suivant (le style réel est lié à votre classe de document) :
 
@@ -1263,11 +1427,36 @@ définit un environnement non numéroté \lstinline|proofidea*| et un environnem
 \begin{proofidea}
     La environnement \lstinline|proofidea| .
 \end{proofidea}
+
+\medskip
+Bien sûr, vous pouvez également utiliser un ensemble de nom plus détaillé :
+\begin{code}
+\NameTheorem{proofidea}{
+    FR = {
+        name = Idée,
+        crefname = {idée}{idées},
+        Crefname = {Idée}{Idées},
+    }
+}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>
+\end{code}
+ou définissez les noms en les définissant (pour \lstinline|proofidea*| et \lstinline|proofidea|, définir une fois suffit) :
+\begin{code}
+\CreateTheorem*{proofidea*}
+\CreateTheorem{proofidea}<subsection>{
+    FR = {
+        name = Idée,
+        crefname = {idée}{idées},
+        Crefname = {Idée}{Idées},
+    }
+}
+\end{code}
 %</ProjLib-doc-fr>
 
 
 
-\bigskip
+\clearpage
 
 %<*ProjLib-doc-cn>
 \subsection{次要功能}

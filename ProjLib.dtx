@@ -18,47 +18,47 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/08/11 The collective interface of ProjLib toolkit]
+    [2021/08/17 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/08/11 Enhanced author information block]
+    [2021/08/17 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/08/11 Convert yyyy-mm-dd to normal datetime format]
+    [2021/08/17 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/08/11 Some useful macros for the draft stage]
+    [2021/08/17 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/08/11 Multi-language configuration]
+    [2021/08/17 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/08/11 The ProjLib logo]
+    [2021/08/17 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/08/11 Useful math macros and shortcuts]
+    [2021/08/17 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/08/11 Paper style configuration]
+    [2021/08/17 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/08/11 Theorem setup and configuration]
+    [2021/08/17 Theorem setup and configuration]
 %</PJLthm>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -1409,37 +1409,39 @@
 
 %# 用于命名定理类环境的用户命令
 %# Macro for naming theorems
-\NewDocumentCommand{\NameTheorem}{somm}{%
-    \protected@edef\PJLthm@temp{#3}%
+\RequirePackage{xstring}
+\NewDocumentCommand{\NameTheorem}{omm}{%
+    \protected@edef\PJLthm@temp{#2}%
     \expandafter\IfEndWith\expandafter{\PJLthm@temp}{*}{%
         \expandafter\StrGobbleRight\expandafter{\PJLthm@temp}{1}[\PJLthm@temp]%
     }{}%
-    \IfBooleanTF{#1}{%
-        \CreateTheoremSetKeys{\PJLthm@temp}{#4}%
-    }{%
-        \IfValueTF{#2}{%
-            \expandafter\def\expandafter\PJL@temp@abbr\expandafter%
-                {\expandafter\StrToABBR\expandafter{#2}}%
-            \expandafter\def\csname\PJLthm@temp name\PJL@temp@abbr\endcsname{#4}%
+    \IfSubStr{#3}{=}{% key-value mode
+        \IfValueTF{#1}{%
+            \CreateTheoremSetKeys{\PJLthm@temp}{#1={#3}}%
         }{%
-            \expandafter\def\csname\PJLthm@temp nameEN\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameFR\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameDE\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameIT\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp namePT\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameBR\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameES\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameCN\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameTC\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameJP\endcsname{#4}%
-            \expandafter\def\csname\PJLthm@temp nameRU\endcsname{#4}%
+            \CreateTheoremSetKeys{\PJLthm@temp}{#3}%
+        }%
+    }{% simple mode
+        \IfValueTF{#1}{%
+            \expandafter\def\csname\PJLthm@temp name\StrToABBR{#1}\endcsname{#3}%
+        }{%
+            \expandafter\def\csname\PJLthm@temp nameEN\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameFR\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameDE\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameIT\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp namePT\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameBR\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameES\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameCN\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameTC\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameJP\endcsname{#3}%
+            \expandafter\def\csname\PJLthm@temp nameRU\endcsname{#3}%
         }%
     }%
 }
 
 %# 用于创建定理类环境的用户命令
 %# Macro for creating theorems
-\RequirePackage{xstring}
 \newcommand\PassFirstToSecond[2]{#2{#1}}%
 \NewDocumentCommand{\CreateTheorem}{sm}{%
     \begingroup
