@@ -1415,7 +1415,7 @@
     \expandafter\IfEndWith\expandafter{\PJLthm@temp}{*}{%
         \expandafter\StrGobbleRight\expandafter{\PJLthm@temp}{1}[\PJLthm@temp]%
     }{}%
-    \IfSubStr{#3}{=}{% key-value mode
+    \IfSubStr{\detokenize{#3}}{=}{% key-value mode
         \IfValueTF{#1}{%
             \CreateTheoremSetKeys{\PJLthm@temp}{#1={#3}}%
         }{%
@@ -2101,6 +2101,8 @@
 \fi
 \CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
+
+\theoremstyle{definition}
 \fi
 
 %# 按照 thmnum 决定公式如何编号
