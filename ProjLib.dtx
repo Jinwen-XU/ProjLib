@@ -2234,6 +2234,7 @@
 \DeclareBoolOption[true]{regionalref}
 \DeclareBoolOption[false]{originalref}
 \DeclareBoolOption[false]{useosf}
+\DeclareBoolOption[false]{lmodern}
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
@@ -2304,6 +2305,16 @@
 % \PJL@font@alreadyset should contain the current font name
 % A message can then be shown as: Font "(font name)" has been set
 \ifdefined\PJL@font@alreadyset\else
+
+\if@ProjLib@lmodern
+    \RequirePackage{amssymb}
+    \if@ProjLib@useosf
+        \RequirePackage{cfr-lm}
+    \else
+        \RequirePackage{lmodern}
+    \fi
+    \PJLsetlinespacing{\setstretch{1.00}}
+\fi
 
 \if@ProjLib@palatino
     % \RequirePackage{amssymb}
