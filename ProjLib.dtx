@@ -776,6 +776,20 @@
     \if@PJLlang@enable@FR
         \frenchsetup{PartNameFull=false}
     \fi
+    \if@PJLlang@enable@PT
+        \let\PJL@babelord\ord
+        \let\ord\relax
+        \AtBeginDocument{
+            \@ifundefined{ord}{}
+            {
+                \let\PJL@userord\ord
+                \let\ord\relax
+                \newcommand{\ord}{%
+                    \ifmmode\expandafter\PJL@userord\else\expandafter\PJL@babelord\fi%
+                }
+            }
+        }
+    \fi
 
     \babelprovide{schinese}
     \babelprovide{tchinese}
