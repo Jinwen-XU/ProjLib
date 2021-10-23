@@ -885,8 +885,13 @@
 \newcommand{\PJLsetCJKlinespacing}[1]{\renewcommand{\PJL@config@CJKlinespacing}{#1}}
 %# 缩进的设置
 %# Parindent configuration
-\def\PJL@config@parindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{1.5em}}}
-\def\PJL@config@CJKparindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{2em}}}
+\@ifclassloaded{beamer}{
+    \def\PJL@config@parindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{0em}}}
+    \def\PJL@config@CJKparindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{0em}}}
+}{
+    \def\PJL@config@parindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{1.5em}}}
+    \def\PJL@config@CJKparindent{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{2em}}}
+}
 \newcommand{\PJLsetparindent}[1]{\renewcommand{\PJL@config@parindent}{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{#1}}}}
 \newcommand{\PJLsetCJKparindent}[1]{\renewcommand{\PJL@config@CJKparindent}{\ltx@ifpackageloaded{parskip}{}{\setlength{\parindent}{#1}}}}
 %# 合并设置
@@ -1414,6 +1419,11 @@
 \if@PJLthm@fast
     \@PJLthm@regionalreftrue
 \fi
+
+\@ifclassloaded{beamer}{%
+    \RequirePackage{silence}
+    \WarningFilter{cleveref}{hyperref package loaded with implicit=false option}
+}{}
 
 \RequirePackage{PJLlang}
 \RequirePackage{amsmath,amsthm}
