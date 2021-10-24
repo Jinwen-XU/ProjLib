@@ -1552,7 +1552,7 @@
         }%
     }%
     \IfValueTF{#7}{%
-        \CreateTheoremSetKeys{#2}{#7}%
+        \NameTheorem{#2}{#7}%
     }{}%
 }%
 \else
@@ -1665,7 +1665,7 @@
         }%
     }%
     \IfValueTF{#7}{%
-        \CreateTheoremSetKeys{#2}{#7}%
+        \NameTheorem{#2}{#7}%
     }{}%
 }%
 \NewDocumentCommand{\CreateTheoremNumberedLikeAliasCounter}{mmm}{%
@@ -1734,7 +1734,7 @@
   \cs_set:Nx \__PJLthm_languageprefix: {\StrToABBR{#1}}
   \exp_args:No \tl_if_empty:nTF {\__PJLthm_languageprefix:} 
     { \msg_error:nn { PJLthm }
-                    { No language \exp_not:n{#1} defined }
+                    { No~language~"\exp_not:n{#1}"~defined }
     }%
     {%
         \ifcsname the\__PJLthm_countername:\endcsname\else
@@ -2424,6 +2424,7 @@
 %# 使用 microtype 优化排版细节
 %# Use `microtype` to get details better
 \RequirePackage{microtype}
+\AtEndPreamble{\AtBeginDocument{\microtypesetup{disable}{\scshape}\microtypesetup{enable}}}
 %</ProjLib>
 
 \endinput
