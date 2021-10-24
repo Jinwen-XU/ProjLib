@@ -18,47 +18,47 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/10/16 The collective interface of ProjLib toolkit]
+    [2021/10/24 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/10/16 Enhanced author information block]
+    [2021/10/24 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/10/16 Convert yyyy-mm-dd to normal datetime format]
+    [2021/10/24 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/10/16 Some useful macros for the draft stage]
+    [2021/10/24 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/10/16 Multi-language configuration]
+    [2021/10/24 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/10/16 The ProjLib logo]
+    [2021/10/24 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/10/16 Useful math macros and shortcuts]
+    [2021/10/24 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/10/16 Paper style configuration]
+    [2021/10/24 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/10/16 Theorem setup and configuration]
+    [2021/10/24 Theorem setup and configuration]
 %</PJLthm>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -1727,6 +1727,9 @@
                     { No language \exp_not:n{#1} defined }
     }%
     {%
+        \ifcsname the\__PJLthm_countername:\endcsname\else
+            \newcounter{\__PJLthm_countername:}%
+        \fi
         \newaliascnt {\__PJLthm_countername: \__PJLthm_languageprefix:} {\__PJLthm_countername:}%
         \aliascntresetthe {\__PJLthm_countername: \__PJLthm_languageprefix:}%
         \keys_set:nn { PJLthm } { #2 } 
