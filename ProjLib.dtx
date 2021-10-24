@@ -1423,6 +1423,16 @@
 \@ifclassloaded{beamer}{%
     \RequirePackage{silence}
     \WarningFilter{cleveref}{hyperref package loaded with implicit=false option}
+    \@PJLthm@nothmnumtrue%
+    \if@PJLthm@nothms\else%
+        \let\theorem\relax
+        \let\lemma\relax
+        \let\corollary\relax
+        \let\definition\relax
+        \let\fact\relax
+        \let\example\relax
+        \let\problem\relax
+    \fi
 }{}
 
 \RequirePackage{PJLlang}
