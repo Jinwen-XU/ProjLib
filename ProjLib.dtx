@@ -18,47 +18,47 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/10/24 The collective interface of ProjLib toolkit]
+    [2021/10/27 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/10/24 Enhanced author information block]
+    [2021/10/27 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/10/24 Convert yyyy-mm-dd to normal datetime format]
+    [2021/10/27 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/10/24 Some useful macros for the draft stage]
+    [2021/10/27 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/10/24 Multi-language configuration]
+    [2021/10/27 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/10/24 The ProjLib logo]
+    [2021/10/27 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/10/24 Useful math macros and shortcuts]
+    [2021/10/27 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/10/24 Paper style configuration]
+    [2021/10/27 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/10/24 Theorem setup and configuration]
+    [2021/10/27 Theorem setup and configuration]
 %</PJLthm>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -1405,6 +1405,10 @@
 %# Reference name will change with the current language
 \DeclareBoolOption[true]{regionalref}
 \DeclareBoolOption[false]{originalref}
+%# 名称采用详尽设置或简易设置
+%# Detailed or simple settings for the name of theorem-like environments
+\DeclareBoolOption[true]{complexname}
+\DeclareBoolOption[false]{simplename}
 %# 处理选项
 %# Process options
 \ProcessKeyvalOptions*\relax
@@ -1412,6 +1416,9 @@
 %# The following code sets the relationship between options
 \if@PJLthm@originalref
     \@PJLthm@regionalreffalse
+\fi
+\if@PJLthm@simplename
+    \@PJLthm@complexnamefalse
 \fi
 \if@PJLthm@draft
     \@PJLthm@fasttrue
@@ -1533,18 +1540,22 @@
                     \newaliascnt{#2#3}{PJL#2#3}%
                 }{%
                     \IfValueTF{#4}{%
-                            \newtheorem{PJL#2#3}[#4]{\csname#2name\csname\languagename ABBR\endcsname\endcsname}
+                            \newtheorem{PJL#2#3}[#4]{\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
                         }{%
-                            \newtheorem{PJL#2#3}{\csname#2name\csname\languagename ABBR\endcsname\endcsname}  
+                            \newtheorem{PJL#2#3}{\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
                             \newaliascnt{#2#3}{PJL#2#3}%
                         }%
                 }%
-                \crefname{PJL#2#3}%
-                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
-                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
-                \Crefname{PJL#2#3}%
-                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
-                    {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                \ifcsname cref@PJL#2#3@name\endcsname\else%
+                    \crefname{PJL#2#3}%
+                        {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                        {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                \fi%
+                \ifcsname Cref@PJL#2#3@name\endcsname\else%
+                    \Crefname{PJL#2#3}%
+                        {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                        {\csname#2name\csname\languagename ABBR\endcsname\endcsname}%
+                \fi%
                 \NewDocumentEnvironment{#2#3}{}
                     {\begin{PJL#2#3}}
                     {\end{PJL#2#3}}
@@ -1679,16 +1690,20 @@
 %     \Crefname{#1#2#3}%
 %         {\csname#1name#2\endcsname}%
 %         {\csname#1name#2\endcsname}%
-    \expandafter\PassFirstToSecond\expandafter{\csname#1name#2\endcsname}%
-    {%
+    \ifcsname cref@#1#2#3@name\endcsname\else%
         \expandafter\PassFirstToSecond\expandafter{\csname#1name#2\endcsname}%
-        {\crefname{#1#2#3}}%
-    }%
-    \expandafter\PassFirstToSecond\expandafter{\csname#1name#2\endcsname}%
-    {%
+        {%
+            \expandafter\PassFirstToSecond\expandafter{\csname#1name#2\endcsname}%
+            {\crefname{#1#2#3}}%
+        }%
+    \fi%
+    \ifcsname Cref@#1#2#3@name\endcsname\else%
         \expandafter\PassFirstToSecond\expandafter{\csname#1name#2\endcsname}%
-        {\Crefname{#1#2#3}}%
-    }%
+        {%
+            \expandafter\PassFirstToSecond\expandafter{\csname#1name#2\endcsname}%
+            {\Crefname{#1#2#3}}%
+        }%
+    \fi%
 }%
 \fi
 
@@ -1720,8 +1735,8 @@
 % The keys for the inner level are defined via  \keys_define:nn .
 
 \NewDocumentCommand \CreateTheoremSetKeys { mm } {
-  % #1 = name of counter
-  % #2 = keyval-list of language-specifications
+% #1 = name of counter
+% #2 = keyval-list of language-specifications
   \cs_set:Nn \__PJLthm_countername: {#1}
   \keyval_parse:nnn { \PJLthm_exchange_i_iii_ii:nnn { \PJLthm_setlanguagespecificparameters:nn } {} } 
                     { \PJLthm_setlanguagespecificparameters:nn }
@@ -1729,29 +1744,35 @@
 }
 
 \cs_new_protected:Nn \PJLthm_setlanguagespecificparameters:nn {
-  % #1 = language-prefix
-  % #2 = key-val-list for language whose prefix is language-prefix
+% #1 = language-prefix
+% #2 = key-val-list for language whose prefix is language-prefix
   \cs_set:Nx \__PJLthm_languageprefix: {\StrToABBR{#1}}
   \exp_args:No \tl_if_empty:nTF {\__PJLthm_languageprefix:} 
     { \msg_error:nn { PJLthm }
                     { No~language~"\exp_not:n{#1}"~defined }
     }%
     {%
-        \ifcsname the\__PJLthm_countername:\endcsname\else
-            \newcounter{\__PJLthm_countername:}%
-        \fi
-        \newaliascnt {\__PJLthm_countername: \__PJLthm_languageprefix:} {\__PJLthm_countername:}%
-        \aliascntresetthe {\__PJLthm_countername: \__PJLthm_languageprefix:}%
         \keys_set:nn { PJLthm } { #2 } 
     }%
 }%
+
 \keys_define:nn { PJLthm } {
   crefname.code:n  = \cs_if_exist:NTF \crefname  {
-                        \exp_args:Nx \crefname {\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                        \ifbool{@PJLthm@regionalref}{
+                            \exp_args:Nx \PJLthm@setcrefinnername{PJL\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                            \exp_args:Nx \PJLthm@setcrefname{PJL\__PJLthm_countername: }
+                        }{
+                            \exp_args:Nx \crefname {\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                        }
                      }{},
   crefname.value_required:n = true,
-  Crefname.code:n  = \cs_if_exist:NTF \Crefname  { 
-                        \exp_args:Nx \Crefname {\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+  Crefname.code:n  = \cs_if_exist:NTF \Crefname  {
+                        \ifbool{@PJLthm@regionalref}{
+                            \exp_args:Nx \PJLthm@setCrefinnername{PJL\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                            \exp_args:Nx \PJLthm@setCrefname{PJL\__PJLthm_countername: }
+                        }{
+                            \exp_args:Nx \Crefname {\__PJLthm_countername: \__PJLthm_languageprefix: }#1
+                        }
                      }{},
   Crefname.value_required:n = true,
   name.code:n  = \exp_args:Nx \cs_set:cpn {\__PJLthm_countername: name \__PJLthm_languageprefix:} {#1},
@@ -1773,267 +1794,1490 @@
 
 \ExplSyntaxOff
 
+% Some command for regionalref mode
+\newcommand{\PJLthm@setcrefinnername}[3]{%
+    \expandafter\def\csname PJLthm@cref@#1@name\endcsname{#2}%
+    \expandafter\def\csname PJLthm@cref@#1@name@plural\endcsname{#3}%
+}
+\newcommand{\PJLthm@setCrefinnername}[3]{%
+    \expandafter\def\csname PJLthm@Cref@#1@name\endcsname{#2}%
+    \expandafter\def\csname PJLthm@Cref@#1@name@plural\endcsname{#3}%
+}
+
+\newcommand{\PJLthm@setcrefname}[1]{%
+    \crefname{#1}%
+        {\csname PJLthm@cref@#1\csname\languagename ABBR\endcsname @name\endcsname}%
+        {\csname PJLthm@cref@#1\csname\languagename ABBR\endcsname @name@plural\endcsname}%
+}
+\newcommand{\PJLthm@setCrefname}[1]{%
+    \Crefname{#1}%
+        {\csname PJLthm@Cref@#1\csname\languagename ABBR\endcsname @name\endcsname}%
+        {\csname PJLthm@Cref@#1\csname\languagename ABBR\endcsname @name@plural\endcsname}%
+}
+
+%# 设置定理类环境名称
+%# Set the names of theorem-like environments
+\ifbool{@PJLthm@complexname}{
+    \NameTheorem{theorem}{
+        EN = {
+            name = {Theorem},
+            crefname = {theorem}{theorems},
+            Crefname = {Theorem}{Theorems},
+        },
+        FR = {
+            name = {Théorème},
+            crefname = {le théorème}{les théorèmes},
+            Crefname = {Le théorème}{Les théorèmes},
+        },
+        DE = {
+            name = {Satz},
+            crefname = {der Satz}{die Sätze},
+            Crefname = {Der Satz}{Die Sätze},
+        },
+        IT = {
+            name = {Teorema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Teorema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Teorema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Teorema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {定理},
+            crefname = {定理}{定理},
+            Crefname = {定理}{定理},
+        },
+        TC = {
+            name = {定理},
+            crefname = {定理}{定理},
+            Crefname = {定理}{定理},
+        },
+        JP = {
+            name = {定理},
+            crefname = {定理}{定理},
+            Crefname = {定理}{定理},
+        },
+        RU = {
+            name = {Теорема},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{lemma}{
+        EN = {
+            name = {Lemma},
+            crefname = {lemma}{Lemmas},
+            Crefname = {Lemma}{Lemmas},
+        },
+        FR = {
+            name = {Lemme},
+            crefname = {le lemme}{les lemmes},
+            Crefname = {Le lemme}{Les lemmes},
+        },
+        DE = {
+            name = {Lemma},
+            crefname = {das Lemma}{die Lemmata},
+            Crefname = {Das Lemma}{Die Lemmata},
+        },
+        IT = {
+            name = {Lemma},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Lema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Lema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Lema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {引理},
+            crefname = {引理}{引理},
+            Crefname = {引理}{引理},
+        },
+        TC = {
+            name = {引理},
+            crefname = {引理}{引理},
+            Crefname = {引理}{引理},
+        },
+        JP = {
+            name = {補題},
+            crefname = {補題}{補題},
+            Crefname = {補題}{補題},
+        },
+        RU = {
+            name = {Лемма},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{proposition}{
+        EN = {
+            name = {Proposition},
+            crefname = {proposition}{propositions},
+            Crefname = {Proposition}{Propositions},
+        },
+        FR = {
+            name = {Proposition},
+            crefname = {la proposition}{les propositions},
+            Crefname = {La proposition}{Les propositions},
+        },
+        DE = {
+            name = {Proposition},
+            crefname = {die Proposition}{die Propositionen},
+            Crefname = {Die Proposition}{Die Propositionen},
+        },
+        IT = {
+            name = {Proposizione},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Proposição},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Proposição},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Proposición},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {命题},
+            crefname = {命题}{命题},
+            Crefname = {命题}{命题},
+        },
+        TC = {
+            name = {命題},
+            crefname = {命題}{命題},
+            Crefname = {命題}{命題},
+        },
+        JP = {
+            name = {命題},
+            crefname = {命題}{命題},
+            Crefname = {命題}{命題},
+        },
+        RU = {
+            name = {Предложение},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{corollary}{
+        EN = {
+            name = {Corollary},
+            crefname = {corollary}{corollaries},
+            Crefname = {Corollary}{Corollaries},
+        },
+        FR = {
+            name = {Corollaire},
+            crefname = {le corollaire}{les corollaires},
+            Crefname = {Le corollaire}{Les corollaires},
+        },
+        DE = {
+            name = {Korollar},
+            crefname = {das Korollar}{die Korollare},
+            Crefname = {Das Korollar}{Die Korollare},
+        },
+        IT = {
+            name = {Corollario},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Corolário},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Corolário},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Corolario},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {推论},
+            crefname = {推论}{推论},
+            Crefname = {推论}{推论},
+        },
+        TC = {
+            name = {推論},
+            crefname = {推論}{推論},
+            Crefname = {推論}{推論},
+        },
+        JP = {
+            name = {系},
+            crefname = {系}{系},
+            Crefname = {系}{系},
+        },
+        RU = {
+            name = {Следствие},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{property}{
+        EN = {
+            name = {Property},
+            crefname = {property}{properties},
+            Crefname = {Property}{Properties},
+        },
+        FR = {
+            name = {Propriété},
+            crefname = {la propriété}{les propriétés},
+            Crefname = {La propriété}{Les propriétés},
+        },
+        DE = {
+            name = {Eigenschaft},
+            crefname = {die Eigenschaft}{die Eigenschaften},
+            Crefname = {Die Eigenschaft}{Die Eigenschaften},
+        },
+        IT = {
+            name = {Proprietà},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Propriedade},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Propriedade},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Propiedad},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {性质},
+            crefname = {性质}{性质},
+            Crefname = {性质}{性质},
+        },
+        TC = {
+            name = {性質},
+            crefname = {性質}{性質},
+            Crefname = {性質}{性質},
+        },
+        JP = {
+            name = {性質},
+            crefname = {性質}{性質},
+            Crefname = {性質}{性質},
+        },
+        RU = {
+            name = {Имущество},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{fact}{
+        EN = {
+            name = {Fact},
+            crefname = {fact}{facts},
+            Crefname = {Fact}{Facts},
+        },
+        FR = {
+            name = {Fait},
+            crefname = {le fait}{les faits},
+            Crefname = {Le fait}{Les faits},
+        },
+        DE = {
+            name = {Fakt},
+            crefname = {das Fakt}{die Fakten},
+            Crefname = {Das Fakt}{Die Fakten},
+        },
+        IT = {
+            name = {Fatto},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Facto},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Facto},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Hecho},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {事实},
+            crefname = {事实}{事实},
+            Crefname = {事实}{事实},
+        },
+        TC = {
+            name = {事實},
+            crefname = {事實}{事實},
+            Crefname = {事實}{事實},
+        },
+        JP = {
+            name = {事実},
+            crefname = {事実}{事実},
+            Crefname = {事実}{事実},
+        },
+        RU = {
+            name = {Факт},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{conjecture}{
+        EN = {
+            name = {Conjecture},
+            crefname = {conjecture}{conjectures},
+            Crefname = {Conjecture}{Conjectures},
+        },
+        FR = {
+            name = {Conjecture},
+            crefname = {la conjecture}{les conjectures},
+            Crefname = {La conjecture}{Les conjectures},
+        },
+        DE = {
+            name = {Vermutung},
+            crefname = {die Vermutung}{die Vermutungen},
+            Crefname = {Die Vermutung}{Die Vermutungen},
+        },
+        IT = {
+            name = {Congettura},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Conjetura},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Conjetura},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Conjetura},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {猜想},
+            crefname = {猜想}{猜想},
+            Crefname = {猜想}{猜想},
+        },
+        TC = {
+            name = {猜想},
+            crefname = {猜想}{猜想},
+            Crefname = {猜想}{猜想},
+        },
+        JP = {
+            name = {予想},
+            crefname = {予想}{予想},
+            Crefname = {予想}{予想},
+        },
+        RU = {
+            name = {Конъектура},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{definition}{
+        EN = {
+            name = {Definition},
+            crefname = {definition}{definitions},
+            Crefname = {Definition}{Definitions},
+        },
+        FR = {
+            name = {Définition},
+            crefname = {la définition}{les définitions},
+            Crefname = {La définition}{Les définitions},
+        },
+        DE = {
+            name = {Definition},
+            crefname = {die Definition}{die Definitionen},
+            Crefname = {Die Definition}{Die Definitionen},
+        },
+        IT = {
+            name = {Definizione},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Definição},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Definição},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Definición},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {定义},
+            crefname = {定义}{定义},
+            Crefname = {定义}{定义},
+        },
+        TC = {
+            name = {定義},
+            crefname = {定義}{定義},
+            Crefname = {定義}{定義},
+        },
+        JP = {
+            name = {定義},
+            crefname = {定義}{定義},
+            Crefname = {定義}{定義},
+        },
+        RU = {
+            name = {Определение},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{axiom}{
+        EN = {
+            name = {Axiom},
+            crefname = {axiom}{axioms},
+            Crefname = {Axiom}{Axioms},
+        },
+        FR = {
+            name = {Axiome},
+            crefname = {l'axiome}{les axiomes},
+            Crefname = {L'axiome}{Les axiomes},
+        },
+        DE = {
+            name = {Axiom},
+            crefname = {das Axiom}{die Axiome},
+            Crefname = {Das Axiom}{Die Axiome},
+        },
+        IT = {
+            name = {Assioma},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Axioma},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Axioma},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Axioma},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {公理},
+            crefname = {公理}{公理},
+            Crefname = {公理}{公理},
+        },
+        TC = {
+            name = {公理},
+            crefname = {公理}{公理},
+            Crefname = {公理}{公理},
+        },
+        JP = {
+            name = {公理},
+            crefname = {公理}{公理},
+            Crefname = {公理}{公理},
+        },
+        RU = {
+            name = {Аксиома},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{assumption}{
+        EN = {
+            name = {Assumption},
+            crefname = {assumption}{assumptions},
+            Crefname = {Assumption}{Assumptions},
+        },
+        FR = {
+            name = {Supposition},
+            crefname = {la supposition}{les suppositions},
+            Crefname = {La supposition}{Les suppositions},
+        },
+        DE = {
+            name = {Annahme},
+            crefname = {die Annahme}{die Annahmen},
+            Crefname = {Die Annahme}{Die Annahmen},
+        },
+        IT = {
+            name = {Supposizione},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Suposição},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Suposição},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Suposición},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {假定},
+            crefname = {假定}{假定},
+            Crefname = {假定}{假定},
+        },
+        TC = {
+            name = {假定},
+            crefname = {假定}{假定},
+            Crefname = {假定}{假定},
+        },
+        JP = {
+            name = {仮定},
+            crefname = {仮定}{仮定},
+            Crefname = {仮定}{仮定},
+        },
+        RU = {
+            name = {Предположение},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{convention}{
+        EN = {
+            name = {Convention},
+            crefname = {convention}{conventions},
+            Crefname = {Convention}{Conventions},
+        },
+        FR = {
+            name = {Convention},
+            crefname = {la convention}{les conventions},
+            Crefname = {La convention}{Les conventions},
+        },
+        DE = {
+            name = {Konvention},
+            crefname = {die Konvention}{die Konventionen},
+            Crefname = {Die Konvention}{Die Konventionen},
+        },
+        IT = {
+            name = {Convenzione},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Convenção},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Convenção},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Convención},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {约定},
+            crefname = {约定}{约定},
+            Crefname = {约定}{约定},
+        },
+        TC = {
+            name = {約定},
+            crefname = {約定}{約定},
+            Crefname = {約定}{約定},
+        },
+        JP = {
+            name = {慣例},
+            crefname = {慣例}{慣例},
+            Crefname = {慣例}{慣例},
+        },
+        RU = {
+            name = {Конвенция},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{hypothesis}{
+        EN = {
+            name = {Hypothesis},
+            crefname = {hypothesis}{hypotheses},
+            Crefname = {Hypothesis}{Hypotheses},
+        },
+        FR = {
+            name = {Hypothèse},
+            crefname = {l'hypothèse}{les hypothèses},
+            Crefname = {L'hypothèse}{Les hypothèses},
+        },
+        DE = {
+            name = {Hypothese},
+            crefname = {die Hypothese}{die Hypothesen},
+            Crefname = {Die Hypothese}{Die Hypothesen},
+        },
+        IT = {
+            name = {Ipotesi},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Hipótese},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Hipótese},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Hipótesis},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {假设},
+            crefname = {假设}{假设},
+            Crefname = {假设}{假设},
+        },
+        TC = {
+            name = {假設},
+            crefname = {假設}{假設},
+            Crefname = {假設}{假設},
+        },
+        JP = {
+            name = {仮設},
+            crefname = {仮設}{仮設},
+            Crefname = {仮設}{仮設},
+        },
+        RU = {
+            name = {Гипотеза},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{notation}{
+        EN = {
+            name = {Notation},
+            crefname = {notation}{notations},
+            Crefname = {Notation}{Notations},
+        },
+        FR = {
+            name = {Notation},
+            crefname = {la notation}{les notations},
+            Crefname = {La notation}{Les notations},
+        },
+        DE = {
+            name = {Notation},
+            crefname = {die Notation}{die Notationen},
+            Crefname = {Die Notation}{Die Notationen},
+        },
+        IT = {
+            name = {Notazione},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Notação},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Notação},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Notación},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {记号},
+            crefname = {记号}{记号},
+            Crefname = {记号}{记号},
+        },
+        TC = {
+            name = {記號},
+            crefname = {記號}{記號},
+            Crefname = {記號}{記號},
+        },
+        JP = {
+            name = {記法},
+            crefname = {記法}{記法},
+            Crefname = {記法}{記法},
+        },
+        RU = {
+            name = {Нотация},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{example}{
+        EN = {
+            name = {Example},
+            crefname = {example}{examples},
+            Crefname = {Example}{Examples},
+        },
+        FR = {
+            name = {Exemple},
+            crefname = {l'example}{les examples},
+            Crefname = {L'example}{Les examples},
+        },
+        DE = {
+            name = {Beispiel},
+            crefname = {das Beispiel}{die Beispiele},
+            Crefname = {Das Beispiel}{Die Beispiele},
+        },
+        IT = {
+            name = {Esempio},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Exemplo},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Exemplo},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Ejemplo},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {例},
+            crefname = {例}{例},
+            Crefname = {例}{例},
+        },
+        TC = {
+            name = {例},
+            crefname = {例}{例},
+            Crefname = {例}{例},
+        },
+        JP = {
+            name = {例},
+            crefname = {例}{例},
+            Crefname = {例}{例},
+        },
+        RU = {
+            name = {Пример},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{problem}{
+        EN = {
+            name = {Problem},
+            crefname = {problem}{problems},
+            Crefname = {Problem}{Problems},
+        },
+        FR = {
+            name = {Problème},
+            crefname = {le problème}{les problèmes},
+            Crefname = {Le problème}{Les problèmes},
+        },
+        DE = {
+            name = {Problem},
+            crefname = {das Problem}{die Probleme},
+            Crefname = {Das Problem}{Die Probleme},
+        },
+        IT = {
+            name = {Problema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Problema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Problema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Problema},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {问题},
+            crefname = {问题}{问题},
+            Crefname = {问题}{问题},
+        },
+        TC = {
+            name = {問題},
+            crefname = {問題}{問題},
+            Crefname = {問題}{問題},
+        },
+        JP = {
+            name = {問題},
+            crefname = {問題}{問題},
+            Crefname = {問題}{問題},
+        },
+        RU = {
+            name = {Проблема},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{question}{
+        EN = {
+            name = {Question},
+            crefname = {question}{questions},
+            Crefname = {Question}{Questions},
+        },
+        FR = {
+            name = {Question},
+            crefname = {la question}{les questions},
+            Crefname = {La question}{Les questions},
+        },
+        DE = {
+            name = {Frage},
+            crefname = {die Frage}{die Fragen},
+            Crefname = {Die Frage}{Die Fragen},
+        },
+        IT = {
+            name = {Domanda},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Pergunta},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Pergunta},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Pregunta},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {问题},
+            crefname = {问题}{问题},
+            Crefname = {问题}{问题},
+        },
+        TC = {
+            name = {問題},
+            crefname = {問題}{問題},
+            Crefname = {問題}{問題},
+        },
+        JP = {
+            name = {問題},
+            crefname = {問題}{問題},
+            Crefname = {問題}{問題},
+        },
+        RU = {
+            name = {Вопрос},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{exercise}{
+        EN = {
+            name = {Exercise},
+            crefname = {exercise}{exercises},
+            Crefname = {Exercise}{Exercises},
+        },
+        FR = {
+            name = {Exercice},
+            crefname = {l'exercice}{les exercices},
+            Crefname = {L'exercice}{Les exercices},
+        },
+        DE = {
+            name = {Übung},
+            crefname = {die Übung}{die Übungen},
+            Crefname = {Die Übung}{Die Übungen},
+        },
+        IT = {
+            name = {Esercizio},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Exercício},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Exercício},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Ejercicio},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {练习},
+            crefname = {练习}{练习},
+            Crefname = {练习}{练习},
+        },
+        TC = {
+            name = {練習},
+            crefname = {練習}{練習},
+            Crefname = {練習}{練習},
+        },
+        JP = {
+            name = {練習},
+            crefname = {練習}{練習},
+            Crefname = {練習}{練習},
+        },
+        RU = {
+            name = {Упражнение},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{remark}{
+        EN = {
+            name = {Remark},
+            crefname = {remark}{remarks},
+            Crefname = {Remark}{Remarks},
+        },
+        FR = {
+            name = {Remarque},
+            crefname = {la remarque}{les remarques},
+            Crefname = {La remarque}{Les remarques},
+        },
+        DE = {
+            name = {Bemerkung},
+            crefname = {die Bemerkung}{die Bemerkungen},
+            Crefname = {Die Bemerkung}{Die Bemerkungen},
+        },
+        IT = {
+            name = {Commento},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Comentário},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Comentário},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Comentario},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {备注},
+            crefname = {备注}{备注},
+            Crefname = {备注}{备注},
+        },
+        TC = {
+            name = {備註},
+            crefname = {備註}{備註},
+            Crefname = {備註}{備註},
+        },
+        JP = {
+            name = {注釈},
+            crefname = {注釈}{注釈},
+            Crefname = {注釈}{注釈},
+        },
+        RU = {
+            name = {Замечание},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{observation}{
+        EN = {
+            name = {Observation},
+            crefname = {observation}{observations},
+            Crefname = {Observation}{Observations},
+        },
+        FR = {
+            name = {Observation},
+            crefname = {la observation}{les observations},
+            Crefname = {La observation}{Les observations},
+        },
+        DE = {
+            name = {Beobachtung},
+            crefname = {die Beobachtung}{die Beobachtungen},
+            Crefname = {Die Beobachtung}{Die Beobachtungen},
+        },
+        IT = {
+            name = {Osservazione},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {Observação},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {Observação},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {Observación},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {观察},
+            crefname = {观察}{观察},
+            Crefname = {观察}{观察},
+        },
+        TC = {
+            name = {觀察},
+            crefname = {觀察}{觀察},
+            Crefname = {觀察}{觀察},
+        },
+        JP = {
+            name = {観察},
+            crefname = {観察}{観察},
+            Crefname = {観察}{観察},
+        },
+        RU = {
+            name = {Наблюдение},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{definition-proposition}{
+        EN = {
+            name = {\definitionnameEN-\propositionnameEN},
+            crefname = {definition-proposition}{definitions-propositions},
+            Crefname = {Definition-proposition}{Definitions-propositions},
+        },
+        FR = {
+            name = {\definitionnameFR-\propositionnameFR},
+            crefname = {la définition-proposition}{les définitions-propositions},
+            Crefname = {La définition-proposition}{Les définitions-propositions},
+        },
+        DE = {
+            name = {\definitionnameDE-\propositionnameDE},
+            crefname = {die Definition-Proposition}{die Definitionen-Propositionen},
+            Crefname = {Die Definition-Proposition}{Die Definitionen-Propositionen},
+        },
+        IT = {
+            name = {\definitionnameIT-\propositionnameIT},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {\definitionnamePT-\propositionnamePT},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {\definitionnameBR-\propositionnameBR},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {\definitionnameES-\propositionnameES},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {\definitionnameCN-\propositionnameCN},
+            crefname = {\definitionnameCN-\propositionnameCN}{\definitionnameCN-\propositionnameCN},
+            Crefname = {\definitionnameCN-\propositionnameCN}{\definitionnameCN-\propositionnameCN},
+        },
+        TC = {
+            name = {\definitionnameTC-\propositionnameTC},
+            crefname = {\definitionnameTC-\propositionnameTC}{\definitionnameTC-\propositionnameTC},
+            Crefname = {\definitionnameTC-\propositionnameTC}{\definitionnameTC-\propositionnameTC},
+        },
+        JP = {
+            name = {\definitionnameJP-\propositionnameJP},
+            crefname = {\definitionnameJP-\propositionnameJP}{\definitionnameJP-\propositionnameJP},
+            Crefname = {\definitionnameJP-\propositionnameJP}{\definitionnameJP-\propositionnameJP},
+        },
+        RU = {
+            name = {\definitionnameRU-\propositionnameRU},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+    }
+    \NameTheorem{definition-theorem}{
+        EN = {
+            name = {\definitionnameEN-\theoremnameEN},
+            crefname = {definition-theorem}{definitions-theorems},
+            Crefname = {Definition-theorem}{Definitions-theorems},
+        },
+        FR = {
+            name = {\definitionnameFR-\theoremnameFR},
+            crefname = {la définition-théorème}{les définitions-théorèmes},
+            Crefname = {La définition-théorème}{Les définitions-théorèmes},
+        },
+        DE = {
+            name = {\definitionnameDE-\theoremnameDE},
+            crefname = {die Definition-Satz}{die Definitionen-Sätze},
+            Crefname = {Die Definition-Satz}{Die Definitionen-Sätze},
+        },
+        IT = {
+            name = {\definitionnameIT-\theoremnameIT},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        PT = {
+            name = {\definitionnamePT-\theoremnamePT},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        BR = {
+            name = {\definitionnameBR-\theoremnameBR},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        ES = {
+            name = {\definitionnameES-\theoremnameES},
+            crefname = {}{},
+            Crefname = {}{},
+        },
+        CN = {
+            name = {\definitionnameCN-\theoremnameCN},
+            crefname = {\definitionnameCN-\theoremnameCN}{\definitionnameCN-\theoremnameCN},
+            Crefname = {\definitionnameCN-\theoremnameCN}{\definitionnameCN-\theoremnameCN},
+        },
+        TC = {
+            name = {\definitionnameTC-\theoremnameTC},
+            crefname = {\definitionnameTC-\theoremnameTC}{\definitionnameTC-\theoremnameTC},
+            Crefname = {\definitionnameTC-\theoremnameTC}{\definitionnameTC-\theoremnameTC},
+        },
+        JP = {
+            name = {\definitionnameJP-\theoremnameJP},
+            crefname = {\definitionnameJP-\theoremnameJP}{\definitionnameJP-\theoremnameJP},
+            Crefname = {\definitionnameJP-\theoremnameJP}{\definitionnameJP-\theoremnameJP},
+        },
+        RU = {
+            name = {\definitionnameRU-\theoremnameRU},
+            crefname = {\definitionnameRU-\theoremnameRU}{\definitionnameRU-\theoremnameRU},
+            Crefname = {\definitionnameRU-\theoremnameRU}{\definitionnameRU-\theoremnameRU},
+        },
+    }
+}{
 %# 英文定理名称
 %# English theorems names
-\def\theoremnameEN{{Theorem}}
-\def\lemmanameEN{{Lemma}}
-\def\propositionnameEN{{Proposition}}
-\def\corollarynameEN{{Corollary}}
-\def\propertynameEN{{Property}}
-\def\factnameEN{{Fact}}
-\def\conjecturenameEN{{Conjecture}}
-\def\definitionnameEN{{Definition}}
-\def\axiomnameEN{{Axiom}}
-\def\assumptionnameEN{{Assumption}}
-\def\conventionnameEN{{Convention}}
-\def\hypothesisnameEN{{Hypothesis}}
-\def\notationnameEN{{Notation}}
-\def\examplenameEN{{Example}}
-\def\problemnameEN{{Problem}}
-\def\questionnameEN{{Question}}
-\def\exercisenameEN{{Exercise}}
-\def\remarknameEN{{Remark}}
-\def\observationnameEN{{Observation}}
-\expandafter\def\csname definition-propositionnameEN\endcsname{\definitionnameEN-\propositionnameEN}
-\expandafter\def\csname definition-theoremnameEN\endcsname{\definitionnameEN-\theoremnameEN}
+    \def\theoremnameEN{{Theorem}}
+    \def\lemmanameEN{{Lemma}}
+    \def\propositionnameEN{{Proposition}}
+    \def\corollarynameEN{{Corollary}}
+    \def\propertynameEN{{Property}}
+    \def\factnameEN{{Fact}}
+    \def\conjecturenameEN{{Conjecture}}
+    \def\definitionnameEN{{Definition}}
+    \def\axiomnameEN{{Axiom}}
+    \def\assumptionnameEN{{Assumption}}
+    \def\conventionnameEN{{Convention}}
+    \def\hypothesisnameEN{{Hypothesis}}
+    \def\notationnameEN{{Notation}}
+    \def\examplenameEN{{Example}}
+    \def\problemnameEN{{Problem}}
+    \def\questionnameEN{{Question}}
+    \def\exercisenameEN{{Exercise}}
+    \def\remarknameEN{{Remark}}
+    \def\observationnameEN{{Observation}}
+    \expandafter\def\csname definition-propositionnameEN\endcsname{\definitionnameEN-\propositionnameEN}
+    \expandafter\def\csname definition-theoremnameEN\endcsname{\definitionnameEN-\theoremnameEN}
 
 %# 法语定理名称
 %# French theorems names
-\def\theoremnameFR{{Théorème}}
-\def\lemmanameFR{{Lemme}}
-\def\propositionnameFR{{Proposition}}
-\def\corollarynameFR{{Corollaire}}
-\def\propertynameFR{{Propriété}}
-\def\factnameFR{{Fait}}
-\def\conjecturenameFR{{Conjecture}}
-\def\definitionnameFR{{Définition}}
-\def\axiomnameFR{{Axiome}}
-\def\assumptionnameFR{{Supposition}}
-\def\conventionnameFR{{Convention}}
-\def\hypothesisnameFR{{Hypothèse}}
-\def\notationnameFR{{Notation}}
-\def\examplenameFR{{Exemple}}
-\def\problemnameFR{{Problème}}
-\def\questionnameFR{{Question}}
-\def\exercisenameFR{{Exercice}}
-\def\remarknameFR{{Remarque}}
-\def\observationnameFR{{Observation}}
-\expandafter\def\csname definition-propositionnameFR\endcsname{\definitionnameFR-\propositionnameFR}
-\expandafter\def\csname definition-theoremnameFR\endcsname{\definitionnameFR-\theoremnameFR}
+    \def\theoremnameFR{{Théorème}}
+    \def\lemmanameFR{{Lemme}}
+    \def\propositionnameFR{{Proposition}}
+    \def\corollarynameFR{{Corollaire}}
+    \def\propertynameFR{{Propriété}}
+    \def\factnameFR{{Fait}}
+    \def\conjecturenameFR{{Conjecture}}
+    \def\definitionnameFR{{Définition}}
+    \def\axiomnameFR{{Axiome}}
+    \def\assumptionnameFR{{Supposition}}
+    \def\conventionnameFR{{Convention}}
+    \def\hypothesisnameFR{{Hypothèse}}
+    \def\notationnameFR{{Notation}}
+    \def\examplenameFR{{Exemple}}
+    \def\problemnameFR{{Problème}}
+    \def\questionnameFR{{Question}}
+    \def\exercisenameFR{{Exercice}}
+    \def\remarknameFR{{Remarque}}
+    \def\observationnameFR{{Observation}}
+    \expandafter\def\csname definition-propositionnameFR\endcsname{\definitionnameFR-\propositionnameFR}
+    \expandafter\def\csname definition-theoremnameFR\endcsname{\definitionnameFR-\theoremnameFR}
 
 %# 德语定理名称
 %# German theorems names
-\def\theoremnameDE{{Satz}}
-\def\lemmanameDE{{Lemma}}
-\def\propositionnameDE{{Proposition}}
-\def\corollarynameDE{{Korollar}}
-\def\propertynameDE{{Eigenschaft}}
-\def\factnameDE{{Fakt}}
-\def\conjecturenameDE{{Vermutung}}
-\def\definitionnameDE{{Definition}}
-\def\axiomnameDE{{Axiom}}
-\def\assumptionnameDE{{Annahme}}
-\def\conventionnameDE{{Konvention}}
-\def\hypothesisnameDE{{Hypothese}}
-\def\notationnameDE{{Notation}}
-\def\examplenameDE{{Beispiel}}
-\def\problemnameDE{{Problem}}
-\def\questionnameDE{{Frage}}
-\def\exercisenameDE{{Übung}}
-\def\remarknameDE{{Bemerkung}}
-\def\observationnameDE{{Beobachtung}}
-\expandafter\def\csname definition-propositionnameDE\endcsname{\definitionnameDE-\propositionnameDE}
-\expandafter\def\csname definition-theoremnameDE\endcsname{\definitionnameDE-\theoremnameDE}
+    \def\theoremnameDE{{Satz}}
+    \def\lemmanameDE{{Lemma}}
+    \def\propositionnameDE{{Proposition}}
+    \def\corollarynameDE{{Korollar}}
+    \def\propertynameDE{{Eigenschaft}}
+    \def\factnameDE{{Fakt}}
+    \def\conjecturenameDE{{Vermutung}}
+    \def\definitionnameDE{{Definition}}
+    \def\axiomnameDE{{Axiom}}
+    \def\assumptionnameDE{{Annahme}}
+    \def\conventionnameDE{{Konvention}}
+    \def\hypothesisnameDE{{Hypothese}}
+    \def\notationnameDE{{Notation}}
+    \def\examplenameDE{{Beispiel}}
+    \def\problemnameDE{{Problem}}
+    \def\questionnameDE{{Frage}}
+    \def\exercisenameDE{{Übung}}
+    \def\remarknameDE{{Bemerkung}}
+    \def\observationnameDE{{Beobachtung}}
+    \expandafter\def\csname definition-propositionnameDE\endcsname{\definitionnameDE-\propositionnameDE}
+    \expandafter\def\csname definition-theoremnameDE\endcsname{\definitionnameDE-\theoremnameDE}
 
 %# 意大利语定理名称
 %# Italian theorems names
-\def\theoremnameIT{{Teorema}}
-\def\lemmanameIT{{Lemma}}
-\def\propositionnameIT{{Proposizione}}
-\def\corollarynameIT{{Corollario}}
-\def\propertynameIT{{Proprietà}}
-\def\factnameIT{{Fatto}}
-\def\conjecturenameIT{{Congettura}}
-\def\definitionnameIT{{Definizione}}
-\def\axiomnameIT{{Assioma}}
-\def\assumptionnameIT{{Supposizione}}
-\def\conventionnameIT{{Convenzione}}
-\def\hypothesisnameIT{{Ipotesi}}
-\def\notationnameIT{{Notazione}}
-\def\examplenameIT{{Esempio}}
-\def\problemnameIT{{Problema}}
-\def\questionnameIT{{Domanda}}
-\def\exercisenameIT{{Esercizio}}
-\def\remarknameIT{{Nota}}
-\def\observationnameIT{{Osservazione}}
-\expandafter\def\csname definition-propositionnameIT\endcsname{\definitionnameIT-\propositionnameIT}
-\expandafter\def\csname definition-theoremnameIT\endcsname{\definitionnameIT-\theoremnameIT}
+    \def\theoremnameIT{{Teorema}}
+    \def\lemmanameIT{{Lemma}}
+    \def\propositionnameIT{{Proposizione}}
+    \def\corollarynameIT{{Corollario}}
+    \def\propertynameIT{{Proprietà}}
+    \def\factnameIT{{Fatto}}
+    \def\conjecturenameIT{{Congettura}}
+    \def\definitionnameIT{{Definizione}}
+    \def\axiomnameIT{{Assioma}}
+    \def\assumptionnameIT{{Supposizione}}
+    \def\conventionnameIT{{Convenzione}}
+    \def\hypothesisnameIT{{Ipotesi}}
+    \def\notationnameIT{{Notazione}}
+    \def\examplenameIT{{Esempio}}
+    \def\problemnameIT{{Problema}}
+    \def\questionnameIT{{Domanda}}
+    \def\exercisenameIT{{Esercizio}}
+    \def\remarknameIT{{Commento}}
+    \def\observationnameIT{{Osservazione}}
+    \expandafter\def\csname definition-propositionnameIT\endcsname{\definitionnameIT-\propositionnameIT}
+    \expandafter\def\csname definition-theoremnameIT\endcsname{\definitionnameIT-\theoremnameIT}
 
 %# 葡萄牙语定理名称
 %# Portuguese theorems names
-\def\theoremnamePT{{Teorema}}
-\def\lemmanamePT{{Lema}}
-\def\propositionnamePT{{Proposição}}
-\def\corollarynamePT{{Corolário}}
-\def\propertynamePT{{Propriedade}}
-\def\factnamePT{{Facto}}
-\def\conjecturenamePT{{Conjetura}}
-\def\definitionnamePT{{Definição}}
-\def\axiomnamePT{{Axioma}}
-\def\assumptionnamePT{{Suposição}}
-\def\conventionnamePT{{Convenção}}
-\def\hypothesisnamePT{{Hipótese}}
-\def\notationnamePT{{Notação}}
-\def\examplenamePT{{Exemplo}}
-\def\problemnamePT{{Problema}}
-\def\questionnamePT{{Pergunta}}
-\def\exercisenamePT{{Exercício}}
-\def\remarknamePT{{Comentário}}
-\def\observationnamePT{{Observação}}
-\expandafter\def\csname definition-propositionnamePT\endcsname{\definitionnamePT-\propositionnamePT}
-\expandafter\def\csname definition-theoremnamePT\endcsname{\definitionnamePT-\theoremnamePT}
+    \def\theoremnamePT{{Teorema}}
+    \def\lemmanamePT{{Lema}}
+    \def\propositionnamePT{{Proposição}}
+    \def\corollarynamePT{{Corolário}}
+    \def\propertynamePT{{Propriedade}}
+    \def\factnamePT{{Facto}}
+    \def\conjecturenamePT{{Conjetura}}
+    \def\definitionnamePT{{Definição}}
+    \def\axiomnamePT{{Axioma}}
+    \def\assumptionnamePT{{Suposição}}
+    \def\conventionnamePT{{Convenção}}
+    \def\hypothesisnamePT{{Hipótese}}
+    \def\notationnamePT{{Notação}}
+    \def\examplenamePT{{Exemplo}}
+    \def\problemnamePT{{Problema}}
+    \def\questionnamePT{{Pergunta}}
+    \def\exercisenamePT{{Exercício}}
+    \def\remarknamePT{{Comentário}}
+    \def\observationnamePT{{Observação}}
+    \expandafter\def\csname definition-propositionnamePT\endcsname{\definitionnamePT-\propositionnamePT}
+    \expandafter\def\csname definition-theoremnamePT\endcsname{\definitionnamePT-\theoremnamePT}
 
 %# 巴西葡萄牙语定理名称
 %# Brazilian theorems names
-\def\theoremnameBR{{Teorema}}
-\def\lemmanameBR{{Lema}}
-\def\propositionnameBR{{Proposição}}
-\def\corollarynameBR{{Corolário}}
-\def\propertynameBR{{Propriedade}}
-\def\factnameBR{{Facto}}
-\def\conjecturenameBR{{Conjetura}}
-\def\definitionnameBR{{Definição}}
-\def\axiomnameBR{{Axioma}}
-\def\assumptionnameBR{{Suposição}}
-\def\conventionnameBR{{Convenção}}
-\def\hypothesisnameBR{{Hipótese}}
-\def\notationnameBR{{Notação}}
-\def\examplenameBR{{Exemplo}}
-\def\problemnameBR{{Problema}}
-\def\questionnameBR{{Pergunta}}
-\def\exercisenameBR{{Exercício}}
-\def\remarknameBR{{Comentário}}
-\def\observationnameBR{{Observação}}
-\expandafter\def\csname definition-propositionnameBR\endcsname{\definitionnameBR-\propositionnameBR}
-\expandafter\def\csname definition-theoremnameBR\endcsname{\definitionnameBR-\theoremnameBR}
+    \def\theoremnameBR{{Teorema}}
+    \def\lemmanameBR{{Lema}}
+    \def\propositionnameBR{{Proposição}}
+    \def\corollarynameBR{{Corolário}}
+    \def\propertynameBR{{Propriedade}}
+    \def\factnameBR{{Facto}}
+    \def\conjecturenameBR{{Conjetura}}
+    \def\definitionnameBR{{Definição}}
+    \def\axiomnameBR{{Axioma}}
+    \def\assumptionnameBR{{Suposição}}
+    \def\conventionnameBR{{Convenção}}
+    \def\hypothesisnameBR{{Hipótese}}
+    \def\notationnameBR{{Notação}}
+    \def\examplenameBR{{Exemplo}}
+    \def\problemnameBR{{Problema}}
+    \def\questionnameBR{{Pergunta}}
+    \def\exercisenameBR{{Exercício}}
+    \def\remarknameBR{{Comentário}}
+    \def\observationnameBR{{Observação}}
+    \expandafter\def\csname definition-propositionnameBR\endcsname{\definitionnameBR-\propositionnameBR}
+    \expandafter\def\csname definition-theoremnameBR\endcsname{\definitionnameBR-\theoremnameBR}
 
 %# 西班牙语定理名称
 %# Spanish theorems names
-\def\theoremnameES{{Teorema}}
-\def\lemmanameES{{Lema}}
-\def\propositionnameES{{Proposición}}
-\def\corollarynameES{{Corolario}}
-\def\propertynameES{{Propiedad}}
-\def\factnameES{{Hecho}}
-\def\conjecturenameES{{Conjetura}}
-\def\definitionnameES{{Definición}}
-\def\axiomnameES{{Axioma}}
-\def\assumptionnameES{{Suposición}}
-\def\conventionnameES{{Convención}}
-\def\hypothesisnameES{{Hipótesis}}
-\def\notationnameES{{Notación}}
-\def\examplenameES{{Ejemplo}}
-\def\problemnameES{{Problema}}
-\def\questionnameES{{Pregunta}}
-\def\exercisenameES{{Ejercicio}}
-\def\remarknameES{{Comentario}}
-\def\observationnameES{{Observación}}
-\expandafter\def\csname definition-propositionnameES\endcsname{\definitionnameES-\propositionnameES}
-\expandafter\def\csname definition-theoremnameES\endcsname{\definitionnameES-\theoremnameES}
+    \def\theoremnameES{{Teorema}}
+    \def\lemmanameES{{Lema}}
+    \def\propositionnameES{{Proposición}}
+    \def\corollarynameES{{Corolario}}
+    \def\propertynameES{{Propiedad}}
+    \def\factnameES{{Hecho}}
+    \def\conjecturenameES{{Conjetura}}
+    \def\definitionnameES{{Definición}}
+    \def\axiomnameES{{Axioma}}
+    \def\assumptionnameES{{Suposición}}
+    \def\conventionnameES{{Convención}}
+    \def\hypothesisnameES{{Hipótesis}}
+    \def\notationnameES{{Notación}}
+    \def\examplenameES{{Ejemplo}}
+    \def\problemnameES{{Problema}}
+    \def\questionnameES{{Pregunta}}
+    \def\exercisenameES{{Ejercicio}}
+    \def\remarknameES{{Comentario}}
+    \def\observationnameES{{Observación}}
+    \expandafter\def\csname definition-propositionnameES\endcsname{\definitionnameES-\propositionnameES}
+    \expandafter\def\csname definition-theoremnameES\endcsname{\definitionnameES-\theoremnameES}
 
 %# 中文定理名称
 %# Chinese theorems names
-\def\theoremnameCN{{定理}}
-\def\lemmanameCN{{引理}}
-\def\propositionnameCN{{命题}}
-\def\corollarynameCN{{推论}}
-\def\propertynameCN{{性质}}
-\def\factnameCN{{事实}}
-\def\conjecturenameCN{{猜想}}
-\def\definitionnameCN{{定义}}
-\def\axiomnameCN{{公理}}
-\def\assumptionnameCN{{假设}}
-\def\conventionnameCN{{约定}}
-\def\hypothesisnameCN{{假设}}
-\def\notationnameCN{{记号}}
-\def\examplenameCN{{例}}
-\def\problemnameCN{{问题}}
-\def\questionnameCN{{问题}}
-\def\exercisenameCN{{练习}}
-\def\remarknameCN{{备注}}
-\def\observationnameCN{{观察}}
-\expandafter\def\csname definition-propositionnameCN\endcsname{\definitionnameCN-\propositionnameCN}
-\expandafter\def\csname definition-theoremnameCN\endcsname{\definitionnameCN-\theoremnameCN}
+    \def\theoremnameCN{{定理}}
+    \def\lemmanameCN{{引理}}
+    \def\propositionnameCN{{命题}}
+    \def\corollarynameCN{{推论}}
+    \def\propertynameCN{{性质}}
+    \def\factnameCN{{事实}}
+    \def\conjecturenameCN{{猜想}}
+    \def\definitionnameCN{{定义}}
+    \def\axiomnameCN{{公理}}
+    \def\assumptionnameCN{{假定}}
+    \def\conventionnameCN{{约定}}
+    \def\hypothesisnameCN{{假设}}
+    \def\notationnameCN{{记号}}
+    \def\examplenameCN{{例}}
+    \def\problemnameCN{{问题}}
+    \def\questionnameCN{{问题}}
+    \def\exercisenameCN{{练习}}
+    \def\remarknameCN{{备注}}
+    \def\observationnameCN{{观察}}
+    \expandafter\def\csname definition-propositionnameCN\endcsname{\definitionnameCN-\propositionnameCN}
+    \expandafter\def\csname definition-theoremnameCN\endcsname{\definitionnameCN-\theoremnameCN}
 
-\def\theoremnameTC{{定理}}
-\def\lemmanameTC{{引理}}
-\def\propositionnameTC{{命題}}
-\def\corollarynameTC{{推論}}
-\def\propertynameTC{{性質}}
-\def\factnameTC{{事實}}
-\def\conjecturenameTC{{猜想}}
-\def\definitionnameTC{{定義}}
-\def\axiomnameTC{{公理}}
-\def\assumptionnameTC{{假設}}
-\def\conventionnameTC{{約定}}
-\def\hypothesisnameTC{{假設}}
-\def\notationnameTC{{記號}}
-\def\examplenameTC{{例}}
-\def\problemnameTC{{問題}}
-\def\questionnameTC{{問題}}
-\def\exercisenameTC{{練習}}
-\def\remarknameTC{{備註}}
-\def\observationnameTC{{觀察}}
-\expandafter\def\csname definition-propositionnameTC\endcsname{\definitionnameTC-\propositionnameTC}
-\expandafter\def\csname definition-theoremnameTC\endcsname{\definitionnameTC-\theoremnameTC}
+    \def\theoremnameTC{{定理}}
+    \def\lemmanameTC{{引理}}
+    \def\propositionnameTC{{命題}}
+    \def\corollarynameTC{{推論}}
+    \def\propertynameTC{{性質}}
+    \def\factnameTC{{事實}}
+    \def\conjecturenameTC{{猜想}}
+    \def\definitionnameTC{{定義}}
+    \def\axiomnameTC{{公理}}
+    \def\assumptionnameTC{{假定}}
+    \def\conventionnameTC{{約定}}
+    \def\hypothesisnameTC{{假設}}
+    \def\notationnameTC{{記號}}
+    \def\examplenameTC{{例}}
+    \def\problemnameTC{{問題}}
+    \def\questionnameTC{{問題}}
+    \def\exercisenameTC{{練習}}
+    \def\remarknameTC{{備註}}
+    \def\observationnameTC{{觀察}}
+    \expandafter\def\csname definition-propositionnameTC\endcsname{\definitionnameTC-\propositionnameTC}
+    \expandafter\def\csname definition-theoremnameTC\endcsname{\definitionnameTC-\theoremnameTC}
 
 %# 日文定理名称
 %# Japanese theorems names
-\def\theoremnameJP{{定理}}
-\def\lemmanameJP{{補題}}
-\def\propositionnameJP{{命題}}
-\def\corollarynameJP{{系}}
-\def\propertynameJP{{性質}}
-\def\factnameJP{{事実}}
-\def\conjecturenameJP{{予想}}
-\def\definitionnameJP{{定義}}
-\def\axiomnameJP{{公理}}
-\def\assumptionnameJP{{仮定}}
-\def\conventionnameJP{{慣例}}
-\def\hypothesisnameJP{{仮設}}
-\def\notationnameJP{{記法}}
-\def\examplenameJP{{例}}
-\def\problemnameJP{{問題}}
-\def\questionnameJP{{問題}}
-\def\exercisenameJP{{練習}}
-\def\remarknameJP{{注釈}}
-\def\observationnameJP{{観察}}
-\expandafter\def\csname definition-propositionnameJP\endcsname{\definitionnameJP-\propositionnameJP}
-\expandafter\def\csname definition-theoremnameJP\endcsname{\definitionnameJP-\theoremnameJP}
+    \def\theoremnameJP{{定理}}
+    \def\lemmanameJP{{補題}}
+    \def\propositionnameJP{{命題}}
+    \def\corollarynameJP{{系}}
+    \def\propertynameJP{{性質}}
+    \def\factnameJP{{事実}}
+    \def\conjecturenameJP{{予想}}
+    \def\definitionnameJP{{定義}}
+    \def\axiomnameJP{{公理}}
+    \def\assumptionnameJP{{仮定}}
+    \def\conventionnameJP{{慣例}}
+    \def\hypothesisnameJP{{仮設}}
+    \def\notationnameJP{{記法}}
+    \def\examplenameJP{{例}}
+    \def\problemnameJP{{問題}}
+    \def\questionnameJP{{問題}}
+    \def\exercisenameJP{{練習}}
+    \def\remarknameJP{{注釈}}
+    \def\observationnameJP{{観察}}
+    \expandafter\def\csname definition-propositionnameJP\endcsname{\definitionnameJP-\propositionnameJP}
+    \expandafter\def\csname definition-theoremnameJP\endcsname{\definitionnameJP-\theoremnameJP}
 
 %# 俄文定理名称
 %# Russian theorems names
-\def\theoremnameRU{{Теорема}} % Теоре́ма
-\def\lemmanameRU{{Лемма}} % Ле́мма
-\def\propositionnameRU{{Предложение}} % Предложе́ние
-\def\corollarynameRU{{Следствие}} % Сле́дствие
-\def\propertynameRU{{Имущество}} % Иму́щество
-\def\factnameRU{{Факт}}
-\def\conjecturenameRU{{Гипотеза}} % Гипо́теза
-\def\definitionnameRU{{Определение}} % Определе́ние
-\def\axiomnameRU{{Аксиома}} % Аксио́ма
-\def\assumptionnameRU{{Предположение}} % Предположе́ние
-\def\conventionnameRU{{Конвенция}} % Конве́нция
-\def\hypothesisnameRU{{Гипотеза}} % Гипо́теза
-\def\notationnameRU{{Нотация}} % Нота́ция
-\def\examplenameRU{{Пример}} % Приме́р
-\def\problemnameRU{{Проблема}} % Пробле́ма
-\def\questionnameRU{{Вопрос}} % Вопро́с
-\def\exercisenameRU{{Упражнение}} % Упражне́ние
-\def\remarknameRU{{Замечание}} % Замеча́ние
-\def\observationnameRU{{Наблюдение}} % Наблюде́ние
-\expandafter\def\csname definition-propositionnameRU\endcsname{\definitionnameRU-\propositionnameRU}
-\expandafter\def\csname definition-theoremnameRU\endcsname{\definitionnameRU-\theoremnameRU}
+    \def\theoremnameRU{{Теорема}} % Теоре́ма
+    \def\lemmanameRU{{Лемма}} % Ле́мма
+    \def\propositionnameRU{{Предложение}} % Предложе́ние
+    \def\corollarynameRU{{Следствие}} % Сле́дствие
+    \def\propertynameRU{{Имущество}} % Иму́щество
+    \def\factnameRU{{Факт}}
+    \def\conjecturenameRU{{Конъектура}} % Конъекту́ра
+    \def\definitionnameRU{{Определение}} % Определе́ние
+    \def\axiomnameRU{{Аксиома}} % Аксио́ма
+    \def\assumptionnameRU{{Предположение}} % Предположе́ние
+    \def\conventionnameRU{{Конвенция}} % Конве́нция
+    \def\hypothesisnameRU{{Гипотеза}} % Гипо́теза
+    \def\notationnameRU{{Нотация}} % Нота́ция
+    \def\examplenameRU{{Пример}} % Приме́р
+    \def\problemnameRU{{Проблема}} % Пробле́ма
+    \def\questionnameRU{{Вопрос}} % Вопро́с
+    \def\exercisenameRU{{Упражнение}} % Упражне́ние
+    \def\remarknameRU{{Замечание}} % Замеча́ние
+    \def\observationnameRU{{Наблюдение}} % Наблюде́ние
+    \expandafter\def\csname definition-propositionnameRU\endcsname{\definitionnameRU-\propositionnameRU}
+    \expandafter\def\csname definition-theoremnameRU\endcsname{\definitionnameRU-\theoremnameRU}
+}
 
 %# 判断最高级别的标题是 section 还是 chapter
 %# Detect the highest level of title: section or chapter?
@@ -2180,7 +3424,7 @@
     \def\creflastconjunction{~和~}%
     \def\crefpairgroupconjunction{~和~}%
     \def\crefmiddlegroupconjunction{、}%
-    \def\creflastgroupconjunction{~和~}%
+    \def\creflastgroupconjunction{~以及~}%
     \def\crefrangeconjunction{～}%
 }
 \gappto{\PJLlang@langconfig@TC}{%
@@ -2197,7 +3441,7 @@
     \def\creflastconjunction{~與~}%
     \def\crefpairgroupconjunction{~與~}%
     \def\crefmiddlegroupconjunction{、}%
-    \def\creflastgroupconjunction{~與~}%
+    \def\creflastgroupconjunction{~以及~}%
     \def\crefrangeconjunction{～}%
 }
 \gappto{\PJLlang@langconfig@JP}{%
@@ -2214,8 +3458,8 @@
     \def\creflastconjunction{~と~}%
     \def\crefpairgroupconjunction{~と~}%
     \def\crefmiddlegroupconjunction{~と~}%
-    \def\creflastgroupconjunction{~と~}%
-    \def\crefrangeconjunction{〜}%
+    \def\creflastgroupconjunction{~及び~}%
+    \def\crefrangeconjunction{～}%
 }
 \gappto{\PJLlang@langconfig@RU}{%
     \crefname{equation}{уравнение}{уравнения}%
@@ -2270,6 +3514,8 @@
 \DeclareStringOption{thmnum}[PJL@thmnum@default]
 \DeclareBoolOption[true]{regionalref}
 \DeclareBoolOption[false]{originalref}
+\DeclareBoolOption[true]{complexname}
+\DeclareBoolOption[false]{simplename}
 \DeclareBoolOption[false]{useosf}
 \DeclareBoolOption[false]{lmodern}
 \DeclareBoolOption[false]{palatino}
@@ -2285,6 +3531,9 @@
 %# The following code sets the relationship between options
 \if@ProjLib@originalref
     \@ProjLib@regionalreffalse
+\fi
+\if@ProjLib@simplename
+    \@ProjLib@complexnamefalse
 \fi
 \if@ProjLib@draft
     \@ProjLib@fasttrue
@@ -2316,6 +3565,9 @@
 }
 \if@ProjLib@regionalref\else
     \PassOptionsToPackage{originalref}{PJLthm}
+\fi
+\if@ProjLib@complexname\else
+    \PassOptionsToPackage{simplename}{PJLthm}
 \fi
 
 %# 加载不默认载入的组件
