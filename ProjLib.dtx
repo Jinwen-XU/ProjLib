@@ -1446,10 +1446,11 @@
 \RequirePackage{amsmath,amsthm}
 \RequirePackage{aliascnt}
 \PassOptionsToPackage{nameinlink}{cleveref}
-\RequirePackage{cleveref}
+\RequirePackage{ccref}
 
 %# 用于命名定理类环境的用户命令
 %# Macro for naming theorems
+\RequirePackage{xparse}
 \RequirePackage{xstring}
 \NewDocumentCommand{\NameTheorem}{omm}{%
     \protected@edef\PJLthm@temp{#2}%
@@ -1826,7 +1827,7 @@
         },
         FR = {
             name = {Théorème},
-            crefname = {le théorème}{les théorèmes},
+            crefname = {\ccmarkart{le} théorème}{\ccmarkart{les} théorèmes},
             Crefname = {Le théorème}{Les théorèmes},
         },
         DE = {
@@ -1836,22 +1837,22 @@
         },
         IT = {
             name = {Teorema},
-            crefname = {il teorema}{i teoremi},
+            crefname = {\ccmarkart{il} teorema}{\ccmarkart{i} teoremi},
             Crefname = {Il teorema}{I teoremi},
         },
         PT = {
             name = {Teorema},
-            crefname = {o teorema}{os teoremas},
+            crefname = {\ccmarkart{o} teorema}{\ccmarkart{os} teoremas},
             Crefname = {O teorema}{Os teoremas},
         },
         BR = {
             name = {Teorema},
-            crefname = {o teorema}{os teoremas},
+            crefname = {\ccmarkart{o} teorema}{\ccmarkart{os} teoremas},
             Crefname = {O teorema}{Os teoremas},
         },
         ES = {
             name = {Teorema},
-            crefname = {el teorema}{los teoremas},
+            crefname = {\ccmarkart{el} teorema}{los teoremas},
             Crefname = {El teorema}{Los teoremas},
         },
         CN = {
@@ -1883,7 +1884,7 @@
         },
         FR = {
             name = {Lemme},
-            crefname = {le lemme}{les lemmes},
+            crefname = {\ccmarkart{le} lemme}{\ccmarkart{les} lemmes},
             Crefname = {Le lemme}{Les lemmes},
         },
         DE = {
@@ -1893,22 +1894,22 @@
         },
         IT = {
             name = {Lemma},
-            crefname = {il lemma}{i lemmi},
+            crefname = {\ccmarkart{il} lemma}{\ccmarkart{i} lemmi},
             Crefname = {Il lemma}{I lemmi},
         },
         PT = {
             name = {Lema},
-            crefname = {o lema}{os lemas},
+            crefname = {\ccmarkart{o} lema}{\ccmarkart{os} lemas},
             Crefname = {O lema}{Os lemas},
         },
         BR = {
             name = {Lema},
-            crefname = {o lema}{os lemas},
+            crefname = {\ccmarkart{o} lema}{\ccmarkart{os} lemas},
             Crefname = {O lema}{Os lemas},
         },
         ES = {
             name = {Lema},
-            crefname = {el lema}{las lemas},
+            crefname = {\ccmarkart{el} lema}{las lemas},
             Crefname = {El lema}{Las lemas},
         },
         CN = {
@@ -1940,7 +1941,7 @@
         },
         FR = {
             name = {Proposition},
-            crefname = {la proposition}{les propositions},
+            crefname = {\ccmarkart{la} proposition}{\ccmarkart{les} propositions},
             Crefname = {La proposition}{Les propositions},
         },
         DE = {
@@ -1950,17 +1951,17 @@
         },
         IT = {
             name = {Proposizione},
-            crefname = {la proposizione}{le proposte},
+            crefname = {\ccmarkart{la} proposizione}{\ccmarkart{le} proposte},
             Crefname = {La proposizione}{Le proposte},
         },
         PT = {
             name = {Proposição},
-            crefname = {a proposição}{as proposições},
+            crefname = {\ccmarkart{a} proposição}{\ccmarkart{as} proposições},
             Crefname = {A proposição}{As proposições},
         },
         BR = {
             name = {Proposição},
-            crefname = {a proposição}{as proposições},
+            crefname = {\ccmarkart{a} proposição}{\ccmarkart{as} proposições},
             Crefname = {A proposição}{As proposições},
         },
         ES = {
@@ -1997,7 +1998,7 @@
         },
         FR = {
             name = {Corollaire},
-            crefname = {le corollaire}{les corollaires},
+            crefname = {\ccmarkart{le} corollaire}{\ccmarkart{les} corollaires},
             Crefname = {Le corollaire}{Les corollaires},
         },
         DE = {
@@ -2007,22 +2008,22 @@
         },
         IT = {
             name = {Corollario},
-            crefname = {il corollario}{i corollari},
+            crefname = {\ccmarkart{il} corollario}{\ccmarkart{i} corollari},
             Crefname = {Il corollario}{I corollari},
         },
         PT = {
             name = {Corolário},
-            crefname = {o corolário}{os corolários},
+            crefname = {\ccmarkart{o} corolário}{\ccmarkart{os} corolários},
             Crefname = {O corolário}{Os corolários},
         },
         BR = {
             name = {Corolário},
-            crefname = {o corolário}{os corolários},
+            crefname = {\ccmarkart{o} corolário}{\ccmarkart{os} corolários},
             Crefname = {O corolário}{Os corolários},
         },
         ES = {
             name = {Corolario},
-            crefname = {el corolario}{los corolarios},
+            crefname = {\ccmarkart{el} corolario}{los corolarios},
             Crefname = {El corolario}{Los corolarios},
         },
         CN = {
@@ -2054,7 +2055,7 @@
         },
         FR = {
             name = {Propriété},
-            crefname = {la propriété}{les propriétés},
+            crefname = {\ccmarkart{la} propriété}{\ccmarkart{les} propriétés},
             Crefname = {La propriété}{Les propriétés},
         },
         DE = {
@@ -2064,17 +2065,17 @@
         },
         IT = {
             name = {Proprietà},
-            crefname = {la proprietà}{le proprietà},
+            crefname = {\ccmarkart{la} proprietà}{\ccmarkart{le} proprietà},
             Crefname = {La proprietà}{Le proprietà},
         },
         PT = {
             name = {Propriedade},
-            crefname = {a propriedade}{as propriedades},
+            crefname = {\ccmarkart{a} propriedade}{\ccmarkart{as} propriedades},
             Crefname = {A propriedade}{As propriedades},
         },
         BR = {
             name = {Propriedade},
-            crefname = {a propriedade}{as propriedades},
+            crefname = {\ccmarkart{a} propriedade}{\ccmarkart{as} propriedades},
             Crefname = {A propriedade}{As propriedades},
         },
         ES = {
@@ -2111,7 +2112,7 @@
         },
         FR = {
             name = {Fait},
-            crefname = {le fait}{les faits},
+            crefname = {\ccmarkart{le} fait}{\ccmarkart{les} faits},
             Crefname = {Le fait}{Les faits},
         },
         DE = {
@@ -2121,22 +2122,22 @@
         },
         IT = {
             name = {Fatto},
-            crefname = {il fatto}{i fatti},
+            crefname = {\ccmarkart{il} fatto}{\ccmarkart{i} fatti},
             Crefname = {Il fatto}{I fatti},
         },
         PT = {
             name = {Facto},
-            crefname = {o facto}{os factos},
+            crefname = {\ccmarkart{o} facto}{\ccmarkart{os} factos},
             Crefname = {O facto}{Os factos},
         },
         BR = {
             name = {Fato},
-            crefname = {o fato}{os fatos},
+            crefname = {\ccmarkart{o} fato}{\ccmarkart{os} fatos},
             Crefname = {O fato}{Os fatos},
         },
         ES = {
             name = {Hecho},
-            crefname = {el hecho}{los hechos},
+            crefname = {\ccmarkart{el} hecho}{los hechos},
             Crefname = {El hecho}{Los hechos},
         },
         CN = {
@@ -2168,7 +2169,7 @@
         },
         FR = {
             name = {Conjecture},
-            crefname = {la conjecture}{les conjectures},
+            crefname = {\ccmarkart{la} conjecture}{\ccmarkart{les} conjectures},
             Crefname = {La conjecture}{Les conjectures},
         },
         DE = {
@@ -2178,17 +2179,17 @@
         },
         IT = {
             name = {Congettura},
-            crefname = {la congettura}{le congetture},
+            crefname = {\ccmarkart{la} congettura}{\ccmarkart{le} congetture},
             Crefname = {La congettura}{Le congetture},
         },
         PT = {
             name = {Conjetura},
-            crefname = {a conjetura}{as conjeturas},
+            crefname = {\ccmarkart{a} conjetura}{\ccmarkart{as} conjeturas},
             Crefname = {A conjetura}{As conjeturas},
         },
         BR = {
             name = {Conjectura},
-            crefname = {a conjectura}{as conjecturas},
+            crefname = {\ccmarkart{a} conjectura}{\ccmarkart{as} conjecturas},
             Crefname = {A conjectura}{As conjecturas},
         },
         ES = {
@@ -2225,7 +2226,7 @@
         },
         FR = {
             name = {Définition},
-            crefname = {la définition}{les définitions},
+            crefname = {\ccmarkart{la} définition}{\ccmarkart{les} définitions},
             Crefname = {La définition}{Les définitions},
         },
         DE = {
@@ -2235,17 +2236,17 @@
         },
         IT = {
             name = {Definizione},
-            crefname = {la definizione}{le definizioni},
+            crefname = {\ccmarkart{la} definizione}{\ccmarkart{le} definizioni},
             Crefname = {La definizione}{Le definizioni},
         },
         PT = {
             name = {Definição},
-            crefname = {a definição}{as definições},
+            crefname = {\ccmarkart{a} definição}{\ccmarkart{as} definições},
             Crefname = {A definição}{As definições},
         },
         BR = {
             name = {Definição},
-            crefname = {a definição}{as definições},
+            crefname = {\ccmarkart{a} definição}{\ccmarkart{as} definições},
             Crefname = {A definição}{As definições},
         },
         ES = {
@@ -2282,7 +2283,7 @@
         },
         FR = {
             name = {Axiome},
-            crefname = {l'axiome}{les axiomes},
+            crefname = {\ccmarkart{l'}axiome}{\ccmarkart{les} axiomes},
             Crefname = {L'axiome}{Les axiomes},
         },
         DE = {
@@ -2292,22 +2293,22 @@
         },
         IT = {
             name = {Assioma},
-            crefname = {l'assioma}{gli assiomi},
+            crefname = {\ccmarkart{l'}assioma}{\ccmarkart{gli} assiomi},
             Crefname = {L'assioma}{Gli assiomi},
         },
         PT = {
             name = {Axioma},
-            crefname = {o axioma}{os axiomas},
+            crefname = {\ccmarkart{o} axioma}{\ccmarkart{os} axiomas},
             Crefname = {O axioma}{Os axiomas},
         },
         BR = {
             name = {Axioma},
-            crefname = {o axioma}{os axiomas},
+            crefname = {\ccmarkart{o} axioma}{\ccmarkart{os} axiomas},
             Crefname = {O axioma}{Os axiomas},
         },
         ES = {
             name = {Axioma},
-            crefname = {el axioma}{los axiomas},
+            crefname = {\ccmarkart{el} axioma}{los axiomas},
             Crefname = {El axioma}{Los axiomas},
         },
         CN = {
@@ -2339,7 +2340,7 @@
         },
         FR = {
             name = {Supposition},
-            crefname = {la supposition}{les suppositions},
+            crefname = {\ccmarkart{la} supposition}{\ccmarkart{les} suppositions},
             Crefname = {La supposition}{Les suppositions},
         },
         DE = {
@@ -2349,17 +2350,17 @@
         },
         IT = {
             name = {Supposizione},
-            crefname = {la supposizione}{le supposizioni},
+            crefname = {\ccmarkart{la} supposizione}{\ccmarkart{le} supposizioni},
             Crefname = {La supposizione}{Le supposizioni},
         },
         PT = {
             name = {Suposição},
-            crefname = {a suposição}{as suposições},
+            crefname = {\ccmarkart{a} suposição}{\ccmarkart{as} suposições},
             Crefname = {A suposição}{As suposições},
         },
         BR = {
             name = {Suposição},
-            crefname = {a suposição}{as suposições},
+            crefname = {\ccmarkart{a} suposição}{\ccmarkart{as} suposições},
             Crefname = {A suposição}{As suposições},
         },
         ES = {
@@ -2396,7 +2397,7 @@
         },
         FR = {
             name = {Convention},
-            crefname = {la convention}{les conventions},
+            crefname = {\ccmarkart{la} convention}{\ccmarkart{les} conventions},
             Crefname = {La convention}{Les conventions},
         },
         DE = {
@@ -2406,17 +2407,17 @@
         },
         IT = {
             name = {Convenzione},
-            crefname = {la convenzione}{le convenzioni},
+            crefname = {\ccmarkart{la} convenzione}{\ccmarkart{le} convenzioni},
             Crefname = {La convenzione}{Le convenzioni},
         },
         PT = {
             name = {Convenção},
-            crefname = {a convenção}{as convenções},
+            crefname = {\ccmarkart{a} convenção}{\ccmarkart{as} convenções},
             Crefname = {A convenção}{As convenções},
         },
         BR = {
             name = {Convenção},
-            crefname = {a convenção}{as convenções},
+            crefname = {\ccmarkart{a} convenção}{\ccmarkart{as} convenções},
             Crefname = {A convenção}{As convenções},
         },
         ES = {
@@ -2453,7 +2454,7 @@
         },
         FR = {
             name = {Hypothèse},
-            crefname = {l'hypothèse}{les hypothèses},
+            crefname = {\ccmarkart{l'}hypothèse}{\ccmarkart{les} hypothèses},
             Crefname = {L'hypothèse}{Les hypothèses},
         },
         DE = {
@@ -2463,17 +2464,17 @@
         },
         IT = {
             name = {Ipotesi},
-            crefname = {l'ipotesi}{le ipotesi},
+            crefname = {\ccmarkart{l'}ipotesi}{\ccmarkart{le} ipotesi},
             Crefname = {L'ipotesi}{Le ipotesi},
         },
         PT = {
             name = {Hipótese},
-            crefname = {a hipótese}{as hipóteses},
+            crefname = {\ccmarkart{a} hipótese}{\ccmarkart{as} hipóteses},
             Crefname = {A hipótese}{As hipóteses},
         },
         BR = {
             name = {Hipótese},
-            crefname = {a hipótese}{as hipóteses},
+            crefname = {\ccmarkart{a} hipótese}{\ccmarkart{as} hipóteses},
             Crefname = {A hipótese}{As hipóteses},
         },
         ES = {
@@ -2510,7 +2511,7 @@
         },
         FR = {
             name = {Notation},
-            crefname = {la notation}{les notations},
+            crefname = {\ccmarkart{la} notation}{\ccmarkart{les} notations},
             Crefname = {La notation}{Les notations},
         },
         DE = {
@@ -2520,17 +2521,17 @@
         },
         IT = {
             name = {Notazione},
-            crefname = {la notazione}{le notazioni},
+            crefname = {\ccmarkart{la} notazione}{\ccmarkart{le} notazioni},
             Crefname = {La notazione}{Le notazioni},
         },
         PT = {
             name = {Notação},
-            crefname = {a notação}{as notações},
+            crefname = {\ccmarkart{a} notação}{\ccmarkart{as} notações},
             Crefname = {A notação}{As notações},
         },
         BR = {
             name = {Notação},
-            crefname = {a notação}{as notações},
+            crefname = {\ccmarkart{a} notação}{\ccmarkart{as} notações},
             Crefname = {A notação}{As notações},
         },
         ES = {
@@ -2567,7 +2568,7 @@
         },
         FR = {
             name = {Exemple},
-            crefname = {l'example}{les examples},
+            crefname = {\ccmarkart{l'}example}{\ccmarkart{les} examples},
             Crefname = {L'example}{Les examples},
         },
         DE = {
@@ -2577,22 +2578,22 @@
         },
         IT = {
             name = {Esempio},
-            crefname = {l'esempio}{gli esempi},
+            crefname = {\ccmarkart{l'}esempio}{\ccmarkart{gli} esempi},
             Crefname = {L'esempio}{Gli esempi},
         },
         PT = {
             name = {Exemplo},
-            crefname = {o exemplo}{os exemplos},
+            crefname = {\ccmarkart{o} exemplo}{\ccmarkart{os} exemplos},
             Crefname = {O exemplo}{Os exemplos},
         },
         BR = {
             name = {Exemplo},
-            crefname = {o exemplo}{os exemplos},
+            crefname = {\ccmarkart{o} exemplo}{\ccmarkart{os} exemplos},
             Crefname = {O exemplo}{Os exemplos},
         },
         ES = {
             name = {Ejemplo},
-            crefname = {el ejemplo}{los ejemplos},
+            crefname = {\ccmarkart{el} ejemplo}{los ejemplos},
             Crefname = {El ejemplo}{Los ejemplos},
         },
         CN = {
@@ -2624,7 +2625,7 @@
         },
         FR = {
             name = {Problème},
-            crefname = {le problème}{les problèmes},
+            crefname = {\ccmarkart{le} problème}{\ccmarkart{les} problèmes},
             Crefname = {Le problème}{Les problèmes},
         },
         DE = {
@@ -2634,22 +2635,22 @@
         },
         IT = {
             name = {Problema},
-            crefname = {il problema}{I problemi},
+            crefname = {\ccmarkart{il} problema}{\ccmarkart{i} problemi},
             Crefname = {Il problema}{I problemi},
         },
         PT = {
             name = {Problema},
-            crefname = {o problema}{os problemas},
+            crefname = {\ccmarkart{o} problema}{\ccmarkart{os} problemas},
             Crefname = {O problema}{Os problemas},
         },
         BR = {
             name = {Problema},
-            crefname = {o problema}{os problemas},
+            crefname = {\ccmarkart{o} problema}{\ccmarkart{os} problemas},
             Crefname = {O problema}{Os problemas},
         },
         ES = {
             name = {Problema},
-            crefname = {el problema}{los problemas},
+            crefname = {\ccmarkart{el} problema}{los problemas},
             Crefname = {El problema}{Los problemas},
         },
         CN = {
@@ -2681,7 +2682,7 @@
         },
         FR = {
             name = {Question},
-            crefname = {la question}{les questions},
+            crefname = {\ccmarkart{la} question}{\ccmarkart{les} questions},
             Crefname = {La question}{Les questions},
         },
         DE = {
@@ -2691,17 +2692,17 @@
         },
         IT = {
             name = {Domanda},
-            crefname = {la domanda}{le domande},
+            crefname = {\ccmarkart{la} domanda}{\ccmarkart{le} domande},
             Crefname = {La domanda}{Le domande},
         },
         PT = {
             name = {Pergunta},
-            crefname = {a pergunta}{as perguntas},
+            crefname = {\ccmarkart{a} pergunta}{\ccmarkart{as} perguntas},
             Crefname = {A pergunta}{As perguntas},
         },
         BR = {
             name = {Pergunta},
-            crefname = {a pergunta}{as perguntas},
+            crefname = {\ccmarkart{a} pergunta}{\ccmarkart{as} perguntas},
             Crefname = {A pergunta}{As perguntas},
         },
         ES = {
@@ -2738,7 +2739,7 @@
         },
         FR = {
             name = {Exercice},
-            crefname = {l'exercice}{les exercices},
+            crefname = {\ccmarkart{l'}exercice}{\ccmarkart{les} exercices},
             Crefname = {L'exercice}{Les exercices},
         },
         DE = {
@@ -2748,22 +2749,22 @@
         },
         IT = {
             name = {Esercizio},
-            crefname = {l'esercizio}{gli esercizi},
+            crefname = {\ccmarkart{l'}esercizio}{\ccmarkart{gli} esercizi},
             Crefname = {L'esercizio}{Gli esercizi},
         },
         PT = {
             name = {Exercício},
-            crefname = {o exercício}{os exercícios},
+            crefname = {\ccmarkart{o} exercício}{\ccmarkart{os} exercícios},
             Crefname = {O exercício}{Os exercícios},
         },
         BR = {
             name = {Exercício},
-            crefname = {o exercício}{os exercícios},
+            crefname = {\ccmarkart{o} exercício}{\ccmarkart{os} exercícios},
             Crefname = {O exercício}{Os exercícios},
         },
         ES = {
             name = {Ejercicio},
-            crefname = {el ejercicio}{los ejercicios},
+            crefname = {\ccmarkart{el} ejercicio}{los ejercicios},
             Crefname = {El ejercicio}{Los ejercicios},
         },
         CN = {
@@ -2795,7 +2796,7 @@
         },
         FR = {
             name = {Remarque},
-            crefname = {la remarque}{les remarques},
+            crefname = {\ccmarkart{la} remarque}{\ccmarkart{les} remarques},
             Crefname = {La remarque}{Les remarques},
         },
         DE = {
@@ -2805,22 +2806,22 @@
         },
         IT = {
             name = {Commento},
-            crefname = {il commento}{i commenti},
+            crefname = {\ccmarkart{il} commento}{\ccmarkart{i} commenti},
             Crefname = {Il commento}{I commenti},
         },
         PT = {
             name = {Comentário},
-            crefname = {o comentário}{os comentários},
+            crefname = {\ccmarkart{o} comentário}{\ccmarkart{os} comentários},
             Crefname = {O comentário}{Os comentários},
         },
         BR = {
             name = {Comentário},
-            crefname = {o comentário}{os comentários},
+            crefname = {\ccmarkart{o} comentário}{\ccmarkart{os} comentários},
             Crefname = {O comentário}{Os comentários},
         },
         ES = {
             name = {Comentario},
-            crefname = {el comentario}{los comentarios},
+            crefname = {\ccmarkart{el} comentario}{los comentarios},
             Crefname = {El comentario}{Los comentarios},
         },
         CN = {
@@ -2852,7 +2853,7 @@
         },
         FR = {
             name = {Observation},
-            crefname = {la observation}{les observations},
+            crefname = {\ccmarkart{la} observation}{\ccmarkart{les} observations},
             Crefname = {La observation}{Les observations},
         },
         DE = {
@@ -2862,17 +2863,17 @@
         },
         IT = {
             name = {Osservazione},
-            crefname = {l'osservazione}{le osservazioni},
+            crefname = {\ccmarkart{l'}osservazione}{\ccmarkart{le} osservazioni},
             Crefname = {L'osservazione}{Le osservazioni},
         },
         PT = {
             name = {Observação},
-            crefname = {a observação}{as observações},
+            crefname = {\ccmarkart{a} observação}{\ccmarkart{as} observações},
             Crefname = {A observação}{As observações},
         },
         BR = {
             name = {Observação},
-            crefname = {a observação}{as observações},
+            crefname = {\ccmarkart{a} observação}{\ccmarkart{as} observações},
             Crefname = {A observação}{As observações},
         },
         ES = {
@@ -2909,7 +2910,7 @@
         },
         FR = {
             name = {\definitionnameFR-\propositionnameFR},
-            crefname = {la définition-proposition}{les définitions-propositions},
+            crefname = {\ccmarkart{la} définition-proposition}{\ccmarkart{les} définitions-propositions},
             Crefname = {La définition-proposition}{Les définitions-propositions},
         },
         DE = {
@@ -2919,17 +2920,17 @@
         },
         IT = {
             name = {\definitionnameIT-\propositionnameIT},
-            crefname = {la definizione-proposizione}{le definizioni-proposte},
+            crefname = {\ccmarkart{la} definizione-proposizione}{\ccmarkart{le} definizioni-proposte},
             Crefname = {La definizione-proposizione}{Le definizioni-proposte},
         },
         PT = {
             name = {\definitionnamePT-\propositionnamePT},
-            crefname = {a definição-proposição}{as definições-proposições},
+            crefname = {\ccmarkart{a} definição-proposição}{\ccmarkart{as} definições-proposições},
             Crefname = {A definição-proposição}{As definições-proposições},
         },
         BR = {
             name = {\definitionnameBR-\propositionnameBR},
-            crefname = {a definição-proposição}{as definições-proposições},
+            crefname = {\ccmarkart{a} definição-proposição}{\ccmarkart{as} definições-proposições},
             Crefname = {A definição-proposição}{As definições-proposições},
         },
         ES = {
@@ -2966,7 +2967,7 @@
         },
         FR = {
             name = {\definitionnameFR-\theoremnameFR},
-            crefname = {la définition-théorème}{les définitions-théorèmes},
+            crefname = {\ccmarkart{la} définition-théorème}{\ccmarkart{les} définitions-théorèmes},
             Crefname = {La définition-théorème}{Les définitions-théorèmes},
         },
         DE = {
@@ -2976,17 +2977,17 @@
         },
         IT = {
             name = {\definitionnameIT-\theoremnameIT},
-            crefname = {la definizione-teorema}{le definizioni-teoremi},
+            crefname = {\ccmarkart{la} definizione-teorema}{\ccmarkart{le} definizioni-teoremi},
             Crefname = {La definizione-teorema}{Le definizioni-teoremi},
         },
         PT = {
             name = {\definitionnamePT-\theoremnamePT},
-            crefname = {a definição-teorema}{as definições-teoremas},
+            crefname = {\ccmarkart{a} definição-teorema}{\ccmarkart{as} definições-teoremas},
             Crefname = {A definição-teorema}{As definições-teoremas},
         },
         BR = {
             name = {\definitionnameBR-\theoremnameBR},
-            crefname = {a definição-teorema}{as definições-teoremas},
+            crefname = {\ccmarkart{a} definição-teorema}{\ccmarkart{as} definições-teoremas},
             Crefname = {A definição-teorema}{As definições-teoremas},
         },
         ES = {
