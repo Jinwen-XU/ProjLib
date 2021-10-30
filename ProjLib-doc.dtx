@@ -107,7 +107,7 @@
 %<*ProjLib-doc-cn>
 \title{\ProjLib{} 工具集\\[.3\baselineskip]\normalsize 使用指南}
 \author{许锦文}
-\thanks{对应版本.~~\texttt{\ProjLib{}~2021/10/24}}
+\thanks{对应版本.~~\texttt{\ProjLib{}~2021/10/30}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{2021年10月，巴黎}
 %</ProjLib-doc-cn>
@@ -115,15 +115,15 @@
 %<*ProjLib-doc-en>
 \title{\ProjLib{}~\,Toolkit\\[.3\baselineskip]\normalsize User Manual}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\ProjLib{}~2021/10/24}}
+\thanks{Corresponding to: \texttt{\ProjLib{}~2021/10/30}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
-\date{October 2021, Paris}
+\date{October 2021, in Paris}
 %</ProjLib-doc-en>
 %
 %<*ProjLib-doc-fr>
 \title{La boîte à outils~\,\ProjLib{}\\[.3\baselineskip]\normalsize Manuel d'utilisation}
 \author{Jinwen XU}
-\thanks{Correspondant à : \texttt{\ProjLib{}~2021/10/24}}
+\thanks{Correspondant à : \texttt{\ProjLib{}~2021/10/30}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
 \date{Octobre 2021, à Paris}
 %</ProjLib-doc-fr>
@@ -585,6 +585,7 @@ Référence du théorème: \cref{thm:abc}
 Les environnements de type théorème couramment utilisés ont été prédéfinis. De plus, lors du référencement d'un environnement de type théorème, il est recommandé d'utiliser \lstinline|\cref{|\meta{label}\texttt{\}} --- de cette manière, il ne serait pas nécessaire d'écrire explicitement le nom de l'environnement correspondant à chaque fois.
 %</ProjLib-doc-fr>
 
+\clearpage
 %<*ProjLib-doc-cn>
 \section{主宏包的选项}
 
@@ -599,7 +600,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item 字体选项。顾名思义，会加载相应名称的字体。
             \item \texttt{useosf} 选项用来启用“旧式”数字。
         \end{itemize}
-    \item \texttt{nothms}、\texttt{delaythms}、\texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}、\texttt{regionalref}、\texttt{originalref}
+    \item \texttt{nothms}、\texttt{delaythms}、\texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}、\texttt{complexname}、\texttt{simplename}、\texttt{regionalref}、\texttt{originalref}
         \begin{itemize}
             \item 来自用于设置定理类环境的组件 \PJLthm{} 的选项，详细信息请参阅有关这一宏包的小节。
         \end{itemize}
@@ -629,7 +630,7 @@ Les environnements de type théorème couramment utilisés ont été prédéfini
             \item Font options. As the names suggest, font with corresponding name will be loaded. 
             \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{delaythms}, \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
+    \item \texttt{nothms}, \texttt{delaythms}, \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}, \texttt{complexname}, \texttt{simplename}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options from the component \PJLthm{} used for setting theorem-like environments, please refer to the section on this package for details.
         \end{itemize}
@@ -659,7 +660,7 @@ In addition, there are also some options of the components that should be passed
             \item Options de police. Comme les noms l'indiquent, la police avec le nom correspondant sera utilisée.
             \item L'option \texttt{useosf} est pour activer les chiffres à l'ancienne.
         \end{itemize}
-    \item \texttt{nothms}, \texttt{delaythms}, \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}, \texttt{regionalref}, \texttt{originalref}
+    \item \texttt{nothms}, \texttt{delaythms}, \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}, \texttt{complexname}, \texttt{simplename}, \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
             \item Options du composant \PJLthm{} utilisé pour définir des environnements de type théorème, veuillez vous référer à la section sur ce package pour plus de détails.
         \end{itemize}
@@ -704,91 +705,6 @@ De plus, il existe également certaines options des composants qui doivent être
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
-\subsubsection{PJLauthor：增强的作者信息块}
-
-\PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
-\begin{code}
-\author{(*\meta{author 1}*)}
-\address{(*\meta{address 1}*)}
-\email{(*\meta{email 1}*)}
-\author{(*\meta{author 2}*)}
-\address{(*\meta{address 2}*)}
-\email{(*\meta{email 2}*)}
-...
-\end{code}
-其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
-
-\medskip
-另外，你可以通过选项 \texttt{amsfashion} 以使用 \AmS{} 方式写作。具体来说，效果为：
-\begin{itemize}
-    \item 提供 \lstinline|\dedicatory|、\lstinline|\keywords| 及 \lstinline|\subjclass| 命令
-    \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
-    \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
-\end{itemize}
-
-\begin{tip}[注意]
-    这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLauthor{} 不会起到任何效果。
-\end{tip}
-%</ProjLib-doc-cn>
-%
-%<*ProjLib-doc-en>
-\subsubsection{PJLauthor: enhanced author block}
-
-\PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
-\begin{code}
-\author{(*\meta{author 1}*)}
-\address{(*\meta{address 1}*)}
-\email{(*\meta{email 1}*)}
-\author{(*\meta{author 2}*)}
-\address{(*\meta{address 2}*)}
-\email{(*\meta{email 2}*)}
-...
-\end{code}
-The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
-
-\medskip
-In addition, you can use the option \texttt{amsfashion} to enable the \AmS{} fashion. More specifically, the effect is:
-\begin{itemize}
-    \item Provides the macros \lstinline|\dedicatory|, \lstinline|\keywords| and \lstinline|\subjclass|;
-    \item \lstinline|\thanks| can be written outside \lstinline|\author|;
-    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|.
-\end{itemize}
-
-\begin{tip}[Attention]
-    These modifications would only take place in standard classes. In the \AmS{} classes, \PJLauthor{} does not have any effect.
-\end{tip}
-%</ProjLib-doc-en>
-%
-%<*ProjLib-doc-fr>
-\subsubsection{PJLauthor : bloc auteur amélioré}
-
-\PJLauthor{} propose les macros \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email|, et vous permet de saisir plusieurs groupes d'informations sur l'auteur. L'utilisation standard est comme ceci :
-\begin{code}
-\author{(*\meta{author 1}*)}
-\address{(*\meta{address 1}*)}
-\email{(*\meta{email 1}*)}
-\author{(*\meta{author 2}*)}
-\address{(*\meta{address 2}*)}
-\email{(*\meta{email 2}*)}
-...
-\end{code}
-L'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email| n'est pas important.
-
-\medskip
-De plus, vous pouvez utiliser l'option \texttt{amsfashion} pour écrire à la manière \AmS{}. Plus précisément, l'effet est :
-\begin{itemize}
-    \item Fournit les macros \lstinline|\dedicatory|, \lstinline|\keywords| et \lstinline|\subjclass|;
-    \item \lstinline|\thanks| peut être écrit en dehors de la macro \lstinline|\author|;
-    \item La environnement \lstinline|abstract| peut être placé avant \lstinline|\maketitle|.
-\end{itemize}
-
-\begin{tip}[Attention]
-    Ces modifications n'auraient lieu que dans les classes standard. Dans les classes \AmS{}, \PJLauthor{} n'a aucun effet.
-\end{tip}
-%</ProjLib-doc-fr>
-
-
-%<*ProjLib-doc-cn>
 \subsubsection{PJLlang：多语言支持}
 
 \PJLlang{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文 (其中中文、日文、俄文需要相应的 \TeX{} 引擎与字体支持)。
@@ -813,8 +729,7 @@ De plus, vous pouvez utiliser l'option \texttt{amsfashion} pour écrire à la ma
     \end{itemize}
 \end{itemize}
 
-% \medskip
-\clearpage
+\medskip
 \meta{language name} 有下列选择 (不区分大小写，如 \texttt{French} 或 \texttt{french} 均可)：
 \begin{itemize}\setstretch{1.15}
     \item 简体中文：\texttt{CN}、\texttt{Chinese}、\texttt{SChinese} 或 \texttt{SimplifiedChinese}
@@ -965,6 +880,10 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
     \begin{itemize}
         \item 使定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器 (在启用 \texttt{delaythms} 选项的情况下)。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
     \end{itemize}
+    \item \texttt{complexname}、\texttt{simplename}
+    \begin{itemize}
+        \item 对于预设的定理名称，使用详细版本（默认）或简易版本。详细版本包含单复数的差别，并且在可能的情况下加入了定冠词；简易版本则统一采用单个单词的名称，不区分单复数。
+    \end{itemize}
     \item \texttt{regionalref}、\texttt{originalref}
     \begin{itemize}
         \item 在智能引用时，定理类环境的名称是否随当前语言而变化。默认为 \texttt{regionalref}，即引用时采用当前语言对应的名称；例如，在中文语境中引用定理类环境时，无论原环境处在什么语境中，都将使用名称“定理、定义……”。若启用 \texttt{originalref}，则引用时会始终采用定理类环境所处语境下的名称；例如，在英文语境中书写的定理，即使稍后在中文语境下引用时，仍将显示为 Theorem。
@@ -1017,8 +936,7 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
     除此以外，你也可以在定义相应的定理类环境时为之命名，可以参见后文对 \lstinline|\CreateTheorem| 的说明。
 \end{tip}
 
-\clearpage
-% \bigskip
+\bigskip
 然后，用下面五种方式之一定义这一环境：
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
@@ -1135,6 +1053,10 @@ Par exemple, \lstinline|\AddLanguageSetting(German){\color{orange}}| peut rendre
     \begin{itemize}
         \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. Here, \meta{counter} should be a built-in counter (such as \texttt{subsection}) or a custom counter defined in the preamble (with the option \texttt{delaythms} enabled). If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
     \end{itemize}
+    \item \texttt{complexname}, \texttt{simplename}
+        \begin{itemize}
+            \item Enabled the detailed preset (default) or the simple preset for names of theorem-like environments. The detailed version includes singular and plural forms, and, where possible, the definite articles; the simple version uses always the same word, without distinction between singular and plural forms.
+        \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
         \item When referencing, whether the name of the theorem-like environment changes with the current language. The default is \texttt{regionalref}, \emph{i.e.}, the name corresponding to the current language is used; for example, when referencing a theorem-like environment in English context, the names "Theorem, Definition..." will be used no matter which language context the original environment is in. If \texttt{originalref} is enabled, then the name will always remain the same as the original place; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''. 
@@ -1304,6 +1226,10 @@ or set the names while defining them (for \lstinline|proofidea*| and \lstinline|
     \begin{itemize}
         \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Ici, \meta{counter} doit être un compteur intégré (tel que \texttt{subsection}) ou un compteur défini dans le préambule (avec l'option \texttt{delaythms} activée). Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
     \end{itemize}
+    \item \texttt{complexname}, \texttt{simplename}
+        \begin{itemize}
+            \item Utilisez le preset détaillé (par défaut) ou le preset simple pour les noms des environnements de type théorème. La version détaillée inclut les formes singulières et plurielles, et, où possible, les articles définis ; la version simple utilise toujours le même mot, sans distinction entre les formes singulières ou plurielles.
+        \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
     \begin{itemize}
         \item Lors du référencement, si le nom de l'environnement de type théorème change avec la langue actuelle. Par défaut \texttt{regionalref} est activé, c'est-à-dire que le nom correspondant à la langue courante est utilisé ; par exemple, lors du référencement d'un environnement de type théorème dans un contexte français, les noms «~Théorème, Définition ...~» seront utilisés quel que soit le contexte linguistique dans lequel se trouve l'environnement d'origine. Si \texttt{originalref} est activé, alors le nom restera toujours le même que l'environnement d'origine ; par exemple, lors du référencement d'un théorème écrit dans le contexte français, même si l'on est actuellement dans le contexte anglais, il sera toujours affiché comme «~Théorème~». 
@@ -1456,7 +1382,7 @@ ou définissez les noms en les définissant (pour \lstinline|proofidea*| et \lst
 
 
 
-\clearpage
+% \clearpage
 
 %<*ProjLib-doc-cn>
 \subsection{次要功能}
@@ -1468,6 +1394,90 @@ ou définissez les noms en les définissant (pour \lstinline|proofidea*| et \lst
 %
 %<*ProjLib-doc-fr>
 \subsection{Fonctions secondaires}
+%</ProjLib-doc-fr>
+
+%<*ProjLib-doc-cn>
+\subsubsection{PJLauthor：增强的作者信息块}
+
+\PJLauthor{} 提供了 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 命令，并且允许输入多组用户信息。标准的输入方式是这样的：
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+其中 \lstinline|\address|、\lstinline|\curraddr|、\lstinline|\email| 的相互顺序是不重要的。
+
+\medskip
+另外，你可以通过选项 \texttt{amsfashion} 以使用 \AmS{} 方式写作。具体来说，效果为：
+\begin{itemize}
+    \item 提供 \lstinline|\dedicatory|、\lstinline|\keywords| 及 \lstinline|\subjclass| 命令
+    \item \lstinline|\thanks| 可以写在 \lstinline|\author| 之外
+    \item \lstinline|abstract| 环境可以放在 \lstinline|\maketitle| 的前面
+\end{itemize}
+
+\begin{tip}[注意]
+    这些功能只在标准文档类中启用。在 \AmS{} 文档类中，\PJLauthor{} 不会起到任何效果。
+\end{tip}
+%</ProjLib-doc-cn>
+%
+%<*ProjLib-doc-en>
+\subsubsection{PJLauthor: enhanced author block}
+
+\PJLauthor{} offers \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email|, and allows you to enter multiple groups of author information. The standard usage is like this:
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+The mutual order of \lstinline|\address|, \lstinline|\curraddr| and \lstinline|\email| is not important.
+
+\medskip
+In addition, you can use the option \texttt{amsfashion} to enable the \AmS{} fashion. More specifically, the effect is:
+\begin{itemize}
+    \item Provides the macros \lstinline|\dedicatory|, \lstinline|\keywords| and \lstinline|\subjclass|;
+    \item \lstinline|\thanks| can be written outside \lstinline|\author|;
+    \item The \lstinline|abstract| environment can be placed before \lstinline|\maketitle|.
+\end{itemize}
+
+\begin{tip}[Attention]
+    These modifications would only take place in standard classes. In the \AmS{} classes, \PJLauthor{} does not have any effect.
+\end{tip}
+%</ProjLib-doc-en>
+%
+%<*ProjLib-doc-fr>
+\subsubsection{PJLauthor : bloc auteur amélioré}
+
+\PJLauthor{} propose les macros \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email|, et vous permet de saisir plusieurs groupes d'informations sur l'auteur. L'utilisation standard est comme ceci :
+\begin{code}
+\author{(*\meta{author 1}*)}
+\address{(*\meta{address 1}*)}
+\email{(*\meta{email 1}*)}
+\author{(*\meta{author 2}*)}
+\address{(*\meta{address 2}*)}
+\email{(*\meta{email 2}*)}
+...
+\end{code}
+L'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr| et \lstinline|\email| n'est pas important.
+
+\medskip
+De plus, vous pouvez utiliser l'option \texttt{amsfashion} pour écrire à la manière \AmS{}. Plus précisément, l'effet est :
+\begin{itemize}
+    \item Fournit les macros \lstinline|\dedicatory|, \lstinline|\keywords| et \lstinline|\subjclass|;
+    \item \lstinline|\thanks| peut être écrit en dehors de la macro \lstinline|\author|;
+    \item La environnement \lstinline|abstract| peut être placé avant \lstinline|\maketitle|.
+\end{itemize}
+
+\begin{tip}[Attention]
+    Ces modifications n'auraient lieu que dans les classes standard. Dans les classes \AmS{}, \PJLauthor{} n'a aucun effet.
+\end{tip}
 %</ProjLib-doc-fr>
 
 %<*ProjLib-doc-cn>
