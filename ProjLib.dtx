@@ -18,47 +18,47 @@
 %
 %<*ProjLib>
 \ProvidesPackage{ProjLib}
-    [2021/11/05 The collective interface of ProjLib toolkit]
+    [2021/11/09 The collective interface of ProjLib toolkit]
 %</ProjLib>
 %
 %<*PJLauthor>
 \ProvidesPackage{PJLauthor}
-    [2021/11/05 Enhanced author information block]
+    [2021/11/09 Enhanced author information block]
 %</PJLauthor>
 %
 %<*PJLdate>
 \ProvidesPackage{PJLdate}
-    [2021/11/05 Convert yyyy-mm-dd to normal datetime format]
+    [2021/11/09 Convert yyyy-mm-dd to normal datetime format]
 %</PJLdate>
 %
 %<*PJLdraft>
 \ProvidesPackage{PJLdraft}
-    [2021/11/05 Some useful macros for the draft stage]
+    [2021/11/09 Some useful macros for the draft stage]
 %</PJLdraft>
 %
 %<*PJLlang>
 \ProvidesPackage{PJLlang}
-    [2021/11/05 Multi-language configuration]
+    [2021/11/09 Multi-language configuration]
 %</PJLlang>
 %
 %<*PJLlogo>
 \ProvidesPackage{PJLlogo}
-    [2021/11/05 The ProjLib logo]
+    [2021/11/09 The ProjLib logo]
 %</PJLlogo>
 %
 %<*PJLmath>
 \ProvidesPackage{PJLmath}
-    [2021/11/05 Useful math macros and shortcuts]
+    [2021/11/09 Useful math macros and shortcuts]
 %</PJLmath>
 %
 %<*PJLpaper>
 \ProvidesPackage{PJLpaper}
-    [2021/11/05 Paper style configuration]
+    [2021/11/09 Paper style configuration]
 %</PJLpaper>
 %
 %<*PJLthm>
 \ProvidesPackage{PJLthm}
-    [2021/11/05 Theorem setup and configuration]
+    [2021/11/09 Theorem setup and configuration]
 %</PJLthm>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -3677,7 +3677,10 @@
 %# 使用 microtype 优化排版细节
 %# Use `microtype` to get details better
 \RequirePackage{microtype}
-\AtEndPreamble{\AtBeginDocument{\microtypesetup{disable}{\scshape}\microtypesetup{enable}}}
+\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\scshape}\microtypesetup{reactivate}}}
+\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\bfseries\scshape}\microtypesetup{reactivate}}}
+\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\sffamily\scshape}\microtypesetup{reactivate}}}
+\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\ttfamily\scshape}\microtypesetup{reactivate}}}
 %</ProjLib>
 
 \endinput
