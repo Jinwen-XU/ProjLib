@@ -1,6 +1,31 @@
-<!-- Copyright (C) 2021 by Jinwen XU -->
+<!-- Copyright (C) 2021-2022 by Jinwen XU -->
 
 # ProjLib Toolkit
+
+The bundle is dated 2022/03/09
+
+Old modules are still dated 2021/12/16 and will *not* be modified. When all the new modules are finished, old files shall be removed from this bundle.
+
+## **Important note**
+
+The whole project is being rewritten with `expl3`. The new modules are basically finished but are not yet documented. They have the names with prefix "projlib-", and they are in many ways better and more powerful than their predecessors. Most importantly, they are not compatible with the old modules, so they cannot appear at the same time in the same document, which, unfortunately, means that (for now) they cannot be used in classes like `einfart` or `lebhart`, etc.
+
+The new modules are:
+- projlib-author
+- projlib-datetime
+- projlib-draft
+- projlib-font
+- projlib-language
+- projlib-logo
+- projlib-math
+- projlib-paper
+- projlib-theorem
+
+When all these modules are finished, the documentation will be updated accordingly.
+
+Below are the old README.
+
+---
 
 > **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French).
 > Personally, I prefer the later one.
