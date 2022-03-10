@@ -90,23 +90,41 @@
 %<*ProjLib>
 \keys_define:nn { ProjLib }
   {
-    , unknown .code:n = {
-                          \PassOptionsToPackage { \CurrentOption } { projlib-language }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-author }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-datetime }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-draft }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-font }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-logo }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-math }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-paper }
-                          \PassOptionsToPackage { \CurrentOption } { projlib-theorem }
-                        }
+    , author          .bool_set:N         = \l__projlib_main_author_bool
+    , author          .initial:n          = { false }
+    , author-block    .bool_set:N         = \l__projlib_main_author_bool
+    , author~block    .bool_set:N         = \l__projlib_main_author_bool
+    , author block    .bool_set:N         = \l__projlib_main_author_bool
+    , ams-fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , ams-fashion     .initial:n          = { false }
+    , ams~fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , ams fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , unknown         .code:n             = {
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-language }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-author }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-datetime }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-draft }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-font }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-logo }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-math }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-paper }
+                                              \PassOptionsToPackage { \CurrentOption } { projlib-theorem }
+                                            }
   }
 \ProcessKeysOptions { ProjLib }
 
+\bool_if:NT \l__projlib_main_amsfashion_bool
+  {
+    \bool_set_true:N \l__projlib_main_author_bool
+    \PassOptionsToPackage { amsfashion } { projlib-author }
+  }
+
 \RequirePackage { projlib-language }
 
-\RequirePackage { projlib-author }
+\bool_if:NT \l__projlib_main_author_bool
+  {
+    \RequirePackage { projlib-author }
+  }
 \RequirePackage { projlib-datetime }
 \RequirePackage { projlib-draft }
 \RequirePackage { projlib-font }
@@ -3112,45 +3130,6 @@
         \projlib_math_define_shortcut:nnn { #1 } { #3 } { #2 }
       }
   }
-
-%%%===============================
-%%% -- Some possible operators --
-%%%===============================
-%% \DefineOperator { ord, card, car, disc }  [ style = \mathsf ]
-%% \DefineOperator { id, Id, Ker, Image = Im } [ style = \mathsf ]
-%% \DefineOperator { Orb, Stab, Fix } [ style = \mathsf ]
-%% \DefineOperator { Hom, Aut, End, Mat } [ style = \mathsf ]
-%% \DefineOperator { Spec, Spm, Ann } [ style = \mathsf ]
-%% \DefineOperator*{ Lim, Max, Min } [ style = \mathsf ]
-
-%%%===============================
-%%% -- Some possible shortcuts --
-%%%===============================
-%% \DefineShortcut [ type = category, style = \mathbf ]
-%%   {
-%%     Set, Grp, Ring, Top
-%%   }
-%% \DefineShortcut [ style = \mathbb ]
-%%   {
-%%     N, Z, Q, R, C, F, A
-%%   }
-%% \DefineShortcut [ prefix = bb, style = \mathbb ]
-%%   {
-%%     A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
-%%   }
-%% \DefineShortcut [ prefix = { mf, frak }, style = \mathfrak ]
-%%   {
-%%     A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
-%%     a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z
-%%   }
-%% \DefineShortcut [ prefix = { mc, cal }, style = \mathcal ]
-%%   {
-%%     A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
-%%   }
-%% \DefineShortcut [ prefix = { ms, scr }, style = \mathscr ]
-%%   {
-%%     A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z
-%%   }
 %</projlib-math>
 %
 %<*projlib-paper>
