@@ -229,8 +229,9 @@
 
 \RequirePackage { regexpatch }
 
-\xpatchcmd { \@maketitle } { \begin{tabular}[t]{c} } {} {} { \FAIL }
-\xpatchcmd { \@maketitle } { \end{tabular} } {} {} { \FAIL }
+\xpatchcmd { \@maketitle } { \begin{tabular}[t]{c} } {} {
+  \xpatchcmd { \@maketitle } { \end{tabular} } {} {} {}
+} {}
 
 \tl_set:cn {@author} {}
 
@@ -307,7 +308,7 @@
 
         \NewDocumentCommand \thanks { m }
           {
-            \tl_if_blank:eF { #1 }
+            \tl_if_blank:nF { #1 }
               {
                 \hook_gput_code:nnn { cmd/@title/after } { projlib-author }
                   {
@@ -339,6 +340,7 @@
     \bool_new:N \g__projlib_author_abstract_before_maketitle_bool
     \bool_gset_false:N \g__projlib_author_abstract_before_maketitle_bool
 
+    \msg_redirect_name:nnn { scontents } { unsupported-verbatim } { info }
     \RequirePackage{ scontents }
     \newenvsc{abstract}[store-env=projlib-author-abstract,print-env=false]
 
@@ -374,7 +376,7 @@
                     \skip_vertical:n { \dim_eval:n { -1.7 \baselineskip } }
                   }
               }
-          } {} { \FAIL }
+          } {} {}
         \makeatother
 
         \hook_gput_code:nnn { cmd/maketitle/before } { projlib-author }
@@ -581,9 +583,6 @@
       \__projlib_datetime_today:n { _uppercase }
     \group_end:
   }
-
-\ProvideDocumentCommand \Thedate {} { \ProjLibdate }
-\ProvideDocumentCommand \TheDate {} { \ProjLibDate }
 
 
 \cs_new_protected:Nn \projlib_datetime_display_year_month_day:n
@@ -818,25 +817,30 @@
       }
   }
 
-\NewDocumentCommand \ProjLibdate { O{} m }
+\NewDocumentCommand \ProjLibdate { O{} m O{} }
   {
     \group_begin:
-      \keys_set:nn { projlib-datetime-command } { #1 }
-      \tl_set:Nn \l_tmpa_tl { #2 }
+      \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
+      \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
+      \tl_set:Nx \l_tmpa_tl { #2 }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
-      \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } {}
+      \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } {}
     \group_end:
   }
 
-\NewDocumentCommand \ProjLibDate { O{} m }
+  \NewDocumentCommand \ProjLibDate { O{} m O{} }
   {
     \group_begin:
-      \keys_set:nn { projlib-datetime-command } { #1 }
-      \tl_set:Nn \l_tmpa_tl { #2 }
+      \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
+      \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
+      \tl_set:Nx \l_tmpa_tl { #2 }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
-      \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } { _uppercase }
+      \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } { _uppercase }
     \group_end:
   }
+
+\ProvideDocumentCommand \Thedate {} { \ProjLibdate }
+\ProvideDocumentCommand \TheDate {} { \ProjLibDate }
 
 
 \int_new:N \l__projlib_datetime_day_of_week_day_int
@@ -2240,6 +2244,9 @@
   }
 \ProcessKeysOptions { projlib-font }
 
+\bool_new:N \g_projlib_font_already_set_bool
+\bool_gset_false:N \g_projlib_font_already_set_bool
+
 \RequirePackage { setspace }
 
 \cs_new:Nn \projlib_font_set_linespacing_latin:n
@@ -2264,6 +2271,7 @@
         \RequirePackage { lmodern }
       }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_palatino_bool
@@ -2274,6 +2282,7 @@
     \cs_undefine:c { openbox }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.07 } }
     \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_times_bool
@@ -2284,6 +2293,7 @@
     \cs_undefine:c { openbox }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_garamond_bool
@@ -2296,7 +2306,9 @@
     \cs_undefine:c { openbox }
     \RequirePackage { ebgaramond-maths }
     \RequirePackage { ebgaramond }
+    \cs_undefine:c { Bbbk }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_noto_bool
@@ -2308,6 +2320,7 @@
     \RequirePackage { anyfontsize }
     \RequirePackage { notomath }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_biolinum_bool
@@ -2342,10 +2355,10 @@
       }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.05 } }
     \RequirePackage [ italic, defaultmathsizes ] { mathastext }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
-\RequirePackage { silence }
-\WarningFilter { microtype } { Unable }
+\PassOptionsToPackage { verbose = silent } { microtype }
 \RequirePackage { microtype }
 %</projlib-font>
 %
@@ -2701,7 +2714,7 @@
 
 \NewDocumentCommand \AddLanguageSetting { O{} m }
   {
-    \IfNoValueTF { #1 }
+    \tl_if_empty:nTF { #1 }
       {
         \tl_gput_right:Nn \g_projlib_language_settings_common_tl { #2 }
       }
