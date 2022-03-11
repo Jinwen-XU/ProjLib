@@ -2276,23 +2276,75 @@
 
 \bool_if:NT \l__projlib_font_palatino_bool
   {
-    \RequirePackage { mathpazo }
-    \PassOptionsToPackage { defaultsups } { newpxtext }
-    \RequirePackage { newpxtext }
-    \cs_undefine:c { openbox }
+    \sys_if_engine_pdftex:TF
+    {
+      \RequirePackage { mathpazo }
+      \PassOptionsToPackage { defaultsups } { newpxtext }
+      \RequirePackage { newpxtext }
+      \cs_undefine:c { openbox }
+      \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
+    }
+    {
+      \PassOptionsToPackage { warnings-off = { mathtools-colon, mathtools-overbracket } } { unicode-math }
+      \RequirePackage { unicode-math }
+      \defaultfontfeatures{ Scale=MatchLowercase, Ligatures=TeX }
+      \bool_if:NTF \l__projlib_font_useosf_bool
+        {
+          \setmainfont { TeXGyrePagellaX-Regular.otf }
+            [
+              BoldFont       = TeXGyrePagellaX-Bold.otf ,
+              ItalicFont     = TeXGyrePagellaX-Italic.otf ,
+              BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf,
+              Numbers        = OldStyle ]
+        }
+        {
+          \setmainfont { TeXGyrePagellaX-Regular.otf }
+            [
+              BoldFont       = TeXGyrePagellaX-Bold.otf ,
+              ItalicFont     = TeXGyrePagellaX-Italic.otf ,
+              BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf,
+            ]
+        }
+      \setmathfont { texgyrepagella-math.otf }
+    }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.07 } }
-    \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_times_bool
   {
-    \PassOptionsToPackage { defaultsups } { newtxtext }
-    \RequirePackage { newtxtext }
-    \RequirePackage { newtxmath }
-    \cs_undefine:c { openbox }
+    \sys_if_engine_pdftex:TF
+      {
+        \PassOptionsToPackage { defaultsups } { newtxtext }
+        \RequirePackage { newtxtext }
+        \RequirePackage { newtxmath }
+        \cs_undefine:c { openbox }
+        \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
+      }
+      {
+        \PassOptionsToPackage { warnings-off = { mathtools-colon, mathtools-overbracket } } { unicode-math }
+        \RequirePackage { unicode-math }
+        \defaultfontfeatures{ Scale=MatchLowercase, Ligatures=TeX }
+        \bool_if:NTF \l__projlib_font_useosf_bool
+          {
+            \setmainfont { TeXGyreTermesX-Regular.otf }
+              [
+                BoldFont       = TeXGyreTermesX-Bold.otf ,
+                ItalicFont     = TeXGyreTermesX-Italic.otf ,
+                BoldItalicFont = TeXGyreTermesX-BoldItalic.otf,
+                Numbers        = OldStyle ]
+          }
+          {
+            \setmainfont { TeXGyreTermesX-Regular.otf }
+              [
+                BoldFont       = TeXGyreTermesX-Bold.otf ,
+                ItalicFont     = TeXGyreTermesX-Italic.otf ,
+                BoldItalicFont = TeXGyreTermesX-BoldItalic.otf,
+              ]
+          }
+        \setmathfont { texgyretermes-math.otf }
+      }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
-    \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
@@ -2319,6 +2371,7 @@
       }
     \RequirePackage { anyfontsize }
     \RequirePackage { notomath }
+    \cs_undefine:c { Bbbk }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
