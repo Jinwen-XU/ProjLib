@@ -3405,30 +3405,30 @@
   {
     \bool_if:NTF \l__projlib_theorem_no_theorem_numbering_bool
       {
-        \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { numberless }
+        \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { numberless, create starred version }
       }
       {
         \tl_if_blank:eTF \l__projlib_theorem_theorem_numbering_tl
           {
             \cs_if_exist:cTF { c@chapter }
               { % with \chapter
-                \CreateTheorem {theorem} { parent counter = chapter }
+                \CreateTheorem {theorem} { parent counter = chapter, create starred version }
               }
               { % without \chapter
-                \CreateTheorem {theorem} { parent counter = section }
+                \CreateTheorem {theorem} { parent counter = section, create starred version }
               }
           }
           {
             \tl_if_eq:NnTF \l__projlib_theorem_theorem_numbering_tl { * }
               {
-                \CreateTheorem {theorem} { }
+                \CreateTheorem {theorem} { create starred version }
               }
               {
-                \CreateTheorem {theorem} { parent counter = \l__projlib_theorem_theorem_numbering_tl }
+                \CreateTheorem {theorem} { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
               }
           }
 
-        \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { shared counter = theorem, quiet }
+        \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { shared counter = theorem, create starred version, quiet }
       }
   }
 
