@@ -2208,7 +2208,9 @@
   {
     \tl_if_blank:VF \g__projlib_draft_dnf_report_tl
       {
-        \clearpage \noindent
+        \clearpage
+        \pagestyle{empty}
+        \noindent
         \color { __dnf_color }
         \__dnf_font
         \__dnf_report_text \\[0.75\baselineskip]
