@@ -149,11 +149,13 @@
 \cs_if_exist:NT \subjclass { \endinput }
 
 \tl_new:N   \g__projlib_author_font_author_tl
+\tl_new:N   \g__projlib_author_font_institute_tl
 \tl_new:N   \g__projlib_author_font_address_tl
 \tl_new:N   \g__projlib_author_font_curraddr_tl
 \tl_new:N   \g__projlib_author_font_email_tl
 
 \tl_gset:Nn \g__projlib_author_font_author_tl      { \normalsize \normalfont \scshape }
+\tl_gset:Nn \g__projlib_author_font_institute_tl   { \small \normalfont }
 \tl_gset:Nn \g__projlib_author_font_address_tl     { \small \normalfont \itshape }
 \tl_gset:Nn \g__projlib_author_font_curraddr_tl    { \small \normalfont \itshape }
 \tl_gset:Nn \g__projlib_author_font_email_tl       { \small \normalfont \ttfamily }
@@ -182,7 +184,9 @@
       }
   }
 
-\ProvideDocumentCommand \address { m }
+\cs_new_protected:Nn \projlib_author_affil_generic:nn
+  % #1 = the item
+  % #2 = the text
   {
     \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
       {
@@ -192,39 +196,29 @@
             \skip_vertical:n { \g__projlib_author_length_innersep_dim }
           }
         \bool_set_true:N \g__projlib_author_affil_already_exist_bool
-        { \g__projlib_author_font_address_tl #1 }
+        { \use:c { g__projlib_author_font_ #1 _tl } #2 }
         \\ \phantom {}
       }
+  }
+
+\ProvideDocumentCommand \institute { m }
+  {
+    \projlib_author_affil_generic:nn { institute } { #1 }
+  }
+
+\ProvideDocumentCommand \address { m }
+  {
+    \projlib_author_affil_generic:nn { address } { #1 }
   }
 
 \ProvideDocumentCommand \curraddr { m }
   {
-    \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
-      {
-        \phantom {A} \\[-\baselineskip]
-        \bool_if:NF \g__projlib_author_affil_already_exist_bool
-          {
-            \skip_vertical:n { \g__projlib_author_length_innersep_dim }
-          }
-        \bool_set_true:N \g__projlib_author_affil_already_exist_bool
-        { \g__projlib_author_font_curraddr_tl #1 }
-        \\ \phantom {}
-      }
+    \projlib_author_affil_generic:nn { curraddr } { #1 }
   }
 
 \ProvideDocumentCommand \email { m }
   {
-    \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
-      {
-        \phantom {A} \\[-\baselineskip]
-        \bool_if:NF \g__projlib_author_affil_already_exist_bool
-          {
-            \skip_vertical:n { \g__projlib_author_length_innersep_dim }
-          }
-        \bool_set_true:N \g__projlib_author_affil_already_exist_bool
-        { \g__projlib_author_font_email_tl #1 }
-        \\ \phantom {}
-      }
+    \projlib_author_affil_generic:nn { email } { #1 }
   }
 
 \RequirePackage { regexpatch }
@@ -403,6 +397,7 @@
                   \getstored{projlib-author-abstract}
                 \projlib_author_backup_endabstract:
               }
+            \cs_undefine:N \institute
             \cs_undefine:N \address
             \cs_undefine:N \curraddr
             \cs_undefine:N \email
