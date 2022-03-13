@@ -2122,7 +2122,7 @@
       }
   }
 
-\projlib_langauge_define_multilingual_text:Nn \__dnf_text
+\projlib_langauge_define_multilingual_text:Nn \__projlib_draft_dnf_text
   {
     EN = To\ be\ finished     ,
     FR = Pas\ encore\ fini    ,
@@ -2137,7 +2137,7 @@
     RU = Не\ закончен         ,
   }
 
-\projlib_langauge_define_multilingual_text:Nn \__dnf_report_text
+\projlib_langauge_define_multilingual_text:Nn \__projlib_draft_dnf_report_text
   {
     EN = { Below\ is\ a\ list\ of\ outstanding\ items,
            \ followed\ by\ the\ corresponding\ page\ numbers.         }     ,
@@ -2160,30 +2160,30 @@
            \ с\ соответствующими\ номерами\ страниц\ в\ скобках.      }     ,
   }
 
-\tl_new:c    { __dnf_font }
-\tl_gset:cn  { __dnf_font }        { \normalfont \ttfamily \bfseries \small }
+\tl_new:c    { __projlib_draft_dnf_font }
+\tl_gset:cn  { __projlib_draft_dnf_font }        { \normalfont \ttfamily \bfseries \small }
 
-\definecolor { __dnf_color }       { RGB } {  21, 122,  20 }
+\definecolor { __projlib_draft_dnf_color }       { RGB } {  21, 122,  20 }
 
-\newcounter  { __dnf_counter }
+\newcounter  { __projlib_draft_dnf_counter }
 
 \tl_new:N \g__projlib_draft_dnf_report_tl
 
 \NewDocumentCommand \dnf { d<> }
   {
     \noindent
-    \projlib_draft_plain_box [ __dnf_color ]
+    \projlib_draft_plain_box [ __projlib_draft_dnf_color ]
       {
-        \stepcounter { __dnf_counter }
-        \__dnf_font
-        \__dnf_text
+        \stepcounter { __projlib_draft_dnf_counter }
+        \__projlib_draft_dnf_font
+        \__projlib_draft_dnf_text
         \c_space_tl
-        \# \the__dnf_counter
+        \# \the__projlib_draft_dnf_counter
         \IfNoValueF { #1 } { \, : ~ #1 }
         \tl_gput_right:Nx \g__projlib_draft_dnf_report_tl
           {
             \# \,
-            \int_value:w \the__dnf_counter
+            \int_value:w \the__projlib_draft_dnf_counter
             \c_space_tl \c_space_tl
             $\langle$
             \skip_horizontal:n { 0.1em }
@@ -2210,10 +2210,73 @@
         \clearpage
         \pagestyle{empty}
         \noindent
-        \color { __dnf_color }
-        \__dnf_font
-        \__dnf_report_text \\[0.75\baselineskip]
+        \color { __projlib_draft_dnf_color }
+        \__projlib_draft_dnf_font
+        \__projlib_draft_dnf_report_text \\[0.75\baselineskip]
         \g__projlib_draft_dnf_report_tl
+      }
+  }
+
+
+\projlib_langauge_define_multilingual_text:Nn \__projlib_draft_blind_text_tl
+  {
+    , EN = {
+              Hello,~here~is~some~text~without~a~meaning.~This~text~should~show~what~a~printed~text~will~look~like~at~this~place.~If~you~read~this~text,~you~will~get~no~information.~Really?~Is~there~no~information?~Is~there~a~difference~between~this~text~and~some~nonsense~like~``Huardest~gefburn''?~Not~at~all!~A~blind~text~like~this~gives~you~information~about~the~selected~font,~how~the~letters~are~written~and~an~impression~of~the~look.~This~text~should~contain~all~letters~of~the~alphabet~and~it~should~be~written~in~of~the~original~language.~There~is~no~need~for~special~content,~but~the~length~of~words~should~match~the~language.
+           }
+    , FR = {
+              Bonjour,~voici~un~texte~sans~signification.~Ce~texte~doit~montrer~à~quoi~ressemble~un~texte~imprimé~à~cet~endroit.~Si~vous~lisez~ce~texte,~vous~n'obtiendrez~aucune~information.~Vraiment~?~Il~n'y~a~aucune~information~?~Y~a-t-il~une~différence~entre~ce~texte~et~une~absurdité~comme~«~Huardest~gefburn~»~?~Pas~du~tout~!~Un~texte~aveugle~comme~celui-ci~vous~donne~des~informations~sur~la~police~choisie,~la~façon~dont~les~lettres~sont~écrites~et~une~impression~de~l'apparence.~Ce~texte~doit~contenir~toutes~les~lettres~de~l'alphabet~et~être~écrit~dans~la~langue~d'origine.~Il~n'est~pas~nécessaire~de~prévoir~un~contenu~spécial,~mais~la~longueur~des~mots~doit~correspondre~à~la~langue.
+           }
+    , DE = {
+              Hallo,~hier~ist~ein~Text~ohne~Bedeutung.~Dieser~Text~soll~zeigen,~wie~ein~gedruckter~Text~an~dieser~Stelle~aussehen~wird.~Wenn~Sie~diesen~Text~lesen,~werden~Sie~keine~Informationen~erhalten.~Wirklich?~Gibt~es~keine~Informationen?~Gibt~es~einen~Unterschied~zwischen~diesem~Text~und~irgendeinem~Blödsinn~wie~``Huardest~gefburn''?~Ganz~und~gar~nicht!~Ein~solcher~Blindtext~gibt~Ihnen~Informationen~über~die~gewählte~Schriftart,~wie~die~Buchstaben~geschrieben~sind~und~einen~Eindruck~vom~Aussehen.~Dieser~Text~sollte~alle~Buchstaben~des~Alphabets~enthalten~und~in~der~Originalsprache~geschrieben~sein.~Es~ist~kein~besonderer~Inhalt~erforderlich,~aber~die~Länge~der~Wörter~sollte~der~Sprache~entsprechen.
+           }
+    , IT = {
+              Ciao,~qui~c'è~un~drafto~senza~significato.~Questo~drafto~dovrebbe~mostrare~come~sarà~un~drafto~stampato~in~questo~posto.~Se~leggete~questo~drafto,~non~otterrete~alcuna~informazione.~Davvero?~Non~c'è~nessuna~informazione?~C'è~una~differenza~tra~questo~drafto~e~qualche~sciocchezza~come~``Huardest~gefburn''?~Niente~affatto!~Un~drafto~cieco~come~questo~ti~dà~informazioni~sul~font~selezionato,~su~come~sono~scritte~le~lettere~e~un'impressione~dell'aspetto.~Questo~drafto~dovrebbe~contenere~tutte~le~lettere~dell'alfabeto~e~dovrebbe~essere~scritto~nella~lingua~originale.~Non~c'è~bisogno~di~contenuti~speciali,~ma~la~lunghezza~delle~parole~dovrebbe~corrispondere~alla~lingua.
+           }
+    , PT = {
+              Olá,~aqui~está~um~texto~sem~significado.~Este~texto~deve~mostrar~como~será~um~texto~impresso~neste~local.~Se~ler~este~texto,~não~obterá~qualquer~informação.~A~sério?~Não~há~informação?~Há~alguma~diferença~entre~este~texto~e~alguns~disparates~como~"Huardest~gefburn"?~De~modo~algum!~Um~texto~cego~como~este~dá-lhe~informações~sobre~a~fonte~seleccionada,~como~as~letras~são~escritas~e~uma~impressão~do~aspecto.~Este~texto~deve~conter~todas~as~letras~do~alfabeto~e~deve~ser~escrito~na~língua~original.~Não~há~necessidade~de~conteúdo~especial,~mas~o~tamanho~das~palavras~deve~corresponder~à~língua.
+           }
+    , BR = {
+              Olá,~aqui~está~um~texto~sem~sentido.~Este~texto~deve~mostrar~como~será~um~texto~impresso~neste~lugar.~Se~você~ler~este~texto,~você~não~obterá~nenhuma~informação.~É~mesmo?~Não~há~nenhuma~informação?~Há~alguma~diferença~entre~este~texto~e~alguns~disparates~como~"Huardest~gefburn"?~De~jeito~nenhum!~Um~texto~cego~como~este~lhe~dá~informações~sobre~a~fonte~selecionada,~como~as~letras~são~escritas~e~uma~impressão~da~aparência.~Este~texto~deve~conter~todas~as~letras~do~alfabeto~e~deve~ser~escrito~no~idioma~original.~Não~há~necessidade~de~conteúdo~especial,~mas~o~tamanho~das~palavras~deve~corresponder~ao~idioma.
+           }
+    , ES = {
+              Hola,~aquí~hay~un~texto~sin~significado.~Este~texto~debe~mostrar~cómo~se~verá~un~texto~impreso~en~este~lugar.~Si~lees~este~texto,~no~obtendrás~ninguna~información.~¿En~serio?~¿No~hay~información?~¿Hay~alguna~diferencia~entre~este~texto~y~alguna~tontería~como~``Huardest~gefburn''?~¡Para~nada!~Un~texto~oculto~como~este~le~brinda~información~sobre~la~fuente~seleccionada,~cómo~se~escriben~las~letras~y~una~impresión~de~la~apariencia.~Este~texto~debe~contener~todas~las~letras~del~alfabeto~y~debe~estar~escrito~en~el~idioma~original.~No~hay~necesidad~de~contenido~especial,~pero~la~longitud~de~las~palabras~debe~coincidir~con~el~idioma.
+           }
+    , CN = {
+              你好，这里有一些没有意义的文字。 此文本应显示打印文本在此位置的外观。 如果你阅读这段文字，你将不会得到任何信息。 真的没有信息吗？ 这段文字和诸如 “劳仑衣普桑，认至将指点效则机，最你更枝” 或者 “想极整月正进好志次回总般，段然取向使张规军证回，世市总李率英茄持伴” 之类的废话有区别吗？ 一点都没有！ 这样的一段文本会给你提供关于所选字体的信息、字母的书写方式以及对外观的印象。 该文本应包含字母表中的所有字母，并且应使用原始语言编写。 不需要特别的内容，但字长要与语言相匹配。
+           }
+    , TC = {
+              你好，這裡有一些沒有意義的文字。此文本應顯示打印文本在此位置的外觀。如果你閱讀這段文字，你將不會得到任何信息。真的沒有信息嗎？這段文字和諸如 “勞崙衣普桑，認至將指點效則機，最你更枝” 或者 “想極整月正進好志次回總般，段然取向使張規軍證回，世市總李率英茄持伴” 之類的廢話有區別嗎？一點都沒有！這樣的一段文本會給你提供關於所選字體的信息、字母的書寫方式以及對外觀的印象。該文本應包含字母表中的所有字母，並且應使用原始語言編寫。不需要特別的內容，但字長要與語言相匹配。
+           }
+    , JP = {
+              こんにちは、ここに意味のないテキストがあります。 このテキストは、この場所で印刷されたテキストがどのように見えるかを示す必要があります。 このテキストを読んでも、情報は得られません。 本当に？ 情報はありませんか？ このテキストと「アでニンはすミ」のようなナンセンスとの間に違いはありますか？ 全くない！ このようなブラインドテキストは、選択したフォント、文字の書き方、外観の印象に関する情報を提供します。 このテキストにはアルファベットのすべての文字が含まれている必要があり、元の言語で書かれている必要があります。 特別なコンテンツは必要ありませんが、単語の長さは言語と一致している必要があります。
+           }
+    , RU = {
+              Здравствуйте,~вот~какой-то~текст~без~смысла.~Этот~текст~должен~показывать,~как~будет~выглядеть~печатный~текст~в~этом~месте.~Если~вы~прочитаете~этот~текст,~вы~не~получите~никакой~информации.~Действительно?~Нет~информации?~Есть~ли~разница~между~этим~текстом~и~какой-то~чепухой~вроде~``Бзостачщв~дрероих''?~Нисколько!~Слепой~текст,~подобный~этому,~дает~вам~информацию~о~выбранном~шрифте,~о~том,~как~написаны~буквы,~и~о~впечатлении~от~внешнего~вида.~Этот~текст~должен~содержать~все~буквы~алфавита~и~должен~быть~написан~на~языке~оригинала.~В~специальном~содержании~нет~необходимости,~но~длина~слов~должна~соответствовать~языку.
+           }
+  }
+
+\cs_new:Nn \projlib_draft_blind_text:n
+  {
+    \int_set:Nn \l_tmpa_int { #1 }
+    \int_do_until:nNnn { \l_tmpa_int } = { 0 }
+      {
+        \__projlib_draft_blind_text_tl
+        \c_space_tl
+        \int_add:Nn \l_tmpa_int { -1 }
+      }
+  }
+
+\hook_gput_code:nnn { begindocument/before } { projlib-draft }
+  {
+    \ProvideDocumentCommand \blindtext { O{} }
+      {
+        \tl_if_blank:nTF { #1 }
+          {
+            \__projlib_draft_blind_text_tl
+          }
+          {
+            \projlib_draft_blind_text:n { #1 }
+          }
       }
   }
 %</projlib-draft>
