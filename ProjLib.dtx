@@ -190,7 +190,7 @@
   {
     \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
       {
-        \phantom {A} \\[-\baselineskip]
+        \phantom {A} \\[-.85\baselineskip]
         \bool_if:NF \g__projlib_author_affil_already_exist_bool
           {
             \skip_vertical:n { \g__projlib_author_length_innersep_dim }
@@ -223,9 +223,10 @@
 
 \RequirePackage { regexpatch }
 
-\xpatchcmd { \@maketitle } { \begin{tabular}[t]{c} } {} {
-  \xpatchcmd { \@maketitle } { \end{tabular} } {} {} {}
-} {}
+\xpatchcmd { \@maketitle } { \begin{tabular}[t]{c} } {}
+  {
+    \xpatchcmd { \@maketitle } { \end{tabular} } {} {} {}
+  } {}
 
 \tl_set:cn {@author} {}
 
