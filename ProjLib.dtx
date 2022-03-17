@@ -20,70 +20,70 @@
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2022/03/09} {}
+  {2022/03/17} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
 
@@ -2868,7 +2868,7 @@
 \tl_new:N  \g_projlib_language_parindent_latin_tl
 \tl_new:N  \g_projlib_language_parindent_cjk_tl
 
-\@ifclassloaded{beamer}
+\@ifclassloaded { beamer }
   {
     \tl_gset:Nn \g_projlib_language_parindent_latin_tl
       {
@@ -2892,7 +2892,7 @@
 
 \hook_gput_code:nnn { begindocument } { projlib-language }
   {
-    \@ifpackageloaded{parskip}
+    \@ifpackageloaded { parskip }
       {
         \tl_gset:Nn \g_projlib_language_parindent_latin_tl
           {
@@ -3384,7 +3384,7 @@
     , nothms                .bool_set:N         = \l__projlib_theorem_no_theorems_bool
     , no-theorem-numbering  .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
     , no-theorem-numbering  .initial:n          = { false }
-    , no~theorem~numbering  .bool_set:N               = \l__projlib_theorem_no_theorem_numbering_bool
+    , no~theorem~numbering  .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
     , no theorem numbering  .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
     , nothmnum              .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
     , theorem-numbering     .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
@@ -3406,7 +3406,7 @@
     , no-preset-names       .initial:n          = { false }
     , no~preset~names       .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
     , no preset names       .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
-    , unknown               .code:n       = { \PassOptionsToPackage { \CurrentOption } { create-theorem } }
+    , unknown               .code:n             = { \PassOptionsToPackage { \CurrentOption } { create-theorem } }
   }
 \ProcessKeysOptions { projlib-theorem }
 

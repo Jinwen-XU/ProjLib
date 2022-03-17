@@ -2,13 +2,11 @@
 
 # ProjLib Toolkit
 
-The bundle is dated 2022/03/09
-
-Old modules are still dated 2021/12/16 and will *not* be modified. When all the new modules are finished, old files shall be removed from this bundle.
+The bundle is dated 2022/03/17
 
 ## **Important note**
 
-The whole project is being rewritten with `expl3`. The new modules are basically finished but are not yet documented. They have the names with prefix "projlib-", and they are in many ways better and more powerful than their predecessors. Most importantly, they are not compatible with the old modules, so they cannot appear at the same time in the same document, which, unfortunately, means that (for now) they cannot be used in classes like `einfart` or `lebhart`, etc.
+The whole project is being rewritten with `expl3`. The new modules are basically finished but are not yet documented. They have the names with prefix "projlib-", and they are in many ways better and more powerful than their predecessors. The most important thing to be noticed is that these new modules are not compatible with the old ones, and thus they cannot appear simultaneously in the same document, which, unfortunately, means that (for now) they cannot be used in classes like `lebhart`, `beaulivre` (these are the classes with which the author produced the old documentations), etc.
 
 The new modules are:
 - projlib-author
@@ -21,14 +19,11 @@ The new modules are:
 - projlib-paper
 - projlib-theorem
 
-When all these modules are finished, the documentation will be updated accordingly.
-
 Below are the old README.
 
 ---
 
 > **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French).
-> Personally, I prefer the later one.
 
 ## Introduction
 
@@ -67,9 +62,9 @@ The components include:
     - Theorem setup and configuration
     - Offers a macro `\CreateTheorem` for creating theorem-like environments with multi-language support
     - Preset environments include: `assumption`, `axiom`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
-<!-- 1. `PJLtoolkit.sty` (this is the internal name of the `ProjLib` package)
+1. `PJLtoolkit.sty` (this is the internal name of the `ProjLib` package)
     - A collective interface of ProjLib Toolkit, loading all the packages above
-    - Provide some pre-defined font configuration -->
+    - Provide some pre-defined font configuration
 
 > Since `PJLthm.sty` (and thus `ProjLib.sty`) uses `cleveref`, it should be loaded after `varioref` and `hyperref`.
 
