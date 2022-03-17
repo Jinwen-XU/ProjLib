@@ -320,7 +320,7 @@
                 \RenewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
                 \RenewCommandCopy \thanks \projlib_author_backup_thanks:w
                 #1
-                \cs_undefine:N \footnotemark
+                \tl_gset:Nn \footnotemark {}
               }
           }
       }
