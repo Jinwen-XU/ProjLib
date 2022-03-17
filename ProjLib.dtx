@@ -190,7 +190,7 @@
   {
     \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
       {
-        \phantom {A} \\[-.85\baselineskip]
+        \phantom {A} \\[-.9\baselineskip]
         \bool_if:NF \g__projlib_author_affil_already_exist_bool
           {
             \skip_vertical:n { \g__projlib_author_length_innersep_dim }
@@ -250,6 +250,8 @@
   {
     \RequirePackage{ projlib-language }
 
+    \tl_const:Nn \c_projlib_author_dot_tl { . }
+
     \tl_new:N   \g_projlib_author_keywordsname_style_tl
     \tl_gset:Nn \g_projlib_author_keywordsname_style_tl { \itshape }
 
@@ -280,27 +282,28 @@
         \tl_gset:Nn \g__projlib_author_dedicatory_tl { #1 }
       }
 
+
+    \NewCommandCopy \projlib_author_backup_footnotemark: \footnotemark
+    \tl_gset:Nn \footnotemark {}
+
+    \NewCommandCopy \projlib_author_backup_thanks:w \thanks
+    \cs_undefine:N \thanks
+
+    % measure the width of "*"
+    \hbox_set:Nn \l_tmpa_box { * }
+    \dim_const:Nn \c__projlib_author_length_width_of_asterisk_dim { \box_wd:N \l_tmpa_box }
+
+    \cs_new_nopar:Nn \projlib_author_pre_thanks:n
+      {
+        \projlib_author_backup_thanks:w
+          {
+            \skip_horizontal:n { - \c__projlib_author_length_width_of_asterisk_dim }
+            #1
+          }
+      }
+
     \hook_gput_code:nnn { begindocument/before } { projlib-author }
       {
-        \NewCommandCopy \projlib_author_backup_footnotemark: \footnotemark
-        \tl_gset:Nn \footnotemark {}
-
-        \NewCommandCopy \projlib_author_backup_thanks:w \thanks
-        \cs_undefine:N \thanks
-
-        % measure the width of "*"
-        \hbox_set:Nn \l_tmpa_box { * }
-        \dim_const:Nn \c__projlib_author_length_width_of_asterisk_dim { \box_wd:N \l_tmpa_box }
-
-        \cs_new_nopar:Nn \projlib_author_pre_thanks:n
-          {
-            \projlib_author_backup_thanks:w
-              {
-                \skip_horizontal:n { - \c__projlib_author_length_width_of_asterisk_dim }
-                #1
-              }
-          }
-
         \NewDocumentCommand \thanks { m }
           {
             \tl_if_blank:nF { #1 }
@@ -384,7 +387,7 @@
                   {
                     \group_begin:
                       \g_projlib_author_keywordsname_style_tl
-                      \keywordsname .
+                      \keywordsname \c_projlib_author_dot_tl
                     \group_end:
                     \c_space_tl
                     \g__projlib_author_keywords_tl
@@ -430,7 +433,7 @@
             }
           \projlib_author_pre_thanks:n
             {
-              \textit{ \l_projlib_author_subjclassname_tl . }
+              \textit{ \l_projlib_author_subjclassname_tl \c_projlib_author_dot_tl }
               \enspace
               \l_projlib_author_subjclass_tl .
             }
