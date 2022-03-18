@@ -302,19 +302,19 @@
           }
       }
 
-    \hook_gput_code:nnn { begindocument/before } { projlib-author }
+    \NewDocumentCommand \thanks { m }
       {
-        \NewDocumentCommand \thanks { m }
+        \tl_if_blank:nF { #1 }
           {
-            \tl_if_blank:nF { #1 }
+            \hook_gput_code:nnn { cmd/@title/after } { projlib-author }
               {
-                \hook_gput_code:nnn { cmd/@title/after } { projlib-author }
-                  {
-                    \projlib_author_pre_thanks:n { #1 }
-                  }
+                \projlib_author_pre_thanks:n { #1 }
               }
           }
+      }
 
+    \hook_gput_code:nnn { begindocument/before } { projlib-author }
+      {
         \NewCommandCopy \projlib_author_backup_my_author:w \author
         \RenewDocumentCommand \author { m }
           {
