@@ -3087,57 +3087,49 @@
   }
 %</projlib-logo-old>
 
-\cs_gset:Nn \__projlib_logo_font: { \usefont{OT1}{uni}{b}{n} }
-
-\tl_new:N   \g__projlib_logo_sigma_j_tl
-\tl_gset:Nn \g__projlib_logo_sigma_j_tl
-  {
-    \vbox:n
-      {
-        \offinterlineskip
-        \hbox_overlap_center:n
-          {
-            \skip_horizontal:n { 0.75ex }
-            \hbox_set:Nn    \l_tmpa_box { \usefont{U}{zeur}{b}{n} \symbol{"02} }
-            \box_rotate:Nn  \l_tmpa_box { -15 }
-            \box_scale:Nnn  \l_tmpa_box {.35} {.35}
-            \box_use:N      \l_tmpa_box
-          }
-        \skip_vertical:n { 0.15ex }
-        \hbox:n { \j }
-      }
-  }
+\RequirePackage { tikz }
 
 \cs_new_protected:Nn \projlib_logo_generic:n
   {
-    \group_begin:
-      \normalfont
-      \__projlib_logo_font:
-      \color_group_begin:
-        \color_select:n { blue!50!cyan!30!black }     { P }
-        \skip_horizontal:n { -.12em }
-        \color_select:n { blue!50!cyan!40!black }     { r }
-        \skip_horizontal:n { -.15em }
-        \color_select:n { blue!50!cyan!45!black }     { o }
-        \skip_horizontal:n { -.08em }
-        \color_select:n { blue!50!cyan!50!black }     { #1 }
-        \skip_horizontal:n { -.02em }
-        \color_select:n { blue!50!cyan!67!black }     { l }
-        \skip_horizontal:n { -.02em }
-        \color_select:n { blue!50!cyan!75!black }     { \i }
-        \skip_horizontal:n { -.1em }
-        \color_select:n { blue!50!cyan!90!black }     { b }
-      \color_group_end:
-    \group_end:
+    \skip_horizontal:n { .2em }
+    \begin{tikzpicture}[line~width=.1em, baseline=0]
+      \begin{scope}[color=blue!50!cyan!30!black]
+        \draw (0.22em,.5em) circle (.22em);
+        \draw (0em,0em) -- (0em,.5em);
+      \end{scope}
+      \begin{scope}[color=blue!50!cyan!40!black, xshift=.65em]
+        \draw (0em,0em) -- (0em,.25em) arc [start~angle=180, end~angle=90, radius=.2em];
+      \end{scope}
+      \begin{scope}[color=blue!50!cyan!45!black, xshift=1.0em]
+        \draw (0.2em,.24em) circle (.2em);
+      \end{scope}
+      \begin{scope}[color=blue!50!cyan!50!black, xshift=1.65em]
+        \draw (0em,-.25em) -- (0em,.5em);
+        \begin{scope}[line~width=.05em, yshift=.75em, xshift=.015em]
+          \node[rotate=-15,scale=0.45] { #1 };
+        \end{scope}
+      \end{scope}
+      \begin{scope}[color=blue!50!cyan!67!black, xshift=2.0em]
+        \draw (0em,0em) -- (0em,.75em);
+      \end{scope}
+      \begin{scope}[color=blue!50!cyan!75!black, xshift=2.35em]
+        \draw (0em,0em) -- (0em,.5em);
+      \end{scope}
+      \begin{scope}[color=blue!50!cyan!90!black, xshift=2.63em]
+        \draw (0.2em,.24em) circle (.2em);
+        \draw (0em,0.24em) -- (0em,.75em);
+      \end{scope}
+    \end{tikzpicture}
+    \skip_horizontal:n { .2em }
   }
 
 \DeclareRobustCommand * \ProjLib
   {
-    \projlib_logo_generic:n { \g__projlib_logo_sigma_j_tl }
+    \projlib_logo_generic:n { \usefont{U}{zeur}{b}{n} \symbol{"02} }
   }
 \DeclareRobustCommand * \ProjLibText
   {
-    \projlib_logo_generic:n { \j }
+    \projlib_logo_generic:n { }
   }
 %</projlib-logo>
 %
