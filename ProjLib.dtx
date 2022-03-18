@@ -3398,6 +3398,13 @@
     , theorem numbering     .default:n          = { * }
     , thmnum                .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
     , thmnum                .default:n          = { * }
+    , theorem-style         .tl_set:N           = \l__projlib_theorem_theorem_style_tl
+    , theorem-style         .initial:n          = { }
+    , theorem-style         .value_required:n   = true
+    , theorem~style         .tl_set:N           = \l__projlib_theorem_theorem_style_tl
+    , theorem~style         .value_required:n   = true
+    , theorem style         .tl_set:N           = \l__projlib_theorem_theorem_style_tl
+    , theorem style         .value_required:n   = true
     , complex-name          .bool_set:N         = \l__projlib_theorem_complexname_bool
     , complex-name          .initial:n          = { true }
     , complex~name          .bool_set:N         = \l__projlib_theorem_complexname_bool
@@ -3464,6 +3471,17 @@
 %   {
 %     \PassOptionsToPackage { no preset names } { create-theorem }
 %   }
+
+\cs_new_protected:Nn \projlib_theorem_preset_theorem_style:nn
+  {
+    \tl_const:cn { c_crthm_theorem_style_preset_ #1 _tl } { #2 }
+  }
+
+\cs_generate_variant:Nn \keyval_parse:nnn { nno }
+\keyval_parse:nno
+  { }
+  { \projlib_theorem_preset_theorem_style:nn }
+  { \l__projlib_theorem_theorem_style_tl }
 
 \RequirePackage { amsthm }
 \RequirePackage { create-theorem }
