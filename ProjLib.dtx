@@ -3052,19 +3052,37 @@
 %       \textcolor { red!55!yellow }      { b }
 %     \group_end:
 %   }
+%
+% \cs_new_protected:Nn \projlib_logo_generic:n
+%   {
+%     \group_begin:
+%       \normalfont
+%       \__projlib_logo_font:
+%       \color_group_begin:
+%         \color_select:n { blue!60!cyan }      { P }
+%         \color_select:n { blue!45!cyan }      { r }
+%         \color_select:n { blue!30!cyan }      { o }
+%         \color_select:n { green!70!black!70 } { #1 }
+%         \color_select:n { red!20!yellow }     { L }
+%         \color_select:n { red!40!yellow }     { i }
+%         \color_select:n { red!60!yellow }     { b }
+%       \color_group_end:
+%     \group_end:
+%   }
+
 \cs_new_protected:Nn \projlib_logo_generic:n
   {
     \group_begin:
       \normalfont
       \__projlib_logo_font:
       \color_group_begin:
-        \color_select:n { blue!60!cyan }      { P }
-        \color_select:n { blue!45!cyan }      { r }
-        \color_select:n { blue!30!cyan }      { o }
-        \color_select:n { green!70!black!70 } { #1 }
-        \color_select:n { red!20!yellow }     { L }
-        \color_select:n { red!40!yellow }     { i }
-        \color_select:n { red!60!yellow }     { b }
+        \color_select:n { blue!50!cyan!30!black } { P }
+        \color_select:n { blue!50!cyan!55!black } { r }
+        \color_select:n { blue!50!cyan!75!black } { o }
+        \color_select:n { blue!50!cyan!90!black } { #1 }
+        \color_select:n { blue!50!cyan!75!black } { L }
+        \color_select:n { blue!50!cyan!55!black } { i }
+        \color_select:n { blue!50!cyan!30!black } { b }
       \color_group_end:
     \group_end:
   }
