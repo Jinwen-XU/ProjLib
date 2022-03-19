@@ -3005,12 +3005,6 @@
           \normalfont ProjLib
         \group_end:
       }
-    \DeclareRobustCommand * \ProjLibText
-      {
-        \group_begin:
-          \normalfont ProjLib
-        \group_end:
-      }
     \endinput
   }
 
@@ -3089,7 +3083,7 @@
 
 \RequirePackage { tikz }
 
-\cs_new_protected:Nn \projlib_logo_generic:n
+\cs_new_protected:Nn \projlib_logo_generic:
   {
     \skip_horizontal:n { .2em }
     \begin{tikzpicture}[line~width=.1em, baseline=0]
@@ -3105,8 +3099,10 @@
       \end{scope}
       \begin{scope}[color=blue!50!cyan!50!black, xshift=1.65em]
         \draw (0em,-.25em) -- (0em,.5em);
-        \begin{scope}[line~width=.05em, yshift=.75em, xshift=.015em]
-          \node[rotate=-15,scale=0.45] { #1 };
+        \begin{scope}[yshift=.75em]
+          % \draw[line~width=.032em, color=orange!60!yellow, xshift=.01em, yshift=-.003em] (0,0) circle (.13em);
+          % \node[rotate=-15,scale=0.45, xshift=.033em] { \usefont{U}{zeur}{b}{n} \symbol{"02} };
+          \draw[line~width=.06em, color=orange!60!yellow] (0,0) circle (.13em);
         \end{scope}
       \end{scope}
       \begin{scope}[color=blue!50!cyan!67!black, xshift=2.0em]
@@ -3125,11 +3121,7 @@
 
 \DeclareRobustCommand * \ProjLib
   {
-    \projlib_logo_generic:n { \usefont{U}{zeur}{b}{n} \symbol{"02} }
-  }
-\DeclareRobustCommand * \ProjLibText
-  {
-    \projlib_logo_generic:n { }
+    \projlib_logo_generic:
   }
 %</projlib-logo>
 %
