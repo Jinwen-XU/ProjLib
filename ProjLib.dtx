@@ -3009,7 +3009,13 @@
     \DeclareRobustCommand * \ProjLib
       {
         \group_begin:
-          \normalfont ProjLib
+          \normalfont\sffamily ProjLib
+        \group_end:
+      }
+    \DeclareRobustCommand * \ProjLibText
+      {
+        \group_begin:
+          \normalfont\sffamily ProjLib
         \group_end:
       }
     \endinput
@@ -3090,45 +3096,52 @@
 
 \RequirePackage { tikz }
 
-\cs_new_protected:Nn \projlib_logo_generic:
+\cs_new_protected:Nn \projlib_logo_generic:nn
   {
+    \colorlet{projlib-logo-saved-color}{.}
     \skip_horizontal:n { .2em }
     \begin{tikzpicture}[line~width=.1em, baseline=0]
-      \begin{scope}[color=blue!50!cyan!30!black]
+      \begin{scope}[color=#1!30!projlib-logo-saved-color]
         \draw (0.22em,.5em) circle (.22em);
         \draw (0em,0em) -- (0em,.5em);
       \end{scope}
-      \begin{scope}[color=blue!50!cyan!40!black, xshift=.65em]
+      \begin{scope}[color=#1!40!projlib-logo-saved-color, xshift=.65em]
         \draw (0em,0em) -- (0em,.25em) arc [start~angle=180, end~angle=90, radius=.2em];
       \end{scope}
-      \begin{scope}[color=blue!50!cyan!45!black, xshift=1.0em]
+      \begin{scope}[color=#1!45!projlib-logo-saved-color, xshift=1.0em]
         \draw (0.2em,.24em) circle (.2em);
       \end{scope}
-      \begin{scope}[color=blue!50!cyan!50!black, xshift=1.65em]
+      \begin{scope}[color=#1!50!projlib-logo-saved-color, xshift=1.65em]
         \draw (0em,-.25em) -- (0em,.5em);
         \begin{scope}[yshift=.75em]
-          % \draw[line~width=.032em, color=orange!60!yellow, xshift=.01em, yshift=-.003em] (0,0) circle (.13em);
+          % \draw[line~width=.032em, color=#2, xshift=.01em, yshift=-.003em] (0,0) circle (.13em);
           % \node[rotate=-15,scale=0.45, xshift=.033em] { \usefont{U}{zeur}{b}{n} \symbol{"02} };
-          \draw[line~width=.06em, color=orange!60!yellow] (0,0) circle (.13em);
+          \draw[line~width=.06em, color=#2] (0,0) circle (.13em);
         \end{scope}
       \end{scope}
-      \begin{scope}[color=blue!50!cyan!67!black, xshift=2.0em]
+      \begin{scope}[color=#1!67!projlib-logo-saved-color, xshift=2.0em]
         \draw (0em,0em) -- (0em,.75em);
       \end{scope}
-      \begin{scope}[color=blue!50!cyan!75!black, xshift=2.35em]
+      \begin{scope}[color=#1!75!projlib-logo-saved-color, xshift=2.35em]
         \draw (0em,0em) -- (0em,.5em);
       \end{scope}
-      \begin{scope}[color=blue!50!cyan!90!black, xshift=2.63em]
+      \begin{scope}[color=#1!90!projlib-logo-saved-color, xshift=2.63em]
         \draw (0.2em,.24em) circle (.2em);
         \draw (0em,0.24em) -- (0em,.75em);
       \end{scope}
     \end{tikzpicture}
-    \skip_horizontal:n { .2em }
+    \skip_horizontal:n { .1em }
   }
 
 \DeclareRobustCommand * \ProjLib
   {
-    \projlib_logo_generic:
+    \projlib_logo_generic:nn { blue!50!cyan } { orange!60!yellow }
+  }
+
+
+\DeclareRobustCommand * \ProjLibText
+  {
+    \projlib_logo_generic:nn { projlib-logo-saved-color } { projlib-logo-saved-color }
   }
 %</projlib-logo>
 %
