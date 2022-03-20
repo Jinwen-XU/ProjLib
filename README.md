@@ -1,6 +1,8 @@
 <!-- Copyright (C) 2021-2022 by Jinwen XU -->
 
-# ProjLib Toolkit
+![image](https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png)
+
+# The `ProjLib` Toolkit
 
 The bundle is dated 2022/03/19
 
