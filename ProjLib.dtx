@@ -2091,10 +2091,14 @@
 %<*projlib-draft>
 \keys_define:nn { projlib-draft }
   {
-    , draft   .bool_set:N   = \l__projlib_draft_fast_bool
-    , draft   .initial:n    = { false }
-    , fast    .bool_set:N   = \l__projlib_draft_fast_bool
-    , unknown .code:n       = {}
+    , draft             .bool_set:N   = \l__projlib_draft_fast_bool
+    , draft             .initial:n    = { false }
+    , fast              .bool_set:N   = \l__projlib_draft_fast_bool
+    , no-report-page    .bool_set:N   = \l__projlib_draft_no_report_page_bool
+    , no-report-page    .initial:n    = { false }
+    , no~report~page    .bool_set:N   = \l__projlib_draft_no_report_page_bool
+    , no report page    .bool_set:N   = \l__projlib_draft_no_report_page_bool
+    , unknown           .code:n       = {}
   }
 \ProcessKeysOptions { projlib-draft }
 
@@ -2207,17 +2211,20 @@
       }
   }
 
-\hook_gput_code:nnn { enddocument } { projlib-draft }
+\bool_if:NF \l__projlib_draft_no_report_page_bool
   {
-    \tl_if_blank:VF \g__projlib_draft_dnf_report_tl
+    \hook_gput_code:nnn { enddocument } { projlib-draft }
       {
-        \clearpage
-        \pagestyle{empty}
-        \noindent
-        \color { __projlib_draft_dnf_color }
-        \__projlib_draft_dnf_font
-        \__projlib_draft_dnf_report_text \\[0.75\baselineskip]
-        \g__projlib_draft_dnf_report_tl
+        \tl_if_blank:VF \g__projlib_draft_dnf_report_tl
+          {
+            \clearpage
+            \pagestyle{empty}
+            \noindent
+            \color { __projlib_draft_dnf_color }
+            \__projlib_draft_dnf_font
+            \__projlib_draft_dnf_report_text \\[0.75\baselineskip]
+            \g__projlib_draft_dnf_report_tl
+          }
       }
   }
 
