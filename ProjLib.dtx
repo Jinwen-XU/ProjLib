@@ -2104,33 +2104,63 @@
 
 \RequirePackage { projlib-language }
 \RequirePackage { xcolor }
+\RequirePackage { ulem }
 
-\bool_if:NTF \l__projlib_draft_fast_bool
+\cs_new_protected:Nn \projlib_draft_plain_box_lines:n
   {
-    \NewDocumentCommand \projlib_draft_plain_box { O{-paper} m }
-      {
-        \group_begin:
-          \color { #1 }
-          \dim_set:Nn \fboxsep  { 1.5pt }
-          \dim_set:Nn \fboxrule { 1.5pt }
-          \fbox { #2 }
-        \group_end:
-      }
-  }
-  {
-    \PassOptionsToPackage { many } { tcolorbox }
-    \RequirePackage { tcolorbox }
-    \NewTCBox \projlib_draft_plain_box { O{-paper} }
-      {
-        enhanced~jigsaw, breakable,
-        on~line, arc = 1.2pt, outer~arc = 1pt,
-        colframe = #1, colupper = #1, opacityback = 0,
-        boxsep = 1pt, boxrule = 1.2pt,
-        left = 1pt, right = 1pt, top = 0pt, bottom = 0pt,
-      }
+    \bgroup\markoverwith{
+      \rule[-0.6ex]{1pt}{1.25pt}
+      \skip_horizontal:n { -1pt }
+      \rule[1.8ex]{1pt}{1.25pt}
+      \skip_horizontal:n { -.1pt }
+    }\ULon { #1 }
   }
 
-\projlib_langauge_define_multilingual_text:Nn \__projlib_draft_dnf_text
+  \bool_if:NTF \l__projlib_draft_fast_bool
+  {
+    \tl_const:Nn \l_projlib_draft_plain_box_begin_tl { $[$ }
+    \tl_const:Nn \l_projlib_draft_plain_box_after_tl { $]$ }
+  }
+  {
+    \RequirePackage { tikz }
+    \tl_const:Nn \l_projlib_draft_plain_box_begin_tl
+      {
+        \tikz[line~width=1.25pt,baseline=-.625pt]
+          \draw (1ex,-.6ex) -- (.5ex,-.6ex)
+                (0,-.1ex) arc [start~angle=180, end~angle=270, radius=.5ex]
+                (0,-.1ex) -- (0,1.3ex)
+                (0,1.3ex) arc [start~angle=180, end~angle=90, radius=.5ex]
+                (0.5ex,1.8ex) -- (1ex,1.8ex);
+      }
+    \tl_const:Nn \l_projlib_draft_plain_box_after_tl
+      {
+        \tikz[line~width=1.25pt,baseline=-.625pt]
+          \draw (-1ex,-.6ex) -- (-.5ex,-.6ex)
+                (0,-.1ex) arc [start~angle=0, end~angle=-90, radius=.5ex]
+                (0,-.1ex) -- (0,1.3ex)
+                (0,1.3ex) arc [start~angle=0, end~angle=90, radius=.5ex]
+                (-0.5ex,1.8ex) -- (-1ex,1.8ex);
+      }
+  }
+
+\cs_new_protected:Nn \projlib_draft_plain_box:nn
+  {
+    \group_begin:
+      \color{ #1 }
+      \l_projlib_draft_plain_box_begin_tl
+      \nobreak
+      \hspace{-.5ex}
+      \nobreak
+      \projlib_draft_plain_box_lines:n { #2 }
+      \nobreak
+      \hspace{-.5ex}
+      \nobreak
+      \l_projlib_draft_plain_box_after_tl
+    \group_end:
+  }
+
+
+\projlib_langauge_define_multilingual_text:Nn \projlib_draft_dnf_text
   {
     EN = To\ be\ finished     ,
     FR = Pas\ encore\ fini    ,
@@ -2145,7 +2175,7 @@
     RU = Не\ закончен         ,
   }
 
-\projlib_langauge_define_multilingual_text:Nn \__projlib_draft_dnf_report_text
+\projlib_langauge_define_multilingual_text:Nn \projlib_draft_dnf_report_text
   {
     EN = { Below\ is\ a\ list\ of\ outstanding\ items,
            \ followed\ by\ the\ corresponding\ page\ numbers.         }     ,
@@ -2168,46 +2198,49 @@
            \ с\ соответствующими\ номерами\ страниц\ в\ скобках.      }     ,
   }
 
-\tl_new:c    { __projlib_draft_dnf_font }
-\tl_gset:cn  { __projlib_draft_dnf_font }        { \normalfont \ttfamily \bfseries \small }
+\tl_new:c    { projlib_draft_dnf_font }
+\tl_gset:cn  { projlib_draft_dnf_font }        { \normalfont \ttfamily \bfseries \small }
 
-\definecolor { __projlib_draft_dnf_color }       { RGB } {  21, 122,  20 }
+\definecolor { projlib_draft_dnf_color }       { RGB } {  21, 122,  20 }
 
-\newcounter  { __projlib_draft_dnf_counter }
+\newcounter  { projlib_draft_dnf_counter }
 
 \tl_new:N \g__projlib_draft_dnf_report_tl
 
-\NewDocumentCommand \dnf { d<> }
+\NewDocumentCommand \dnf { D<>{} }
   {
     \noindent
-    \projlib_draft_plain_box [ __projlib_draft_dnf_color ]
+    \group_begin:
+    \projlib_draft_dnf_font
+    \stepcounter { projlib_draft_dnf_counter }
+    \projlib_draft_plain_box:nn { projlib_draft_dnf_color }
       {
-        \stepcounter { __projlib_draft_dnf_counter }
-        \__projlib_draft_dnf_font
-        \__projlib_draft_dnf_text
-        \c_space_tl
-        \# \the__projlib_draft_dnf_counter
-        \IfNoValueF { #1 } { \, : ~ #1 }
-        \tl_gput_right:Nx \g__projlib_draft_dnf_report_tl
+        \projlib_draft_dnf_text
+        \nobreakspace
+        \# \theprojlib_draft_dnf_counter
+        \tl_if_blank:nF { #1 } { \, : ~ }
+        #1
+      }
+    \group_end:
+    \tl_gput_right:Nx \g__projlib_draft_dnf_report_tl
+      {
+        \# \,
+        \int_value:w \theprojlib_draft_dnf_counter
+        \c_space_tl \c_space_tl
+        $\langle$
+        \skip_horizontal:n { 0.1em }
+        \cs_if_exist:cTF { hyperlink }
           {
-            \# \,
-            \int_value:w \the__projlib_draft_dnf_counter
-            \c_space_tl \c_space_tl
-            $\langle$
-            \skip_horizontal:n { 0.1em }
-            \cs_if_exist:cTF { hyperlink }
-              {
-                \exp_not:N \hyperlink { page.\thepage } { \thepage }
-              }
-              {
-                \thepage
-              }
-            \skip_horizontal:n { 0.1em }
-            $\rangle$
-            \c_space_tl
-            \IfNoValueF { #1 } { : ~ #1 }
-            \\
+            \exp_not:N \hyperlink { page.\thepage } { \thepage }
           }
+          {
+            \thepage
+          }
+        \skip_horizontal:n { 0.1em }
+        $\rangle$
+        \nobreakspace
+        \IfNoValueF { #1 } { : ~ }
+        #1 \\
       }
   }
 
@@ -2220,16 +2253,16 @@
             \clearpage
             \pagestyle{empty}
             \noindent
-            \color { __projlib_draft_dnf_color }
-            \__projlib_draft_dnf_font
-            \__projlib_draft_dnf_report_text \\[0.75\baselineskip]
+            \color { projlib_draft_dnf_color }
+            \projlib_draft_dnf_font
+            \projlib_draft_dnf_report_text \\[0.75\baselineskip]
             \g__projlib_draft_dnf_report_tl
           }
       }
   }
 
 
-\projlib_langauge_define_multilingual_text:Nn \__projlib_draft_blind_text_tl
+\projlib_langauge_define_multilingual_text:Nn \projlib_draft_blind_text_tl
   {
     , EN = {
               Hello,~here~is~some~text~without~a~meaning.~This~text~should~show~what~a~printed~text~will~look~like~at~this~place.~If~you~read~this~text,~you~will~get~no~information.~Really?~Is~there~no~information?~Is~there~a~difference~between~this~text~and~some~nonsense~like~``Huardest~gefburn''?~Not~at~all!~A~blind~text~like~this~gives~you~information~about~the~selected~font,~how~the~letters~are~written~and~an~impression~of~the~look.~This~text~should~contain~all~letters~of~the~alphabet~and~it~should~be~written~in~of~the~original~language.~There~is~no~need~for~special~content,~but~the~length~of~words~should~match~the~language.
@@ -2271,7 +2304,7 @@
     \int_set:Nn \l_tmpa_int { #1 }
     \int_do_until:nNnn { \l_tmpa_int } = { 0 }
       {
-        \__projlib_draft_blind_text_tl
+        \projlib_draft_blind_text_tl
         \c_space_tl
         \int_add:Nn \l_tmpa_int { -1 }
       }
@@ -2283,7 +2316,7 @@
       {
         \tl_if_blank:nTF { #1 }
           {
-            \__projlib_draft_blind_text_tl
+            \projlib_draft_blind_text_tl
           }
           {
             \projlib_draft_blind_text:n { #1 }
