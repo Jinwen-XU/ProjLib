@@ -4,11 +4,11 @@
 
 # The `ProjLib` Toolkit
 
-The bundle is dated 2022/03/19
+The bundle is dated 2022/03/21
 
 ## **Important note**
 
-The whole project is being rewritten with `expl3`. The new modules are basically finished but are **not yet documented**. They have filenames with the prefix "projlib-", and they are in many ways better and more powerful than their predecessors.
+The whole project is being rewritten with `expl3`. The new modules are basically finished but are **not yet documented**. They have filenames with the prefix `projlib-`, and they are in many ways better and more powerful than their predecessors.
 
 The new modules are:
 - projlib-author
