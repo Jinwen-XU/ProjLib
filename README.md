@@ -50,6 +50,8 @@ The modules include:
     - Set up theorem-like environments based on the package `create-theorem`, and in particular, support options `name as is` and `name as context` for referencing names
     - Support options `simple name` and `complex name` for referencing names
     - Preset environments include: `assertion`, `assumption`, `axiom`, `conclusion`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
+1. module `titlepage` - *Commands for rendering the title page*
+    - Currently support two title page styles: `default` and `simple`.
 
 > Since module `theorem.sty` (and thus `ProjLib`) uses `cleveref`, it should be loaded after `varioref` and `hyperref`.
 

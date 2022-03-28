@@ -20,72 +20,79 @@
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2022/03/21} {}
+  {2022/03/28} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
+%
+%<*projlib-titlepage>
+\ProvidesExplPackage
+  {projlib-titlepage}
+  {2022/03/28} {}
+  {Commands for rendering the title page}
+%</projlib-titlepage>
 
 %<*ProjLib>
 \keys_define:nn { ProjLib }
@@ -99,6 +106,10 @@
     , ams-fashion     .initial:n          = { false }
     , ams~fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
     , ams fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , title-page      .bool_set:N         = \l__projlib_main_titlepage_bool
+    , title-page      .initial:n          = { false }
+    , title~page      .bool_set:N         = \l__projlib_main_titlepage_bool
+    , title page      .bool_set:N         = \l__projlib_main_titlepage_bool
     , unknown         .code:n             = {
                                               \PassOptionsToPackage { \CurrentOption } { projlib-language }
                                               \PassOptionsToPackage { \CurrentOption } { projlib-author }
@@ -131,6 +142,11 @@
 \RequirePackage { projlib-logo }
 \RequirePackage { projlib-math }
 \RequirePackage { projlib-paper }
+
+\bool_if:NT \l__projlib_main_titlepage_bool
+  {
+    \RequirePackage { projlib-titlepage }
+  }
 
 \RequirePackage { projlib-theorem }
 %</ProjLib>
@@ -4750,5 +4766,96 @@
                   }
   }
 %</projlib-theorem>
+%
+%<*projlib-titlepage>
+\keys_define:nn { projlib-titlepage }
+  {
+    , unknown           .code:n             = {}
+  }
+\ProcessKeysOptions { projlib-titlepage }
+
+\RequirePackage { projlib-paper }
+
+\RequirePackage { tikz }
+\ExplSyntaxOff
+\usetikzlibrary { calc }
+\ExplSyntaxOn
+
+\tl_new:N \l_projlib_titlepage_logo_tl
+\tl_new:N \l_projlib_titlepage_title_tl
+\tl_new:N \l_projlib_titlepage_subtitle_tl
+\tl_new:N \l_projlib_titlepage_author_tl
+\tl_new:N \l_projlib_titlepage_date_tl
+\tl_new:N \l_projlib_titlepage_style_tl
+
+\NewDocumentCommand \ProjLibTitlePage { O{} m }
+  {
+    \keys_set:nn { projlib-titlepage-config } { #1 }
+    \projlib_titlepage_render:n { #2 }
+  }
+\ProvideDocumentCommand \TitlePage { O{} m }
+  {
+    \ProjLibTitlePage [ #1 ] { #2 }
+  }
+
+\cs_new_protected:Nn \projlib_titlepage_set_color:nn
+  {
+    \colorlet { titlepage- #1 } { #2 }
+  }
+
+\keys_define:nn { projlib-titlepage-config }
+  {
+    , logo              .tl_set:N           = \l_projlib_titlepage_logo_tl
+    , logo              .initial:n          = { \scalebox { 2 } { \ProjLib } }
+    , title             .tl_set:N           = \l_projlib_titlepage_title_tl
+    , subtitle          .tl_set:N           = \l_projlib_titlepage_subtitle_tl
+    , author            .tl_set:N           = \l_projlib_titlepage_author_tl
+    , date              .tl_set:N           = \l_projlib_titlepage_date_tl
+    , style             .tl_set:N           = \l_projlib_titlepage_style_tl
+    , style             .initial:n          = { default }
+    , color             .code:n             = {
+                                                \keyval_parse:nnn
+                                                  { \use_none:n }
+                                                  { \projlib_titlepage_set_color:nn }
+                                                  { #1 }
+                                              }
+    , unknown           .code:n             = {}
+  }
+
+\colorlet { titlepage-main } { blue!50!cyan!50!black }
+\colorlet { titlepage-back } { blue!50!cyan!10!yellow!30 }
+
+\cs_new_protected:Nn \projlib_titlepage_render:n
+  {
+    \keys_set:nn { projlib-titlepage-config } { #1 }
+    \begin { titlepage }
+      \cs_if_exist_use:c { projlib_titlepage_render_with_style_ \l_projlib_titlepage_style_tl : }
+    \end   { titlepage }
+    \setcounter { page } { 0 }
+  }
+
+\cs_new_protected:Nn \projlib_titlepage_render_with_style_default:
+  {
+    \begin{tikzpicture}[overlay,remember~picture]
+      \fill [color=titlepage-main] ($(current~page.south~west)$) rectangle ($(current~page.north~east)+(0,-.3\paperheight)$);
+      \fill [color=titlepage-back] ($(current~page.south~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
+      \fill [color=titlepage-main] ($(current~page.north~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
+      \fill [color=titlepage-back] ($(current~page.north~east)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
+      \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.32\paperwidth,-.17\paperheight)$) { \l_projlib_titlepage_logo_tl };
+      \node[text~width=.4\paperwidth,text~height=.3\paperheight,scale=2.5] at ($(current~page.north~west)+(.67\paperwidth,-.15\paperheight)$) {\textcolor{titlepage-back}{\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[.5em]\footnotesize{ \l_projlib_titlepage_subtitle_tl }}};
+      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{titlepage-back}\begin{flushright}\fontsize{16pt}{0pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{0pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
+    \end{tikzpicture}
+  }
+
+\cs_new_protected:Nn \projlib_titlepage_render_with_style_simple:
+  {
+    \begin{tikzpicture}[overlay,remember~picture]
+      \fill[color=titlepage-main] ($(current~page.south~west)$) rectangle ($(current~page.north~east)+(0,-.3\paperheight)$);
+      \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.28\paperwidth,-.15\paperheight)$) { \l_projlib_titlepage_logo_tl };
+      \node[text~width=.4\paperwidth,text~height=.3\paperheight,scale=2.5] at ($(current~page.north~west)+(.63\paperwidth,-.15\paperheight)$) {\textcolor{paper}{\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[.5em]\footnotesize{ \l_projlib_titlepage_subtitle_tl }}};
+      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{paper}\begin{flushright}\fontsize{16pt}{0pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{0pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
+    \end{tikzpicture}
+  }
+%</projlib-titlepage>
 
 \endinput
