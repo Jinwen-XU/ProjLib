@@ -499,10 +499,20 @@
     , month-year      .code:n       = { \tl_set:Nn \g__projlib_datetime_input_format_tl { day-month-year } }
     , day-month       .code:n       = { \tl_set:Nn \g__projlib_datetime_input_format_tl { day-month-year } }
     , only-year-month .code:n       = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-year-month } }
-    , only-month-day  .code:n        = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-month-day } }
-    , only-year       .code:n        = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-year } }
-    , only-month      .code:n        = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-month } }
-    , only-day        .code:n        = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-day } }
+    , only~year~month .meta:n       = { only-year-month }
+    , only year month .meta:n       = { only-year-month }
+    , only-month-day  .code:n       = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-month-day } }
+    , only~month~day  .meta:n       = { only-month-day }
+    , only month day  .meta:n       = { only-month-day }
+    , only-year       .code:n       = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-year } }
+    , only~year       .meta:n       = { only-year }
+    , only year       .meta:n       = { only-year }
+    , only-month      .code:n       = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-month } }
+    , only~month      .meta:n       = { only-month }
+    , only month      .meta:n       = { only-month }
+    , only-day        .code:n       = { \tl_set:Nn \l__projlib_datetime_output_format_tl { only-day } }
+    , only~day        .meta:n       = { only-day }
+    , only day        .meta:n       = { only-day }
     , unknown         .code:n       = {}
   }
 
