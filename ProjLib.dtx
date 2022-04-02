@@ -2186,7 +2186,7 @@
   }
 
 
-\projlib_langauge_define_multilingual_text:Nn \projlib_draft_dnf_text
+\projlib_langauge_define_multilingual_text:Nn \projlib_draft_DNF_text
   {
     EN = To\ be\ finished     ,
     FR = Pas\ encore\ fini    ,
@@ -2201,7 +2201,7 @@
     RU = Не\ закончен         ,
   }
 
-\projlib_langauge_define_multilingual_text:Nn \projlib_draft_dnf_report_text
+\projlib_langauge_define_multilingual_text:Nn \projlib_draft_DNF_report_text
   {
     EN = { Below\ is\ a\ list\ of\ outstanding\ items,
            \ followed\ by\ the\ corresponding\ page\ numbers.         }     ,
@@ -2224,34 +2224,34 @@
            \ с\ соответствующими\ номерами\ страниц\ в\ скобках.      }     ,
   }
 
-\tl_new:c    { projlib_draft_dnf_font }
-\tl_gset:cn  { projlib_draft_dnf_font }        { \normalfont \ttfamily \bfseries \small }
+\tl_new:c    { projlib_draft_DNF_font }
+\tl_gset:cn  { projlib_draft_DNF_font }        { \normalfont \ttfamily \bfseries \small }
 
-\definecolor { projlib_draft_dnf_color }       { RGB } {  21, 122,  20 }
+\definecolor { projlib_draft_DNF_color }       { RGB } {  21, 122,  20 }
 
-\newcounter  { projlib_draft_dnf_counter }
+\newcounter  { projlib_draft_DNF_counter }
 
-\tl_new:N \g__projlib_draft_dnf_report_tl
+\tl_new:N \g__projlib_draft_DNF_report_tl
 
-\NewDocumentCommand \dnf { D<>{} }
+\NewDocumentCommand \DNF { D<>{} }
   {
     \noindent
     \group_begin:
-    \projlib_draft_dnf_font
-    \stepcounter { projlib_draft_dnf_counter }
-    \projlib_draft_plain_box:nn { projlib_draft_dnf_color }
+    \projlib_draft_DNF_font
+    \stepcounter { projlib_draft_DNF_counter }
+    \projlib_draft_plain_box:nn { projlib_draft_DNF_color }
       {
-        \projlib_draft_dnf_text
+        \projlib_draft_DNF_text
         \nobreakspace
-        \# \theprojlib_draft_dnf_counter
+        \# \theprojlib_draft_DNF_counter
         \tl_if_blank:nF { #1 } { \, : ~ }
         #1
       }
     \group_end:
-    \tl_gput_right:Nx \g__projlib_draft_dnf_report_tl
+    \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
       {
         \# \,
-        \int_value:w \theprojlib_draft_dnf_counter
+        \int_value:w \theprojlib_draft_DNF_counter
         \c_space_tl \c_space_tl
         $\langle$
         \skip_horizontal:n { 0.1em }
@@ -2274,15 +2274,15 @@
   {
     \hook_gput_code:nnn { enddocument } { projlib-draft }
       {
-        \tl_if_blank:VF \g__projlib_draft_dnf_report_tl
+        \tl_if_blank:VF \g__projlib_draft_DNF_report_tl
           {
             \clearpage
             \pagestyle{empty}
             \noindent
-            \color { projlib_draft_dnf_color }
-            \projlib_draft_dnf_font
-            \projlib_draft_dnf_report_text \\[0.75\baselineskip]
-            \g__projlib_draft_dnf_report_tl
+            \color { projlib_draft_DNF_color }
+            \projlib_draft_DNF_font \sloppy
+            \projlib_draft_DNF_report_text \\[0.75\baselineskip]
+            \g__projlib_draft_DNF_report_tl
           }
       }
   }
