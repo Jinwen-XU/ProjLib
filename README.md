@@ -29,31 +29,32 @@ The modules include:
         - `\thanks` can be written outside `\author`;
         - The `abstract` environment can be placed before `\maketitle`.
 1. module `datetime` - *Convert numeric date-time string to natural language*
-    - Offering `\TheDate` and `\Thedate` to convert numeric date-time string to normal datetime format, with multi-language support (if the command names `\TheDate` or `\Thedate` are occupied, then one can switch to the longer version `\ProjLibDate` and `\ProjLibdate`).
-    - Offering `\ProjLibToday` and `\ProjLibToday` (with the module `language` enabled, `\today` is redefined into `\ProjLibToday`, and thus supports the arguments like `only-year-month`).
+    - `\TheDate` and `\Thedate` for converting numeric date-time string to natural language, with multi-language support (if the command names `\TheDate` or `\Thedate` are occupied, then one can switch to the longer version `\ProjLibDate` and `\ProjLibdate`).
+    - `\ProjLibToday` and `\ProjLibToday` (with the module `language` enabled, `\today` is redefined into `\ProjLibToday`, and thus supports the arguments like `only-year-month`).
     - Multiple input and output format available.
 1. module `draft` - *Useful commands during draft stage*
-    - Offering `\dnf` for marking unfinished part. In addition, a report of all unfinished places shall be printed at the last of your document.
+    - `\DNF` for marking unfinished part. In addition, a report of all unfinished places shall be printed at the last of your document.
 1. module `font` - *Font selection and configuration*
     - Supporting Palatino, Times, Garamond, Biolinum, Noto, etc.
 1. module `language` - *Multi-language configuration*
-    - Offering `\UseLanguage`, `\UseOtherLanguage` for selecting languages, and `\AddLanguageSetting` for adding language-specific settings.
-    - Define multilingual text string with `\DefineMultilingualText`.
+    - `\UseLanguage`, `\UseOtherLanguage` for selecting languages, and `\AddLanguageSetting` for adding language-specific settings.
+    - `\DefineMultilingualText` for defining multilingual text strings.
     - Currently support Chinese (simplified and traditional), English, French, German, Italien, Japanese, Portuguese (European and Brazilian), Russian and Spanish.
 1. module `logo` - *The ProjLib logo*
     - Draw the `ProjLib` logo in colorful or colorless fashion.
 1. module `math` - *Efficient math setup*
-    - Offering `\DefineOperator` and `\DefineShortcut` for setting up math macros efficiently
+    - `\DefineOperator` and `\DefineShortcut` for setting up math macros efficiently
+    - `\ListOfSymbols` for printing list of symboks
 1. module `paper` - *Configuration of the paper style*
     - Paper style configuration, with the themes `yellow`, `green`, `light gray`, `gray`, `dark`, etc.
 1. module `theorem` - *Configuration of theorem-like environments*
-    - Set up theorem-like environments based on the package `create-theorem`, and in particular, support options `name as is` and `name as context` for referencing names
+    - `\CreateTheorem`, `\SetTheorem` and more: setting up theorem-like environments based on the package `create-theorem`, and in particular, supporting the modes `name as is` and `name as context` for referencing names
     - Support options `simple name` and `complex name` for referencing names
     - Preset environments include: `assertion`, `assumption`, `axiom`, `conclusion`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. module `titlepage` - *Commands for rendering the title page*
     - Currently support two title page styles: `default` and `simple`.
 
-> Since module `theorem.sty` (and thus `ProjLib`) uses `cleveref`, it should be loaded after `varioref` and `hyperref`.
+> Since the module `theorem` uses `cleveref`, it should be loaded after `varioref` and `hyperref` (same for the main package `ProjLib`).
 
 ## How to get these files
 You can get the `.sty` files mentioned above simply by compiling `ProjLib.ins`:
