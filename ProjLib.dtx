@@ -3051,6 +3051,14 @@
   {
     \projlib_langauge_define_multilingual_text:Nn #1 { #2 }
   }
+
+
+\PassOptionsToPackage { autostyle } { csquotes }
+\RequirePackage { csquotes }
+
+\DeclareQuoteStyle { schinese } {“} {”} {‘} {’}
+\DeclareQuoteStyle { tchinese } {“} {”} {‘} {’}
+\DeclareQuoteStyle { japanese } {「} {」} {『} {』}
 %</projlib-language>
 %
 %<*projlib-logo>
