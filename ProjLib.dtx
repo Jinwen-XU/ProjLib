@@ -3692,6 +3692,24 @@
   }
 
 
+\cs_new_protected:Nn \projlib_theorem_disable_theorem_numbering:n
+  {
+    \clist_map_inline:nn { #1 }
+      {
+        \__projlib_theorem_disable_theorem_numbering_do:n { ##1 }
+      }
+  }
+\cs_new_protected:Nn \__projlib_theorem_disable_theorem_numbering_do:n
+  {
+    \CreateTheorem { #1 } { copy-existed = #1* }
+  }
+
+\NewDocumentCommand \DisableTheoremNumbering { m }
+  {
+    \projlib_theorem_disable_theorem_numbering:n { #1 }
+  }
+
+
 \AddLanguageSetting [ schinese ]
   {
     \crefname { equation } { 式 } { 式 }
