@@ -2188,44 +2188,44 @@
 
 \projlib_langauge_define_multilingual_text:Nn \projlib_draft_DNF_text
   {
-    EN = To\ be\ finished     ,
-    FR = Pas\ encore\ fini    ,
-    DE = Nicht\ beendet       ,
-    IT = Per\ essere\ finito  ,
-    PT = Não\ terminou        ,
-    BR = Não\ terminou        ,
-    ES = Estar\ terminado     ,
-    CN = 这里尚未完成         ,
-    TC = 這裡尚未完成         ,
-    JP = 終わってない         ,
-    RU = Не\ закончен         ,
+    EN = To ~ be ~ finished     ,
+    FR = Pas ~ encore ~ fini    ,
+    DE = Nicht ~ beendet        ,
+    IT = Per ~ essere ~ finito  ,
+    PT = Não ~ terminou         ,
+    BR = Não ~ terminou         ,
+    ES = Estar ~ terminado      ,
+    CN = 这里尚未完成           ,
+    TC = 這裡尚未完成           ,
+    JP = 終わってない           ,
+    RU = Не ~ закончен          ,
   }
 
 \projlib_langauge_define_multilingual_text:Nn \projlib_draft_DNF_report_text
   {
-    EN = { Below\ is\ a\ list\ of\ outstanding\ items,
-           \ followed\ by\ the\ corresponding\ page\ numbers.         }     ,
-    FR = { Voici\ la\ liste\ des\ éléments\ en\ suspens,
-           \ suivie\ des\ numéros\ de\ page\ correspondants.          }     ,
-    DE = { Unten\ ist\ eine\ Liste\ der\ ausstehenden\ Posten,
-           \ gefolgt\ von\ den\ entsprechenden\ Seitenzahlen.         }     ,
-    IT = { Qui\ sotto\ c'è\ una\ lista\ di\ voci\ in\ sospeso,
-           \ seguita\ dai\ numeri\ di\ pagina\ corrispondenti.        }     ,
-    PT = { Abaixo\ está\ uma\ lista\ de\ itens\ pendentes,
-           \ seguida\ dos\ números\ de\ página\ correspondentes.      }     ,
-    BR = { Abaixo\ está\ uma\ lista\ de\ itens\ pendentes,
-           \ seguida\ dos\ números\ de\ página\ correspondentes.      }     ,
-    ES = { Aquí está\ la\ lista\ de\ elementos\ pendientes,
-           \ seguida\ de\ los\ números\ de\ página\ correspondientes. }     ,
-    CN = { 以下是未完成事项列表，括号内注明了对应的页码。             }     ,
-    TC = { 以下是未完成事項的列表，括號內註明了對應頁碼。             }     ,
-    JP = { 以下は、未解決の項目とそれに対応するページ番号の一覧です。 }     ,
-    RU = { Ниже\ приведен\ список\ невыполненных\ пунктов
-           \ с\ соответствующими\ номерами\ страниц\ в\ скобках.      }     ,
+    EN = { Below ~ is ~ a ~ list ~ of ~ outstanding ~ items, ~
+            followed ~ by ~ the ~ corresponding ~ page ~ numbers.         }     ,
+    FR = { Voici ~ la ~ liste ~ des ~ éléments ~ en ~ suspens, ~
+            suivie ~ des ~ numéros ~ de ~ page ~ correspondants.          }     ,
+    DE = { Unten ~ ist ~ eine ~ Liste ~ der ~ ausstehenden ~ Posten, ~
+            gefolgt ~ von ~ den ~ entsprechenden ~ Seitenzahlen.         }      ,
+    IT = { Qui ~ sotto ~ c'è ~ una ~ lista ~ di ~ voci ~ in ~ sospeso, ~
+            seguita ~ dai ~ numeri ~ di ~ pagina ~ corrispondenti.        }     ,
+    PT = { Abaixo ~ está ~ uma ~ lista ~ de ~ itens ~ pendentes, ~
+            seguida ~ dos ~ números ~ de ~ página ~ correspondentes.      }     ,
+    BR = { Abaixo ~ está ~ uma ~ lista ~ de ~ itens ~ pendentes, ~
+            seguida ~ dos ~ números ~ de ~ página ~ correspondentes.      }     ,
+    ES = { Aquí está ~ la ~ lista ~ de ~ elementos ~ pendientes, ~
+            seguida ~ de ~ los ~ números ~ de ~ página ~ correspondientes. }    ,
+    CN = { 以下是未完成事项列表，括号内注明了对应的页码。             }         ,
+    TC = { 以下是未完成事項的列表，括號內註明了對應頁碼。             }         ,
+    JP = { 以下は、未解決の項目とそれに対応するページ番号の一覧です。 }         ,
+    RU = { Ниже ~ приведен ~ список ~ невыполненных ~ пунктов ~
+            с ~ соответствующими ~ номерами ~ страниц ~ в ~ скобках.      }     ,
   }
 
 \tl_new:c    { projlib_draft_DNF_font }
-\tl_gset:cn  { projlib_draft_DNF_font }        { \normalfont \ttfamily \bfseries \small }
+\tl_gset:cn  { projlib_draft_DNF_font }        { \small \normalfont \bfseries \ttfamily \hyphenchar\font=`\-\spaceskip=.5em ~ plus ~ .5em\xspaceskip=.5em }
 
 \definecolor { projlib_draft_DNF_color }       { RGB } {  21, 122,  20 }
 
@@ -2245,11 +2245,12 @@
         \nobreakspace
         \# \theprojlib_draft_DNF_counter
         \tl_if_blank:nF { #1 } { \, : ~ }
-        #1
+        \tl_trim_spaces:n { #1 }
       }
     \group_end:
     \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
       {
+        \noindent
         \# \,
         \int_value:w \theprojlib_draft_DNF_counter
         \c_space_tl \c_space_tl
@@ -2265,8 +2266,10 @@
         \skip_horizontal:n { 0.1em }
         $\rangle$
         \nobreakspace
-        \IfNoValueF { #1 } { : ~ }
-        #1 \newline
+        \exp_not:n { \tl_if_blank:nF { #1 } { : ~ } }
+        \exp_not:n { \tl_trim_spaces:n { #1 } }
+        \par \skip_vertical:n { -\parskip }
+        \skip_vertical:n { .15\baselineskip }
       }
   }
 
@@ -2277,11 +2280,12 @@
         \tl_if_blank:VF \g__projlib_draft_DNF_report_tl
           {
             \clearpage
-            \pagestyle{empty}
-            \noindent
+            \pagestyle { empty }
             \color { projlib_draft_DNF_color }
-            \projlib_draft_DNF_font \sloppy
-            \projlib_draft_DNF_report_text \\[0.75\baselineskip]
+            \noindent
+            \projlib_draft_DNF_font
+            \projlib_draft_DNF_report_text
+            \par \bigskip
             \g__projlib_draft_DNF_report_tl
           }
       }
