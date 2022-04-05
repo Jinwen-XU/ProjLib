@@ -3691,6 +3691,27 @@
   }
 
 
+\tl_new:N \l_projlib_theorem_name_of_theorem_with_name_tl
+\CreateTheorem { theorem-with-name_inner } { name = { heading = { \l_projlib_theorem_name_of_theorem_with_name_tl } }, create-starred-version }
+
+\NewDocumentEnvironment { theorem-with-name } { m O{} }
+  {
+    \tl_set:Nn \l_projlib_theorem_name_of_theorem_with_name_tl { #1 }
+    \begin { theorem-with-name_inner } [ #2 ]
+  }
+  {
+    \end { theorem-with-name_inner }
+  }
+\NewDocumentEnvironment { theorem-with-name* } { m O{} }
+  {
+    \tl_set:Nn \l_projlib_theorem_name_of_theorem_with_name_tl { #1 }
+    \begin { theorem-with-name_inner* } [ #2 ]
+  }
+  {
+    \end { theorem-with-name_inner* }
+  }
+
+
 \cs_new_protected:Nn \projlib_theorem_disable_theorem_numbering:n
   {
     \clist_map_inline:nn { #1 }
@@ -3707,6 +3728,28 @@
   {
     \projlib_theorem_disable_theorem_numbering:n { #1 }
   }
+
+
+\cs_new_protected:Nn \projlib_theorem_switch_theorem_numbering:n
+  {
+    \clist_map_inline:nn { #1 }
+      {
+        \__projlib_theorem_switch_theorem_numbering_do:n { ##1 }
+      }
+  }
+\cs_new_protected:Nn \__projlib_theorem_switch_theorem_numbering_do:n
+  {
+    \CreateTheorem { #1_projlib_theorem_temp } { copy-existed = #1* }
+    \CreateTheorem { #1* } { copy-existed = #1 }
+    \CreateTheorem { #1 } { copy-existed = #1_projlib_theorem_temp }
+  }
+
+\NewDocumentCommand \SwitchTheoremNumbering { m }
+  {
+    \projlib_theorem_switch_theorem_numbering:n { #1 }
+  }
+
+\SwitchTheoremNumbering { theorem-with-name }
 
 
 \AddLanguageSetting [ schinese ]

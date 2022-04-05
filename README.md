@@ -44,12 +44,15 @@ The modules include:
     - Draw the `ProjLib` logo in colorful or colorless fashion.
 1. module `math` - *Efficient math setup*
     - `\DefineOperator` and `\DefineShortcut` for setting up math macros efficiently
-    - `\ListOfSymbols` for printing list of symboks
+    - `\ListOfSymbols` for printing list of symbols
 1. module `paper` - *Configuration of the paper style*
     - Paper style configuration, with the themes `yellow`, `green`, `light gray`, `gray`, `dark`, etc.
 1. module `theorem` - *Configuration of theorem-like environments*
-    - `\CreateTheorem`, `\SetTheorem` and more: setting up theorem-like environments based on the package `create-theorem`, and in particular, supporting the modes `name as is` and `name as context` for referencing names
-    - Support options `simple name` and `complex name` for referencing names
+    - Setting up theorem-like environments based on the package `create-theorem`
+        - `\CreateTheorem`, `\SetTheorem` and more...
+        - In particular, supporting the modes `name as is` and `name as context` for referencing names.
+    - Supporting the modes `simple name` and `complex name` for the referencing names.
+    - `\SwitchTheoremNumbering` and `\DisableTheoremNumbering` for manipulating the numbering.
     - Preset environments include: `assertion`, `assumption`, `axiom`, `conclusion`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. module `titlepage` - *Commands for rendering the title page*
     - Currently support two title page styles: `default` and `simple`.
