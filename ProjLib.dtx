@@ -264,7 +264,7 @@
 
 \bool_if:NT \l__projlib_author_amsfashion_bool
   {
-    \RequirePackage{ projlib-language }
+    \RequirePackage { projlib-language }
 
     \tl_const:Nn \c_projlib_author_dot_tl { . }
 
@@ -354,9 +354,8 @@
     \bool_new:N \g__projlib_author_abstract_before_maketitle_bool
     \bool_gset_false:N \g__projlib_author_abstract_before_maketitle_bool
 
-    \msg_redirect_name:nnn { scontents } { unsupported-verbatim } { info }
-    \RequirePackage{ scontents }
-    \newenvsc{abstract}[store-env=projlib-author-abstract,print-env=false]
+    \RequirePackage { scontents }
+    \newenvsc { abstract } [ store-env = projlib-author-abstract, print-env = false ]
 
     \hook_gput_code:nnn { env/abstract/after } { projlib-author }
       {
