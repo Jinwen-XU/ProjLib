@@ -3287,7 +3287,7 @@
   }
 \cs_generate_variant:Nn \__projlib_math_define_operator:nnn { nee }
 
-\NewDocumentCommand \DefineOperator { s O{} m O{} }
+\NewDocumentCommand \DefineMathOperator { s O{} m O{} }
   {
     \tl_if_blank:nTF { #2 }
       {
@@ -3297,15 +3297,16 @@
         \projlib_math_define_operator:nnn { #1 } { #3 } { #2 }
       }
   }
+\NewCommandCopy \DefineOperator \DefineMathOperator
 
 
 \msg_new:nnn { projlib-math }
   { shortcut-not-define }
-  { The~shortcut~"\iow_char:N \\#1"~cannot~be~defined,~a~command~with~the~same~name~has~already~existed. }
+  { The~symbol~/~shortcut~"\iow_char:N \\#1"~cannot~be~defined,~a~command~with~the~same~name~has~already~existed. }
 
 \msg_new:nnn { projlib-math }
   { shortcut-type-not-define }
-  { The~shortcut~type~"#1"~is~not~available,~a~command~with~the~same~name~has~already~existed. }
+  { The~symbol~/~shortcut~type~"#1"~is~not~available,~a~command~with~the~same~name~has~already~existed. }
 
 \keys_define:nn { projlib-math-shortcut }
   {
@@ -3380,7 +3381,7 @@
   {
     \cs_if_exist:cTF { #1 }
       {
-        \msg_warning:nnn { projlib-math } { shortcut-type-not-define } { #1 }
+        \msg_warning:nnn { projlib-math } { shortcut-not-define } { #1 }
       }
       {
         \exp_args:Nno \use:n
@@ -3390,7 +3391,7 @@
   }
 \cs_generate_variant:Nn \__projlib_math_define_shortcut:nn { ee }
 
-\NewDocumentCommand \DefineShortcut { s O{} m O{} }
+\NewDocumentCommand \DefineMathSymbol { s O{} m O{} }
   {
     \tl_if_blank:nTF { #2 }
       {
@@ -3400,6 +3401,7 @@
         \projlib_math_define_shortcut:nnn { #1 } { #3 } { #2 }
       }
   }
+\NewCommandCopy \DefineShortcut \DefineMathSymbol
 
 
 \cs_new:Nn \__projlib_math_list_of_symbols_entry:nnnn
