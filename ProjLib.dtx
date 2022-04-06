@@ -2994,18 +2994,24 @@
     \use:c { projlib_language_set_ #1 _ #2 :n } { #3 }
   }
 
+\msg_new:nnn { projlib-language }
+  { language-not-support }
+  { The~language~"#1"~is~not~supported. }
 
 \cs_new:Nn \projlib_language_use_language_pure:n
   {
-    \tl_use:c { g_projlib_language_settings_ \projlib_language_str_to_languagename:n { #1 } _tl }
+    \cs_if_exist_use:cF { g_projlib_language_settings_ \projlib_language_str_to_languagename:n { #1 } _tl }
+      {
+        \msg_warning:nnn { projlib-language } { language-not-support } { #1 }
+      }
   }
 \cs_generate_variant:Nn \projlib_language_use_language_pure:n { e }
 
 \cs_new:Nn \projlib_language_use_language:n
   {
     \projlib_language_use_language_pure:n { #1 }
-    \tl_use:c { g_projlib_language_linespacing_ \projlib_language_str_to_languagetype:n { #1 } _tl }
-    \tl_use:c { g_projlib_language_parindent_ \projlib_language_str_to_languagetype:n { #1 } _tl }
+    \cs_if_exist_use:c { g_projlib_language_linespacing_ \projlib_language_str_to_languagetype:n { #1 } _tl }
+    \cs_if_exist_use:c { g_projlib_language_parindent_ \projlib_language_str_to_languagetype:n { #1 } _tl }
   }
 \cs_generate_variant:Nn \projlib_language_use_language:n { e }
 
