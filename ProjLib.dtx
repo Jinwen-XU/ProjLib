@@ -850,7 +850,7 @@
     \group_begin:
       \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
       \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
-      \tl_set:Nx \l_tmpa_tl { #2 }
+      \tl_set:Nx \l_tmpa_tl { \tl_trim_spaces:n { #2 } }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
       \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } {}
     \group_end:
@@ -861,7 +861,7 @@
     \group_begin:
       \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
       \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
-      \tl_set:Nx \l_tmpa_tl { #2 }
+      \tl_set:Nx \l_tmpa_tl { \tl_trim_spaces:n { #2 } }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
       \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } { _uppercase }
     \group_end:
@@ -2677,7 +2677,7 @@
 
 \cs_new:Nn \projlib_language_str_to_languagename:n
   {
-    \str_case_e:nnF { \str_foldcase:n { #1 } }
+    \str_case_e:nnF { \exp_args:Ne \str_foldcase:n { \tl_trim_spaces:n { #1 } } }
       {
         { all                }    { common     }
         { common             }    { common     }
@@ -2715,7 +2715,7 @@
 
 \cs_new:Nn \projlib_language_str_to_languagetype:n
   {
-    \str_case_e:nn { \str_foldcase:n { #1 } }
+    \str_case_e:nnF { \exp_args:Ne \str_foldcase:n { \tl_trim_spaces:n { #1 } } }
       {
         { cn                 }    {  cjk  }
         { chinese            }    {  cjk  }
@@ -2746,6 +2746,7 @@
         { ru                 }    { latin }
         { russian            }    { latin }
       }
+      { latin }
   }
 
 \sys_if_engine_pdftex:T
