@@ -3620,6 +3620,8 @@
     theorem                   ,
     definition-proposition    ,
     definition-theorem        ,
+    proposition-definition    ,
+    theorem-definition        ,
   }
 
 \@ifclassloaded { beamer }
@@ -4800,91 +4802,11 @@
                   }
   }
 
-\NameTheorem { definition-proposition }
-  {
-    , heading =   {
-                    , english     = Definition-Proposition
-                    , french      = Définition-Proposition
-                    , ngerman     = Definition-Proposition
-                    , italian     = Definizione-Proposizione
-                    , portuguese  = Definição-Proposição
-                    , brazilian   = Definição-Proposição
-                    , spanish     = Definición-Proposición
-                    , schinese    = 定义-命题
-                    , tchinese    = 定義-命題
-                    , japanese    = 定義-命題
-                    , russian     = Определение-Предложение
-                  }
-    , crefname =  {
-                    , english     = {Definition-Proposition}{Definition-Proposition}
-                    , french      = [la]{Définition-Proposition}[les]{Définition-Proposition}
-                    , ngerman     = {Definition-Proposition}{Definition-Proposition}
-                    , italian     = [la]{Definizione-Proposizione}[le]{Definizione-Proposizione}
-                    , portuguese  = [a]{Definição-Proposição}[as]{Definição-Proposição}
-                    , brazilian   = [a]{Definição-Proposição}[as]{Definição-Proposição}
-                    , spanish     = [la]{Definición-Proposición}[las]{Definición-Proposición}
-                    , schinese    = {定义-命题}{定义-命题}
-                    , tchinese    = {定義-命題}{定義-命題}
-                    , japanese    = {定義-命題}{定義-命題}
-                    , russian     = {Определение-Предложение}{Определение-Предложение}
-                  }
-    , Crefname =  {
-                    , english     = {Definition-Proposition}{Definition-Proposition}
-                    , french      = [La]{Définition-Proposition}[Les]{Définition-Proposition}
-                    , ngerman     = {Definition-Proposition}{Definition-Proposition}
-                    , italian     = [La]{Definizione-Proposizione}[Le]{Definizione-Proposizione}
-                    , portuguese  = [A]{Definição-Proposição}[As]{Definição-Proposição}
-                    , brazilian   = [A]{Definição-Proposição}[As]{Definição-Proposição}
-                    , spanish     = [La]{Definición-Proposición}[Las]{Definición-Proposición}
-                    , schinese    = {定义-命题}{定义-命题}
-                    , tchinese    = {定義-命題}{定義-命題}
-                    , japanese    = {定義-命題}{定義-命題}
-                    , russian     = {Определение-Предложение}{Определение-Предложение}
-                  }
-  }
+\NameTheorem { definition-proposition } { combined = { definition ; proposition } }
+\NameTheorem { definition-theorem } { combined = { definition ; theorem } }
 
-\NameTheorem { definition-theorem }
-  {
-    , heading =   {
-                    , english     = Definition-Theorem
-                    , french      = Définition-Théorème
-                    , ngerman     = Definition-Satz
-                    , italian     = Definizione-Teorema
-                    , portuguese  = Definição-Teorema
-                    , brazilian   = Definição-Teorema
-                    , spanish     = Definición-Teorema
-                    , schinese    = 定义-定理
-                    , tchinese    = 定義-定理
-                    , japanese    = 定義-定理
-                    , russian     = Определение-Теорема
-                  }
-    , crefname =  {
-                    , english     = {Definition-Theorem}{Definition-Theorem}
-                    , french      = [la]{Définition-Théorème}[les]{Définition-Théorème}
-                    , ngerman     = {Definition-Satz}{Definition-Satz}
-                    , italian     = [la]{Definizione-Teorema}[le]{Definizione-Teorema}
-                    , portuguese  = [a]{Definição-Teorema}[as]{Definição-Teorema}
-                    , brazilian   = [a]{Definição-Teorema}[as]{Definição-Teorema}
-                    , spanish     = [la]{Definición-Teorema}[las]{Definición-Teorema}
-                    , schinese    = {定义-定理}{定义-定理}
-                    , tchinese    = {定義-定理}{定義-定理}
-                    , japanese    = {定義-定理}{定義-定理}
-                    , russian     = {Определение-Теорема}{Определение-Теорема}
-                  }
-    , Crefname =  {
-                    , english     = {Definition-Theorem}{Definition-Theorem}
-                    , french      = [La]{Définition-Théorème}[Les]{Définition-Théorème}
-                    , ngerman     = {Definition-Satz}{Definition-Satz}
-                    , italian     = [La]{Definizione-Teorema}[Le]{Definizione-Teorema}
-                    , portuguese  = [A]{Definição-Teorema}[As]{Definição-Teorema}
-                    , brazilian   = [A]{Definição-Teorema}[As]{Definição-Teorema}
-                    , spanish     = [La]{Definición-Teorema}[Las]{Definición-Teorema}
-                    , schinese    = {定义-定理}{定义-定理}
-                    , tchinese    = {定義-定理}{定義-定理}
-                    , japanese    = {定義-定理}{定義-定理}
-                    , russian     = {Определение-Теорема}{Определение-Теорема}
-                  }
-  }
+\NameTheorem { proposition-definition } { combined = { proposition ; definition } }
+\NameTheorem { theorem-definition } { combined = { theorem ; definition } }
 %</projlib-theorem>
 %
 %<*projlib-titlepage>
