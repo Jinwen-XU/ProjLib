@@ -20,77 +20,77 @@
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
 %
 %<*projlib-titlepage>
 \ProvidesExplPackage
   {projlib-titlepage}
-  {2022/03/28} {}
+  {2022/04/07} {}
   {Commands for rendering the title page}
 %</projlib-titlepage>
 
@@ -850,7 +850,7 @@
     \group_begin:
       \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
       \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
-      \tl_set:Nx \l_tmpa_tl { \tl_trim_spaces:n { #2 } }
+      \tl_set:Nx \l_tmpa_tl { \exp_args:Ne \tl_trim_spaces:n { #2 } }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
       \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } {}
     \group_end:
@@ -861,7 +861,7 @@
     \group_begin:
       \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
       \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
-      \tl_set:Nx \l_tmpa_tl { \tl_trim_spaces:n { #2 } }
+      \tl_set:Nx \l_tmpa_tl { \exp_args:Ne \tl_trim_spaces:n { #2 } }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
       \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } { _uppercase }
     \group_end:
@@ -3018,7 +3018,7 @@
 
 \NewDocumentCommand \UseLanguage { m }
   {
-    \hook_gput_code:nnn { begindocument } { projlib-language }
+    \hook_gput_code:nnn { begindocument/end } { projlib-language }
       {
         \projlib_language_use_language:e { #1 }
       }
