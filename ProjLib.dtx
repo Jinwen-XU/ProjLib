@@ -2247,14 +2247,23 @@
         \tl_trim_spaces:n { #1 }
       }
     \group_end:
-    \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
+    \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
       {
         \noindent
         \# \,
+      }
+    \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
+      {
         \int_value:w \theprojlib_draft_DNF_counter
+      }
+    \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
+      {
         \c_space_tl \c_space_tl
         $\langle$
         \skip_horizontal:n { 0.1em }
+      }
+    \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
+      {
         \cs_if_exist:cTF { hyperlink }
           {
             \exp_not:N \hyperlink { page.\thepage } { \thepage }
@@ -2262,11 +2271,14 @@
           {
             \thepage
           }
+      }
+    \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
+      {
         \skip_horizontal:n { 0.1em }
         $\rangle$
         \nobreakspace
-        \exp_not:n { \tl_if_blank:nF { #1 } { : ~ } }
-        \exp_not:n { \tl_trim_spaces:n { #1 } }
+        \tl_if_blank:nF { #1 } { : ~ }
+        \tl_trim_spaces:n { #1 }
         \par \skip_vertical:n { -\parskip }
         \skip_vertical:n { .15\baselineskip }
       }
@@ -2279,6 +2291,7 @@
         \tl_if_blank:VF \g__projlib_draft_DNF_report_tl
           {
             \clearpage
+            \addtocounter{page}{-1}
             \pagestyle { empty }
             \color { projlib_draft_DNF_color }
             \noindent
