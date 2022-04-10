@@ -4904,7 +4904,7 @@
       \fill [color=titlepage-main] ($(current~page.north~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \fill [color=titlepage-back] ($(current~page.north~east)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.32\paperwidth,-.17\paperheight)$) { \l_projlib_titlepage_logo_tl };
-      \node[text~width=.4\paperwidth,text~height=.3\paperheight,scale=2.5] at ($(current~page.north~west)+(.67\paperwidth,-.15\paperheight)$) {\textcolor{titlepage-back}{\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[.5em]\footnotesize{ \l_projlib_titlepage_subtitle_tl }}};
+      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.57\paperwidth,-.33\paperheight)$) {\textcolor{titlepage-back}{\fontsize{24pt}{16pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{12pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
       \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{titlepage-back}\begin{flushright}\fontsize{16pt}{0pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{0pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
     \end{tikzpicture}
   }
@@ -4913,8 +4913,8 @@
   {
     \begin{tikzpicture}[overlay,remember~picture]
       \fill[color=titlepage-main] ($(current~page.south~west)$) rectangle ($(current~page.north~east)+(0,-.3\paperheight)$);
-      \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.28\paperwidth,-.15\paperheight)$) { \l_projlib_titlepage_logo_tl };
-      \node[text~width=.4\paperwidth,text~height=.3\paperheight,scale=2.5] at ($(current~page.north~west)+(.63\paperwidth,-.15\paperheight)$) {\textcolor{paper}{\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[.5em]\footnotesize{ \l_projlib_titlepage_subtitle_tl }}};
+      \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.27\paperwidth,-.15\paperheight)$) { \l_projlib_titlepage_logo_tl };
+      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.52\paperwidth,-.33\paperheight)$) {\textcolor{paper}{\fontsize{24pt}{16pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{12pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
       \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{paper}\begin{flushright}\fontsize{16pt}{0pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{0pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
     \end{tikzpicture}
   }
