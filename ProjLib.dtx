@@ -3621,6 +3621,7 @@
 
 \clist_const:Nn \c_projlib_theorem_supported_clist
   {
+    application               ,
     assertion                 ,
     assumption                ,
     axiom                     ,
@@ -3880,6 +3881,48 @@
 \bool_if:NF \l__projlib_theorem_presetname_bool { \endinput }
 \bool_if:NT \l__projlib_theorem_complexname_bool { \endinput }
 
+\NameTheorem { application }
+  {
+    , heading =   {
+                    , english     = Application
+                    , french      = Application
+                    , ngerman     = Anwendung
+                    , italian     = Applicazione
+                    , portuguese  = Aplicação
+                    , brazilian   = Aplicação
+                    , spanish     = Aplicación
+                    , schinese    = 应用
+                    , tchinese    = 應用
+                    , japanese    = 応用
+                    , russian     = Применение
+                  }
+    , crefname =  {
+                    , english     = {Application}{Application}
+                    , french      = [l']{Application}[les]{Application}
+                    , ngerman     = {Anwendung}{Anwendung}
+                    , italian     = [l']{Applicazione}[le]{Applicazione}
+                    , portuguese  = [a]{Aplicação}[as]{Aplicação}
+                    , brazilian   = [a]{Aplicação}[as]{Aplicação}
+                    , spanish     = [la]{Aplicación}[las]{Aplicación}
+                    , schinese    = {应用}{应用}
+                    , tchinese    = {應用}{應用}
+                    , japanese    = {応用}{応用}
+                    , russian     = {Применение}{Применение}
+                  }
+    , Crefname =  {
+                    , english     = {Application}{Application}
+                    , french      = [L']{Application}[Les]{Application}
+                    , ngerman     = {Anwendung}{Anwendung}
+                    , italian     = [L']{Applicazione}[Le]{Applicazione}
+                    , portuguese  = [A]{Aplicação}[As]{Aplicação}
+                    , brazilian   = [A]{Aplicação}[As]{Aplicação}
+                    , spanish     = [La]{Aplicación}[Las]{Aplicación}
+                    , schinese    = {应用}{应用}
+                    , tchinese    = {應用}{應用}
+                    , japanese    = {応用}{応用}
+                    , russian     = {Применение}{Применение}
+                  }
+  }
 
 \NameTheorem { assertion }
   {
