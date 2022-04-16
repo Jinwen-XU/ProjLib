@@ -2238,6 +2238,11 @@
     \group_begin:
     \projlib_draft_DNF_font
     \stepcounter { projlib_draft_DNF_counter }
+    \raisebox{\baselineskip}{
+      \hypertarget { DNF. \arabic { projlib_draft_DNF_counter } } {}
+      \label { DNF. \arabic { projlib_draft_DNF_counter } }
+    }
+    \nobreak
     \projlib_draft_plain_box:nn { projlib_draft_DNF_color }
       {
         \projlib_draft_DNF_text
@@ -2266,10 +2271,10 @@
       {
         \cs_if_exist:cTF { hyperlink }
           {
-            \exp_not:N \hyperlink { page.\thepage } { \thepage }
+            \exp_not:N \hyperlink { DNF. \int_value:w \theprojlib_draft_DNF_counter } { \exp_not:N \pageref* { DNF. \int_value:w \theprojlib_draft_DNF_counter } }
           }
           {
-            \thepage
+            \exp_not:N \pageref* { DNF. \int_value:w \theprojlib_draft_DNF_counter }
           }
       }
     \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
