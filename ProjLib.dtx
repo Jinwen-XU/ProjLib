@@ -20,77 +20,77 @@
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
 %
 %<*projlib-titlepage>
 \ProvidesExplPackage
   {projlib-titlepage}
-  {2022/04/07} {}
+  {2022/04/18} {}
   {Commands for rendering the title page}
 %</projlib-titlepage>
 
@@ -5063,8 +5063,8 @@
       \fill [color=titlepage-main] ($(current~page.north~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \fill [color=titlepage-back] ($(current~page.north~east)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.32\paperwidth,-.17\paperheight)$) { \l_projlib_titlepage_logo_tl };
-      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.57\paperwidth,-.33\paperheight)$) {\textcolor{titlepage-back}{\fontsize{24pt}{16pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{12pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
-      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{titlepage-back}\begin{flushright}\fontsize{16pt}{0pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{0pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
+      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.57\paperwidth,-.33\paperheight)$) {\textcolor{titlepage-back}{\fontsize{24pt}{28pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{22pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
+      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{titlepage-back}\begin{flushright}\fontsize{16pt}{18pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{14pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
     \end{tikzpicture}
   }
 
