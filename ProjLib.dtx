@@ -2832,9 +2832,9 @@
       }
   }
 
+
 \tl_gput_right:Nn \g_projlib_language_settings_schinese_tl
   {
-    \g_projlib_language_settings_common_tl
     \tl_set:Nn \languagename          { schinese }
     \tl_set:cn { abstractname   }     { 摘要     }
     \tl_set:cn { proofname      }     { 证明     }
@@ -2848,10 +2848,22 @@
     \tl_set:cn { refname        }     { 参考文献 }
     \tl_set:cn { bibname        }     { 参考文献 }
   }
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_schinese:
+  {
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_schinese_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_schinese:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_schinese_tl
+    #1
+    \group_end:
+  }
 
 \tl_gput_right:Nn \g_projlib_language_settings_tchinese_tl
   {
-    \g_projlib_language_settings_common_tl
     \tl_set:Nn \languagename          { tchinese }
     \tl_set:cn { abstractname   }     { 摘要     }
     \tl_set:cn { proofname      }     { 證明     }
@@ -2865,60 +2877,157 @@
     \tl_set:cn { refname        }     { 參考文獻 }
     \tl_set:cn { bibname        }     { 參考文獻 }
   }
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_tchinese:
+  {
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_tchinese_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_tchinese:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_tchinese_tl
+    #1
+    \group_end:
+  }
 
-\tl_gput_right:Nn \g_projlib_language_settings_japanese_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_japanese:
   {
     \selectlanguage { japanese }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_japanese_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_japanese:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_japanese_tl
+    \foreignlanguage { japanese } { #1 }
+    \group_end:
   }
 
-\tl_gput_right:Nn \g_projlib_language_settings_english_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_english:
   {
     \selectlanguage { english }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_english_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_english:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_english_tl
+    \foreignlanguage { english } { #1 }
+    \group_end:
   }
 
 \tl_gput_right:Nn \g_projlib_language_settings_french_tl
   {
-    \selectlanguage { french }
-    \g_projlib_language_settings_common_tl
     \tl_gset:cn { frenchpartname } { Partie }
   }
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_french:
+  {
+    \selectlanguage { french }
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_french_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_french:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_french_tl
+    \foreignlanguage { french } { #1 }
+    \group_end:
+  }
 
-\tl_gput_right:Nn \g_projlib_language_settings_ngerman_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_ngerman:
   {
     \selectlanguage { ngerman }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_ngerman_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_ngerman:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_ngerman_tl
+    \foreignlanguage { ngerman } { #1 }
+    \group_end:
   }
 
-\tl_gput_right:Nn \g_projlib_language_settings_italian_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_italian:
   {
     \selectlanguage { italian }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_italian_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_italian:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_italian_tl
+    \foreignlanguage { italian } { #1 }
+    \group_end:
   }
 
-\tl_gput_right:Nn \g_projlib_language_settings_portuguese_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_portuguese:
   {
     \selectlanguage { portuguese }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_portuguese_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_portuguese:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_portuguese_tl
+    \foreignlanguage { portuguese } { #1 }
+    \group_end:
   }
 
-\tl_gput_right:Nn \g_projlib_language_settings_brazilian_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_brazilian:
   {
     \selectlanguage { brazilian }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_brazilian_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_brazilian:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_brazilian_tl
+    \foreignlanguage { brazilian } { #1 }
+    \group_end:
   }
 
-\tl_gput_right:Nn \g_projlib_language_settings_spanish_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_spanish:
   {
     \selectlanguage { spanish }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_spanish_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_spanish:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_spanish_tl
+    \foreignlanguage { spanish } { #1 }
+    \group_end:
   }
 
-\tl_gput_right:Nn \g_projlib_language_settings_russian_tl
+\cs_new_protected:Nn \projlib_language_apply_settings_globally_russian:
   {
     \selectlanguage { russian }
     \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_russian_tl
+  }
+\cs_new_protected:Nn \projlib_language_apply_settings_locally_russian:n
+  {
+    \group_begin:
+    \g_projlib_language_settings_common_tl
+    \g_projlib_language_settings_russian_tl
+    \foreignlanguage { russian } { #1 }
+    \group_end:
   }
 
 \NewDocumentCommand \AddLanguageSetting { O{} m }
@@ -2931,7 +3040,6 @@
         \tl_gput_right:cn { g_projlib_language_settings_ \projlib_language_str_to_languagename:n { #1 } _tl } { #2 }
       }
   }
-
 
 \RequirePackage { setspace }
 
@@ -3017,18 +3125,22 @@
   { language-not-support }
   { The~language~"#1"~is~not~supported. }
 
-\cs_new:Nn \projlib_language_use_language_pure:n
+\cs_new:Nn \projlib_language_use_language_locally:nn
   {
-    \cs_if_exist_use:cF { g_projlib_language_settings_ \projlib_language_str_to_languagename:n { #1 } _tl }
+    \cs_if_exist_use:cF { projlib_language_apply_settings_locally_ \projlib_language_str_to_languagename:n { #1 } :n }
       {
         \msg_warning:nnn { projlib-language } { language-not-support } { #1 }
       }
+      { #2 }
   }
-\cs_generate_variant:Nn \projlib_language_use_language_pure:n { e }
+\cs_generate_variant:Nn \projlib_language_use_language_locally:nn { e }
 
 \cs_new:Nn \projlib_language_use_language:n
   {
-    \projlib_language_use_language_pure:n { #1 }
+    \cs_if_exist_use:cF { projlib_language_apply_settings_globally_ \projlib_language_str_to_languagename:n { #1 } : }
+      {
+        \msg_warning:nnn { projlib-language } { language-not-support } { #1 }
+      }
     \cs_if_exist_use:c { g_projlib_language_linespacing_ \projlib_language_str_to_languagetype:n { #1 } _tl }
     \cs_if_exist_use:c { g_projlib_language_parindent_ \projlib_language_str_to_languagetype:n { #1 } _tl }
   }
@@ -3044,8 +3156,7 @@
 \NewDocumentCommand \UseOtherLanguage { m m }
   {
     \group_begin:
-      \projlib_language_use_language_pure:e { #1 }
-      #2
+      \projlib_language_use_language_locally:en { #1 } { #2 }
     \group_end:
   }
 
