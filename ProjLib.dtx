@@ -2789,6 +2789,8 @@
 \PassOptionsToPackage { italian, brazilian, spanish, ngerman, french, english } { cleveref }
 \RequirePackage { babel }
 
+\RequirePackage { silence }
+\WarningFilter { biblatex } { Language }
 
 \bool_if:NT \g__projlib_language_enabled_french_bool
   {
