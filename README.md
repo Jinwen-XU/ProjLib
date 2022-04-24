@@ -6,6 +6,8 @@
 
 > **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French, meaning "*Free Project*").
 
+> **This bundle is dated 2022/04/24. Please note that the documentations are not yet up-to-date.**
+
 ## Introduction
 
 `ProjLib` is a collection of tools that help you write LaTeX document. With the main package `ProjLib` loaded (note that it is *case-sensitive*), you no longer need to manually configure the appropriate multilingual settings nor to set up the theorem-like environments. In addition, a series of auxiliary functionalities are introduced.
@@ -53,7 +55,7 @@ The modules include:
         - In particular, supporting the modes `name as is` and `name as context` for referencing names.
     - Supporting the modes `simple name` and `complex name` for the referencing names.
     - `\SwitchTheoremNumbering` and `\DisableTheoremNumbering` for manipulating the numbering.
-    - Preset environments include: `assertion`, `assumption`, `axiom`, `conclusion`, `conjecture`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
+    - Preset environments include: `application`, `assertion`, `assumption`, `axiom`, `claim`, `conclusion`, `conjecture`, `construction`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `recall`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. module `titlepage` - *Commands for rendering the title page*
     - Currently support two title page styles: `default` and `simple`.
 
