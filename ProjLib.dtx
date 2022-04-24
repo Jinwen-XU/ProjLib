@@ -3806,6 +3806,8 @@
 \RequirePackage { amsthm }
 \RequirePackage { create-theorem }
 
+\RenewCommandCopy \cref \crefthe
+\RenewCommandCopy \Cref \Crefthe
 
 \bool_if:NF \l__projlib_theorem_no_theorems_bool
   {
