@@ -479,6 +479,8 @@
   }
 \ProcessKeysOptions { projlib-datetime }
 
+\RequirePackage { relsize }
+
 \bool_if:NT \l__projlib_datetime_plain_bool
   {
     \hook_gput_code:nnn { begindocument/before } { projlib-datetime }
@@ -544,7 +546,7 @@
 \cs_new_protected:Nn \projlib_datetime_text_superscript:n
   {
     \group_begin:
-      \small
+      \smaller
       \textsuperscript { #1 }
     \group_end:
   }
