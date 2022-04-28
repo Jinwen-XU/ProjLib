@@ -3778,13 +3778,13 @@
     \bool_set_true:N \l__projlib_theorem_no_theorem_numbering_bool
     \bool_if:NF \l__projlib_theorem_no_theorems_bool
       {
-        \cs_undefine:c { theorem    }
-        \cs_undefine:c { lemma      }
-        \cs_undefine:c { corollary  }
-        \cs_undefine:c { definition }
-        \cs_undefine:c { fact       }
-        \cs_undefine:c { example    }
-        \cs_undefine:c { problem    }
+        \cs_undefine:c { theorem    } \cs_undefine:c { endtheorem    }
+        \cs_undefine:c { lemma      } \cs_undefine:c { endlemma      }
+        \cs_undefine:c { corollary  } \cs_undefine:c { endcorollary  }
+        \cs_undefine:c { definition } \cs_undefine:c { enddefinition }
+        \cs_undefine:c { fact       } \cs_undefine:c { endfact       }
+        \cs_undefine:c { example    } \cs_undefine:c { endexample    }
+        \cs_undefine:c { problem    } \cs_undefine:c { endproblem    }
       }
   } {}
 
