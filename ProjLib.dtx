@@ -848,8 +848,8 @@
 \NewDocumentCommand \ProjLibdate { O{} m O{} }
   {
     \group_begin:
-      \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
-      \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
+      \tl_if_blank:oF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
+      \tl_if_blank:oF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
       \tl_set:Nx \l_tmpa_tl { \exp_args:Ne \tl_trim_spaces:n { #2 } }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
       \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } {}
@@ -859,8 +859,8 @@
   \NewDocumentCommand \ProjLibDate { O{} m O{} }
   {
     \group_begin:
-      \tl_if_blank:eF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
-      \tl_if_blank:eF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
+      \tl_if_blank:oF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
+      \tl_if_blank:oF { #3 } { \keys_set:nn { projlib-datetime-command } { #3 } }
       \tl_set:Nx \l_tmpa_tl { \exp_args:Ne \tl_trim_spaces:n { #2 } }
       \regex_replace_all:nnN { \D } { - } \l_tmpa_tl
       \exp_args:Ne \__projlib_datetime_display_date_according_to_format:nn { \l_tmpa_tl } { _uppercase }
@@ -3819,7 +3819,7 @@
         \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { numberless, create starred version }
       }
       {
-        \tl_if_blank:eTF \l__projlib_theorem_theorem_numbering_tl
+        \tl_if_blank:oTF \l__projlib_theorem_theorem_numbering_tl
           {
             \cs_if_exist:cTF { c@chapter }
               { % with \chapter
