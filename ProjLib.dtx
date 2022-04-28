@@ -164,6 +164,14 @@
 
 \cs_if_exist:NT \subjclass { \endinput }
 
+\prg_new_conditional:Nnn \projlib_author_if_content_empty:n { T, F, TF }
+  {
+    \hbox_set:Nn \l_tmpa_box { #1 }
+    \dim_compare:nNnTF { \box_wd:N \l_tmpa_box } > \c_zero_dim
+      { \prg_return_false: }
+      { \prg_return_true: }
+  }
+
 \tl_new:N   \g__projlib_author_font_author_tl
 \tl_new:N   \g__projlib_author_font_institute_tl
 \tl_new:N   \g__projlib_author_font_address_tl
@@ -377,15 +385,15 @@
         \makeatletter
         \xpatchcmd { \@maketitle } { \@date }
           {
-            \tl_if_blank:eTF { \@date } { \skip_vertical:n { -2 \baselineskip } } { \@date }
-            \tl_if_blank:eF { \g__projlib_author_dedicatory_tl }
+            \projlib_author_if_content_empty:nTF { \@date } { \skip_vertical:n { -2 \baselineskip } } { \@date }
+            \projlib_author_if_content_empty:nF { \g__projlib_author_dedicatory_tl }
               {
-                \tl_if_blank:eT { \@date } { \skip_vertical:n { 2 \baselineskip } }
+                \projlib_author_if_content_empty:nT { \@date } { \skip_vertical:n { 2 \baselineskip } }
                 \par
                 \skip_vertical:n { -\parskip }
                 \skip_vertical:n { \baselineskip }
                 \textit{ \g__projlib_author_dedicatory_tl }
-                \tl_if_blank:eT { \@date }
+                \projlib_author_if_content_empty:nT { \@date }
                   {
                     \skip_vertical:n { -\parskip }
                     \skip_vertical:n { \dim_eval:n { -1.7 \baselineskip } }
@@ -396,7 +404,7 @@
 
         \hook_gput_code:nnn { cmd/maketitle/before } { projlib-author }
           {
-            \tl_if_blank:eF { \g__projlib_author_keywords_tl }
+            \projlib_author_if_content_empty:nF { \g__projlib_author_keywords_tl }
               {
                 \projlib_author_pre_thanks:n
                   {
