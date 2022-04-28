@@ -3684,10 +3684,13 @@
 \projlib_paper_set_page_color:n { paper }
 \projlib_paper_set_text_color:n { main-text }
 
-\hook_gput_code:nnn { begindocument/before } { projlib-paper }
+\hook_gput_code:nnn { package/tcolorbox/after } { projlib-paper }
   {
-    \cs_if_exist:NT \tcbset
-      { \tcbset { colupper = main-text, collower = main-text } }
+    \tcbset { colupper = main-text, collower = main-text }
+  }
+\hook_gput_code:nnn { package/tikz-cd/after } { projlib-paper }
+  {
+    \tikzset { /tikz/commutative~diagrams/background~color = paper }
   }
 %</projlib-paper>
 %
