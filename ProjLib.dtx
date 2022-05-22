@@ -5197,10 +5197,11 @@
 \cs_new_protected:Nn \projlib_titlepage_render_with_style_simple:
   {
     \begin{tikzpicture}[overlay,remember~picture]
+      \fill[color=white] ($(current~page.south~west)$) rectangle ($(current~page.north~east)$);
       \fill[color=titlepage-main] ($(current~page.south~west)$) rectangle ($(current~page.north~east)+(0,-.3\paperheight)$);
       \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.27\paperwidth,-.15\paperheight)$) { \l_projlib_titlepage_logo_tl };
-      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.52\paperwidth,-.33\paperheight)$) {\textcolor{paper}{\fontsize{24pt}{28pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{22pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
-      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{paper}\begin{flushright}\fontsize{16pt}{18pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{14pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
+      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.52\paperwidth,-.33\paperheight)$) {\textcolor{white}{\fontsize{24pt}{28pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{22pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
+      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{white}\begin{flushright}\fontsize{16pt}{18pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{14pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
     \end{tikzpicture}
   }
 %</projlib-titlepage>
