@@ -3449,7 +3449,7 @@
   {
     \clist_clear:N \l__projlib_math_shortcut_prefix_clist
     \tl_clear:N \l__projlib_math_shortcut_type_tl
-    \tl_clear:N \l__projlib_math_shortcut_style_tl
+    \tl_set:Nn \l__projlib_math_shortcut_style_tl { \mathrm }
     \keys_set:nn { projlib-math-shortcut } { #3 }
     \tl_if_empty:NF \l__projlib_math_shortcut_type_tl
       {
