@@ -2237,7 +2237,7 @@
   }
 
 \tl_new:c    { projlib_draft_DNF_font }
-\tl_gset:cn  { projlib_draft_DNF_font }        { \small \normalfont \bfseries \ttfamily \hyphenchar\font=`\-\spaceskip=.5em ~ plus ~ .5em\xspaceskip=.5em }
+\tl_gset:cn  { projlib_draft_DNF_font }        { \small \normalfont \bfseries }
 
 \definecolor { projlib_draft_DNF_color }       { RGB } {  21, 122,  20 }
 
@@ -2245,7 +2245,7 @@
 
 \tl_new:N \g__projlib_draft_DNF_report_tl
 
-\NewDocumentCommand \DNF { D<>{} }
+\NewDocumentCommand \DNF { s D<>{} }
   {
     \noindent
     \group_begin:
@@ -2258,17 +2258,19 @@
     \nobreak
     \projlib_draft_plain_box:nn { projlib_draft_DNF_color }
       {
-        \projlib_draft_DNF_text
-        \nobreakspace
+        \IfBooleanF { #1 } { \projlib_draft_DNF_text \nobreakspace }
+        \group_begin: \ttfamily
         \# \theprojlib_draft_DNF_counter
-        \tl_if_blank:nF { #1 } { \, : ~ }
-        \tl_trim_spaces:n { #1 }
+        \group_end:
+        \tl_if_blank:nF { #2 } { : \nobreakspace }
+        \tl_trim_spaces:n { #2 }
       }
     \group_end:
     \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
       {
         \setlength { \parfillskip } { 0pt plus 1fil }
         \noindent
+        \group_begin: \ttfamily
         \# \,
       }
     \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
@@ -2277,6 +2279,7 @@
       }
     \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
       {
+        \group_end:
         \c_space_tl \c_space_tl
         $\langle$
         \skip_horizontal:n { 0.1em }
@@ -2296,8 +2299,8 @@
         \skip_horizontal:n { 0.1em }
         $\rangle$
         \nobreakspace
-        \tl_if_blank:nF { #1 } { : ~ }
-        \tl_trim_spaces:n { #1 }
+        \tl_if_blank:nF { #2 } { : ~ }
+        \tl_trim_spaces:n { #2 }
         \par \skip_vertical:n { -\parskip }
         \skip_vertical:n { .15\baselineskip }
       }
@@ -3082,7 +3085,7 @@
 
 \hook_gput_code:nnn { begindocument } { projlib-language }
   {
-    \@ifpackageloaded { parskip }
+    \IfPackageLoadedTF { parskip }
       {
         \tl_gset:Nn \g_projlib_language_parindent_latin_tl
           {
@@ -3352,7 +3355,7 @@
 \RequirePackage { mathtools }
 \RequirePackage { mathrsfs }
 \PassOptionsToPackage { warnings-off = { mathtools-colon, mathtools-overbracket } } { unicode-math }
-\@ifpackageloaded { unicode-math } {} { \RequirePackage { amssymb } }
+\IfPackageLoadedTF { unicode-math } {} { \RequirePackage { amssymb } }
 
 
 \msg_new:nnn { projlib-math }
