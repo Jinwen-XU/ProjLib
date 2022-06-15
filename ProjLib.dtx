@@ -3787,7 +3787,17 @@
 
 \cs_new_protected:Nn \projlib_theorem_preset_theorem_style:nn
   {
-    \tl_const:cn { c_crthm_theorem_style_preset_ #1 _tl } { #2 }
+    \str_case:nnTF { #1 }
+      {
+        { theorem-with-name } { }
+        { proof } { }
+      }
+      {
+        \tl_const:cn { c_crthm_theorem_style_preset_ #1 _inner _tl } { #2 }
+      }
+      {
+        \tl_const:cn { c_crthm_theorem_style_preset_ #1 _tl } { #2 }
+      }
   }
 
 \cs_generate_variant:Nn \keyval_parse:nnn { nno }
@@ -3795,6 +3805,12 @@
   { \use_none:n }
   { \projlib_theorem_preset_theorem_style:nn }
   { \l__projlib_theorem_theorem_style_tl }
+
+% If the style of proof is not given, use "remark" as default.
+\cs_if_exist:cF { c_crthm_theorem_style_preset_ proof_inner _tl }
+  {
+    \tl_const:cn { c_crthm_theorem_style_preset_ proof_inner _tl } { remark }
+  }
 
 \RequirePackage { amsthm }
 \RequirePackage { create-theorem }
@@ -3813,19 +3829,19 @@
           {
             \cs_if_exist:cTF { c@chapter }
               { % with \chapter
-                \CreateTheorem {theorem} { parent counter = chapter, create starred version }
+                \CreateTheorem { theorem } { parent counter = chapter, create starred version }
               }
               { % without \chapter
-                \CreateTheorem {theorem} { parent counter = section, create starred version }
+                \CreateTheorem { theorem } { parent counter = section, create starred version }
               }
           }
           {
             \tl_if_eq:NnTF \l__projlib_theorem_theorem_numbering_tl { * }
               {
-                \CreateTheorem {theorem} { create starred version }
+                \CreateTheorem { theorem } { create starred version }
               }
               {
-                \CreateTheorem {theorem} { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
+                \CreateTheorem { theorem } { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
               }
           }
 
@@ -3833,9 +3849,13 @@
       }
   }
 
+\newcounter { theorem-with-name }
+\newcounter { proof }
+\crthm_counter_alias:nn { theorem-with-name } { theorem }
+% \crthm_counter_alias:nn { proof } { theorem }
 
 \tl_new:N \l_projlib_theorem_name_of_theorem_with_name_tl
-\CreateTheorem { theorem-with-name_inner } { name = { heading = { \l_projlib_theorem_name_of_theorem_with_name_tl } }, create-starred-version }
+\CreateTheorem { theorem-with-name_inner } { name = { heading = { \l_projlib_theorem_name_of_theorem_with_name_tl } }, create-starred-version, shared-counter=theorem-with-name }
 
 \NewDocumentEnvironment { theorem-with-name } { m O{} }
   {
@@ -3854,6 +3874,34 @@
     \end { theorem-with-name_inner* }
   }
 
+\SetTheoremBinding { theorem-with-name } { theorem-with-name_inner }
+\SetTheoremBinding { theorem-with-name* } { theorem-with-name_inner* }
+
+\tl_new:N \l_projlib_theorem_name_of_proof_tl
+\CreateTheorem { proof_inner } { name = { heading = { \l_projlib_theorem_name_of_proof_tl } }, create-starred-version, qed, shared-counter = proof }
+
+\cs_undefine:c { proof }
+\cs_undefine:c { endproof }
+
+\NewDocumentEnvironment { proof } { O{\proofname} }
+  {
+    \tl_set:Nn \l_projlib_theorem_name_of_proof_tl { #1 }
+    \begin { proof_inner }
+  }
+  {
+    \end { proof_inner }
+  }
+\NewDocumentEnvironment { proof* } { O{\proofname} }
+  {
+    \tl_set:Nn \l_projlib_theorem_name_of_proof_tl { #1 }
+    \begin { proof_inner* }
+  }
+  {
+    \end { proof_inner* }
+  }
+
+\SetTheoremBinding { proof } { proof_inner }
+\SetTheoremBinding { proof* } { proof_inner* }
 
 \cs_new_protected:Nn \projlib_theorem_disable_theorem_numbering:n
   {
@@ -3892,7 +3940,7 @@
     \projlib_theorem_switch_theorem_numbering:n { #1 }
   }
 
-\SwitchTheoremNumbering { theorem-with-name }
+\SwitchTheoremNumbering { theorem-with-name, proof }
 
 
 \AddLanguageSetting [ schinese ]
