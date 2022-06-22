@@ -15,82 +15,81 @@
 \ProvidesFile{ProjLib.dtx}
 %</driver>
 \NeedsTeXFormat{LaTeX2e}[2022-06-01]
-\RequirePackage{l3keys2e}
 %
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
 %
 %<*projlib-titlepage>
 \ProvidesExplPackage
   {projlib-titlepage}
-  {2022/06/15} {}
+  {2022/06/22} {}
   {Commands for rendering the title page}
 %</projlib-titlepage>
 
@@ -122,7 +121,7 @@
                                               \PassOptionsToPackage { \CurrentOption } { projlib-theorem }
                                             }
   }
-\ProcessKeysOptions { ProjLib }
+\ProcessKeyOptions [ ProjLib ]
 
 \bool_if:NT \l__projlib_main_amsfashion_bool
   {
@@ -160,7 +159,7 @@
     , ams fashion .bool_set:N = \l__projlib_author_amsfashion_bool
     , unknown     .code:n     = {}
   }
-\ProcessKeysOptions { projlib-author }
+\ProcessKeyOptions [ projlib-author ]
 
 \cs_if_exist:NT \subjclass { \endinput }
 
@@ -487,7 +486,7 @@
     , day-month       .code:n       = { \tl_gset:Nn \g__projlib_datetime_input_format_tl { day-month-year } }
     , unknown         .code:n       = {}
   }
-\ProcessKeysOptions { projlib-datetime }
+\ProcessKeyOptions [ projlib-datetime ]
 
 \RequirePackage { relsize }
 
@@ -2137,7 +2136,7 @@
     , no report page    .bool_set:N   = \l__projlib_draft_no_report_page_bool
     , unknown           .code:n       = {}
   }
-\ProcessKeysOptions { projlib-draft }
+\ProcessKeyOptions [ projlib-draft ]
 
 \RequirePackage { projlib-language }
 \RequirePackage { xcolor }
@@ -2414,7 +2413,7 @@
     , biolinum         .initial:n    = { false }
     , unknown          .code:n       = {}
   }
-\ProcessKeysOptions { projlib-font }
+\ProcessKeyOptions [ projlib-font ]
 
 \bool_new:N \g_projlib_font_already_set_bool
 \bool_gset_false:N \g_projlib_font_already_set_bool
@@ -2659,7 +2658,7 @@
     , Russian             .meta:n       = { russian }
     , unknown             .code:n       = {}
   }
-\ProcessKeysOptions { projlib-language }
+\ProcessKeyOptions [ projlib-language ]
 
 \cs_new_protected:Nn \projlib_language_clear_global_option:n
   {
@@ -3202,7 +3201,7 @@
     , fast    .bool_set:N   = \l__projlib_logo_fast_bool
     , unknown .code:n       = {}
   }
-\ProcessKeysOptions { projlib-logo }
+\ProcessKeyOptions [ projlib-logo ]
 
 \bool_if:NT \l__projlib_logo_fast_bool
   {
@@ -3350,7 +3349,7 @@
   {
     , unknown     .code:n     = {}
   }
-\ProcessKeysOptions { projlib-math }
+\ProcessKeyOptions [ projlib-math ]
 
 \RequirePackage { mathtools }
 \RequirePackage { mathrsfs }
@@ -3605,7 +3604,7 @@
     , dark paper        .meta:n             = { paperstyle = dark       }
     , unknown           .code:n             = {}
   }
-\ProcessKeysOptions { projlib-paper }
+\ProcessKeyOptions [ projlib-paper ]
 
 \cs_new:Nn \projlib_paper_preview_disable:
   {
@@ -3725,7 +3724,7 @@
     , no preset names       .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
     , unknown               .code:n             = { \PassOptionsToPackage { \CurrentOption } { create-theorem } }
   }
-\ProcessKeysOptions { projlib-theorem }
+\ProcessKeyOptions [ projlib-theorem ]
 
 \clist_const:Nn \c_projlib_theorem_supported_clist
   {
@@ -5172,7 +5171,7 @@
   {
     , unknown           .code:n             = {}
   }
-\ProcessKeysOptions { projlib-titlepage }
+\ProcessKeyOptions [ projlib-titlepage ]
 
 \RequirePackage { projlib-paper }
 
