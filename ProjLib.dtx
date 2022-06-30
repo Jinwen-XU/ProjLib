@@ -3754,8 +3754,10 @@
     recall                    ,
     remark                    ,
     theorem                   ,
+    definition-corollary      ,
     definition-proposition    ,
     definition-theorem        ,
+    corollary-definition      ,
     proposition-definition    ,
     theorem-definition        ,
   }
@@ -5159,9 +5161,11 @@
                   }
   }
 
+\NameTheorem { definition-corollary } { combined = { definition ; corollary } }
 \NameTheorem { definition-proposition } { combined = { definition ; proposition } }
 \NameTheorem { definition-theorem } { combined = { definition ; theorem } }
 
+\NameTheorem { corollary-definition } { combined = { corollary ; definition } }
 \NameTheorem { proposition-definition } { combined = { proposition ; definition } }
 \NameTheorem { theorem-definition } { combined = { theorem ; definition } }
 %</projlib-theorem>
