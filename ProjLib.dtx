@@ -2155,8 +2155,8 @@
 
   \bool_if:NTF \l__projlib_draft_fast_bool
   {
-    \tl_const:Nn \l_projlib_draft_plain_box_begin_tl { $[$ }
-    \tl_const:Nn \l_projlib_draft_plain_box_after_tl { $]$ }
+    \tl_const:Nn \l_projlib_draft_plain_box_begin_tl { [ }
+    \tl_const:Nn \l_projlib_draft_plain_box_after_tl { ] }
   }
   {
     \RequirePackage { tikz }
@@ -2247,23 +2247,23 @@
 \NewDocumentCommand \DNF { s D<>{} }
   {
     \noindent
-    \group_begin:
-    \projlib_draft_DNF_font
-    \stepcounter { projlib_draft_DNF_counter }
-    \raisebox{\baselineskip}{
-      \hypertarget { DNF. \arabic { projlib_draft_DNF_counter } } {}
-      \label { DNF. \arabic { projlib_draft_DNF_counter } }
-    }
-    \nobreak
-    \projlib_draft_plain_box:nn { projlib_draft_DNF_color }
-      {
-        \IfBooleanF { #1 } { \projlib_draft_DNF_text \nobreakspace }
-        \group_begin: \ttfamily
-        \# \theprojlib_draft_DNF_counter
-        \group_end:
-        \tl_if_blank:nF { #2 } { : \nobreakspace }
-        \tl_trim_spaces:n { #2 }
+    \group_begin: \projlib_draft_DNF_font
+      \stepcounter { projlib_draft_DNF_counter }
+      \raisebox{\baselineskip}{
+        \cs_if_exist:cT { hypertarget }
+          {
+            \hypertarget { DNF. \arabic { projlib_draft_DNF_counter } } {}
+          }
+        \label { DNF. \arabic { projlib_draft_DNF_counter } }
       }
+      \nobreak
+      \projlib_draft_plain_box:nn { projlib_draft_DNF_color }
+        {
+          \IfBooleanF { #1 } { \projlib_draft_DNF_text \nobreakspace }
+          \texttt { \# \theprojlib_draft_DNF_counter }
+          \tl_if_blank:nF { #2 } { : \nobreakspace }
+          \tl_trim_spaces:n { #2 }
+        }
     \group_end:
     \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
       {
