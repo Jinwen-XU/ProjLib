@@ -6,7 +6,7 @@
 
 > **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French, meaning "*Free Project*").
 
-> **This bundle is dated 2022/06/15. Please note that the documentations are not yet up-to-date.**
+> **This bundle is dated 2022/07/03. Please note that the documentations are not yet up-to-date.**
 
 ## Introduction
 
@@ -21,7 +21,7 @@ To get started, simply put this line in your preamble:
 
 ## The modules
 
-> Each module correspond to a separate package, for example, the module `theorem` is `projlib-theorem.sty`.
+> Each module corresponds to a separate package, for example, the module `theorem` is `projlib-theorem.sty`.
 
 The modules include:
 1. module `author` - *Enhanced author information block*
@@ -36,6 +36,7 @@ The modules include:
     - Multiple input and output format available.
 1. module `draft` - *Useful commands during draft stage*
     - `\DNF` for marking unfinished part. In addition, a report of all unfinished places shall be printed at the last of your document.
+    - Reimplemented `\blindtext` to support more languages.
 1. module `font` - *Font selection and configuration*
     - Supporting Palatino, Times, Garamond, Biolinum, Noto, etc.
 1. module `language` - *Multi-language configuration*
@@ -45,10 +46,13 @@ The modules include:
 1. module `logo` - *The ProjLib logo*
     - Draw the `ProjLib` logo in colorful or colorless fashion.
 1. module `math` - *Efficient math setup*
-    - `\DefineOperator` and `\DefineShortcut` for setting up math macros efficiently
-    - `\ListOfSymbols` for printing list of symbols
+    - `\DefineOperator` and `\DefineShortcut` for setting up math macros efficiently.
+    - `\ListOfSymbols` for printing list of symbols.
 1. module `paper` - *Configuration of the paper style*
     - Paper style configuration, with the themes `yellow`, `green`, `light gray`, `gray`, `dark`, etc.
+1. module `text` - *Text-related commands*
+    - Provide a few useful commands such as `\ie`, `\eg`, `\cf`, `\etc` ; and if you have your own version defined, they won't interfere with your definition.
+    - `\ItemDescription` for writing leading description to items in `itemize` or `enumerate`.
 1. module `theorem` - *Configuration of theorem-like environments*
     - Setting up theorem-like environments based on the package `create-theorem`
         - `\CreateTheorem`, `\SetTheorem` and more...
@@ -78,6 +82,10 @@ It is recommended to use `latexmk` with option `-xelatex`:
 ```
 latexmk -xelatex ProjLib-doc-**.tex
 ```
+Here `**` should be replaced with the language identifier, such as `en`.
+
+## Automation
+All these can be done with the given script `MakeFile.sh`.
 
 # License
 
