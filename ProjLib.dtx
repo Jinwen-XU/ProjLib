@@ -3854,7 +3854,16 @@
 % \crthm_counter_alias:nn { proof } { theorem }
 
 \tl_new:N \l_projlib_theorem_name_of_theorem_with_name_tl
-\CreateTheorem { theorem-with-name_inner } { name = { heading = { \l_projlib_theorem_name_of_theorem_with_name_tl } }, create-starred-version, shared-counter=theorem-with-name }
+\CreateTheorem { theorem-with-name_inner }
+  {
+    , name = {
+               , heading = { \l_projlib_theorem_name_of_theorem_with_name_tl }
+               , crefname = { \skip_horizontal:n { -.5ex } }{ \skip_horizontal:n { -.5ex } }
+               , Crefname = { \skip_horizontal:n { -.5ex } }{ \skip_horizontal:n { -.5ex } }
+             }
+    , create-starred-version
+    , shared-counter = theorem-with-name
+  }
 
 \NewDocumentEnvironment { theorem-with-name } { m O{} }
   {
