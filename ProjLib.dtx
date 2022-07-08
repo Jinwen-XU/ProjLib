@@ -2641,6 +2641,7 @@
                                             \projlib_language_set_option:n { spanish } }
     , Spanish             .meta:n       = { spanish }
     , CN                  .meta:n       = { schinese }
+    , SC                  .meta:n       = { schinese }
     , chinese             .meta:n       = { schinese }
     , schinese            .code:n       = { \projlib_language_set_option_no_babel:n { schinese } }
     , simplified-chinese  .meta:n       = { schinese }
@@ -2701,6 +2702,7 @@
         { all                }    { common     }
         { common             }    { common     }
         { cn                 }    { schinese   }
+        { sc                 }    { schinese   }
         { chinese            }    { schinese   }
         { schinese           }    { schinese   }
         { simplifiedchinese  }    { schinese   }
@@ -2737,6 +2739,7 @@
     \str_case_e:nnF { \exp_args:Ne \str_foldcase:n { \tl_trim_spaces:n { #1 } } }
       {
         { cn                 }    {  cjk  }
+        { sc                 }    {  cjk  }
         { chinese            }    {  cjk  }
         { schinese           }    {  cjk  }
         { simplifiedchinese  }    {  cjk  }
