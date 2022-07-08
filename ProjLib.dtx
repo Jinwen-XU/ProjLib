@@ -2838,7 +2838,7 @@
 
 \tl_gput_right:Nn \g_projlib_language_settings_schinese_tl
   {
-    \tl_set:Nn \languagename          { schinese }
+    \tl_set:Nn  \languagename         { schinese }
     \tl_set:cn { abstractname   }     { 摘要     }
     \tl_set:cn { proofname      }     { 证明     }
     \tl_set:cn { contentsname   }     { 目录     }
@@ -2867,7 +2867,7 @@
 
 \tl_gput_right:Nn \g_projlib_language_settings_tchinese_tl
   {
-    \tl_set:Nn \languagename          { tchinese }
+    \tl_set:Nn  \languagename         { tchinese }
     \tl_set:cn { abstractname   }     { 摘要     }
     \tl_set:cn { proofname      }     { 證明     }
     \tl_set:cn { contentsname   }     { 目錄     }
@@ -5184,6 +5184,7 @@
   }
 \ProcessKeyOptions [ projlib-titlepage ]
 
+\RequirePackage { projlib-logo }
 \RequirePackage { projlib-paper }
 
 \RequirePackage { tikz }
@@ -5215,12 +5216,12 @@
 
 \keys_define:nn { projlib-titlepage-config }
   {
-    , logo              .tl_set:N           = \l_projlib_titlepage_logo_tl
+    , logo              .code:n             = { \tl_set:Nn \l_projlib_titlepage_logo_tl { \tl_trim_spaces:n { #1 } } }
     , logo              .initial:n          = { \scalebox { 2 } { \ProjLib } }
-    , title             .tl_set:N           = \l_projlib_titlepage_title_tl
-    , subtitle          .tl_set:N           = \l_projlib_titlepage_subtitle_tl
-    , author            .tl_set:N           = \l_projlib_titlepage_author_tl
-    , date              .tl_set:N           = \l_projlib_titlepage_date_tl
+    , title             .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_tl { \tl_trim_spaces:n { #1 } } }
+    , subtitle          .code:n             = { \tl_set:Nn \l_projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { #1 } } }
+    , author            .code:n             = { \tl_set:Nn \l_projlib_titlepage_author_tl { \tl_trim_spaces:n { #1 } } }
+    , date              .code:n             = { \tl_set:Nn \l_projlib_titlepage_date_tl { \tl_trim_spaces:n { #1 } } }
     , style             .tl_set:N           = \l_projlib_titlepage_style_tl
     , style             .initial:n          = { default }
     , color             .code:n             = {
@@ -5251,9 +5252,33 @@
       \fill [color=titlepage-back] ($(current~page.south~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \fill [color=titlepage-main] ($(current~page.north~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \fill [color=titlepage-back] ($(current~page.north~east)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
-      \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.32\paperwidth,-.17\paperheight)$) { \l_projlib_titlepage_logo_tl };
-      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.57\paperwidth,-.33\paperheight)$) {\textcolor{titlepage-back}{\fontsize{24pt}{28pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{22pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
-      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{titlepage-back}\begin{flushright}\fontsize{16pt}{18pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{14pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
+      \node[text~width=.3\paperwidth,text~height=.2\paperheight]
+        at ($(current~page.north~west)+(.32\paperwidth,-.17\paperheight)$)
+          {
+            \l_projlib_titlepage_logo_tl
+          };
+      \node[text~width=.8\paperwidth,text~height=.5\paperheight]
+        at ($(current~page.north~west)+(.52\paperwidth,-.28\paperheight)$)
+          {
+            \color{titlepage-back}
+            \sffamily
+            \fontsize{24pt}{36pt}\selectfont
+            \textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]
+            \fontsize{18pt}{27pt}\selectfont
+            \l_projlib_titlepage_subtitle_tl
+            \par % to ensure that \selectfont works
+          };
+      \node[text~width=.3\paperwidth,text~height=.3\paperheight]
+        at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$)
+          {
+            \color{titlepage-back}
+            \begin{flushright}
+              \fontsize{16pt}{24pt}\selectfont
+              \textsc{ \l_projlib_titlepage_author_tl }\\[1em]
+              \fontsize{12pt}{18pt}\selectfont
+              \l_projlib_titlepage_date_tl
+            \end{flushright}
+          };
     \end{tikzpicture}
   }
 
@@ -5262,9 +5287,33 @@
     \begin{tikzpicture}[overlay,remember~picture]
       \fill[color=white] ($(current~page.south~west)$) rectangle ($(current~page.north~east)$);
       \fill[color=titlepage-main] ($(current~page.south~west)$) rectangle ($(current~page.north~east)+(0,-.3\paperheight)$);
-      \node[text~width=.3\paperwidth,text~height=.2\paperheight] at ($(current~page.north~west)+(.27\paperwidth,-.15\paperheight)$) { \l_projlib_titlepage_logo_tl };
-      \node[text~width=.8\paperwidth,text~height=.4\paperheight] at ($(current~page.north~west)+(.52\paperwidth,-.33\paperheight)$) {\textcolor{white}{\fontsize{24pt}{28pt}\selectfont\sffamily\textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]\fontsize{18pt}{22pt}\selectfont{ \l_projlib_titlepage_subtitle_tl }}};
-      \node[text~width=.3\paperwidth,text~height=.3\paperheight] at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$) {\color{white}\begin{flushright}\fontsize{16pt}{18pt}\selectfont\textsc{ \l_projlib_titlepage_author_tl }\\[1em]\fontsize{12pt}{14pt}\selectfont \l_projlib_titlepage_date_tl \end{flushright} };
+      \node[text~width=.3\paperwidth,text~height=.2\paperheight]
+        at ($(current~page.north~west)+(.27\paperwidth,-.15\paperheight)$)
+          {
+            \l_projlib_titlepage_logo_tl
+          };
+      \node[text~width=.8\paperwidth,text~height=.5\paperheight]
+        at ($(current~page.north~west)+(.52\paperwidth,-.28\paperheight)$)
+          {
+            \color{white}
+            \sffamily
+            \fontsize{24pt}{36pt}\selectfont
+            \textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]
+            \fontsize{18pt}{27pt}\selectfont
+            \l_projlib_titlepage_subtitle_tl
+            \par % to ensure that \selectfont works
+          };
+      \node[text~width=.3\paperwidth,text~height=.3\paperheight]
+        at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$)
+          {
+            \color{white}
+            \begin{flushright}
+              \fontsize{16pt}{24pt}\selectfont
+              \textsc{ \l_projlib_titlepage_author_tl }\\[1em]
+              \fontsize{12pt}{18pt}\selectfont
+              \l_projlib_titlepage_date_tl
+            \end{flushright}
+          };
     \end{tikzpicture}
   }
 %</projlib-titlepage>
