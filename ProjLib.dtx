@@ -19,84 +19,84 @@
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-text>
 \ProvidesExplPackage
   {projlib-text}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Text-related commands}
 %</projlib-text>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
 %
 %<*projlib-titlepage>
 \ProvidesExplPackage
   {projlib-titlepage}
-  {2022/07/03} {}
+  {2022/07/23} {}
   {Commands for rendering the title page}
 %</projlib-titlepage>
 
@@ -3512,37 +3512,42 @@
 %<*projlib-paper>
 \keys_define:nn { projlib-paper }
   {
-    , preview-mode      .bool_set:N         = \l__projlib_paper_preview_bool
-    , preview-mode      .initial:n          = { false }
-    , paper-style       .tl_set:N           = \l__projlib_paper_paperstyle_tl
-    , paper-style       .initial:n          = { normal }
-    , paper-style       .value_required:n   = true
-    , paper~style       .tl_set:N           = \l__projlib_paper_paperstyle_tl
-    , paper style       .tl_set:N           = \l__projlib_paper_paperstyle_tl
-    , yellow-paper      .meta:n             = { paperstyle = yellow     }
-    , yellow~paper      .meta:n             = { paperstyle = yellow     }
-    , yellow paper      .meta:n             = { paperstyle = yellow     }
-    , parchment-paper   .meta:n             = { paperstyle = parchment  }
-    , parchment~paper   .meta:n             = { paperstyle = parchment  }
-    , parchment paper   .meta:n             = { paperstyle = parchment  }
-    , green-paper       .meta:n             = { paperstyle = green      }
-    , green~paper       .meta:n             = { paperstyle = green      }
-    , green paper       .meta:n             = { paperstyle = green      }
-    , light-gray-paper  .meta:n             = { paperstyle = lightgray  }
-    , light~gray~paper  .meta:n             = { paperstyle = lightgray  }
-    , light gray-paper  .meta:n             = { paperstyle = lightgray  }
-    , light gray~paper  .meta:n             = { paperstyle = lightgray  }
-    , light gray paper  .meta:n             = { paperstyle = lightgray  }
-    , gray-paper        .meta:n             = { paperstyle = gray       }
-    , gray~paper        .meta:n             = { paperstyle = gray       }
-    , gray paper        .meta:n             = { paperstyle = gray       }
-    , nord-paper        .meta:n             = { paperstyle = nord       }
-    , nord~paper        .meta:n             = { paperstyle = nord       }
-    , nord paper        .meta:n             = { paperstyle = nord       }
-    , dark-paper        .meta:n             = { paperstyle = dark       }
-    , dark~paper        .meta:n             = { paperstyle = dark       }
-    , dark paper        .meta:n             = { paperstyle = dark       }
-    , unknown           .code:n             = {}
+    , preview-mode       .bool_set:N         = \l__projlib_paper_preview_bool
+    , preview-mode       .initial:n          = { false }
+    , paper-style        .tl_set:N           = \l__projlib_paper_paperstyle_tl
+    , paper-style        .initial:n          = { normal }
+    , paper-style        .value_required:n   = true
+    , paper~style        .tl_set:N           = \l__projlib_paper_paperstyle_tl
+    , paper style        .tl_set:N           = \l__projlib_paper_paperstyle_tl
+    , light-yellow-paper .meta:n             = { paperstyle = lightyellow }
+    , light~yellow~paper .meta:n             = { paperstyle = lightyellow }
+    , light yellow-paper .meta:n             = { paperstyle = lightyellow }
+    , light yellow~paper .meta:n             = { paperstyle = lightyellow }
+    , light yellow paper .meta:n             = { paperstyle = lightyellow }
+    , yellow-paper       .meta:n             = { paperstyle = yellow      }
+    , yellow~paper       .meta:n             = { paperstyle = yellow      }
+    , yellow paper       .meta:n             = { paperstyle = yellow      }
+    , parchment-paper    .meta:n             = { paperstyle = parchment   }
+    , parchment~paper    .meta:n             = { paperstyle = parchment   }
+    , parchment paper    .meta:n             = { paperstyle = parchment   }
+    , green-paper        .meta:n             = { paperstyle = green       }
+    , green~paper        .meta:n             = { paperstyle = green       }
+    , green paper        .meta:n             = { paperstyle = green       }
+    , light-gray-paper   .meta:n             = { paperstyle = lightgray   }
+    , light~gray~paper   .meta:n             = { paperstyle = lightgray   }
+    , light gray-paper   .meta:n             = { paperstyle = lightgray   }
+    , light gray~paper   .meta:n             = { paperstyle = lightgray   }
+    , light gray paper   .meta:n             = { paperstyle = lightgray   }
+    , gray-paper         .meta:n             = { paperstyle = gray        }
+    , gray~paper         .meta:n             = { paperstyle = gray        }
+    , gray paper         .meta:n             = { paperstyle = gray        }
+    , nord-paper         .meta:n             = { paperstyle = nord        }
+    , nord~paper         .meta:n             = { paperstyle = nord        }
+    , nord paper         .meta:n             = { paperstyle = nord        }
+    , dark-paper         .meta:n             = { paperstyle = dark        }
+    , dark~paper         .meta:n             = { paperstyle = dark        }
+    , dark paper         .meta:n             = { paperstyle = dark        }
+    , unknown            .code:n             = {}
   }
 \ProcessKeyOptions [ projlib-paper ]
 
@@ -3585,19 +3590,28 @@
 
 \str_case_e:nn { \l__projlib_paper_paperstyle_tl }
   {
-    { yellow      } { \definecolor { paper }     { RGB } { 247, 246, 233 } }
-    { parchment   } { \definecolor { paper }     { RGB } { 224, 204, 160 } }
-    { green       } { \definecolor { paper }     { RGB } { 207, 231, 207 } }
-    { lightgray   } { \definecolor { paper }     { RGB } { 236, 239, 244 }
-                      \definecolor { main-text } { RGB } {  37,  41,  46 } }
-    { light-gray  } { \definecolor { paper }     { RGB } { 236, 239, 244 }
-                      \definecolor { main-text } { RGB } {  37,  41,  46 } }
-    { gray        } { \definecolor { paper }     { RGB } { 127, 130, 136 }
-                      \definecolor { main-text } { RGB } { 236, 239, 244 } }
-    { nord        } { \definecolor { paper }     { RGB } {  46,  52,  64 }
-                      \definecolor { main-text } { RGB } { 214, 220, 230 } }
-    { dark        } { \definecolor { paper }     { RGB } {  28,  29,  33 }
-                      \definecolor { main-text } { RGB } { 210, 213, 217 } }
+    { light yellow } { \definecolor { paper }     { RGB } { 255, 254, 245 }
+                       \definecolor { main-text } { RGB } {  37,  41,  46 } }
+    { light-yellow } { \definecolor { paper }     { RGB } { 255, 254, 245 }
+                       \definecolor { main-text } { RGB } {  37,  41,  46 } }
+    { light~yellow } { \definecolor { paper }     { RGB } { 255, 254, 245 }
+                       \definecolor { main-text } { RGB } {  37,  41,  46 } }
+    { yellow       } { \definecolor { paper }     { RGB } { 247, 246, 233 } }
+    { parchment    } { \definecolor { paper }     { RGB } { 232, 225, 204 }
+                       \definecolor { main-text } { RGB } {  94,  78,  62 } }
+    { green        } { \definecolor { paper }     { RGB } { 207, 231, 207 } }
+    { light gray   } { \definecolor { paper }     { RGB } { 236, 239, 244 }
+                       \definecolor { main-text } { RGB } {  37,  41,  46 } }
+    { light-gray   } { \definecolor { paper }     { RGB } { 236, 239, 244 }
+                       \definecolor { main-text } { RGB } {  37,  41,  46 } }
+    { light~gray   } { \definecolor { paper }     { RGB } { 236, 239, 244 }
+                       \definecolor { main-text } { RGB } {  37,  41,  46 } }
+    { gray         } { \definecolor { paper }     { RGB } { 127, 130, 136 }
+                       \definecolor { main-text } { RGB } { 236, 239, 244 } }
+    { nord         } { \definecolor { paper }     { RGB } {  46,  52,  64 }
+                       \definecolor { main-text } { RGB } { 214, 220, 230 } }
+    { dark         } { \definecolor { paper }     { RGB } {  28,  29,  33 }
+                       \definecolor { main-text } { RGB } { 210, 213, 217 } }
   }
 
 \cs_new:Nn \projlib_paper_set_page_color:n
