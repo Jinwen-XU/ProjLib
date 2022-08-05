@@ -5251,7 +5251,7 @@
   }
 
 \colorlet { titlepage-main } { blue!50!cyan!50!black }
-\colorlet { titlepage-back } { blue!50!cyan!10!yellow!30 }
+\colorlet { titlepage-back } { blue!50!cyan!15!yellow!25 }
 
 \cs_new_protected:Nn \projlib_titlepage_render:n
   {
@@ -5284,8 +5284,8 @@
             \fontsize{18pt}{27pt}\selectfont
             \l_projlib_titlepage_subtitle_tl
           };
-      \node[text~width=.3\paperwidth, text~height=.3\paperheight, align=flush~left]
-        at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$)
+      \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
+        at ($(current~page.south)+(.135\paperwidth,.35\paperheight)$)
           {
             \color{titlepage-back}
             \begin{flushright}
@@ -5318,8 +5318,8 @@
             \fontsize{18pt}{27pt}\selectfont
             \l_projlib_titlepage_subtitle_tl
           };
-      \node[text~width=.3\paperwidth, text~height=.3\paperheight, align=flush~left]
-        at ($(current~page.south)+(.2\paperwidth,.3\paperheight)$)
+      \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
+        at ($(current~page.south)+(.135\paperwidth,.35\paperheight)$)
           {
             \color{white}
             \begin{flushright}
