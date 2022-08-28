@@ -3858,8 +3858,12 @@
 \RequirePackage { amsthm }
 \RequirePackage { create-theorem }
 
-\RenewCommandCopy \cref \crefthe
-\RenewCommandCopy \Cref \Crefthe
+\RenewCommandCopy \cref      \crefthe
+\RenewCommandCopy \Cref      \Crefthe
+\RenewCommandCopy \namecref  \namecrefthe
+\RenewCommandCopy \nameCref  \nameCrefthe
+\RenewCommandCopy \namecrefs \namecrefsthe
+\RenewCommandCopy \nameCrefs \nameCrefsthe
 
 \bool_if:NF \l__projlib_theorem_no_theorems_bool
   {
