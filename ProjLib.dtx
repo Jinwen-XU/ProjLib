@@ -3702,13 +3702,13 @@
     % i.e.
     \ProvideDocumentCommand { \ie } { }
       {
-        \projlib_text_abbreviation_generic:nn { \textit{i. \nobreak \hskip.2ex \nobreak e.} } { \skip_horizontal:n { -.25ex } }
+        \projlib_text_abbreviation_generic:nn { \textit{i. \nobreak \hskip.2ex \nobreak e.} } { \skip_horizontal:n { -.15ex ~plus -.15\tex_fontdimen:D 3 \tex_font:D~minus -.15\tex_fontdimen:D 4 \tex_font:D } }
       }
 
     % e.g.
     \ProvideDocumentCommand { \eg } { }
       {
-        \projlib_text_abbreviation_generic:nn { \textit{e. \nobreak \hskip.2ex \nobreak g.} } { \skip_horizontal:n { -.25ex } }
+        \projlib_text_abbreviation_generic:nn { \textit{e. \nobreak \hskip.2ex \nobreak g.} } { \skip_horizontal:n { -.15ex ~plus -.15\tex_fontdimen:D 3 \tex_font:D~minus -.15\tex_fontdimen:D 4 \tex_font:D } }
       }
 
     % cf.
