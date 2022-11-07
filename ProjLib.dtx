@@ -5243,10 +5243,16 @@
 \usetikzlibrary { calc }
 \ExplSyntaxOn
 
+\tl_new:N \l_projlib_titlepage_title_page_name_tl
+\tl_new:N \l_projlib_titlepage_license_page_name_tl
+\tl_set:Nn \l_projlib_titlepage_title_page_name_tl   { Cover   }
+\tl_set:Nn \l_projlib_titlepage_license_page_name_tl { License }
+
 \tl_new:N \l_projlib_titlepage_logo_tl
 \tl_new:N \l_projlib_titlepage_title_tl
 \tl_new:N \l_projlib_titlepage_subtitle_tl
 \tl_new:N \l_projlib_titlepage_author_tl
+\tl_new:N \l_projlib_titlepage_license_tl
 \tl_new:N \l_projlib_titlepage_date_tl
 \tl_new:N \l_projlib_titlepage_style_tl
 
@@ -5273,6 +5279,13 @@
     , subtitle          .code:n             = { \tl_set:Nn \l_projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { #1 } } }
     , author            .code:n             = { \tl_set:Nn \l_projlib_titlepage_author_tl { \tl_trim_spaces:n { #1 } } }
     , date              .code:n             = { \tl_set:Nn \l_projlib_titlepage_date_tl { \tl_trim_spaces:n { #1 } } }
+    , title-page-name   .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , title~page~name   .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , title page name   .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license-page-name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license~page~name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license page name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license           .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_tl { \tl_trim_spaces:n { #1 } } }
     , style             .tl_set:N           = \l_projlib_titlepage_style_tl
     , style             .initial:n          = { default }
     , color             .code:n             = {
@@ -5290,10 +5303,17 @@
 \cs_new_protected:Nn \projlib_titlepage_render:n
   {
     \keys_set:nn { projlib-titlepage-config } { #1 }
+    \tl_set_eq:NN \thepage \l_projlib_titlepage_title_page_name_tl
     \begin { titlepage }
       \cs_if_exist_use:c { projlib_titlepage_render_with_style_ \l_projlib_titlepage_style_tl : }
     \end   { titlepage }
-    \setcounter { page } { 0 }
+    \tl_set_eq:NN \thepage \l_projlib_titlepage_license_page_name_tl
+    \thispagestyle{empty}
+    \null\vfill
+    \tl_use:N \l_projlib_titlepage_license_tl
+    \cleardoublepage
+    \setcounter{page}{0}
+    \pagenumbering{roman}
   }
 
 \cs_new_protected:Nn \projlib_titlepage_render_with_style_default:
