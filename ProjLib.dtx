@@ -5252,6 +5252,7 @@
 \tl_new:N \l_projlib_titlepage_title_tl
 \tl_new:N \l_projlib_titlepage_subtitle_tl
 \tl_new:N \l_projlib_titlepage_author_tl
+\tl_new:N \l_projlib_titlepage_info_tl
 \tl_new:N \l_projlib_titlepage_license_tl
 \tl_new:N \l_projlib_titlepage_date_tl
 \tl_new:N \l_projlib_titlepage_style_tl
@@ -5285,7 +5286,10 @@
     , license-page-name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
     , license~page~name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
     , license page name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , info              .code:n             = { \tl_set:Nn \l_projlib_titlepage_info_tl { \tl_trim_spaces:n { #1 } } }
+    , info              .initial:n          = { }
     , license           .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_tl { \tl_trim_spaces:n { #1 } } }
+    , license           .initial:n          = { }
     , style             .tl_set:N           = \l_projlib_titlepage_style_tl
     , style             .initial:n          = { default }
     , color             .code:n             = {
@@ -5310,6 +5314,9 @@
     \tl_set_eq:NN \thepage \l_projlib_titlepage_license_page_name_tl
     \thispagestyle{empty}
     \null\vfill
+    \begin{flushleft}
+      \tl_use:N \l_projlib_titlepage_info_tl
+    \end{flushleft}
     \tl_use:N \l_projlib_titlepage_license_tl
     \cleardoublepage
     \setcounter{page}{0}
