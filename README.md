@@ -6,7 +6,7 @@
 
 > **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French, meaning "*Free Project*").
 
-> **This bundle is dated 2022/11/07. Please note that the documentations are not yet up-to-date.**
+> **This bundle is dated 2022/11/20. Please note that the documentations are not yet up-to-date.**
 
 ## Introduction
 
