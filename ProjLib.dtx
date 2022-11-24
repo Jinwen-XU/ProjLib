@@ -2599,13 +2599,13 @@
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
-\bool_if:NF \l__projlib_font_lmodern_bool
-  {
-    \hook_gput_code:nnn { package/tikz-cd/after } { projlib-font }
-      {
-        \tikzcdset{arrow~style={math~font}}
-      }
-  }
+% \bool_if:NF \l__projlib_font_lmodern_bool
+%   {
+%     \hook_gput_code:nnn { package/tikz-cd/after } { projlib-font }
+%       {
+%         \tikzcdset{arrow~style={math~font}}
+%       }
+%   }
 
 \PassOptionsToPackage { verbose = silent } { microtype }
 \RequirePackage { microtype }
