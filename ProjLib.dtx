@@ -19,84 +19,84 @@
 %<*ProjLib>
 \ProvidesExplPackage
   {ProjLib}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Collective interface of the ProjLib toolkit}
 %</ProjLib>
 %
 %<*projlib-author>
 \ProvidesExplPackage
   {projlib-author}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Enhanced author information block}
 %</projlib-author>
 %
 %<*projlib-datetime>
 \ProvidesExplPackage
   {projlib-datetime}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Convert numeric date-time string to natural language}
 %</projlib-datetime>
 %
 %<*projlib-draft>
 \ProvidesExplPackage
   {projlib-draft}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Useful commands during draft stage}
 %</projlib-draft>
 %
 %<*projlib-font>
 \ProvidesExplPackage
   {projlib-font}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Font selection and configuration}
 %</projlib-font>
 %
 %<*projlib-language>
 \ProvidesExplPackage
   {projlib-language}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Multi-language configuration}
 %</projlib-language>
 %
 %<*projlib-logo>
 \ProvidesExplPackage
   {projlib-logo}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {The ProjLib logo}
 %</projlib-logo>
 %
 %<*projlib-math>
 \ProvidesExplPackage
   {projlib-math}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Efficient math setup}
 %</projlib-math>
 %
 %<*projlib-paper>
 \ProvidesExplPackage
   {projlib-paper}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Configuration of the paper style}
 %</projlib-paper>
 %
 %<*projlib-text>
 \ProvidesExplPackage
   {projlib-text}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Text-related commands}
 %</projlib-text>
 %
 %<*projlib-theorem>
 \ProvidesExplPackage
   {projlib-theorem}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Configuration of theorem-like environments}
 %</projlib-theorem>
 %
 %<*projlib-titlepage>
 \ProvidesExplPackage
   {projlib-titlepage}
-  {2023/01/01} {}
+  {2023/01/05} {}
   {Commands for rendering the title page}
 %</projlib-titlepage>
 
@@ -3768,43 +3768,50 @@
 %<*projlib-theorem>
 \keys_define:nn { projlib-theorem }
   {
-    , no-theorems           .bool_set:N         = \l__projlib_theorem_no_theorems_bool
-    , no-theorems           .initial:n          = { false }
-    , no~theorems           .bool_set:N         = \l__projlib_theorem_no_theorems_bool
-    , no theorems           .bool_set:N         = \l__projlib_theorem_no_theorems_bool
-    , nothms                .bool_set:N         = \l__projlib_theorem_no_theorems_bool
-    , no-theorem-numbering  .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
-    , no-theorem-numbering  .initial:n          = { false }
-    , no~theorem~numbering  .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
-    , no theorem numbering  .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
-    , nothmnum              .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
-    , theorem-numbering     .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
-    , theorem-numbering     .default:n          = { * }
-    , theorem~numbering     .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
-    , theorem~numbering     .default:n          = { * }
-    , theorem numbering     .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
-    , theorem numbering     .default:n          = { * }
-    , thmnum                .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
-    , thmnum                .default:n          = { * }
-    , theorem-style         .tl_set:N           = \l__projlib_theorem_theorem_style_tl
-    , theorem-style         .initial:n          = { }
-    , theorem-style         .value_required:n   = true
-    , theorem~style         .tl_set:N           = \l__projlib_theorem_theorem_style_tl
-    , theorem~style         .value_required:n   = true
-    , theorem style         .tl_set:N           = \l__projlib_theorem_theorem_style_tl
-    , theorem style         .value_required:n   = true
-    , complex-name          .bool_set:N         = \l__projlib_theorem_complexname_bool
-    , complex-name          .initial:n          = { true }
-    , complex~name          .bool_set:N         = \l__projlib_theorem_complexname_bool
-    , complex name          .bool_set:N         = \l__projlib_theorem_complexname_bool
-    , simple-name           .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
-    , simple~name           .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
-    , simple name           .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
-    , no-preset-names       .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
-    , no-preset-names       .initial:n          = { false }
-    , no~preset~names       .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
-    , no preset names       .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
-    , unknown               .code:n             = { \PassOptionsToPackage { \CurrentOption } { create-theorem } }
+    , no-theorems                 .bool_set:N         = \l__projlib_theorem_no_theorems_bool
+    , no-theorems                 .initial:n          = { false }
+    , no~theorems                 .bool_set:N         = \l__projlib_theorem_no_theorems_bool
+    , no theorems                 .bool_set:N         = \l__projlib_theorem_no_theorems_bool
+    , nothms                      .bool_set:N         = \l__projlib_theorem_no_theorems_bool
+    , no-theorem-numbering        .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
+    , no-theorem-numbering        .initial:n          = { false }
+    , no~theorem~numbering        .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
+    , no theorem numbering        .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
+    , nothmnum                    .bool_set:N         = \l__projlib_theorem_no_theorem_numbering_bool
+    , theorem-numbering           .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
+    , theorem-numbering           .default:n          = { * }
+    , theorem~numbering           .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
+    , theorem~numbering           .default:n          = { * }
+    , theorem numbering           .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
+    , theorem numbering           .default:n          = { * }
+    , thmnum                      .tl_set:N           = \l__projlib_theorem_theorem_numbering_tl
+    , thmnum                      .default:n          = { * }
+    , separate-theorem-numbering  .bool_set:N         = \l__projlib_theorem_separate_theorem_numbering_bool
+    , separate-theorem-numbering  .initial:n          = { false }
+    , separate~theorem~numbering  .bool_set:N         = \l__projlib_theorem_separate_theorem_numbering_bool
+    , separate theorem numbering  .bool_set:N         = \l__projlib_theorem_separate_theorem_numbering_bool
+    , number-theorems-separately  .bool_set:N         = \l__projlib_theorem_separate_theorem_numbering_bool
+    , number~theorems~separately  .bool_set:N         = \l__projlib_theorem_separate_theorem_numbering_bool
+    , number theorems separately  .bool_set:N         = \l__projlib_theorem_separate_theorem_numbering_bool
+    , theorem-style               .tl_set:N           = \l__projlib_theorem_theorem_style_tl
+    , theorem-style               .initial:n          = { }
+    , theorem-style               .value_required:n   = true
+    , theorem~style               .tl_set:N           = \l__projlib_theorem_theorem_style_tl
+    , theorem~style               .value_required:n   = true
+    , theorem style               .tl_set:N           = \l__projlib_theorem_theorem_style_tl
+    , theorem style               .value_required:n   = true
+    , complex-name                .bool_set:N         = \l__projlib_theorem_complexname_bool
+    , complex-name                .initial:n          = { true }
+    , complex~name                .bool_set:N         = \l__projlib_theorem_complexname_bool
+    , complex name                .bool_set:N         = \l__projlib_theorem_complexname_bool
+    , simple-name                 .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
+    , simple~name                 .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
+    , simple name                 .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
+    , no-preset-names             .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
+    , no-preset-names             .initial:n          = { false }
+    , no~preset~names             .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
+    , no preset names             .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
+    , unknown                     .code:n             = { \PassOptionsToPackage { \CurrentOption } { create-theorem } }
   }
 \ProcessKeyOptions [ projlib-theorem ]
 
@@ -3917,22 +3924,41 @@
             \cs_if_exist:cTF { c@chapter }
               { % with \chapter
                 \CreateTheorem { theorem } { parent counter = chapter, create starred version }
+                \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
+                  {
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = chapter, create starred version }
+                  }
               }
               { % without \chapter
                 \CreateTheorem { theorem } { parent counter = section, create starred version }
+                \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
+                  {
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = section, create starred version }
+                  }
               }
           }
           {
             \tl_if_eq:NnTF \l__projlib_theorem_theorem_numbering_tl { * }
               {
                 \CreateTheorem { theorem } { create starred version }
+                \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
+                  {
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { create starred version }
+                  }
               }
               {
                 \CreateTheorem { theorem } { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
+                \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
+                  {
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
+                  }
               }
           }
 
-        \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { shared counter = theorem, create starred version, quiet }
+        \bool_if:NF \l__projlib_theorem_separate_theorem_numbering_bool
+          {
+            \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { shared counter = theorem, create starred version, quiet }
+          }
       }
   }
 
