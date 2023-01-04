@@ -1,14 +1,16 @@
-<!-- Copyright (C) 2021-2022 by Jinwen XU -->
+<!-- Copyright (C) 2021-2023 by Jinwen XU -->
 
 ![image](https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png)
 
 # The `ProjLib` Toolkit
 
-> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French, meaning "*Free Project*").
+> **This bundle is dated 2023/01/01.**
 
-> **This bundle is dated 2022/11/20. Please note that the documentations are not yet up-to-date.**
+> **New documentations are being written and are expected to be completed by the end of 2023. In the meantime, only the core code would be included in TeX Live 2023 coming this April (old documentations have been removed from the distribution).**
 
 ## Introduction
+
+> **ProjLib** can be interpreted as "***Proj**ect **Lib**rary*" (in English), or as "***Proj**et **Lib**re*" (in French, meaning "*Free Project*").
 
 `ProjLib` is a collection of tools that help you write LaTeX document. With the main package `ProjLib` loaded (note that it is *case-sensitive*), you no longer need to manually configure the appropriate multilingual settings nor to set up the theorem-like environments. In addition, a series of auxiliary functionalities are introduced.
 
@@ -49,19 +51,19 @@ The modules include:
     - `\DefineOperator` and `\DefineShortcut` for setting up math macros efficiently.
     - `\ListOfSymbols` for printing list of symbols.
 1. module `paper` - *Configuration of the paper style*
-    - Paper style configuration, with the themes `yellow`, `green`, `light gray`, `gray`, `dark`, etc.
+    - Paper style configuration, with the themes `light yellow`, `yellow`, `green`, `light gray`, `gray`, `dark`, etc.
 1. module `text` - *Text-related commands*
     - Provide a few useful commands such as `\ie`, `\eg`, `\cf`, `\etc` ; and if you have your own version defined, they won't interfere with your definition.
     - `\ItemDescription` for writing leading description to items in `itemize` or `enumerate`.
 1. module `theorem` - *Configuration of theorem-like environments*
     - Setting up theorem-like environments based on the package `create-theorem`
         - `\CreateTheorem`, `\SetTheorem` and more...
-        - In particular, supporting the modes `name as is` and `name as context` for referencing names.
+        - In particular, supporting the modes `name as is` and `name as context` for the referencing names.
     - Supporting the modes `simple name` and `complex name` for the referencing names.
     - `\SwitchTheoremNumbering` and `\DisableTheoremNumbering` for manipulating the numbering.
     - Preset environments include: `application`, `assertion`, `assumption`, `axiom`, `claim`, `conclusion`, `conjecture`, `construction`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `recall`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
 1. module `titlepage` - *Commands for rendering the title page*
-    - Currently support two title page styles: `default` and `simple`.
+    - Currently support four title page styles: `default`, `academic`, `minimalist` and `simple`.
 
 > Since the module `theorem` uses `cleveref`, it should be loaded after `varioref` and `hyperref` (same for the main package `ProjLib`).
 
