@@ -3177,27 +3177,49 @@
   }
 
 \msg_new:nnn { projlib-language }
-  { language-not-support }
+  { language-not-supported }
   { The~language~"#1"~is~not~supported. }
+\msg_new:nnn { projlib-language }
+  { language-not-enabled }
+  { The~language~"#1"~is~not~enabled. }
 
 \cs_new:Nn \projlib_language_use_language_locally:nn
   {
-    \cs_if_exist_use:cF { projlib_language_apply_settings_locally_ \projlib_language_str_to_languagename:n { #1 } :n }
+    \cs_if_exist:cTF { projlib_language_apply_settings_locally_ \projlib_language_str_to_languagename:n { #1 } :n }
       {
-        \msg_warning:nnn { projlib-language } { language-not-support } { #1 }
+        \bool_if:cTF { g__projlib_language_enabled_ \projlib_language_str_to_languagename:n { #1 } _bool }
+          {
+            \use:c { projlib_language_apply_settings_locally_ \projlib_language_str_to_languagename:n { #1 } :n } { #2 }
+          }
+          {
+            \msg_warning:nnn { projlib-language } { language-not-enabled } { #1 }
+            #2
+          }
       }
-      { #2 }
+      {
+        \msg_warning:nnn { projlib-language } { language-not-supported } { #1 }
+        #2
+      }
   }
 \cs_generate_variant:Nn \projlib_language_use_language_locally:nn { e }
 
 \cs_new:Nn \projlib_language_use_language:n
   {
-    \cs_if_exist_use:cF { projlib_language_apply_settings_globally_ \projlib_language_str_to_languagename:n { #1 } : }
+    \cs_if_exist:cTF { projlib_language_apply_settings_globally_ \projlib_language_str_to_languagename:n { #1 } : }
       {
-        \msg_warning:nnn { projlib-language } { language-not-support } { #1 }
+        \bool_if:cTF { g__projlib_language_enabled_ \projlib_language_str_to_languagename:n { #1 } _bool }
+          {
+            \use:c { projlib_language_apply_settings_globally_ \projlib_language_str_to_languagename:n { #1 } : }
+            \cs_if_exist_use:c { g_projlib_language_linespacing_ \projlib_language_str_to_languagetype:n { #1 } _tl }
+            \cs_if_exist_use:c { g_projlib_language_parindent_ \projlib_language_str_to_languagetype:n { #1 } _tl }
+          }
+          {
+            \msg_warning:nnn { projlib-language } { language-not-enabled } { #1 }
+          }
       }
-    \cs_if_exist_use:c { g_projlib_language_linespacing_ \projlib_language_str_to_languagetype:n { #1 } _tl }
-    \cs_if_exist_use:c { g_projlib_language_parindent_ \projlib_language_str_to_languagetype:n { #1 } _tl }
+      {
+        \msg_warning:nnn { projlib-language } { language-not-supported } { #1 }
+      }
   }
 \cs_generate_variant:Nn \projlib_language_use_language:n { e }
 
