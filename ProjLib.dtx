@@ -3236,6 +3236,11 @@
       \projlib_language_use_language_locally:en { #1 } { #2 }
     \group_end:
   }
+\NewDocumentEnvironment { OtherLanguage } { m +b }
+  {
+    \projlib_language_use_language_locally:en { #1 } { #2 }
+  }
+  { }
 
 \UseLanguage { \g__projlib_language_main_str }
 
@@ -5436,12 +5441,12 @@
       \fill [color=titlepage-main] ($(current~page.north~west)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \fill [color=titlepage-back] ($(current~page.north~east)$) rectangle ($(current~page.north~west)+(.125\paperwidth,-.3\paperheight)$);
       \node[text~width=.3\paperwidth, text~height=.2\paperheight, align=flush~left]
-        at ($(current~page.north~west)+(.32\paperwidth,-.17\paperheight)$)
+        at ($(current~page.north~west)+(.333\paperwidth,-.17\paperheight)$)
           {
             \projlib_titlepage_show_logo:n { \scalebox { 2 } { \ProjLib } }
           };
       \node[text~width=.8\paperwidth, text~height=.5\paperheight, align=flush~left]
-        at ($(current~page.north~west)+(.57\paperwidth,-.28\paperheight)$)
+        at ($(current~page.north~west)+(.583\paperwidth,-.28\paperheight)$)
           {
             \color{titlepage-back}
             \sffamily
@@ -5470,12 +5475,12 @@
       \fill[color=white] ($(current~page.south~west)$) rectangle ($(current~page.north~east)$);
       \fill[color=titlepage-main] ($(current~page.south~west)$) rectangle ($(current~page.north~east)+(0,-.3\paperheight)$);
       \node[text~width=.3\paperwidth, text~height=.2\paperheight, align=flush~left]
-        at ($(current~page.north~west)+(.27\paperwidth,-.15\paperheight)$)
+        at ($(current~page.north~west)+(.28\paperwidth,-.15\paperheight)$)
           {
             \projlib_titlepage_show_logo:n { \scalebox { 2 } { \ProjLib } }
           };
       \node[text~width=.8\paperwidth, text~height=.5\paperheight, align=flush~left]
-        at ($(current~page.north~west)+(.52\paperwidth,-.28\paperheight)$)
+        at ($(current~page.north~west)+(.53\paperwidth,-.28\paperheight)$)
           {
             \color{white}
             \sffamily
