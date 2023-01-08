@@ -317,7 +317,6 @@
 
 
     \NewCommandCopy \projlib_author_backup_footnotemark: \footnotemark
-    \tl_gset:Nn \footnotemark {}
 
     \NewCommandCopy \projlib_author_backup_thanks:w \thanks
     \cs_undefine:N \thanks
@@ -341,7 +340,9 @@
           {
             \hook_gput_code:nnn { cmd/@title/after } { projlib-author }
               {
+                \tl_set:Nn \footnotemark {}
                 \projlib_author_pre_thanks:n { #1 }
+                \RenewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
               }
           }
       }
@@ -353,10 +354,8 @@
           {
             \projlib_author_backup_my_author:w
               {
-                \RenewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
                 \RenewCommandCopy \thanks \projlib_author_backup_thanks:w
                 #1
-                \tl_gset:Nn \footnotemark {}
               }
           }
       }
@@ -443,8 +442,8 @@
             \cs_undefine:N \email
             \cs_undefine:N \dedicatory
             \cs_undefine:N \keywords
-            \cs_undefine:N \footnotemark
-            \NewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
+            % \cs_undefine:N \footnotemark
+            % \NewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
             \bool_gset_true:N \g__projlib_author_already_maketitle_bool
           }
       }
