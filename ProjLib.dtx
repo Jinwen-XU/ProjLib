@@ -3961,14 +3961,14 @@
                 \CreateTheorem { theorem } { parent counter = chapter, create starred version }
                 \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
                   {
-                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = chapter, create starred version }
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = chapter, create starred version, quiet }
                   }
               }
               { % without \chapter
                 \CreateTheorem { theorem } { parent counter = section, create starred version }
                 \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
                   {
-                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = section, create starred version }
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = section, create starred version, quiet }
                   }
               }
           }
@@ -3978,14 +3978,14 @@
                 \CreateTheorem { theorem } { create starred version }
                 \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
                   {
-                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { create starred version }
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { create starred version, quiet }
                   }
               }
               {
                 \CreateTheorem { theorem } { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
                 \bool_if:NT \l__projlib_theorem_separate_theorem_numbering_bool
                   {
-                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version }
+                    \exp_args:Nv \CreateTheorem { c_projlib_theorem_supported_clist } { parent counter = \l__projlib_theorem_theorem_numbering_tl, create starred version, quiet }
                   }
               }
           }
