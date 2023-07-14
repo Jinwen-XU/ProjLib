@@ -5426,7 +5426,9 @@
     \begin{flushleft}
       \tl_use:N \l_projlib_titlepage_info_tl
     \end{flushleft}
-    \tl_use:N \l_projlib_titlepage_license_tl
+    \group_begin:
+      \tl_use:N \l_projlib_titlepage_license_tl
+    \group_end:
     \cleardoublepage
     \setcounter{page}{0}
     \pagenumbering{roman}
