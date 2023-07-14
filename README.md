@@ -1,12 +1,13 @@
 <!-- Copyright (C) 2021-2023 by Jinwen XU -->
 
-![image](https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png)
+<!-- ![image](https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png) -->
+<div align=center><img height="150" src="https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png"/></div>
 
 # The `ProjLib` Toolkit
 
-> **This bundle is dated 2023/01/05.**
+> **This bundle is dated 2023/07/14.**
 
-> **New documentations are being written and are expected to be completed by the end of 2023. In the meantime, only the core code would be included in TeX Live 2023 coming this April (old documentations have been removed from the distribution).**
+> **New documentations are still being written. For now, only the core code is included in TeX Live 2023 (old documentations have been removed from the distribution).**
 
 ## Introduction
 
@@ -67,14 +68,14 @@ The modules include:
 
 > Since the module `theorem` uses `cleveref`, it should be loaded after `varioref` and `hyperref` (same for the main package `ProjLib`).
 
-## Regarding the files and the compilation of documentations
+<!-- ## Regarding the files and the compilation of documentations -->
 
 ### How to get these files
-You can get the `.sty` files mentioned above simply by compiling `ProjLib.ins`:
+You can get the `.sty` files mentioned above by compiling `ProjLib.ins`:
 ```
 latex ProjLib.ins
 ```
-
+<!--
 ### How to get the source of the documentation
 You can get the `.tex` source files of the documentation by compiling `ProjLib-doc.ins`:
 ```
@@ -90,6 +91,7 @@ Here `**` should be replaced with the language identifier, such as `en`.
 
 ### Automation
 All these can be done with the given script `MakeFile.sh`.
+-->
 
 # License
 
