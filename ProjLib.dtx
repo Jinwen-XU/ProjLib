@@ -2305,6 +2305,8 @@
       }
     \tl_gput_right:Nx \g__projlib_draft_DNF_report_tl
       {
+        \group_begin:
+        \exp_not:N \normalfont
         \cs_if_exist:cTF { hyperlink }
           {
             \exp_not:N \hyperlink { DNF. \jobname. \int_value:w \theprojlib_draft_DNF_counter } { \exp_not:N \pageref* { DNF. \jobname. \int_value:w \theprojlib_draft_DNF_counter } }
@@ -2312,6 +2314,7 @@
           {
             \exp_not:N \pageref* { DNF. \jobname. \int_value:w \theprojlib_draft_DNF_counter }
           }
+        \group_end:
       }
     \tl_gput_right:Nn \g__projlib_draft_DNF_report_tl
       {
