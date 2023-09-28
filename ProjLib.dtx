@@ -193,13 +193,17 @@
 \tl_gset:Nn \g__projlib_author_font_curraddr_tl    { \small \normalfont \itshape }
 \tl_gset:Nn \g__projlib_author_font_email_tl       { \small \normalfont \ttfamily }
 
-\dim_new:N  \g__projlib_author_length_innersep_dim
-\dim_new:N  \g__projlib_author_length_sep_dim
-\dim_new:N  \g__projlib_author_length_aftersep_dim
+\dim_new:N  \g__projlib_author_groupsep_dim
+\dim_new:N  \g__projlib_author_innersep_dim
+\dim_new:N  \g__projlib_author_affilsep_dim
+\dim_new:N  \g__projlib_author_aftersep_dim
+\dim_new:N  \g__projlib_author_emptysep_dim
 
-\dim_set:Nn \g__projlib_author_length_innersep_dim { 0.3 \baselineskip }
-\dim_set:Nn \g__projlib_author_length_sep_dim      { 0.5 \baselineskip }
-\dim_set:Nn \g__projlib_author_length_aftersep_dim { 0.3 \baselineskip }
+\dim_set:Nn \g__projlib_author_groupsep_dim { 0.5 \baselineskip }
+\dim_set:Nn \g__projlib_author_innersep_dim { .25 \baselineskip }
+\dim_set:Nn \g__projlib_author_affilsep_dim {   0 \baselineskip }
+\dim_set:Nn \g__projlib_author_aftersep_dim { .15 \baselineskip }
+\dim_set:Nn \g__projlib_author_emptysep_dim { 0.5 \baselineskip }
 
 
 \bool_new:N \g__projlib_author_affil_already_exist_bool
@@ -209,11 +213,20 @@
   {
     \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
       {
-        \phantom {A} \\[-\baselineskip]
-        \skip_vertical:n { \g__projlib_author_length_sep_dim }
-        { \g__projlib_author_font_author_tl #1 }
         \bool_set_false:N \g__projlib_author_affil_already_exist_bool
-        \\ \phantom {}
+        % If there is nothing before, the following line does nothing
+        % If there is an affil before, this will backward one line
+        \phantom {A} \\[-\baselineskip]
+        \tl_if_blank:nTF { #1 }
+          {
+            \skip_vertical:n { \g__projlib_author_emptysep_dim }
+            \phantom {}
+          }
+          {
+            \skip_vertical:n { \g__projlib_author_groupsep_dim }
+            { \g__projlib_author_font_author_tl #1 }
+            \\ \phantom {}
+          }
       }
   }
 
@@ -223,13 +236,16 @@
   {
     \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
       {
-        \phantom {A} \\[-.9\baselineskip]
-        \bool_if:NF \g__projlib_author_affil_already_exist_bool
+        \phantom {A} \\[-\baselineskip]
+        \bool_if:NTF \g__projlib_author_affil_already_exist_bool
           {
-            \skip_vertical:n { \g__projlib_author_length_innersep_dim }
+            \skip_vertical:n { \g__projlib_author_affilsep_dim }
           }
-        \bool_set_true:N \g__projlib_author_affil_already_exist_bool
+          {
+            \skip_vertical:n { \g__projlib_author_innersep_dim }
+          }
         { \use:c { g__projlib_author_font_ #1 _tl } #2 }
+        \bool_set_true:N \g__projlib_author_affil_already_exist_bool
         \\ \phantom {}
       }
   }
@@ -267,14 +283,14 @@
   {
     \hook_gput_code:nnn { cmd/@author/before } { projlib-author }
       {
-        \skip_vertical:n { - \g__projlib_author_length_sep_dim }
+        \skip_vertical:n { - \g__projlib_author_groupsep_dim }
       }
     \hook_gput_code:nnn { cmd/@author/after } { projlib-author }
       {
         \skip_vertical:n { - \baselineskip }
         \bool_if:NT \g__projlib_author_affil_already_exist_bool
           {
-            \skip_vertical:n { \g__projlib_author_length_aftersep_dim }
+            \skip_vertical:n { \g__projlib_author_aftersep_dim }
           }
       }
   }
@@ -323,13 +339,13 @@
 
     % measure the width of "*"
     \hbox_set:Nn \l_tmpa_box { * }
-    \dim_const:Nn \c__projlib_author_length_width_of_asterisk_dim { \box_wd:N \l_tmpa_box }
+    \dim_const:Nn \c__projlib_author_width_of_asterisk_dim { \box_wd:N \l_tmpa_box }
 
     \cs_new_nopar:Nn \projlib_author_pre_thanks:n
       {
         \projlib_author_backup_thanks:w
           {
-            \skip_horizontal:n { - \c__projlib_author_length_width_of_asterisk_dim }
+            \skip_horizontal:n { - \c__projlib_author_width_of_asterisk_dim }
             #1
           }
       }
