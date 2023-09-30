@@ -108,14 +108,20 @@
     , author-block    .bool_set:N         = \l__projlib_main_author_bool
     , author~block    .bool_set:N         = \l__projlib_main_author_bool
     , author block    .bool_set:N         = \l__projlib_main_author_bool
+
     , ams-fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
     , ams-fashion     .initial:n          = { false }
     , ams~fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
     , ams fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , AMS-fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , AMS~fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+    , AMS fashion     .bool_set:N         = \l__projlib_main_amsfashion_bool
+
     , title-page      .bool_set:N         = \l__projlib_main_titlepage_bool
     , title-page      .initial:n          = { false }
     , title~page      .bool_set:N         = \l__projlib_main_titlepage_bool
     , title page      .bool_set:N         = \l__projlib_main_titlepage_bool
+
     , unknown         .code:n             = {
                                               \PassOptionsToPackage { \CurrentOption } { projlib-author }
                                               \PassOptionsToPackage { \CurrentOption } { projlib-datetime }
@@ -167,6 +173,10 @@
     , ams-fashion .initial:n  = { false }
     , ams~fashion .bool_set:N = \l__projlib_author_amsfashion_bool
     , ams fashion .bool_set:N = \l__projlib_author_amsfashion_bool
+    , AMS-fashion .bool_set:N = \l__projlib_author_amsfashion_bool
+    , AMS~fashion .bool_set:N = \l__projlib_author_amsfashion_bool
+    , AMS fashion .bool_set:N = \l__projlib_author_amsfashion_bool
+
     , unknown     .code:n     = {}
   }
 \ProcessKeyOptions [ projlib-author ]
@@ -182,12 +192,14 @@
   }
 
 \tl_new:N   \g__projlib_author_font_author_tl
+\tl_new:N   \g__projlib_author_font_date_tl
 \tl_new:N   \g__projlib_author_font_institute_tl
 \tl_new:N   \g__projlib_author_font_address_tl
 \tl_new:N   \g__projlib_author_font_curraddr_tl
 \tl_new:N   \g__projlib_author_font_email_tl
 
 \tl_gset:Nn \g__projlib_author_font_author_tl      { \normalsize \normalfont \scshape }
+\tl_gset:Nn \g__projlib_author_font_date_tl      { \normalsize \normalfont }
 \tl_gset:Nn \g__projlib_author_font_institute_tl   { \small \normalfont }
 \tl_gset:Nn \g__projlib_author_font_address_tl     { \small \normalfont \itshape }
 \tl_gset:Nn \g__projlib_author_font_curraddr_tl    { \small \normalfont \itshape }
@@ -203,7 +215,7 @@
 \dim_set:Nn \g__projlib_author_innersep_dim { .25 \baselineskip }
 \dim_set:Nn \g__projlib_author_affilsep_dim {   0 \baselineskip }
 \dim_set:Nn \g__projlib_author_aftersep_dim { .15 \baselineskip }
-\dim_set:Nn \g__projlib_author_emptysep_dim { 0.5 \baselineskip }
+\dim_set:Nn \g__projlib_author_emptysep_dim { .15 \baselineskip }
 
 
 \bool_new:N \g__projlib_author_affil_already_exist_bool
@@ -409,7 +421,7 @@
         \makeatletter
         \xpatchcmd { \@maketitle } { \@date }
           {
-            \projlib_author_if_content_empty:nTF { \@date } { \skip_vertical:n { -2 \baselineskip } } { \@date }
+            \projlib_author_if_content_empty:nTF { \@date } { \skip_vertical:n { -2 \baselineskip } } { \g__projlib_author_font_date_tl \@date }
             \projlib_author_if_content_empty:nF { \g__projlib_author_dedicatory_tl }
               {
                 \projlib_author_if_content_empty:nT { \@date } { \skip_vertical:n { 2 \baselineskip } }
