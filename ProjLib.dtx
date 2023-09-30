@@ -2504,19 +2504,22 @@
   {
     \RequirePackage { mathpazo }
     \PassOptionsToPackage { defaultsups } { newpxtext }
-    \RequirePackage { newpxtext }
-    \cs_undefine:c { openbox }
-    \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
-    \sys_if_engine_pdftex:F
+    \PassOptionsToPackage { no-math } { fontspec }
+    \hook_gput_code:nnn { begindocument/before } { projlib-font }
       {
-        \setsansfont { texgyreheros }
-          [
-            Scale          = MatchUppercase ,
-            UprightFont    = *-regular ,
-            BoldFont       = *-bold ,
-            ItalicFont     = *-italic ,
-            BoldItalicFont = *-bolditalic ,
-          ]
+        \RequirePackage { newpxtext }
+        \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
+        \sys_if_engine_pdftex:F
+          {
+            \setsansfont { texgyreheros }
+              [
+                Scale          = MatchUppercase ,
+                UprightFont    = *-regular ,
+                BoldFont       = *-bold ,
+                ItalicFont     = *-italic ,
+                BoldItalicFont = *-bolditalic ,
+              ]
+          }
       }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.07 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
@@ -2525,20 +2528,23 @@
 \bool_if:NT \l__projlib_font_times_bool
   {
     \PassOptionsToPackage { defaultsups } { newtxtext }
-    \RequirePackage { newtxtext }
-    \RequirePackage { newtxmath }
-    \cs_undefine:c { openbox }
-    \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
-    \sys_if_engine_pdftex:F
+    \PassOptionsToPackage { no-math } { fontspec }
+    \hook_gput_code:nnn { begindocument/before } { projlib-font }
       {
-        \setsansfont { texgyreheros }
-          [
-            Scale          = MatchUppercase ,
-            UprightFont    = *-regular ,
-            BoldFont       = *-bold ,
-            ItalicFont     = *-italic ,
-            BoldItalicFont = *-bolditalic ,
-          ]
+        \RequirePackage { newtxtext }
+        \RequirePackage { newtxmath }
+        \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
+        \sys_if_engine_pdftex:F
+          {
+            \setsansfont { texgyreheros }
+              [
+                Scale          = MatchUppercase ,
+                UprightFont    = *-regular ,
+                BoldFont       = *-bold ,
+                ItalicFont     = *-italic ,
+                BoldItalicFont = *-bolditalic ,
+              ]
+          }
       }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
