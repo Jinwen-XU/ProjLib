@@ -711,92 +711,92 @@
 
 
 \cs_new_protected:Nn \projlib_datetime_display_month_day_year:n
-{
-  \__projlib_datetime_display_month_day_year:en { #1 } {}
-}
+  {
+    \__projlib_datetime_display_month_day_year:en { #1 } {}
+  }
 
 \cs_new_protected:Nn \projlib_datetime_display_month_day_year_uppercase:n
-{
-  \__projlib_datetime_display_month_day_year:en { #1 } { _uppercase }
-}
+  {
+    \__projlib_datetime_display_month_day_year:en { #1 } { _uppercase }
+  }
 
 \cs_new_protected:Nn \__projlib_datetime_display_month_day_year:nn
-{
-  \regex_match:nnTF { \A \d{1,2}-\d{1,2}-\d{4} \Z } { #1 }
-    {
-      \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
-      \cs_if_exist_use:c { projlib_datetime_display_year_month_day #2 _ \languagename :nnn }
-        { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 3 } } } % year
-        { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
-        { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % day
-    }
-    {
-      \regex_match:nnTF { \A \d{1,2}-\d{4} \Z } { #1 }
-        {
-          \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
-          \cs_if_exist_use:c { projlib_datetime_display_year_month #2 _ \languagename :nn }
-            { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % year
-            { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
-        }
-        {
-          \regex_match:nnTF { \A \d{1,2}-\d{1,2} \Z } { #1 }
-            {
-              \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
-              \cs_if_exist_use:c { projlib_datetime_display_month_day #2 _ \languagename :nn }
-                { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
-                { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % day
-            }
-            {
-              #1
-            }
-        }
-    }
-}
+  {
+    \regex_match:nnTF { \A \d{1,2}-\d{1,2}-\d{4} \Z } { #1 }
+      {
+        \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
+        \cs_if_exist_use:c { projlib_datetime_display_year_month_day #2 _ \languagename :nnn }
+          { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 3 } } } % year
+          { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
+          { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % day
+      }
+      {
+        \regex_match:nnTF { \A \d{1,2}-\d{4} \Z } { #1 }
+          {
+            \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
+            \cs_if_exist_use:c { projlib_datetime_display_year_month #2 _ \languagename :nn }
+              { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % year
+              { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
+          }
+          {
+            \regex_match:nnTF { \A \d{1,2}-\d{1,2} \Z } { #1 }
+              {
+                \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
+                \cs_if_exist_use:c { projlib_datetime_display_month_day #2 _ \languagename :nn }
+                  { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
+                  { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % day
+              }
+              {
+                #1
+              }
+          }
+      }
+  }
 \cs_generate_variant:Nn \__projlib_datetime_display_month_day_year:nn { en }
 
 
 \cs_new_protected:Nn \projlib_datetime_display_day_month_year:n
-{
-  \__projlib_datetime_display_day_month_year:en { #1 } {}
-}
+  {
+    \__projlib_datetime_display_day_month_year:en { #1 } {}
+  }
 
 \cs_new_protected:Nn \projlib_datetime_display_day_month_year_uppercase:n
-{
-  \__projlib_datetime_display_day_month_year:en { #1 } { _uppercase }
-}
+  {
+    \__projlib_datetime_display_day_month_year:en { #1 } { _uppercase }
+  }
 
 \cs_new_protected:Nn \__projlib_datetime_display_day_month_year:nn
-{
-  \regex_match:nnTF { \A \d{1,2}-\d{1,2}-\d{4} \Z } { #1 }
-    {
-      \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
-      \cs_if_exist_use:c { projlib_datetime_display_year_month_day #2 _ \languagename :nnn }
-        { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 3 } } } % year
-        { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % month
-        { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % day
-    }
-    {
-      \regex_match:nnTF { \A \d{1,2}-\d{4} \Z } { #1 }
-        {
-          \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
-          \cs_if_exist_use:c { projlib_datetime_display_year_month #2 _ \languagename :nn }
-            { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % year
-            { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
-        }
-        {
-          \regex_match:nnTF { \A \d{1,2}-\d{1,2} \Z } { #1 }
-            {
-              \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
-              \cs_if_exist_use:c { projlib_datetime_display_month_day #2 _ \languagename :nn }
-                { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % month
-                { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % day
-            }
-            {
-              #1
-            }
-        }
-    }
-}
+  {
+    \regex_match:nnTF { \A \d{1,2}-\d{1,2}-\d{4} \Z } { #1 }
+      {
+        \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
+        \cs_if_exist_use:c { projlib_datetime_display_year_month_day #2 _ \languagename :nnn }
+          { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 3 } } } % year
+          { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % month
+          { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % day
+      }
+      {
+        \regex_match:nnTF { \A \d{1,2}-\d{4} \Z } { #1 }
+          {
+            \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
+            \cs_if_exist_use:c { projlib_datetime_display_year_month #2 _ \languagename :nn }
+              { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % year
+              { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % month
+          }
+          {
+            \regex_match:nnTF { \A \d{1,2}-\d{1,2} \Z } { #1 }
+              {
+                \seq_set_split:Nnn \l__projlib_datetime_date_seq { - } { #1 }
+                \cs_if_exist_use:c { projlib_datetime_display_month_day #2 _ \languagename :nn }
+                  { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 2 } } } % month
+                  { \int_eval:n { \seq_item:Nn \l__projlib_datetime_date_seq { 1 } } } % day
+              }
+              {
+                #1
+              }
+          }
+      }
+  }
 \cs_generate_variant:Nn \__projlib_datetime_display_day_month_year:nn { en }
 
 
@@ -913,7 +913,7 @@
     \group_end:
   }
 
-  \NewDocumentCommand \ProjLibDate { O{} m O{} }
+\NewDocumentCommand \ProjLibDate { O{} m O{} }
   {
     \group_begin:
       \tl_if_blank:oF { #1 } { \keys_set:nn { projlib-datetime-command } { #1 } }
