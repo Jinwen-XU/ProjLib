@@ -5,7 +5,7 @@
 
 # The `ProjLib` Toolkit
 
-> **This bundle is dated 2023/09/30.**
+> **This bundle is dated 2023/10/15.**
 
 > **New documentations are still being written. For now, only the core code is included in TeX Live 2023 (old documentations have been removed from the distribution).**
 
@@ -93,6 +93,6 @@ Here `**` should be replaced with the language identifier, such as `en`.
 All these can be done with the given script `MakeFile.sh`.
 -->
 
-# License
+## License
 
 This work is released under the LaTeX Project Public License, v1.3c or later.
