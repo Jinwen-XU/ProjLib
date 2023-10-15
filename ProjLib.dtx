@@ -2507,8 +2507,11 @@
     \PassOptionsToPackage { no-math } { fontspec }
     \hook_gput_code:nnn { begindocument/before } { projlib-font }
       {
+        \bool_if:NT \l__projlib_font_useosf_bool
+          {
+            \PassOptionsToPackage { osf } { newpxtext }
+          }
         \RequirePackage { newpxtext }
-        \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
         \sys_if_engine_pdftex:F
           {
             \setsansfont { texgyreheros }
@@ -2531,9 +2534,12 @@
     \PassOptionsToPackage { no-math } { fontspec }
     \hook_gput_code:nnn { begindocument/before } { projlib-font }
       {
+        \bool_if:NT \l__projlib_font_useosf_bool
+          {
+            \PassOptionsToPackage { osf } { newtxtext }
+          }
         \RequirePackage { newtxtext }
         \RequirePackage { newtxmath }
-        \bool_if:NT \l__projlib_font_useosf_bool { \useosf }
         \sys_if_engine_pdftex:F
           {
             \setsansfont { texgyreheros }
