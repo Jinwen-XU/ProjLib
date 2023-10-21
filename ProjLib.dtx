@@ -3990,6 +3990,7 @@
     \tl_const:cn { c_crthm_theorem_style_preset_ proof_inner _tl } { remark }
   }
 
+\RequirePackage { mathtools }
 \RequirePackage { amsthm }
 \RequirePackage { create-theorem }
 
@@ -4001,6 +4002,8 @@
 \RenewCommandCopy \nameCrefs \nameCrefsthe
 \RenewCommandCopy \cpageref  \cpagerefthe
 \RenewCommandCopy \Cpageref  \Cpagerefthe
+\RenewCommandCopy \crefname  \crefthename
+\RenewCommandCopy \Crefname  \Crefthename
 
 \bool_if:NF \l__projlib_theorem_no_theorems_bool
   {
@@ -4223,10 +4226,10 @@
     \Crefname { table } { Таблица } { Таблицы }
     \Crefname { appendix } { Приложение } { Приложения }
     \tl_gset:Nn { \crefpairconjunction } { \nobreakspace и \nobreakspace }
-    \tl_gset:Nn { \crefmiddleconjunction } { , \nobreakspace }
+    \tl_gset:Nn { \crefmiddleconjunction } { , ~ }
     \tl_gset:Nn { \creflastconjunction } { \nobreakspace и \nobreakspace }
     \tl_gset:Nn { \crefpairgroupconjunction } { \nobreakspace и \nobreakspace }
-    \tl_gset:Nn { \crefmiddlegroupconjunction } { , \nobreakspace  }
+    \tl_gset:Nn { \crefmiddlegroupconjunction } { , ~  }
     \tl_gset:Nn { \creflastgroupconjunction } { \nobreakspace и \nobreakspace }
     \tl_gset:Nn { \crefrangeconjunction } { \nobreakspace \textasciitilde \nobreakspace }
   }
@@ -4242,14 +4245,26 @@
     \Crefname { table } { Tabela } { Tabelas }
     \Crefname { appendix } { Apêndice } { Apêndices }
     \tl_gset:Nn { \crefpairconjunction } { \nobreakspace e \nobreakspace }
-    \tl_gset:Nn { \crefmiddleconjunction } { , \nobreakspace }
+    \tl_gset:Nn { \crefmiddleconjunction } { , ~ }
     \tl_gset:Nn { \creflastconjunction } { \nobreakspace e \nobreakspace }
     \tl_gset:Nn { \crefpairgroupconjunction } { \nobreakspace e \nobreakspace }
-    \tl_gset:Nn { \crefmiddlegroupconjunction } { , \nobreakspace }
+    \tl_gset:Nn { \crefmiddlegroupconjunction } { , ~ }
     \tl_gset:Nn { \creflastgroupconjunction } { \nobreakspace e \nobreakspace }
     \tl_gset:Nn { \crefrangeconjunction } { \nobreakspace a \nobreakspace }
   }
 
+\crefformat{equation}{#2\cref@equation@name\nobreakspace\textup{\tagform@{#1}}#3}
+\Crefformat{equation}{#2\Cref@equation@name\nobreakspace\textup{\tagform@{#1}}#3}
+\crefrangeformat{equation}{\cref@equation@name@plural\nobreakspace#3\textup{\tagform@{#1}}#4\crefrangeconjunction#5\textup{\tagform@{#2}}#6}
+\Crefrangeformat{equation}{\Cref@equation@name@plural\nobreakspace#3\textup{\tagform@{#1}}#4\crefrangeconjunction#5\textup{\tagform@{#2}}#6}
+\crefmultiformat{equation}{\cref@equation@name@plural\nobreakspace#2\textup{\tagform@{#1}}#3}{\crefpairconjunction#2\textup{\tagform@{#1}}#3}{\crefmiddleconjunction#2\textup{\tagform@{#1}}#3}{\creflastconjunction#2\textup{\tagform@{#1}}#3}
+\Crefmultiformat{equation}{\Cref@equation@name@plural\nobreakspace#2\textup{\tagform@{#1}}#3}{\crefpairconjunction#2\textup{\tagform@{#1}}#3}{\crefmiddleconjunction#2\textup{\tagform@{#1}}#3}{\creflastconjunction#2\textup{\tagform@{#1}}#3}
+\crefrangemultiformat{equation}{\cref@equation@name@plural\nobreakspace#2\textup{\tagform@{#1}}#3}{\crefpairgroupconjunction#2\textup{\tagform@{#1}}#3}{\crefmiddlegroupconjunction#2\textup{\tagform@{#1}}#3}{\creflastgroupconjunction#2\textup{\tagform@{#1}}#3}
+\Crefrangemultiformat{equation}{\Cref@equation@name@plural\nobreakspace#2\textup{\tagform@{#1}}#3}{\crefpairgroupconjunction#2\textup{\tagform@{#1}}#3}{\crefmiddlegroupconjunction#2\textup{\tagform@{#1}}#3}{\creflastgroupconjunction#2\textup{\tagform@{#1}}#3}
+\labelcrefformat{equation}{#2\textup{\tagform@{#1}}#3}
+\labelcrefrangeformat{equation}{#3\textup{\tagform@{#1}}#4\crefrangeconjunction#5\textup{\tagform@{#2}}#6}
+\labelcrefmultiformat{equation}{#2\textup{\tagform@{#1}}#3}{\crefpairconjunction#2\textup{\tagform@{#1}}#3}{\crefmiddleconjunction#2\textup{\tagform@{#1}}#3}{\creflastconjunction#2\textup{\tagform@{#1}}#3}
+\labelcrefrangemultiformat{equation}{#2\textup{\tagform@{#1}}#3}{\crefpairgroupconjunction#2\textup{\tagform@{#1}}#3}{\crefmiddlegroupconjunction#2\textup{\tagform@{#1}}#3}{\creflastgroupconjunction#2\textup{\tagform@{#1}}#3}
 
 \bool_if:NF \l__projlib_theorem_presetname_bool { \endinput }
 \bool_if:NT \l__projlib_theorem_complexname_bool { \endinput }
