@@ -2445,27 +2445,36 @@
 %<*projlib-font>
 \keys_define:nn { projlib-font }
   {
-    , useosf           .bool_set:N   = \l__projlib_font_useosf_bool
-    , useosf           .initial:n    = { false }
-    , old-style-figures.bool_set:N   = \l__projlib_font_useosf_bool
-    , old~style~figures.bool_set:N   = \l__projlib_font_useosf_bool
-    , old style figures.bool_set:N   = \l__projlib_font_useosf_bool
-    , lmodern          .bool_set:N   = \l__projlib_font_lmodern_bool
-    , lmodern          .initial:n    = { false }
-    , latin-modern     .bool_set:N   = \l__projlib_font_lmodern_bool
-    , latin~modern     .bool_set:N   = \l__projlib_font_lmodern_bool
-    , latin modern     .bool_set:N   = \l__projlib_font_lmodern_bool
-    , palatino         .bool_set:N   = \l__projlib_font_palatino_bool
-    , palatino         .initial:n    = { false }
-    , times            .bool_set:N   = \l__projlib_font_times_bool
-    , times            .initial:n    = { false }
-    , garamond         .bool_set:N   = \l__projlib_font_garamond_bool
-    , garamond         .initial:n    = { false }
-    , noto             .bool_set:N   = \l__projlib_font_noto_bool
-    , noto             .initial:n    = { false }
-    , biolinum         .bool_set:N   = \l__projlib_font_biolinum_bool
-    , biolinum         .initial:n    = { false }
-    , unknown          .code:n       = {}
+    , useosf              .bool_set:N   = \l__projlib_font_useosf_bool
+    , useosf              .initial:n    = { false }
+    , old-style-figures   .bool_set:N   = \l__projlib_font_useosf_bool
+    , old~style~figures   .bool_set:N   = \l__projlib_font_useosf_bool
+    , old style figures   .bool_set:N   = \l__projlib_font_useosf_bool
+    , new-computer-modern .bool_set:N   = \l__projlib_font_newcomputermodern_bool
+    , new-computer-modern .initial:n    = { false }
+    , new~computer~modern .bool_set:N   = \l__projlib_font_newcomputermodern_bool
+    , new computer modern .bool_set:N   = \l__projlib_font_newcomputermodern_bool
+    , newcm               .bool_set:N   = \l__projlib_font_computermodern_bool
+    , computer-modern     .bool_set:N   = \l__projlib_font_computermodern_bool
+    , computer-modern     .initial:n    = { false }
+    , computer~modern     .bool_set:N   = \l__projlib_font_computermodern_bool
+    , computer modern     .bool_set:N   = \l__projlib_font_computermodern_bool
+    , latin-modern        .initial:n    = { false }
+    , latin-modern        .bool_set:N   = \l__projlib_font_latinmodern_bool
+    , latin~modern        .bool_set:N   = \l__projlib_font_latinmodern_bool
+    , latin modern        .bool_set:N   = \l__projlib_font_latinmodern_bool
+    , lmodern             .bool_set:N   = \l__projlib_font_latinmodern_bool
+    , palatino            .bool_set:N   = \l__projlib_font_palatino_bool
+    , palatino            .initial:n    = { false }
+    , times               .bool_set:N   = \l__projlib_font_times_bool
+    , times               .initial:n    = { false }
+    , garamond            .bool_set:N   = \l__projlib_font_garamond_bool
+    , garamond            .initial:n    = { false }
+    , noto                .bool_set:N   = \l__projlib_font_noto_bool
+    , noto                .initial:n    = { false }
+    , biolinum            .bool_set:N   = \l__projlib_font_biolinum_bool
+    , biolinum            .initial:n    = { false }
+    , unknown             .code:n       = {}
   }
 \ProcessKeyOptions [ projlib-font ]
 
@@ -2486,7 +2495,21 @@
       }
   }
 
-\bool_if:NT \l__projlib_font_lmodern_bool
+\bool_if:NT \l__projlib_font_newcomputermodern_bool
+  {
+    \usepackage[default]{fontsetup}
+    \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
+  }
+
+\bool_if:NT \l__projlib_font_computermodern_bool
+  {
+    \usepackage[olddefault]{fontsetup}
+    \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
+  }
+
+\bool_if:NT \l__projlib_font_latinmodern_bool
   {
     \RequirePackage { amssymb }
     \bool_if:NTF \l__projlib_font_useosf_bool
