@@ -5,7 +5,7 @@
 
 # The `ProjLib` Toolkit
 
-> **This bundle is dated 2023/10/15.**
+> **This bundle is dated 2023/11/05.**
 
 > **New documentations are still being written. For now, only the core code is included in TeX Live 2023 (old documentations have been removed from the distribution).**
 
