@@ -3300,6 +3300,11 @@
 
 \NewDocumentCommand \UseLanguage { m }
   {
+    % Set the configuration twice at different stages of begindocument
+    \hook_gput_code:nnn { begindocument } { projlib-language }
+      {
+        \projlib_language_use_language:e { #1 }
+      }
     \hook_gput_code:nnn { begindocument/end } { projlib-language }
       {
         \projlib_language_use_language:e { #1 }
