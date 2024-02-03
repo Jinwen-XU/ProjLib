@@ -5,7 +5,7 @@
 
 # The `ProjLib` Toolkit
 
-> **This bundle is dated 2023/11/05.**
+> **This bundle is dated 2024/02/03.**
 
 > **New documentations are still being written. For now, only the core code is included in TeX Live 2023 (old documentations have been removed from the distribution).**
 
@@ -63,8 +63,8 @@ The modules include:
     - Supporting the modes `simple name` and `complex name` for the referencing names.
     - `\SwitchTheoremNumbering` and `\DisableTheoremNumbering` for manipulating the numbering.
     - Preset environments include: `application`, `assertion`, `assumption`, `axiom`, `claim`, `conclusion`, `conjecture`, `construction`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `recall`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
-1. module `titlepage` - *Commands for rendering the title page*
-    - Currently support four title page styles: `default`, `academic`, `minimalist` and `simple`.
+1. module `titlepage` - *Interface for title page rendering*
+    - Currently support four title page styles: `default`, `academic`, `simple` and `fancy`.
 
 > Since the module `theorem` uses `cleveref`, it should be loaded after `varioref` and `hyperref` (same for the main package `ProjLib`).
 
