@@ -2565,18 +2565,29 @@
 
 \bool_if:NT \l__projlib_font_times_bool
   {
-    \PassOptionsToPackage { defaultsups } { newtxtext }
     \PassOptionsToPackage { no-math } { fontspec }
     \hook_gput_code:nnn { begindocument/before } { projlib-font }
       {
-        \bool_if:NT \l__projlib_font_useosf_bool
+        \sys_if_engine_pdftex:TF
           {
-            \PassOptionsToPackage { osf } { newtxtext }
+            \bool_if:NT \l__projlib_font_useosf_bool
+              {
+                \PassOptionsToPackage { osf } { newtxtext }
+              }
+            \PassOptionsToPackage { defaultsups } { newtxtext }
+            \RequirePackage { newtxtext }
+            \RequirePackage { newtxmath }
           }
-        \RequirePackage { newtxtext }
-        \RequirePackage { newtxmath }
-        \sys_if_engine_pdftex:F
           {
+            \RequirePackage { fontspec }
+            \setmainfont { texgyretermes }
+              [
+                Scale          = MatchUppercase ,
+                UprightFont    = *-regular ,
+                BoldFont       = *-bold ,
+                ItalicFont     = *-italic ,
+                BoldItalicFont = *-bolditalic ,
+              ]
             \setsansfont { texgyreheros }
               [
                 Scale          = MatchUppercase ,
@@ -2585,6 +2596,17 @@
                 ItalicFont     = *-italic ,
                 BoldItalicFont = *-bolditalic ,
               ]
+            \setmonofont { texgyrecursor }
+              [
+                Scale          = MatchUppercase ,
+                UprightFont    = *-regular ,
+                BoldFont       = *-bold ,
+                ItalicFont     = *-italic ,
+                BoldItalicFont = *-bolditalic ,
+              ]
+            \setmonofont{inconsolata}[Scale=MatchLowercase]
+            \RequirePackage { unicode-math }
+            \setmathfont { texgyretermes-math }
           }
       }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
