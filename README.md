@@ -5,7 +5,7 @@
 
 # The `ProjLib` Toolkit
 
-> **This bundle is dated 2024/02/20.**
+> **This bundle is dated 2024/02/22.**
 
 > **New documentations are still being written. For now, only the core code is included in TeX Live 2024 and MiKTeX (old documentations have been removed from the distribution).**
 
@@ -41,7 +41,7 @@ The modules include:
     - `\DNF` for marking unfinished part. In addition, a report of all unfinished places shall be printed at the last of your document.
     - Reimplemented `\blindtext` to support more languages.
 1. module `font` - *Font selection and configuration*
-    - Supporting Palatino, Times, Garamond, Biolinum, Noto, etc.
+    - Supporting New Computer Modern / Latin Modern, Palatino, Times, Garamond, Bembo, Biolinum, Noto, etc.
 1. module `language` - *Multi-language configuration*
     - `\UseLanguage`, `\UseOtherLanguage` for selecting languages, and `\AddLanguageSetting` for adding language-specific settings.
     - `\DefineMultilingualText` for defining multilingual text strings.
