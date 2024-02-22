@@ -2443,11 +2443,20 @@
 %<*projlib-font>
 \keys_define:nn { projlib-font }
   {
-    , useosf              .bool_set:N   = \l__projlib_font_useosf_bool
+    , use-osf              .bool_set:N   = \l__projlib_font_useosf_bool
     , useosf              .initial:n    = { false }
+    , use~osf              .bool_set:N   = \l__projlib_font_useosf_bool
+    , use osf              .bool_set:N   = \l__projlib_font_useosf_bool
     , old-style-figures   .bool_set:N   = \l__projlib_font_useosf_bool
     , old~style~figures   .bool_set:N   = \l__projlib_font_useosf_bool
+    , old-style~figures   .bool_set:N   = \l__projlib_font_useosf_bool
+    , old style~figures   .bool_set:N   = \l__projlib_font_useosf_bool
     , old style figures   .bool_set:N   = \l__projlib_font_useosf_bool
+    , old-style-figure    .bool_set:N   = \l__projlib_font_useosf_bool
+    , old~style~figure    .bool_set:N   = \l__projlib_font_useosf_bool
+    , old-style~figure    .bool_set:N   = \l__projlib_font_useosf_bool
+    , old style~figure    .bool_set:N   = \l__projlib_font_useosf_bool
+    , old style figure    .bool_set:N   = \l__projlib_font_useosf_bool
     , new-computer-modern .bool_set:N   = \l__projlib_font_newcomputermodern_bool
     , new-computer-modern .initial:n    = { false }
     , new~computer~modern .bool_set:N   = \l__projlib_font_newcomputermodern_bool
@@ -2468,10 +2477,15 @@
     , times               .initial:n    = { false }
     , garamond            .bool_set:N   = \l__projlib_font_garamond_bool
     , garamond            .initial:n    = { false }
-    , noto                .bool_set:N   = \l__projlib_font_noto_bool
-    , noto                .initial:n    = { false }
+    , bembo               .bool_set:N   = \l__projlib_font_bembo_bool
+    , bembo               .initial:n    = { false }
     , biolinum            .bool_set:N   = \l__projlib_font_biolinum_bool
     , biolinum            .initial:n    = { false }
+    , noto                .bool_set:N   = \l__projlib_font_noto_bool
+    , noto                .initial:n    = { false }
+    , use-font            .meta:n       = { #1 }
+    , use~font            .meta:n       = { #1 }
+    , use font            .meta:n       = { #1 }
     , unknown             .code:n       = {}
   }
 \ProcessKeyOptions [ projlib-font ]
@@ -2495,14 +2509,14 @@
 
 \bool_if:NT \l__projlib_font_newcomputermodern_bool
   {
-    \usepackage[default]{fontsetup}
+    \RequirePackage [default] { fontsetup }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
 \bool_if:NT \l__projlib_font_computermodern_bool
   {
-    \usepackage[olddefault]{fontsetup}
+    \RequirePackage [olddefault] { fontsetup }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
@@ -2621,14 +2635,24 @@
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
-\bool_if:NT \l__projlib_font_noto_bool
+\bool_if:NT \l__projlib_font_bembo_bool
   {
     \bool_if:NT \l__projlib_font_useosf_bool
       {
-        \PassOptionsToPackage { oldstyle } { notomath }
+        \PassOptionsToPackage { osf } { fbb }
       }
-    \RequirePackage { anyfontsize }
-    \RequirePackage { notomath }
+    \sys_if_engine_pdftex:F
+      {
+        \RequirePackage { fontspec }
+      }
+    \RequirePackage [full] { textcomp } % to get the right copyright, etc.
+    \RequirePackage [p] { fbb }
+    \RequirePackage [scaled=.95,type1] { cabin } % sans serif in style of Gill Sans
+    \RequirePackage [varqu,varl] { zi4 }% inconsolata typewriter
+    \RequirePackage [T1] { fontenc }
+    \RequirePackage [libertine] { newtxmath }
+    \RequirePackage [cal=boondoxo,bb=boondox,frak=boondox] { mathalfa }
+    \cs_undefine:c { openbox }
     \cs_undefine:c { Bbbk }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
@@ -2670,6 +2694,20 @@
       }
     \projlib_font_set_linespacing_latin:n { \setstretch { 1.05 } }
     \RequirePackage [ italic, defaultmathsizes ] { mathastext }
+    \bool_gset_true:N \g_projlib_font_already_set_bool
+  }
+
+\bool_if:NT \l__projlib_font_noto_bool
+  {
+    \bool_if:NT \l__projlib_font_useosf_bool
+      {
+        \PassOptionsToPackage { oldstyle } { notomath }
+      }
+    \RequirePackage { anyfontsize }
+    \RequirePackage { notomath }
+    \cs_undefine:c { openbox }
+    \cs_undefine:c { Bbbk }
+    \projlib_font_set_linespacing_latin:n { \setstretch { 1.00 } }
     \bool_gset_true:N \g_projlib_font_already_set_bool
   }
 
