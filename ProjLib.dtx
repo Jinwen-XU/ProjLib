@@ -355,11 +355,13 @@
 
     \cs_new_nopar:Nn \projlib_author_pre_thanks:n
       {
+        \tl_set:Nn \footnotemark {}
         \projlib_author_backup_thanks:w
           {
             \skip_horizontal:n { - \c__projlib_author_width_of_asterisk_dim }
             #1
           }
+        \RenewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
       }
 
     \NewDocumentCommand \thanks { m }
@@ -368,9 +370,7 @@
           {
             \hook_gput_code:nnn { cmd/@title/after } { projlib-author }
               {
-                \tl_set:Nn \footnotemark {}
                 \projlib_author_pre_thanks:n { #1 }
-                \RenewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
               }
           }
       }
@@ -483,7 +483,6 @@
         { Unknown~edition~(#1)~of~Mathematics~Subject~Classification;~using~'2020' }
       \NewDocumentCommand \subjclass { O{2020} m }
         {
-          \tl_set:Nn \footnotemark {}
           \tl_set:Nn \l_projlib_author_subjclass_tl { #2 }
           \tl_if_exist:cTF { subjclassname_#1 }
             {
@@ -499,7 +498,6 @@
               \enspace
               \l_projlib_author_subjclass_tl .
             }
-          \RenewCommandCopy \footnotemark \projlib_author_backup_footnotemark:
         }
       \tl_const:cn { subjclassname_1991 } { \textup{1991}~Mathematics~Subject~Classification }
       \tl_const:cn { subjclassname_2000 } { \textup{2000}~Mathematics~Subject~Classification }
