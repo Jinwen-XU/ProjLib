@@ -229,7 +229,7 @@
         % If there is nothing before, the following line does nothing
         % If there is an affil before, this will backward one line
         \phantom {A} \\[-\baselineskip]
-        \tl_if_blank:nTF { #1 }
+        \projlib_author_if_content_empty:nTF { #1 }
           {
             \skip_vertical:n { \g__projlib_author_emptysep_dim }
             \phantom {}
