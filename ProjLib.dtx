@@ -2199,7 +2199,7 @@
     }\ULon { #1 }
   }
 
-  \bool_if:NTF \l__projlib_draft_fast_bool
+\bool_if:NTF \l__projlib_draft_fast_bool
   {
     \tl_const:Nn \l_projlib_draft_plain_box_begin_tl { [ }
     \tl_const:Nn \l_projlib_draft_plain_box_after_tl { ] }
@@ -3978,9 +3978,15 @@
     , complex-name                .initial:n          = { true }
     , complex~name                .bool_set:N         = \l__projlib_theorem_complexname_bool
     , complex name                .bool_set:N         = \l__projlib_theorem_complexname_bool
+    , complex-names               .bool_set:N         = \l__projlib_theorem_complexname_bool
+    , complex~names               .bool_set:N         = \l__projlib_theorem_complexname_bool
+    , complex names               .bool_set:N         = \l__projlib_theorem_complexname_bool
     , simple-name                 .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
     , simple~name                 .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
     , simple name                 .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
+    , simple-names                .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
+    , simple~names                .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
+    , simple names                .bool_set_inverse:N = \l__projlib_theorem_complexname_bool
     , no-preset-names             .bool_set_inverse:N = \l__projlib_theorem_presetname_bool
     , no-preset-names             .initial:n          = { false }
     , no~preset~names             .bool_set_inverse:N = \l__projlib_theorem_presetname_bool

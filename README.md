@@ -24,18 +24,18 @@ To get started, simply put this line in your preamble:
 
 ## The modules
 
-> Each module corresponds to a separate package, for example, the module `theorem` is `projlib-theorem.sty`.
+> Each module corresponds to a separate package, for example, the module `theorem` is `projlib-theorem.sty`. These modules are managed by the main package `ProjLib.sty`.
 
 The modules include:
 1. module `author` - *Enhanced author information block*
-    - Offering `\address`, `\curraddr` and `\email`.
-    - Write in the AMS fashion (with option `ams-fashion`):
-        - Support `\dedicatory`, `\keywords` and `\subjclass`
+    - Offering `\address`, `\curraddr` and `\email`, etc.
+    - Allow writing in the AMS fashion (with option `ams-fashion`):
+        - support `\dedicatory`, `\keywords` and `\subjclass`;
         - `\thanks` can be written outside `\author`;
-        - The `abstract` environment can be placed before `\maketitle`.
+        - the `abstract` environment can be placed before `\maketitle`.
 1. module `datetime` - *Convert numeric date-time string to natural language*
     - `\TheDate` and `\Thedate` for converting numeric date-time string to natural language, with multi-language support (if the command names `\TheDate` or `\Thedate` are occupied, then one can switch to the longer version `\ProjLibDate` and `\ProjLibdate`).
-    - `\ProjLibToday` and `\ProjLibToday` (with the module `language` enabled, `\today` is redefined into `\ProjLibToday`, and thus supports the arguments like `only-year-month`).
+    - `\ProjLibToday` and `\ProjLibToday` (with the module `language` enabled, `\today` is redefined into `\ProjLibToday`, and thus supports additional arguments like `only-year-month`).
     - Multiple input and output format available.
 1. module `draft` - *Useful commands during draft stage*
     - `\DNF` for marking unfinished part. In addition, a report of all unfinished places shall be printed at the last of your document.
@@ -60,13 +60,27 @@ The modules include:
     - Setting up theorem-like environments based on the package `create-theorem`
         - `\CreateTheorem`, `\SetTheorem` and more...
         - In particular, supporting the modes `name as is` and `name as context` for the referencing names.
-    - Supporting the modes `simple name` and `complex name` for the referencing names.
+    - Offering two modes `complex names` (default) and `simple names` (better visual effect but less correct grammar) for the referencing names of those supported theorem-like environments.
     - `\SwitchTheoremNumbering` and `\DisableTheoremNumbering` for manipulating the numbering.
-    - Preset environments include: `application`, `assertion`, `assumption`, `axiom`, `claim`, `conclusion`, `conjecture`, `construction`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `recall`, `remark`, `theorem`, and the corresponding unnumbered version with an asterisk `*` in the name.
+    - Preset environments include: `application`, `assertion`, `assumption`, `axiom`, `claim`, `commentary`, `conclusion`, `conjecture`, `construction`, `convention`, `corollary`, `definition`, `definition-proposition`, `definition-theorem`, `example`, `exercise`, `fact`, `hypothesis`, `lemma`, `motivation`, `notation`, `observation`, `postulate`, `problem`, `property`, `proposition`, `question`, `recall`, `remark`, `theorem`, their plural version (among the most commonly used are `examples`, `facts` and `notations`), and the corresponding unnumbered version with an asterisk `*` in the name.
 1. module `titlepage` - *Interface for title page rendering*
     - Currently support four title page styles: `default`, `academic`, `simple` and `fancy`.
 
 > Since the module `theorem` uses `cleveref`, it should be loaded after `varioref` and `hyperref` (same for the main package `ProjLib`).
+
+> Package dependencies:
+> - module `author`: [`regexpatch`](https://ctan.org/pkg/regexpatch), [`scontents`](https://ctan.org/pkg/scontents); it loads the module `language` internally.
+> - module `datetime`: [`relsize`](https://ctan.org/pkg/relsize).
+> - module `draft`: [`pgf`](https://ctan.org/pkg/pgf), [`ulem`](https://ctan.org/pkg/ulem); it loads the module `language` internally.
+> - module `font`: [`anyfontsize`](https://ctan.org/pkg/anyfontsize), [`setspaceenhanced`](https://ctan.org/pkg/setspaceenhanced), and a number of font packages depending on the specified option.
+> - module `language`: [`babel`](https://ctan.org/pkg/babel), [`csquotes`](https://ctan.org/pkg/csquotes), [`setspaceenhanced`](https://ctan.org/pkg/setspaceenhanced), [`silence`](https://ctan.org/pkg/silence).
+> - module `logo`: [`pgf`](https://ctan.org/pkg/pgf).
+> - module `math`: [`amsfonts`](https://ctan.org/pkg/amsfonts), [`mathrsfs`](https://ctan.org/pkg/mathrsfs), [`mathtools`](https://ctan.org/pkg/mathtools).
+> - module `paper`: [`xcolor`](https://ctan.org/pkg/xcolor).
+> - module `text`: it loads the module `paper` internally.
+> - module `theorem`: [`amsthm`](https://ctan.org/pkg/amsthm), [`create-theorem`](https://ctan.org/pkg/create-theorem), [`mathtools`](https://ctan.org/pkg/mathtools), [`silence`](https://ctan.org/pkg/silence); it loads the module `language` internally.
+> - module `titlepage`: [`pgf`](https://ctan.org/pkg/pgf); it loads the modules `logo` and `paper` internally.
+
 
 <!-- ## Regarding the files and the compilation of documentations -->
 
