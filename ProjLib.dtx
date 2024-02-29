@@ -476,27 +476,27 @@
           }
       }
 
-      \tl_new:N \l_projlib_author_subjclassname_tl
-      \tl_new:N \l_projlib_author_subjclass_tl
+      \tl_new:N \l__projlib_author_subjclassname_tl
+      \tl_new:N \l__projlib_author_subjclass_tl
       \msg_new:nnn { projlib-author }
         { unknown-msc-edition }
         { Unknown~edition~(#1)~of~Mathematics~Subject~Classification;~using~'2020' }
       \NewDocumentCommand \subjclass { O{2020} m }
         {
-          \tl_set:Nn \l_projlib_author_subjclass_tl { #2 }
+          \tl_set:Nn \l__projlib_author_subjclass_tl { #2 }
           \tl_if_exist:cTF { subjclassname_#1 }
             {
-              \tl_set:Nn \l_projlib_author_subjclassname_tl { \tl_use:c { subjclassname_#1 } }
+              \tl_set:Nn \l__projlib_author_subjclassname_tl { \tl_use:c { subjclassname_#1 } }
             }
             {
               \msg_warning:nnn { projlib-author } { unknown-msc-edition } { #1 }
-              \tl_set:Nn \l_projlib_author_subjclassname_tl { \tl_use:c { subjclassname_2020 } }
+              \tl_set:Nn \l__projlib_author_subjclassname_tl { \tl_use:c { subjclassname_2020 } }
             }
           \projlib_author_pre_thanks:n
             {
-              \textit{ \l_projlib_author_subjclassname_tl \c_projlib_author_dot_tl }
+              \textit{ \l__projlib_author_subjclassname_tl \c_projlib_author_dot_tl }
               \enspace
-              \l_projlib_author_subjclass_tl .
+              \l__projlib_author_subjclass_tl .
             }
         }
       \tl_const:cn { subjclassname_1991 } { \textup{1991}~Mathematics~Subject~Classification }
@@ -4182,11 +4182,11 @@
 \crthm_counter_alias:nn { theorem-with-name } { theorem }
 % \crthm_counter_alias:nn { proof } { theorem }
 
-\tl_new:N \l_projlib_theorem_name_of_theorem_with_name_tl
+\tl_new:N \l__projlib_theorem_name_of_theorem_with_name_tl
 \CreateTheorem { theorem-with-name_inner }
   {
     , name = {
-               , heading = { \l_projlib_theorem_name_of_theorem_with_name_tl }
+               , heading = { \l__projlib_theorem_name_of_theorem_with_name_tl }
                , crefname = {}{}
                , Crefname = {}{}
              }
@@ -4196,7 +4196,7 @@
 
 \NewDocumentEnvironment { theorem-with-name } { m O{} }
   {
-    \tl_set:Nn \l_projlib_theorem_name_of_theorem_with_name_tl { #1 }
+    \tl_set:Nn \l__projlib_theorem_name_of_theorem_with_name_tl { #1 }
     \begin { theorem-with-name_inner } [ #2 ]
   }
   {
@@ -4204,7 +4204,7 @@
   }
 \NewDocumentEnvironment { theorem-with-name* } { m O{} }
   {
-    \tl_set:Nn \l_projlib_theorem_name_of_theorem_with_name_tl { #1 }
+    \tl_set:Nn \l__projlib_theorem_name_of_theorem_with_name_tl { #1 }
     \begin { theorem-with-name_inner* } [ #2 ]
   }
   {
@@ -4214,15 +4214,15 @@
 \SetTheoremBinding { theorem-with-name } { theorem-with-name_inner }
 \SetTheoremBinding { theorem-with-name* } { theorem-with-name_inner* }
 
-\tl_new:N \l_projlib_theorem_name_of_proof_tl
-\CreateTheorem { proof_inner } { name = { heading = { \l_projlib_theorem_name_of_proof_tl } }, create-starred-version, qed, shared-counter = proof }
+\tl_new:N \l__projlib_theorem_name_of_proof_tl
+\CreateTheorem { proof_inner } { name = { heading = { \l__projlib_theorem_name_of_proof_tl } }, create-starred-version, qed, shared-counter = proof }
 
 \cs_undefine:c { proof }
 \cs_undefine:c { endproof }
 
 \NewDocumentEnvironment { proof } { O{\proofname} }
   {
-    \tl_set:Nn \l_projlib_theorem_name_of_proof_tl { #1 }
+    \tl_set:Nn \l__projlib_theorem_name_of_proof_tl { #1 }
     \begin { proof_inner }
   }
   {
@@ -4230,7 +4230,7 @@
   }
 \NewDocumentEnvironment { proof* } { O{\proofname} }
   {
-    \tl_set:Nn \l_projlib_theorem_name_of_proof_tl { #1 }
+    \tl_set:Nn \l__projlib_theorem_name_of_proof_tl { #1 }
     \begin { proof_inner* }
   }
   {
@@ -7103,19 +7103,19 @@
 \usetikzlibrary { calc }
 \ExplSyntaxOn
 
-\tl_new:N \l_projlib_titlepage_title_page_name_tl
-\tl_new:N \l_projlib_titlepage_license_page_name_tl
-\tl_set:Nn \l_projlib_titlepage_title_page_name_tl   { Cover   }
-\tl_set:Nn \l_projlib_titlepage_license_page_name_tl { License }
+\tl_new:N \l__projlib_titlepage_title_page_name_tl
+\tl_new:N \l__projlib_titlepage_license_page_name_tl
+\tl_set:Nn \l__projlib_titlepage_title_page_name_tl   { Cover   }
+\tl_set:Nn \l__projlib_titlepage_license_page_name_tl { License }
 
-\tl_new:N \l_projlib_titlepage_logo_tl
-\tl_new:N \l_projlib_titlepage_title_tl
-\tl_new:N \l_projlib_titlepage_subtitle_tl
-\tl_new:N \l_projlib_titlepage_author_tl
-\tl_new:N \l_projlib_titlepage_info_tl
-\tl_new:N \l_projlib_titlepage_license_tl
-\tl_new:N \l_projlib_titlepage_date_tl
-\tl_new:N \l_projlib_titlepage_style_tl
+\tl_new:N \l__projlib_titlepage_logo_tl
+\tl_new:N \l__projlib_titlepage_title_tl
+\tl_new:N \l__projlib_titlepage_subtitle_tl
+\tl_new:N \l__projlib_titlepage_author_tl
+\tl_new:N \l__projlib_titlepage_info_tl
+\tl_new:N \l__projlib_titlepage_license_tl
+\tl_new:N \l__projlib_titlepage_date_tl
+\tl_new:N \l__projlib_titlepage_style_tl
 
 \NewDocumentCommand \ProjLibTitlePage { O{} m }
   {
@@ -7134,23 +7134,23 @@
 
 \keys_define:nn { projlib-titlepage-config }
   {
-    , logo              .code:n             = { \tl_set:Nn \l_projlib_titlepage_logo_tl { \tl_trim_spaces:n { #1 } } }
+    , logo              .code:n             = { \tl_set:Nn \l__projlib_titlepage_logo_tl { \tl_trim_spaces:n { #1 } } }
     , logo              .initial:n          = { * }
-    , title             .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_tl { \tl_trim_spaces:n { #1 } } }
-    , subtitle          .code:n             = { \tl_set:Nn \l_projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { #1 } } }
-    , author            .code:n             = { \tl_set:Nn \l_projlib_titlepage_author_tl { \tl_trim_spaces:n { #1 } } }
-    , date              .code:n             = { \tl_set:Nn \l_projlib_titlepage_date_tl { \tl_trim_spaces:n { #1 } } }
-    , title-page-name   .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
-    , title~page~name   .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
-    , title page name   .code:n             = { \tl_set:Nn \l_projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
-    , license-page-name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
-    , license~page~name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
-    , license page name .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
-    , info              .code:n             = { \tl_set:Nn \l_projlib_titlepage_info_tl { \tl_trim_spaces:n { #1 } } }
+    , title             .code:n             = { \tl_set:Nn \l__projlib_titlepage_title_tl { \tl_trim_spaces:n { #1 } } }
+    , subtitle          .code:n             = { \tl_set:Nn \l__projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { #1 } } }
+    , author            .code:n             = { \tl_set:Nn \l__projlib_titlepage_author_tl { \tl_trim_spaces:n { #1 } } }
+    , date              .code:n             = { \tl_set:Nn \l__projlib_titlepage_date_tl { \tl_trim_spaces:n { #1 } } }
+    , title-page-name   .code:n             = { \tl_set:Nn \l__projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , title~page~name   .code:n             = { \tl_set:Nn \l__projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , title page name   .code:n             = { \tl_set:Nn \l__projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license-page-name .code:n             = { \tl_set:Nn \l__projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license~page~name .code:n             = { \tl_set:Nn \l__projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , license page name .code:n             = { \tl_set:Nn \l__projlib_titlepage_license_page_name_tl { \tl_trim_spaces:n { #1 } } }
+    , info              .code:n             = { \tl_set:Nn \l__projlib_titlepage_info_tl { \tl_trim_spaces:n { #1 } } }
     , info              .initial:n          = { }
-    , license           .code:n             = { \tl_set:Nn \l_projlib_titlepage_license_tl { \tl_trim_spaces:n { #1 } } }
+    , license           .code:n             = { \tl_set:Nn \l__projlib_titlepage_license_tl { \tl_trim_spaces:n { #1 } } }
     , license           .initial:n          = { }
-    , style             .tl_set:N           = \l_projlib_titlepage_style_tl
+    , style             .tl_set:N           = \l__projlib_titlepage_style_tl
     , style             .initial:n          = { default }
     , color             .code:n             = {
                                                 \keyval_parse:nnn
@@ -7158,6 +7158,10 @@
                                                   { \projlib_titlepage_set_color:nn }
                                                   { #1 }
                                               }
+    , author-info-on-the-right .bool_set:N  = \l__projlib_titlepage_show_author_info_on_the_right_bool
+    , author-info-on-the-right .initial:n   = { false }
+    , author~info~on~the~right .bool_set:N  = \l__projlib_titlepage_show_author_info_on_the_right_bool
+    , author info on the right .bool_set:N  = \l__projlib_titlepage_show_author_info_on_the_right_bool
     , unknown           .code:n             = {}
   }
 
@@ -7166,33 +7170,33 @@
 
 \cs_new_protected:Nn \projlib_titlepage_show_logo:n
   {
-    \tl_if_eq:NnTF \l_projlib_titlepage_logo_tl { \tl_trim_spaces:n { * } }
+    \tl_if_eq:NnTF \l__projlib_titlepage_logo_tl { \tl_trim_spaces:n { * } }
       {
         #1
       }
       {
-        \tl_use:N \l_projlib_titlepage_logo_tl
+        \tl_use:N \l__projlib_titlepage_logo_tl
       }
   }
 
 \cs_new_protected:Nn \projlib_titlepage_render:n
   {
     \keys_set:nn { projlib-titlepage-config } { #1 }
-    \tl_set_eq:NN \thepage \l_projlib_titlepage_title_page_name_tl
+    \tl_set_eq:NN \thepage \l__projlib_titlepage_title_page_name_tl
     \begin { titlepage }
-      \cs_if_exist_use:c { projlib_titlepage_render_with_style_ \l_projlib_titlepage_style_tl : }
+      \cs_if_exist_use:c { projlib_titlepage_render_with_style_ \l__projlib_titlepage_style_tl : }
     \end   { titlepage }
-    \tl_set_eq:NN \thepage \l_projlib_titlepage_license_page_name_tl
+    \tl_set_eq:NN \thepage \l__projlib_titlepage_license_page_name_tl
     \thispagestyle{empty}
     \null\vfill
     % \begin{flushleft}
     \group_begin:
       \noindent
-      \tl_use:N \l_projlib_titlepage_info_tl
+      \tl_use:N \l__projlib_titlepage_info_tl
     \group_end:
     % \end{flushleft}
     \group_begin:
-      \tl_use:N \l_projlib_titlepage_license_tl
+      \tl_use:N \l__projlib_titlepage_license_tl
     \group_end:
     \cleardoublepage
     \setcounter{page}{0}
@@ -7214,9 +7218,9 @@
           {
             \sffamily
             \fontsize{24pt}{36pt}\selectfont
-            \textsc{ \textbf{ \l_projlib_titlepage_title_tl } }\\[1.5em]
+            \textsc{ \textbf{ \l__projlib_titlepage_title_tl } }\\[1.5em]
             \fontsize{18pt}{27pt}\selectfont
-            \l_projlib_titlepage_subtitle_tl
+            \l__projlib_titlepage_subtitle_tl
           };
       % \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
         % at ($(current~page.south)+(.135\paperwidth,.35\paperheight)$)
@@ -7226,9 +7230,9 @@
             % \color{.!50}
             % \begin{flushright}
               \fontsize{16pt}{24pt}\selectfont
-              \textsc{ \l_projlib_titlepage_author_tl }\\[1em]
+              \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
               \fontsize{12pt}{18pt}\selectfont
-              \l_projlib_titlepage_date_tl
+              \l__projlib_titlepage_date_tl
             % \end{flushright}
           };
     \end{tikzpicture}
@@ -7250,21 +7254,35 @@
             \color{white}
             \sffamily
             \fontsize{24pt}{36pt}\selectfont
-            \textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]
+            \textsc{ \l__projlib_titlepage_title_tl }\\[1.5em]
             \fontsize{18pt}{27pt}\selectfont
-            \l_projlib_titlepage_subtitle_tl
+            \l__projlib_titlepage_subtitle_tl
           };
-      \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
-        at ($(current~page.south)+(.135\paperwidth,.35\paperheight)$)
-          {
-            \color{white}
-            \begin{flushright}
+      \bool_if:NTF \l__projlib_titlepage_show_author_info_on_the_right_bool
+        {
+          \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
+            at ($(current~page.south)+(.135\paperwidth,.4\paperheight)$)
+              {
+                \color{white}
+                \begin{flushright}
+                  \fontsize{16pt}{24pt}\selectfont
+                  \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
+                  \fontsize{12pt}{18pt}\selectfont
+                  \l__projlib_titlepage_date_tl
+                \end{flushright}
+              };
+        }
+        {
+          \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
+          at ($(current~page.south~west)+(.38\paperwidth,.4\paperheight)$)
+            {
+              \color{white}
               \fontsize{16pt}{24pt}\selectfont
-              \textsc{ \l_projlib_titlepage_author_tl }\\[1em]
+              \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
               \fontsize{12pt}{18pt}\selectfont
-              \l_projlib_titlepage_date_tl
-            \end{flushright}
-          };
+              \l__projlib_titlepage_date_tl
+            };
+        }
     \end{tikzpicture}
   }
 
@@ -7284,18 +7302,18 @@
             \color{titlepage-main}
             \sffamily
             \fontsize{24pt}{36pt}\selectfont
-            \textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]
+            \textsc{ \l__projlib_titlepage_title_tl }\\[1.5em]
             \fontsize{18pt}{27pt}\selectfont
-            \l_projlib_titlepage_subtitle_tl
+            \l__projlib_titlepage_subtitle_tl
           };
       \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~center]
         at ($(current~page.south)+(0pt,.36\paperheight)$)
           {
             \color{white}
             \fontsize{16pt}{24pt}\selectfont
-            \textsc{ \l_projlib_titlepage_author_tl }\\[1em]
+            \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
             \fontsize{12pt}{18pt}\selectfont
-            \l_projlib_titlepage_date_tl
+            \l__projlib_titlepage_date_tl
           };
     \end{tikzpicture}
   }
@@ -7318,21 +7336,35 @@
             \color{titlepage-back}
             \sffamily
             \fontsize{24pt}{36pt}\selectfont
-            \textsc{ \l_projlib_titlepage_title_tl }\\[1.5em]
+            \textsc{ \l__projlib_titlepage_title_tl }\\[1.5em]
             \fontsize{18pt}{27pt}\selectfont
-            \l_projlib_titlepage_subtitle_tl
+            \l__projlib_titlepage_subtitle_tl
           };
-      \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
-        at ($(current~page.south)+(.135\paperwidth,.35\paperheight)$)
-          {
-            \color{titlepage-back}
-            \begin{flushright}
+      \bool_if:NTF \l__projlib_titlepage_show_author_info_on_the_right_bool
+        {
+          \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
+            at ($(current~page.south)+(.135\paperwidth,.4\paperheight)$)
+              {
+                \color{titlepage-back}
+                \begin{flushright}
+                  \fontsize{16pt}{24pt}\selectfont
+                  \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
+                  \fontsize{12pt}{18pt}\selectfont
+                  \l__projlib_titlepage_date_tl
+                \end{flushright}
+              };
+        }
+        {
+          \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
+          at ($(current~page.south~west)+(.433\paperwidth,.4\paperheight)$)
+            {
+              \color{titlepage-back}
               \fontsize{16pt}{24pt}\selectfont
-              \textsc{ \l_projlib_titlepage_author_tl }\\[1em]
+              \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
               \fontsize{12pt}{18pt}\selectfont
-              \l_projlib_titlepage_date_tl
-            \end{flushright}
-          };
+              \l__projlib_titlepage_date_tl
+            };
+        }
     \end{tikzpicture}
   }
 %</projlib-titlepage>

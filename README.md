@@ -72,7 +72,7 @@ The modules include:
 > - module `author`: [`regexpatch`](https://ctan.org/pkg/regexpatch), [`scontents`](https://ctan.org/pkg/scontents); it loads the module `language` internally.
 > - module `datetime`: [`relsize`](https://ctan.org/pkg/relsize).
 > - module `draft`: [`pgf`](https://ctan.org/pkg/pgf), [`ulem`](https://ctan.org/pkg/ulem); it loads the module `language` internally.
-> - module `font`: [`anyfontsize`](https://ctan.org/pkg/anyfontsize), [`setspaceenhanced`](https://ctan.org/pkg/setspaceenhanced), and a number of font packages depending on the specified option.
+> - module `font`: [`anyfontsize`](https://ctan.org/pkg/anyfontsize), [`microtype`](https://ctan.org/pkg/microtype), [`setspaceenhanced`](https://ctan.org/pkg/setspaceenhanced), and a number of font packages depending on the specified option.
 > - module `language`: [`babel`](https://ctan.org/pkg/babel), [`csquotes`](https://ctan.org/pkg/csquotes), [`setspaceenhanced`](https://ctan.org/pkg/setspaceenhanced), [`silence`](https://ctan.org/pkg/silence).
 > - module `logo`: [`pgf`](https://ctan.org/pkg/pgf).
 > - module `math`: [`amsfonts`](https://ctan.org/pkg/amsfonts), [`mathrsfs`](https://ctan.org/pkg/mathrsfs), [`mathtools`](https://ctan.org/pkg/mathtools).
