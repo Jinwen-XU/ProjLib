@@ -3374,6 +3374,8 @@
       \projlib_language_use_language_locally:en { #1 } { #2 }
     \group_end:
   }
+\NewCommandCopy \LocallyUseLanguage \UseOtherLanguage
+\NewCommandCopy \UseLanguageLocally \UseOtherLanguage
 \NewDocumentEnvironment { OtherLanguage } { m +b }
   {
     \projlib_language_use_language_locally:en { #1 } { #2 }
