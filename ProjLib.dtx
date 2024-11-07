@@ -2969,6 +2969,9 @@
 \PassOptionsToPackage { italian, brazilian, spanish, ngerman, french, english } { cleveref }
 \RequirePackage { babel }
 
+% Temporary patch for glossaries-portuges
+\AddToHook{file/glossaries-portuges.ldf/before}{\let\glossariescaptionsportuges\relax}
+
 \RequirePackage { silence }
 \WarningFilter { biblatex } { Language }
 
@@ -3358,6 +3361,7 @@
 
 \NewDocumentCommand \UseLanguage { m }
   {
+    \@bsphack
     % Set the configuration twice at different stages of begindocument
     \hook_gput_code:nnn { begindocument } { projlib-language }
       {
@@ -3367,6 +3371,7 @@
       {
         \projlib_language_use_language:e { #1 }
       }
+    \@esphack
   }
 \NewDocumentCommand \UseOtherLanguage { m m }
   {
@@ -3731,6 +3736,7 @@
     \end { tabular }
     \par
     \skip_vertical:n { -\parskip }
+    \skip_vertical:n { .15\baselineskip }
   }
 
 \cs_new:Nn \projlib_math_list_of_symbols:nnn
@@ -4028,9 +4034,11 @@
     remark                    ,
     theorem                   ,
     definition-corollary      ,
+    definition-lemma          ,
     definition-proposition    ,
     definition-theorem        ,
     corollary-definition      ,
+    lemma-definition          ,
     proposition-definition    ,
     theorem-definition        ,
     applications              ,
