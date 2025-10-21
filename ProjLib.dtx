@@ -7148,6 +7148,7 @@
     , logo              .initial:n          = { * }
     , title             .code:n             = { \tl_set:Nn \l__projlib_titlepage_title_tl { \tl_trim_spaces:n { #1 } } }
     , subtitle          .code:n             = { \tl_set:Nn \l__projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { #1 } } }
+    , subtitle          .initial:n          = { * }
     , author            .code:n             = { \tl_set:Nn \l__projlib_titlepage_author_tl { \tl_trim_spaces:n { #1 } } }
     , date              .code:n             = { \tl_set:Nn \l__projlib_titlepage_date_tl { \tl_trim_spaces:n { #1 } } }
     , title-page-name   .code:n             = { \tl_set:Nn \l__projlib_titlepage_title_page_name_tl { \tl_trim_spaces:n { #1 } } }
@@ -7227,10 +7228,24 @@
         at ($(current~page.north~west)+(.57\paperwidth,-.15\paperheight)$)
           {
             \sffamily
-            \fontsize{28pt}{42pt}\selectfont
-            \textsc{ \textbf{ \l__projlib_titlepage_title_tl } }\\[1.5em]
-            \fontsize{20pt}{30pt}\selectfont
-            \l__projlib_titlepage_subtitle_tl
+            \group_begin:
+              \fontsize{28pt}{42pt}\selectfont
+              \scshape
+                \l__projlib_titlepage_title_tl
+              \par
+            \group_end:
+            \tl_if_eq:NnTF \l__projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { * } }
+              {
+                % do nothing when the subtitle is not given
+              }
+              {
+                \skip_vertical:n { 2em }
+                \group_begin:
+                  \fontsize{20pt}{30pt}\selectfont
+                    \l__projlib_titlepage_subtitle_tl
+                  \par
+                \group_end:
+              }
           };
       % \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~left]
         % at ($(current~page.south)+(.135\paperwidth,.35\paperheight)$)
@@ -7239,10 +7254,18 @@
           {
             % \color{.!50}
             % \begin{flushright}
-              \fontsize{16pt}{24pt}\selectfont
-              \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
-              \fontsize{12pt}{18pt}\selectfont
-              \l__projlib_titlepage_date_tl
+              \group_begin:
+                \fontsize{16pt}{24pt}\selectfont
+                \scshape
+                  \l__projlib_titlepage_author_tl
+                \par
+              \group_end:
+              \skip_vertical:n { 1em }
+              \group_begin:
+                \fontsize{12pt}{18pt}\selectfont
+                  \l__projlib_titlepage_date_tl
+                \par
+              \group_end:
             % \end{flushright}
           };
     \end{tikzpicture}
@@ -7263,10 +7286,24 @@
           {
             \color{white}
             \sffamily
-            \fontsize{28pt}{42pt}\selectfont
-            \textsc{ \l__projlib_titlepage_title_tl }\\[1.5em]
-            \fontsize{20pt}{30pt}\selectfont
-            \l__projlib_titlepage_subtitle_tl
+            \group_begin:
+              \fontsize{28pt}{42pt}\selectfont
+              \scshape
+                \l__projlib_titlepage_title_tl
+              \par
+            \group_end:
+            \tl_if_eq:NnTF \l__projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { * } }
+              {
+                % do nothing when the subtitle is not given
+              }
+              {
+                \skip_vertical:n { 2em }
+                \group_begin:
+                  \fontsize{20pt}{30pt}\selectfont
+                    \l__projlib_titlepage_subtitle_tl
+                  \par
+                \group_end:
+              }
           };
       \bool_if:NTF \l__projlib_titlepage_show_author_info_on_the_right_bool
         {
@@ -7275,10 +7312,18 @@
               {
                 \color{white}
                 \begin{flushright}
-                  \fontsize{16pt}{24pt}\selectfont
-                  \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
-                  \fontsize{12pt}{18pt}\selectfont
-                  \l__projlib_titlepage_date_tl
+                  \group_begin:
+                    \fontsize{16pt}{24pt}\selectfont
+                    \scshape
+                      \l__projlib_titlepage_author_tl
+                    \par
+                  \group_end:
+                  \skip_vertical:n { 1em }
+                  \group_begin:
+                    \fontsize{12pt}{18pt}\selectfont
+                      \l__projlib_titlepage_date_tl
+                    \par
+                  \group_end:
                 \end{flushright}
               };
         }
@@ -7287,10 +7332,18 @@
           at ($(current~page.south~west)+(.38\paperwidth,.4\paperheight)$)
             {
               \color{white}
-              \fontsize{16pt}{24pt}\selectfont
-              \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
-              \fontsize{12pt}{18pt}\selectfont
-              \l__projlib_titlepage_date_tl
+              \group_begin:
+                \fontsize{16pt}{24pt}\selectfont
+                \scshape
+                  \l__projlib_titlepage_author_tl
+                \par
+              \group_end:
+              \skip_vertical:n { 1em }
+              \group_begin:
+                \fontsize{12pt}{18pt}\selectfont
+                  \l__projlib_titlepage_date_tl
+                \par
+              \group_end:
             };
         }
     \end{tikzpicture}
@@ -7307,23 +7360,45 @@
             \projlib_titlepage_show_logo:n { \color{white} \scalebox { 2 } { \ProjLibText } }
           };
       \node[text~width=.8\paperwidth, text~height=.5\paperheight, align=flush~center]
-        at ($(current~page.north)+(0pt,-.25\paperheight)$)
+        at ($(current~page.north)+(0pt,-.25\paperheight-.01\paperheight)$)
           {
             \color{titlepage-main}
             \sffamily
-            \fontsize{28pt}{42pt}\selectfont
-            \textsc{ \l__projlib_titlepage_title_tl }\\[1.5em]
-            \fontsize{20pt}{30pt}\selectfont
-            \l__projlib_titlepage_subtitle_tl
+            \group_begin:
+              \fontsize{28pt}{42pt}\selectfont
+              \scshape
+                \l__projlib_titlepage_title_tl
+              \par
+            \group_end:
+            \tl_if_eq:NnTF \l__projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { * } }
+              {
+                % do nothing when the subtitle is not given
+              }
+              {
+                \skip_vertical:n { 2em }
+                \group_begin:
+                  \fontsize{20pt}{30pt}\selectfont
+                    \l__projlib_titlepage_subtitle_tl
+                  \par
+                \group_end:
+              }
           };
       \node[text~width=.5\paperwidth, text~height=.4\paperheight, align=flush~center]
         at ($(current~page.south)+(0pt,.36\paperheight)$)
           {
             \color{white}
-            \fontsize{16pt}{24pt}\selectfont
-            \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
-            \fontsize{12pt}{18pt}\selectfont
-            \l__projlib_titlepage_date_tl
+            \group_begin:
+              \fontsize{16pt}{24pt}\selectfont
+              \scshape
+                \l__projlib_titlepage_author_tl
+              \par
+            \group_end:
+            \skip_vertical:n { 1em }
+            \group_begin:
+              \fontsize{12pt}{18pt}\selectfont
+                \l__projlib_titlepage_date_tl
+              \par
+            \group_end:
           };
     \end{tikzpicture}
   }
@@ -7345,10 +7420,24 @@
           {
             \color{titlepage-back}
             \sffamily
-            \fontsize{28pt}{42pt}\selectfont
-            \textsc{ \l__projlib_titlepage_title_tl }\\[1.5em]
-            \fontsize{20pt}{30pt}\selectfont
-            \l__projlib_titlepage_subtitle_tl
+            \group_begin:
+              \fontsize{28pt}{42pt}\selectfont
+              \scshape
+                \l__projlib_titlepage_title_tl
+              \par
+            \group_end:
+            \tl_if_eq:NnTF \l__projlib_titlepage_subtitle_tl { \tl_trim_spaces:n { * } }
+              {
+                % do nothing when the subtitle is not given
+              }
+              {
+                \skip_vertical:n { 2em }
+                \group_begin:
+                  \fontsize{20pt}{30pt}\selectfont
+                    \l__projlib_titlepage_subtitle_tl
+                  \par
+                \group_end:
+              }
           };
       \bool_if:NTF \l__projlib_titlepage_show_author_info_on_the_right_bool
         {
@@ -7357,10 +7446,18 @@
               {
                 \color{titlepage-back}
                 \begin{flushright}
-                  \fontsize{16pt}{24pt}\selectfont
-                  \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
-                  \fontsize{12pt}{18pt}\selectfont
-                  \l__projlib_titlepage_date_tl
+                  \group_begin:
+                    \fontsize{16pt}{24pt}\selectfont
+                    \scshape
+                      \l__projlib_titlepage_author_tl
+                    \par
+                  \group_end:
+                  \skip_vertical:n { 1em }
+                  \group_begin:
+                    \fontsize{12pt}{18pt}\selectfont
+                      \l__projlib_titlepage_date_tl
+                    \par
+                  \group_end:
                 \end{flushright}
               };
         }
@@ -7369,10 +7466,18 @@
           at ($(current~page.south~west)+(.433\paperwidth,.4\paperheight)$)
             {
               \color{titlepage-back}
-              \fontsize{16pt}{24pt}\selectfont
-              \textsc{ \l__projlib_titlepage_author_tl }\\[1em]
-              \fontsize{12pt}{18pt}\selectfont
-              \l__projlib_titlepage_date_tl
+              \group_begin:
+                \fontsize{16pt}{24pt}\selectfont
+                \scshape
+                  \l__projlib_titlepage_author_tl
+                \par
+              \group_end:
+              \skip_vertical:n { 1em }
+              \group_begin:
+                \fontsize{12pt}{18pt}\selectfont
+                  \l__projlib_titlepage_date_tl
+                \par
+              \group_end:
             };
         }
     \end{tikzpicture}
