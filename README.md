@@ -1,11 +1,11 @@
-<!-- Copyright (C) 2021-2024 by Jinwen XU -->
+<!-- Copyright (C) 2021-2025 by Jinwen XU -->
 
 <!-- ![image](https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png) -->
 <div align=center><img height="150" src="https://github.com/Jinwen-XU/ProjLib/raw/main/logo/ProjLib-logo.png"/></div>
 
 # The `ProjLib` Toolkit
 
-> **This bundle is dated 2024/11/07.**
+> **This bundle is dated 2025/10/21.**
 
 > **New documentations are still being written. For now, only the core code is included in TeX Live 2024 and MiKTeX (old documentations have been removed from the distribution).**
 
