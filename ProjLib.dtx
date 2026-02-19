@@ -3418,6 +3418,21 @@
     \projlib_langauge_define_multilingual_text:Nn #1 { #2 }
   }
 
+\DefineMultilingualText { \keywordname }
+  {
+    EN = Keywords                               ,
+    FR = Mots~clés                              ,
+    DE = Schlüsselwörter                        ,
+    IT = Parole~chiave                          ,
+    PT = Palavras~chave                         ,
+    BR = Palavras~chave                         ,
+    ES = Palabras~clave                         ,
+    CN = 关键词                                 ,
+    TC = 關鍵詞                                 ,
+    JP = キーワード                             ,
+    RU = Ключевые~слова                         ,
+  }
+
 
 \PassOptionsToPackage { autostyle } { csquotes }
 \RequirePackage { csquotes }
@@ -3702,7 +3717,7 @@
       }
   }
 \ProvideCommandCopy \DefineMathSymbol \ProjLibDefineMathSymbol
-\ProvideCommandCopy \DefineShortcut \ProjLibDefineMathSymbol
+% \ProvideCommandCopy \DefineShortcut \ProjLibDefineMathSymbol
 
 
 \cs_new:Nn \projlib_math_redefine_in_math_mode:Nn
@@ -3895,9 +3910,10 @@
 
 \RequirePackage { projlib-paper }
 
-\ProvideDocumentCommand \ItemDescription { m }
+\NewCommandCopy\ItemDescriptionStyle\normalfont
+\NewDocumentCommand \ItemDescription { m }
   {
-    \textcolor { main-text!50!paper } { $($ #1 $)$  }
+    \textcolor { main-text!50!paper } { $($ \ItemDescriptionStyle #1 $)$  }
     \nobreakspace
     \ignorespaces
   }
@@ -3909,13 +3925,13 @@
     #1
     % if followed by a dot, then remove that dot and adjust the spacing
     \peek_meaning_ignore_spaces:NTF .
-      { #2 \use_none:n }
+      { \nobreak #2 \nobreak \use_none:n }
       {
         % if followed by a comma, then act like nothing happens
         % otherwise adjust the spacing
         \peek_meaning_ignore_spaces:NTF ,
           { \prg_do_nothing: }
-          { #2 }
+          { \nobreak #2 \nobreak }
       }
   }
 
@@ -4225,7 +4241,18 @@
 \SetTheoremBinding { theorem-with-name* } { theorem-with-name_inner* }
 
 \tl_new:N \l__projlib_theorem_name_of_proof_tl
-\CreateTheorem { proof_inner } { name = { heading = { \l__projlib_theorem_name_of_proof_tl } }, create-starred-version, qed, shared-counter = proof }
+% \CreateTheorem { proof_inner } { name = { heading = { \l__projlib_theorem_name_of_proof_tl } }, create-starred-version, qed, shared-counter = proof }
+\CreateTheorem { proof_inner }
+  {
+    , name = {
+               , heading = { \l__projlib_theorem_name_of_proof_tl }
+               , crefname = {}{}
+               , Crefname = {}{}
+             }
+    , create-starred-version
+    , qed
+    , shared-counter = proof
+  }
 
 \cs_undefine:c { proof }
 \cs_undefine:c { endproof }
